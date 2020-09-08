@@ -11,9 +11,11 @@ Personal web site
   - `$ npm run dev:build`
 
 ### Server
+  - `$ pip install pre-commit` # if you don't have it installed globally
   - `$ cd server`
   - Create and activate a [virtual env](https://virtualenv.pypa.io/en/stable/)
   - `$ pip install -r requirements.txt`
+  - `$ pre-commit install`
 
 ## Start up
   - `$ cd server`

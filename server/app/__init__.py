@@ -15,12 +15,15 @@ def create_app(flask_env):
     app = Flask(__name__)
 
     # set up config based on flask_env
-    config = app_config.get(flask_env, app_config['production'])  # default to production
+    config = app_config.get(
+        flask_env,
+        app_config["production"],
+    )  # default to production
     app.config.from_object(config)
 
     # For now, just serving static page
     # In the future, will have a db and react front-end
-    @app.route('/')
+    @app.route("/")
     def single_page():
         """Show a simple single page.
 
@@ -29,21 +32,21 @@ def create_app(flask_env):
 
         links = [
             {
-                'icon': 'linkedin.png',
-                'target': 'https://www.linkedin.com/in/bonnie-schulkin/',
+                "icon": "linkedin.png",
+                "target": "https://www.linkedin.com/in/bonnie-schulkin/",
             },
             {
-                'icon': 'twitter.png',
-                'target': 'https://twitter.com/bonniedotdev/',
+                "icon": "twitter.png",
+                "target": "https://twitter.com/bonniedotdev/",
             },
             {
-                'icon': 'github.png',
-                'target': 'http://github.com/flyrightsister',
+                "icon": "github.png",
+                "target": "http://github.com/flyrightsister",
             },
             {
-                'icon': 'udemy.png',
-                'target': 'https://www.udemy.com/react-testing-with-jest-and-enzyme/?couponCode=REACT-TESTING-999',
-            }
+                "icon": "udemy.png",
+                "target": "https://www.udemy.com/react-testing-with-jest-and-enzyme/?couponCode=REACT-TESTING-999",  # noqa #E501
+            },
         ]
         return render_template("home.html", links=links)
 
