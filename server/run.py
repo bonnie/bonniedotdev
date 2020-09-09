@@ -9,4 +9,4 @@ app = create_app(flask_env)
 
 if __name__ == "__main__":
     # connect_to_db(app)
-    app.run()
+    app.run(port=os.getenv("FLASK_PORT", 5000))
