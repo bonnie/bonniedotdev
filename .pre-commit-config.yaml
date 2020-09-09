@@ -1,0 +1,38 @@
+default_language_version:
+  python: python3
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+    - id: trailing-whitespace
+    - id: end-of-file-fixer
+    - id: check-docstring-first
+    - id: check-json
+    - id: check-yaml
+    - id: debug-statements
+    - id: requirements-txt-fixer
+  - repo: https://github.com/ambv/black
+    rev: stable
+    hooks:
+    - id: black
+      language_version: python3.8
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.7.1
+    hooks:
+    - id: flake8
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.1.0
+    hooks:
+    - id: reorder-python-imports
+      language_version: python3
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v0.7.1
+    hooks:
+    - id: add-trailing-comma
+  - repo: meta
+    hooks:
+    - id: check-useless-excludes
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: '323f177eb169987f7034a75d0a195e4448eec0ba'
+    hooks:
+    - id: mypy

@@ -19,8 +19,7 @@ Personal web site
 
 ## Start up
   - `$ cd server`
-  - `export FLASK_ENV=development`
-  - `python server.py`
+  - `$ source .env && python server.py`
 
   - *Note*: You will need to re-run `npm run dev:build` upon changes to client
 
