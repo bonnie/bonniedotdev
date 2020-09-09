@@ -1,6 +1,6 @@
 # /etc/systemd/system/flask.service
 [Unit]
-Description=My Awesome Cat App
+Description=bonnie.dev
 After=network.target
 
 [Service]
@@ -8,11 +8,15 @@ User=ubuntu
 Group=ubuntu
 Environment="LANG=en_US.UTF-8"
 Environment="LANGUAGE=en_US.UTF-8:"
-WorkingDirectory=/home/ubuntu/catapp/
-ExecStart=/bin/bash -c "source secrets.sh\
-&& source env/bin/activate\
-&& python3 server.py &>> flask.log"
+WorkingDirectory=/home/ubuntu/bonniedotdev/server
+ExecStart=/bin/bash -c "source .env\
+&& source venv/bin/activate\
+&& python run.py &>> flask.log"
 Restart=always
+RestartSec=90
+StartLimitBurst=5
+StartLimitInterval=600
 
 [Install]
 WantedBy=multi-user.target
+
