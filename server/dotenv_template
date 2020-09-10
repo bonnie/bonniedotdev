@@ -1,4 +1,4 @@
 export FLASK_SECRET=
 export FLASK_ENV=
-export PYTHONPATH=`pwd`/server
+export PYTHONPATH=`pwd`
 export FLASK_PORT=5050

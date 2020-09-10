@@ -1,17 +1,18 @@
-# /etc/systemd/system/flask.service
+# /etc/systemd/system/bdd.service
 [Unit]
-Description=bonnie.dev
+Description=Gunicorn instance to serve bonnie.dev
 After=network.target
 
 [Service]
 User=ubuntu
-Group=ubuntu
+Group=www-data
 Environment="LANG=en_US.UTF-8"
 Environment="LANGUAGE=en_US.UTF-8:"
+Environment="PATH=/home/ubuntu/bonniedotdev/server/venv/bin:/usr/bin"
 WorkingDirectory=/home/ubuntu/bonniedotdev/server
 ExecStart=/bin/bash -c "source .env\
 && source venv/bin/activate\
-&& python run.py &>> flask.log"
+&& /home/ubuntu/bonniedotdev/server/venv/bin/gunicorn --workers 3 --bind unix:bdd.sock -m 007 run:app &>> bdd.log"
 Restart=always
 RestartSec=90
 StartLimitBurst=5
@@ -19,4 +20,3 @@ StartLimitInterval=600
 
 [Install]
 WantedBy=multi-user.target
-
