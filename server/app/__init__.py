@@ -41,7 +41,7 @@ def create_app(flask_env):
             },
             {
                 "icon": "github.png",
-                "target": "http://github.com/flyrightsister",
+                "target": "http://github.com/bonnie",
             },
             {
                 "icon": "udemy.png",
