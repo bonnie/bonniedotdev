@@ -45,7 +45,7 @@ def create_app(flask_env):
             },
             {
                 "icon": "udemy.png",
-                "target": "https://www.udemy.com/react-testing-with-jest-and-enzyme/?couponCode=REACT-TESTING-999",  # noqa #E501
+                "target": "https://www.udemy.com/course/react-testing-with-jest-and-enzyme/?referralCode=3A42BF689E28CADB0587",  # noqa #E501
             },
         ]
         return render_template("home.html", links=links)
