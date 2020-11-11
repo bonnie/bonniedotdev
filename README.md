@@ -22,6 +22,12 @@ Personal web site
   - `$ pip install -r requirements.txt`
   - `$ pre-commit install`
 
+## Building the Client for Production
+  After changes, you can re-build the client with:
+  - `$ cd client`
+  - `$ npm run build`
+  - `postbuild.sh` will run automatically to move files to the correct place in app
+
 ## Start up
   - `$ cd server`
   - `$ source .env && python server.py`

@@ -1,6 +1,7 @@
 from app.resources.footer_links import FooterLinks
 from config import app_config
 from flask import Flask
+from flask import send_file
 from flask_restful import Api
 
 # from flask_cors import CORS
@@ -28,9 +29,14 @@ def create_app(flask_env):
     app.config.from_object(config)
 
     # for Flask-RESTful
-    api = Api(app, catch_all_404s=True)
+    api = Api(app, prefix="/api", catch_all_404s=True)
 
     # add resources / routes
     api.add_resource(FooterLinks, "/api/footer_links")
+
+    @app.route("/")
+    def serve_react():
+        """Serve the built react app."""
+        return send_file("index.html")
 
     return app
