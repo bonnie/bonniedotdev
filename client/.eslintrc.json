@@ -4,7 +4,8 @@
     "plugin:testing-library/recommended",
     "plugin:testing-library/react",
     "react-app",
-    "react-app/jest"
+    "react-app/jest",
+    "plugin:jsx-a11y/recommended"
   ],
   "settings": {
     "import/resolver": {
@@ -20,7 +21,7 @@
       "jsx": true
     }
   },
-  "plugins": ["testing-library", "jest-dom", "sonarjs"],
+  "plugins": ["testing-library", "jest-dom", "sonarjs", "jsx-a11y"],
   "env": {
     "browser": true,
     "node": true,
