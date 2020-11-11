@@ -1,7 +1,13 @@
+import React from 'react';
 import { IconButton, ButtonGroup } from '@material-ui/core';
 import { LinkedIn, Twitter, GitHub } from '@material-ui/icons';
 
-const Footer = function (props) {
+/**
+ * Social links buttons for home page
+ *
+ * @return {JSX.Element} JSX for buttons
+ */
+export default function SocialLinks() {
   const buttons = [
     {
       icon: <LinkedIn />,
@@ -17,14 +23,12 @@ const Footer = function (props) {
   ];
 
   return (
-    <ButtonGroup variant="text" aria-label="text primary button group">
-      {buttons.map((button, i) => (
-        <IconButton key={i} aria-label={button.label} href={button.target}>
+    <ButtonGroup test-id="component-social-links" variant="text" aria-label="text primary button group">
+      {buttons.map((button) => (
+        <IconButton key={button.label} aria-label={button.label} href={button.target}>
           {button.icon}
         </IconButton>
       ))}
     </ButtonGroup>
   );
-};
-
-export default Footer;
+}
