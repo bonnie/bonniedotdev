@@ -5,6 +5,11 @@ Personal web site
 [GNU AFFERO GENERAL PUBLIC LICENSE](COPYING)
 
 ## Installation for Development
+### Environment variables
+  - `$ cp dotenv_template .env`
+  - Fill out your environment variables
+     - for development, the value of `FLASK_ENV` should be `development`
+
 ### Client
   - `$ cd client`
   - `$ npm install`
@@ -30,4 +35,5 @@ Personal web site
 
 ### Server
   - `$ cd server`
+  - `$ source .env`
   - `$ py.test`
