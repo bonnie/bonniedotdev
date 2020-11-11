@@ -23,7 +23,7 @@ export default function SocialLinks() {
   ];
 
   return (
-    <ButtonGroup test-id="component-social-links" variant="text" aria-label="text primary button group">
+    <ButtonGroup variant="text" aria-label="text primary button group">
       {buttons.map((button) => (
         <IconButton key={button.label} aria-label={button.label} href={button.target}>
           {button.icon}
