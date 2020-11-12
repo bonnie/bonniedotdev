@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import Home from './Home';
 
-test('it starts at the home page', () => {
-  render(<App />);
+test('renders my name', () => {
+  render(<Home />);
   const linkElement = screen.getByRole('heading', { name: /Bonnie Schulkin/ });
   expect(linkElement).toBeInTheDocument();
 });

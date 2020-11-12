@@ -1,34 +1,18 @@
 import React from 'react';
-import { IconButton, ButtonGroup } from '@material-ui/core';
+import { ButtonGroup } from '@material-ui/core';
 import { LinkedIn, Twitter, GitHub } from '@material-ui/icons';
+import SocialLink from './SocialLink';
 
-/**
- * Social links buttons for home page
- *
- * @return {JSX.Element} JSX for buttons
- */
 export default function SocialLinks() {
-  const buttons = [
-    {
-      icon: <LinkedIn />,
-      target: 'https://www.linkedin.com/in/bonnie-schulkin/',
-      label: 'linked in',
-    },
-    {
-      icon: <Twitter />,
-      target: 'https://twitter.com/bonniedotdev/',
-      label: 'twitter',
-    },
-    { icon: <GitHub />, target: 'http://github.com/bonnie', label: 'github' },
-  ];
+  const linkedInTarget = 'https://www.linkedin.com/in/bonnie-schulkin/';
+  const twitterTarget = 'https://twitter.com/bonniedotdev/';
+  const githubTarget = 'http://github.com/bonnie';
 
   return (
     <ButtonGroup variant="text" aria-label="text primary button group">
-      {buttons.map((button) => (
-        <IconButton key={button.label} aria-label={button.label} href={button.target}>
-          {button.icon}
-        </IconButton>
-      ))}
+      <SocialLink icon={<LinkedIn />} target={linkedInTarget} label="linked in" />
+      <SocialLink icon={<Twitter />} target={twitterTarget} label="twitter" />
+      <SocialLink icon={<GitHub />} target={githubTarget} label="github" />
     </ButtonGroup>
   );
 }

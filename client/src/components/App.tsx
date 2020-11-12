@@ -1,27 +1,14 @@
 import React from 'react';
-import { Box, Container } from '@material-ui/core';
+import { BrowserRouter } from 'react-router-dom';
 
 import './App.css';
-import SocialLinks from './SocialLinks';
+import Routes from './Routes';
 
-/**
- * Functional top-level React component
- * @function App
- *
- * @returns {jsx} component JSX
- */
-function App() {
+export default function App() {
+  // separate routes out for easier testing
   return (
-    <Container className="body-home main">
-      <Box>
-        <h1>Bonnie Schulkin</h1>
-      </Box>
-      <Box>
-        <h3 className="code">teacher | coder</h3>
-      </Box>
-      <SocialLinks />
-    </Container>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
   );
 }
-
-export default App;
