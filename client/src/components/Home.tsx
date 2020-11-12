@@ -14,6 +14,7 @@ function Home() {
     <div>
       <h1>Bonnie Schulkin</h1>
       <h3 className="code">teacher | coder</h3>
+      <SocialLinks />
     </div>
   );
 }

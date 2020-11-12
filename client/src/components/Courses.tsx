@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from '@material-ui/core';
 import Course from './Course';
 
 type CourseProps = {
@@ -19,10 +18,10 @@ export default function Courses() {
   const courseElements = courses.map((course: CourseProps) => <Course title={course.title} />);
 
   return (
-    <Container className="body-home main">
+    <>
       <h1>Courses</h1>
       {courseElements}
-    </Container>
+    </>
   );
 }
 
