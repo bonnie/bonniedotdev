@@ -1,4 +1,4 @@
-from app.resources.footer_links import FooterLinks
+from app.resources.login_resource import Login
 from config import app_config
 from flask import Flask
 from flask import send_file
@@ -32,7 +32,8 @@ def create_app(flask_env):
     api = Api(app, prefix="/api", catch_all_404s=True)
 
     # add resources / routes
-    api.add_resource(FooterLinks, "/api/footer_links")
+    # api.add_resource(FooterLinks, "/api/footer_links")
+    api.add_resource(Login, "/api/login")
 
     @app.route("/")
     def serve_react():

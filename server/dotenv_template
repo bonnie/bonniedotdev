@@ -2,3 +2,8 @@ export FLASK_SECRET=
 export FLASK_ENV=
 export PYTHONPATH=`pwd`
 export FLASK_PORT=5050
+
+export PSQL_USERNAME=
+export PSQL_PASSWORD=
+export PSQL_HOST='127.0.0.1'
+export PSQL_PORT='5432'

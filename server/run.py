@@ -1,11 +1,11 @@
 import os
 
 from app import create_app
-
-# from app.models import connect_to_db
+from app.db import connect_to_db
 
 flask_env = os.getenv("FLASK_ENV")
 app = create_app(flask_env)
+connect_to_db(app)
 
 if __name__ == "__main__":
     # connect_to_db(app)

@@ -1,4 +1,4 @@
-from app.models.course import Course as CourseModel
+from app.models.course_model import Course as CourseModel
 from flask_restful import Resource
 
 

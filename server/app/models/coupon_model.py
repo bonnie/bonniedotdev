@@ -2,26 +2,27 @@
 from datetime import datetime
 
 from app.db import db
-from app.models.base import Base
+from app.models.base_model import Base
 from pytz import timezone
 from pytz import utc
 
 
-class CourseCoupon(Base):
+class Coupon(db.Model, Base):
     """Model for Udemy course coupon db table."""
+
+    __tablename__ = "coupons"
 
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey("courses.id"))
     code = db.Column(db.String, nullable=False)
     utc_expiration = db.Column(db.DateTime, nullable=False)
 
-    @classmethod
-    def add_new(
-        cls,
+    def __init__(
+        self,
         course_id: int,
         code: str,
         expiration_iso_string: str,
-        local_tz=timezone("US/Pacific"),  # TODO: type
+        local_tz_string: str = "US/Pacific",
     ):
         """
         Add record to database and return id of newly created person.
@@ -36,19 +37,18 @@ class CourseCoupon(Base):
         naive_expiration = datetime.fromisoformat(expiration_iso_string)
 
         # make datetime timezone aware
+        local_tz = timezone(local_tz_string)
         local_expiration = local_tz.localize(naive_expiration)
 
         # translate to utc for storage
         utc_expiration = local_expiration.astimezone(utc)
 
-        new_coupon = cls.__call__(
-            course_id=course_id,
-            code=code,
-            utc_expiration=utc_expiration,
-        )
+        self.course_id = (course_id,)
+        self.code = (code,)
+        self.utc_expiration = (utc_expiration,)
 
-        cls.add_to_db(new_coupon)
-        return new_coupon.to_dict()
+        self.add_to_db()
+        return self.to_dict()
 
     def to_dict(self):
         """Return the called upon resource to dictionary format."""

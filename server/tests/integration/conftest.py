@@ -4,7 +4,7 @@ from datetime import timedelta
 from app.db import connect_to_db
 from app.db import db
 from app.models.coupon import Coupon
-from app.models.course import Course
+from app.models.course_model import Course
 from app.models.review_quote import ReviewQuote
 from app.models.user import User
 from pytz import utc

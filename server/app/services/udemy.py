@@ -17,7 +17,7 @@ class UdemyData(Resource):
         Note: request MUST NOT start with '/'
         """
 
-        auth_header = "bearer " + os.environ.get("UDEMY_API_TOKEN")
+        auth_header = "bearer " + os.getenv("UDEMY_API_TOKEN")
         headers = {"Authorization": auth_header}
         return requests.get(f"{UDEMY_ENDPOINT_BASE}/{request}", headers=headers)
 

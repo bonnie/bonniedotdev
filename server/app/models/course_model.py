@@ -1,11 +1,13 @@
 """SQLAlchemy database model for Udemy Course."""
 from app.db import db
-from app.models.base import Base
+from app.models.base_model import Base
 from udemy_coupon import CourseCoupon
 
 
-class Course(Base):
+class Course(db.Model, Base):
     """Model for Udemy course db table."""
+
+    __tablename__ = "courses"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)

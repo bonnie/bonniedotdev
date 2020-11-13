@@ -3,11 +3,13 @@ import hashlib
 import os
 
 from app.db import db
-from app.models.base import Base
+from app.models.base_model import Base
 
 
-class User(Base):
+class User(db.Model, Base):
     """Model for Udemy course coupon db table."""
+
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
