@@ -19,21 +19,21 @@ class ProductionConfig(CommonConfig):
     """Settings for production."""
 
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/production.db"
+    SQLALCHEMY_DATABASE_URI = "postgresql:///bonniedotdev"
 
 
 class DevConfig(CommonConfig):
     """Settings for development."""
 
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/development.db"
+    SQLALCHEMY_DATABASE_URI = "postgresql:///bonniedotdev_dev"
 
 
 class TestConfig(CommonConfig):
     """Settings for test."""
 
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/test.db"
+    SQLALCHEMY_DATABASE_URI = "postgresql:///bonniedotdev_test"
 
 
 # to make it easier to select which config to use without conditionals
