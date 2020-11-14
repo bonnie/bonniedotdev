@@ -43,12 +43,11 @@ class Coupon(db.Model, Base):
         # translate to utc for storage
         utc_expiration = local_expiration.astimezone(utc)
 
-        self.course_id = (course_id,)
-        self.code = (code,)
-        self.utc_expiration = (utc_expiration,)
+        self.course_id = course_id
+        self.code = code
+        self.utc_expiration = utc_expiration
 
         self.add_to_db()
-        return self.to_dict()
 
     def to_dict(self):
         """Return the called upon resource to dictionary format."""

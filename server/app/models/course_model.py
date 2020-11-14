@@ -1,7 +1,7 @@
 """SQLAlchemy database model for Udemy Course."""
 from app.db import db
 from app.models.base_model import Base
-from udemy_coupon import CourseCoupon
+from app.models.coupon_model import Coupon
 
 
 class Course(db.Model, Base):
@@ -13,7 +13,7 @@ class Course(db.Model, Base):
     name = db.Column(db.String)
     link = db.Column(db.String)  # link to include referral code
     description = db.Column(db.String)
-    quotes = db.relationship("UdemyReviewQuote")
+    quotes = db.relationship("ReviewQuote")
 
     @property
     def valid_coupons(self):
@@ -24,8 +24,8 @@ class Course(db.Model, Base):
             list of strings
         """
 
-        all_coupons = CourseCoupon.query.filter(
-            CourseCoupon.course_id == self.id,
+        all_coupons = Coupon.query.filter(
+            Coupon.course_id == self.id,
         ).all()
 
         return [coupon for coupon in all_coupons if coupon.is_valid()]

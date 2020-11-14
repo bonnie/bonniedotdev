@@ -1,43 +1,13 @@
-from datetime import datetime
-from datetime import timedelta
-
+from app import create_app
 from app.db import connect_to_db
 from app.db import db
-from app.models.coupon import Coupon
+from app.models.coupon_model import Coupon
 from app.models.course_model import Course
-from app.models.review_quote import ReviewQuote
-from app.models.user import User
-from pytz import utc
-
-from server import app
-
-# test data
-courses = [
-    {
-        "name": "Awesome Course",
-        "link": "https://udemy.com/awesomecourse",
-    },
-]
-coupons = [
-    {
-        "code": "NOT_EXPIRED",
-        "utc_expiration": datetime.now(utc) + timedelta(days=30),
-        "course_id": 1,
-    },
-    {
-        "code": "EXPIRED",
-        "utc_expiration": datetime.now(utc) - timedelta(days=30),
-        "course_id": 1,
-    },
-]
-review_quotes = [
-    {"quote": "the best!", "course_id": 1},
-    {"quote": "meh", "course_id": 1},
-]
-users = [{"username": "admin", "password": "abc123"}]
+from app.models.review_quote_model import ReviewQuote
+from app.models.user_model import User
 
 
-def _load_test_data():
+def _load_test_data(courses, coupons, review_quotes, users):
     """Load test data into db."""
 
     for course in courses:
@@ -57,6 +27,7 @@ def db_setup_with_data():
     """Set up database for testing"""
 
     # test db should be part of app config
+    app = create_app(flask_env="test")
     connect_to_db(app)
     db.create_all()
 

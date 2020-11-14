@@ -54,4 +54,5 @@ After changes, you can re-build the client with:
 
 - `$ cd server`
 - `$ source .env`
+- `$ chmod +x ./run_tests.sh` (make the file executable)
 - `$ ./run_tests.sh`
