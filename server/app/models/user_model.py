@@ -15,6 +15,22 @@ class User(db.Model, Base):
     username = db.Column(db.String, unique=True, nullable=False)
     hashed_password = db.Column(db.String, nullable=False)
 
+    def __init__(
+        self,
+        username: int,
+        password: str,
+    ):
+        """Add record to database, with salt and hashed password."""
+
+        salt = os.urandom(32)
+        hashed_password = self.hash_password(password, salt)
+
+        self.username = username
+        self.hashed_password = hashed_password
+        self.salt = salt
+
+        self.add_to_db()
+
     @staticmethod
     def hash_password(password: str, salt: bytes) -> bytes:
         # from https://nitratine.net/blog/post/how-to-hash-passwords-in-python/
@@ -26,31 +42,6 @@ class User(db.Model, Base):
         )
 
     @classmethod
-    def add_new(
-        cls,
-        username: int,
-        password: str,
-    ) -> int:
-        """
-        Add record to database and return id of newly created person.
-
-        returns:
-            newly created user's id
-        """
-
-        salt = os.urandom(32)
-        hashed_password = cls.hash_password(password, salt)
-
-        new_user = cls.__call__(
-            username=username,
-            hashed_password=hashed_password,
-            salt=salt,
-        )
-
-        cls.add_to_db(new_user)
-        return new_user.id
-
-    @classmethod
     def is_valid_user(
         cls,
         username: str,
@@ -58,7 +49,7 @@ class User(db.Model, Base):
     ) -> bool:
         """Return the called upon resource to dictionary format."""
 
-        user = cls.query.get(username=username).one()
+        user = cls.query.filter(username=username).one()
         if not user:
             return False
 
