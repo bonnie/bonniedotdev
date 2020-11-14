@@ -8,6 +8,7 @@
     "axios": "^0.21.0",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
+    "json-merge-patch": "^1.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",

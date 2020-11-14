@@ -6,7 +6,7 @@ pw = os.getenv("PSQL_PASSWORD")
 host = os.getenv("PSQL_HOST")
 port = os.getenv("PSQL_PORT")
 
-psql_uri_prefix = f"postgres://{user}:{pw}@{host}:{port}"
+psql_uri_prefix = f"postgresql://{user}:{pw}@{host}:{port}"
 
 
 class CommonConfig:

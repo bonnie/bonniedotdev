@@ -5,9 +5,9 @@ from app.models.course_model import Course
 
 
 @pytest.fixture
-def mock_add_to_db(mocker):
+def mock_update_db(mocker):
     # make sure db doesn't get called
-    mocker.patch.object(Course, "add_to_db")
+    mocker.patch.object(Course, "update_db")
 
 
 @pytest.fixture
@@ -17,7 +17,7 @@ def mock_coupon_property(mocker):
 
 
 @pytest.fixture
-def course(mock_add_to_db, mock_coupon_property):
+def course(mock_update_db, mock_coupon_property):
     return Course(
         name="coursey course",
         link="https://udemy.com/coursey-course",

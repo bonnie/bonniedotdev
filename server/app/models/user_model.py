@@ -4,6 +4,7 @@ import os
 
 from app.db import db
 from app.models.base_model import Base
+from sqlalchemy.orm.exc import NoResultFound
 
 
 class User(db.Model, Base):
@@ -13,7 +14,8 @@ class User(db.Model, Base):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
-    hashed_password = db.Column(db.String, nullable=False)
+    hashed_password = db.Column(db.LargeBinary, nullable=False)
+    salt = db.Column(db.LargeBinary, nullable=False)
 
     def __init__(
         self,
@@ -29,7 +31,7 @@ class User(db.Model, Base):
         self.hashed_password = hashed_password
         self.salt = salt
 
-        self.add_to_db()
+        self.update_db()
 
     @staticmethod
     def hash_password(password: str, salt: bytes) -> bytes:
@@ -49,8 +51,9 @@ class User(db.Model, Base):
     ) -> bool:
         """Return the called upon resource to dictionary format."""
 
-        user = cls.query.filter(username=username).one()
-        if not user:
+        try:
+            user = cls.query.filter(cls.username == username).one()
+        except NoResultFound:
             return False
 
         hashed_password = cls.hash_password(password, user.salt)

@@ -20,7 +20,7 @@ def create_db():
 
     # establishing the connection
     conn = psycopg2.connect(
-        database="postgres",
+        database="postgresql",
         user=os.getenv("PSQL_USERNAME"),
         password=os.getenv("PSQL_PASSWORD"),
         host=os.getenv("PSQL_HOST"),

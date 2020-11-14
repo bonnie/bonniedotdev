@@ -10,19 +10,19 @@ class ReviewQuote(db.Model, Base):
 
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey("courses.id"))
-    quote = db.Column(db.String, nullable=False)
+    review_quote = db.Column(db.String, nullable=False)
 
     def __init__(
         self,
-        course_id: int,
         review_quote: str,
+        course_id: int = None,
     ):
         """Add record to database."""
 
         self.course_id = course_id
         self.review_quote = review_quote
 
-        self.add_to_db()
+        self.update_db()
 
     def to_dict(self):
         """Return the called upon resource to dictionary format."""

@@ -3,12 +3,12 @@ from app.models.review_quote_model import ReviewQuote
 
 
 @pytest.fixture
-def mock_add_to_db(mocker):
+def mock_update_db(mocker):
     # make sure db doesn't get called
-    mocker.patch.object(ReviewQuote, "add_to_db")
+    mocker.patch.object(ReviewQuote, "update_db")
 
 
-def test_to_dict(mock_add_to_db):
+def test_to_dict(mock_update_db):
     review_quote = ReviewQuote(
         course_id=1,
         review_quote="greatest course ever!!!!",

@@ -20,7 +20,6 @@ class Login(Resource):
         """Return whether or not user/password is valid."""
 
         args = self._get_args()
-
-        valid = UserModel.is_valid_user(**args)
+        valid = UserModel.is_valid_user(args["username"], args["password"])
 
         return {"valid": valid}, 200

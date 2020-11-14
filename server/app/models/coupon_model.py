@@ -19,10 +19,10 @@ class Coupon(db.Model, Base):
 
     def __init__(
         self,
-        course_id: int,
         code: str,
         expiration_iso_string: str,
         local_tz_string: str = "US/Pacific",
+        course_id: int = None,
     ):
         """Create record and add to db, translating the expiration date to utc."""
 
@@ -40,7 +40,7 @@ class Coupon(db.Model, Base):
         self.code = code
         self.utc_expiration = utc_expiration
 
-        self.add_to_db()
+        self.update_db()
 
     def to_dict(self):
         """Return the called upon resource to dictionary format."""

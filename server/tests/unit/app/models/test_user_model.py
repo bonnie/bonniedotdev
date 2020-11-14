@@ -3,12 +3,12 @@ from app.models.user_model import User
 
 
 @pytest.fixture
-def mock_add_to_db(mocker):
+def mock_update_db(mocker):
     # make sure db doesn't get called
-    mocker.patch.object(User, "add_to_db")
+    mocker.patch.object(User, "update_db")
 
 
-def test_create_user(mock_add_to_db):
+def test_create_user(mock_update_db):
     # make sure there are no errors creating a user
 
     user = User(

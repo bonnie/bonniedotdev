@@ -18,9 +18,6 @@ def create_app(flask_env):
     # create app and Flask-RESTful Api instance
     app = Flask(__name__)
 
-    # Add CORS for React front end (bonnie.dev)
-    # CORS(app, {r"/api/*": {"origins": "bonnie.dev"}})
-
     # set up config based on flask_env
     config = app_config.get(
         flask_env,
@@ -33,7 +30,7 @@ def create_app(flask_env):
 
     # add resources / routes
     # api.add_resource(FooterLinks, "/api/footer_links")
-    api.add_resource(Login, "/api/login")
+    api.add_resource(Login, "/login")
 
     @app.route("/")
     def serve_react():

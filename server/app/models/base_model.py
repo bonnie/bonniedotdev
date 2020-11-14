@@ -6,12 +6,12 @@ from sqlalchemy.exc import SQLAlchemyError
 class Base:
     """Base class for inheritance."""
 
-    def add_to_db(self):
+    def update_db(self):
         try:
             db.session.add(self)
             db.session.commit()
         except SQLAlchemyError:
-            raise SQLAlchemyError("DB Commit failed on add.")
+            raise SQLAlchemyError("DB Commit failed.")
 
     def delete(self):
         """Delete object from db."""

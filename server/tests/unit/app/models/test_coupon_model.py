@@ -22,13 +22,13 @@ def past_date_iso():
 
 
 @pytest.fixture
-def mock_add_to_db(mocker):
+def mock_update_db(mocker):
     # make sure db doesn't get called
-    mocker.patch.object(Coupon, "add_to_db")
+    mocker.patch.object(Coupon, "update_db")
 
 
 @pytest.fixture
-def valid_coupon(mock_add_to_db, future_date_iso):
+def valid_coupon(mock_update_db, future_date_iso):
     return Coupon(
         code="NOT_EXPIRED",
         expiration_iso_string=future_date_iso,
@@ -37,7 +37,7 @@ def valid_coupon(mock_add_to_db, future_date_iso):
 
 
 @pytest.fixture
-def invalid_coupon(mock_add_to_db, past_date_iso):
+def invalid_coupon(mock_update_db, past_date_iso):
     return Coupon(
         code="EXPIRED",
         expiration_iso_string=past_date_iso,
