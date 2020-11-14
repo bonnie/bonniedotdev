@@ -24,14 +24,7 @@ class Coupon(db.Model, Base):
         expiration_iso_string: str,
         local_tz_string: str = "US/Pacific",
     ):
-        """
-        Add record to database and return id of newly created person.
-
-        expiration_date
-
-        returns:
-            dict representing new record
-        """
+        """Create record and add to db, translating the expiration date to utc."""
 
         # translate iso string into datetime
         naive_expiration = datetime.fromisoformat(expiration_iso_string)
@@ -65,7 +58,7 @@ class Coupon(db.Model, Base):
 
     def __repr__(self):
         """Return a pretty print version of the retrieved resource."""
-        return f"""<CourseCoupon (id={self.id},
+        return f""" < CourseCoupon(id={self.id},
                    course_id={self.course_id},
                    code={self.code},
-                   utc_expiration={self.utc_expiration}>"""
+                   utc_expiration={self.utc_expiration} >"""

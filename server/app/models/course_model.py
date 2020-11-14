@@ -13,7 +13,16 @@ class Course(db.Model, Base):
     name = db.Column(db.String)
     link = db.Column(db.String)  # link to include referral code
     description = db.Column(db.String)
-    quotes = db.relationship("ReviewQuote")
+    review_quotes = db.relationship("ReviewQuote")
+
+    def __init__(self, name: str, link: str, description: str):
+        """Create record and add to db."""
+
+        self.name = name
+        self.link = link
+        self.description = description
+
+        self.add_to_db()
 
     @property
     def valid_coupons(self):
@@ -30,24 +39,6 @@ class Course(db.Model, Base):
 
         return [coupon for coupon in all_coupons if coupon.is_valid()]
 
-    @classmethod
-    def add_new(cls, name: str, link: str, referral_code: str):
-        """
-        Add record to database and return dict of newly created course.
-
-        returns:
-            dict representing new record
-        """
-
-        new_course = cls.__call__(
-            name=name,
-            link=link,
-            referral_code=referral_code,
-        )
-
-        cls.add_to_db(new_course)
-        return new_course.to_dict()
-
     def to_dict(self):
         """Return the called upon resource to dictionary format."""
         return {
@@ -55,6 +46,8 @@ class Course(db.Model, Base):
             "name": self.name,
             "description": self.description,
             "link": self.link,
+            "valid_coupons": self.valid_coupons,
+            "review_quotes": self.review_quotes,
         }
 
     def __repr__(self):
