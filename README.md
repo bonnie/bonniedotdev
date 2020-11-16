@@ -54,6 +54,5 @@ After changes, you can re-build the client with:
 
 - `$ cd server`
 - `$ source .env`
-- `$ createdb test_bonniedotdev` (if it doesn't already exist)
 - `$ chmod +x ./run_tests.sh` (make the file executable)
 - `$ ./run_tests.sh`

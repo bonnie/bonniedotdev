@@ -7,6 +7,9 @@ from app.db import connect_to_db
 from app.db import db
 from app.models.course_model import Course
 from app.models.user_model import User
+from app.utilities.init_db import create_db
+
+# from app.utilities.init_db import drop_db
 
 
 def load_test_data():
@@ -46,24 +49,23 @@ def load_test_data():
 
 
 @pytest.fixture
-def connect_db():
-    app = create_app(flask_env="test")
+def app():
+    return create_app(flask_env="test")
+
+
+@pytest.fixture
+def test_db(app):
+    create_db(app)
+
     db.init_app(app)
     connect_to_db(app)
 
-
-@pytest.fixture
-def db_setup_with_data(connect_db):
-    """Set up database for testing"""
-
-    # test db should be part of app config
     db.create_all()
     load_test_data()
 
+    yield test_db
 
-@pytest.fixture
-def db_teardown(connect_db):
-    """Tear down database for testing"""
-
+    # cleanup
     db.session.close()
     db.drop_all()
+    # drop_db()  # TODO: get this working

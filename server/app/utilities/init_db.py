@@ -5,19 +5,22 @@ from app import create_app
 from app.db import connect_to_db
 from app.db import db
 
-# create db if it doesn't already exist
+DEBUG = False
 
 
-def create_db():
-    """Create db from app config.
+def print_debug(statement: str):
+    """Print statement if debug is true."""
+    if DEBUG is True:
+        print(statement)
 
-    adapted from
-    https://www.tutorialspoint.com/python_data_access/python_postgresql_create_database.htm
-    """
 
-    flask_env = os.getenv("FLASK_ENV")
-    app = create_app(flask_env)
+def get_db_name_from_app(app):
+    """Get db name from app config."""
 
+    return app.config["SQLALCHEMY_DATABASE_URI"].split("/")[-1]
+
+
+def create_db_connection():
     # establishing the connection
     conn = psycopg2.connect(
         database="postgresql",
@@ -29,14 +32,39 @@ def create_db():
     conn.autocommit = True
     cursor = conn.cursor()
 
-    db_url = app.config["SQLALCHEMY_DATABASE_URI"].split("/")[-1]
-    sql = f"""CREATE database {db_url}"""
+    return conn, cursor
+
+
+def drop_db(app):
+    """Drop db from app config."""
+
+    conn, cursor = create_db_connection()
+    db_name = get_db_name_from_app(app)
+
+    sql = f"""DROP database {db_name}"""
+    cursor.execute(sql)
+
+    # Closing the connection
+    conn.close()
+
+
+def create_db(app):
+    """Create db from app config.
+
+    adapted from
+    https://www.tutorialspoint.com/python_data_access/python_postgresql_create_database.htm
+    """
+
+    conn, cursor = create_db_connection()
+    db_name = get_db_name_from_app(app)
+
+    sql = f"""CREATE database {db_name}"""
 
     try:
         cursor.execute(sql)
-        print(f"Database {db_url} created successfully")
+        print_debug(f"Database {db_name} created successfully")
     except psycopg2.errors.DuplicateDatabase:
-        print(f"Database {db_url} already exists; skipping")
+        print_debug(f"Database {db_name} already exists; skipping")
 
     # Closing the connection
     conn.close()
@@ -53,5 +81,10 @@ def create_tables():
 
 
 if __name__ == "__main__":
-    create_db()
+    DEBUG = True
+
+    flask_env = os.getenv("FLASK_ENV")
+    app = create_app(flask_env)
+
+    create_db(app)
     create_tables()

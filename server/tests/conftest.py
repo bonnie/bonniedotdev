@@ -48,6 +48,10 @@ def users():
 
 
 @pytest.fixture
-def test_client():
-    app = create_app(flask_env="test")
+def app():
+    return create_app(flask_env="test")
+
+
+@pytest.fixture
+def test_client(app):
     return app.test_client()
