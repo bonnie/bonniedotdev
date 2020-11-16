@@ -78,7 +78,7 @@ class Course(db.Model, Base):
             "description": self.description,
             "link": self.link,
             "valid_coupons": self.valid_coupons,
-            "review_quotes": self.review_quotes,
+            "review_quotes": [r.to_dict() for r in self.review_quotes],
         }
 
     def __repr__(self):

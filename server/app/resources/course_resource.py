@@ -1,15 +1,15 @@
 from typing import List
 
 from app.models.course_model import Course as CourseModel
-from app.resources.crud_base_resource import CrudBase
 from app.typed_dicts import CouponDict
 from app.typed_dicts import ReviewQuoteDict
 from flask_restful import abort
 from flask_restful import reqparse
+from flask_restful import Resource
 from jsonpatch import JsonPatchException
 
 
-class Course(CrudBase):
+class Course(Resource):
     """Flask RESTful Resource for course data."""
 
     model = CourseModel
@@ -33,7 +33,7 @@ class Course(CrudBase):
     def _get_by_id(self, id: int) -> CourseModel:
         """Return record object for specified ID."""
 
-        record = Course.query.get_or_404(id)
+        record = CourseModel.query.get_or_404(id)
 
         return record
 

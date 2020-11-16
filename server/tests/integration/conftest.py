@@ -38,6 +38,11 @@ def load_test_data():
                 {"review_quote": "meh"},
             ],
         },
+        {
+            "name": "Simple Course",
+            "link": "https://udemy.com/simplecourse",
+            "description": "simple, but good",
+        },
     ]
     users = [{"username": "admin", "password": "abc123"}]
 
