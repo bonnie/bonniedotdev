@@ -15,7 +15,7 @@ class Coupon(db.Model, Base):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey("courses.id"))
     code = db.Column(db.String, nullable=False)
-    utc_expiration = db.Column(db.DateTime, nullable=False)
+    utc_expiration = db.Column(db.DateTime(timezone=True), nullable=False)
 
     def __init__(
         self,
@@ -48,7 +48,7 @@ class Coupon(db.Model, Base):
             "id": self.id,
             "course_id": self.course_id,
             "code": self.code,
-            "utc_expiration": self.utc_expiration,
+            "utc_expiration": datetime.isoformat(self.utc_expiration),
         }
 
     def is_valid(self) -> bool:

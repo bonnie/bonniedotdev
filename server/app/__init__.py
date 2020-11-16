@@ -1,6 +1,7 @@
 from app.resources.course_resource import Course
 from app.resources.courses_resource import Courses
 from app.resources.login_resource import Login
+from app.resources.new_course_resource import NewCourse
 from config import app_config
 from flask import Flask
 from flask import send_file
@@ -34,7 +35,8 @@ def create_app(flask_env):
     # api.add_resource(FooterLinks, "/api/footer_links")
     api.add_resource(Login, "/login")
     api.add_resource(Courses, "/courses")
-    api.add_resource(Course, "/course")
+    api.add_resource(NewCourse, "/course")
+    api.add_resource(Course, "/course/<int:id>")
 
     @app.route("/")
     def serve_react():
