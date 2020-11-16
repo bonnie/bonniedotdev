@@ -15,4 +15,8 @@ class Base:
 
     def delete(self):
         """Delete object from db."""
-        # TODO
+        try:
+            db.session.delete(self)
+            db.session.commit()
+        except SQLAlchemyError:
+            raise SQLAlchemyError("DB Commit failed.")

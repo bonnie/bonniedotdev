@@ -69,3 +69,10 @@ def test_update_description_and_delete_review(test_db, test_client, full_course_
 
     # test description change
     assert response.json["description"] == "Awesome course, now with more awesome!!"
+
+
+def test_delete_course(test_db, test_client, full_course_id):
+    response = test_client.delete(f"/api/course/{full_course_id}")
+
+    assert response.status_code == 204
+    assert CourseModel.query.get(full_course_id) is None
