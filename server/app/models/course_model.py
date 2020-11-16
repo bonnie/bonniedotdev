@@ -1,6 +1,7 @@
 """SQLAlchemy database model for Udemy Course."""
 from typing import Dict
 from typing import List
+from typing import Union
 
 import jsonpatch
 from app.db import db
@@ -42,13 +43,38 @@ class Course(db.Model, Base):
         self.set_coupons(coupons)
         self.set_review_quotes(review_quotes)
 
+        print("(" * 20, self.coupons)
+
         self.update_db()
 
+    def set_relations_property(
+        self,
+        data: Union[CouponDict, ReviewQuoteDict],
+        property_to_update: str,
+        model: Union[Coupon, ReviewQuote],
+    ) -> None:
+        """Abstracted code from set_coupons and set_review_quotes."""
+        final = []
+
+        for item in data:
+            if "id" in item:
+                # this is already in the db, no need to make a new one
+                final.append(model.query.get(item["id"]))
+            else:
+                # not in db, need to make a new one
+                final.append(model(**item))
+
+        setattr(self, property_to_update, final)
+
     def set_coupons(self, coupons: List[CouponDict]):
-        self.coupons = [Coupon(**data) for data in coupons]
+        """Set coupons with new data."""
+
+        self.set_relations_property(coupons, "coupons", Coupon)
 
     def set_review_quotes(self, review_quotes: List[ReviewQuoteDict]):
-        self.review_quotes = [ReviewQuote(**data) for data in review_quotes]
+        """Set review quotes with new data."""
+
+        self.set_relations_property(review_quotes, "review_quotes", ReviewQuote)
 
     @property
     def valid_coupons(self) -> List[CouponDict]:
@@ -61,6 +87,8 @@ class Course(db.Model, Base):
 
         # update to_dict output to have 'coupons' key rather than 'valid_coupons'
         current_data = self.to_dict()
+
+        print("*" * 20, current_data)
         current_data["coupons"] = current_data["valid_coupons"]
         del current_data["valid_coupons"]
 

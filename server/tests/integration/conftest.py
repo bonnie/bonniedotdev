@@ -57,11 +57,6 @@ def load_test_data():
 
 
 @pytest.fixture
-def course_id(test_db):
-    return Course.query.first().id
-
-
-@pytest.fixture
 def app():
     return create_app(flask_env="test")
 
