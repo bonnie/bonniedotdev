@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Course from './Course';
 import LoadingSpinner from './LoadingSpinner';
-import { CourseType, CourseProps } from '../types';
+import { CourseType, Coupon } from '../types';
 import { getCoursesFromServer } from '../axios';
+
+// TODO: update Alert to Snackbar, using context or other state management
+
+type CourseProps = {
+  name: string,
+  coupons: Coupon[],
+};
 
 export default function Courses() {
   // store course information

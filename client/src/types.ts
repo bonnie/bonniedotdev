@@ -1,8 +1,3 @@
-export type CourseProps = {
-  name: string,
-  coupons: Coupon[],
-};
-
 export type Coupon = {
   id: number,
   code: string,
@@ -15,8 +10,10 @@ export type ReviewQuote = {
 };
 
 export type CourseType = {
+  id: number,
   name: string,
   description: string,
-  coupons: Coupon[],
-  reviewQuotes: ReviewQuote[],
+  link: string,
+  coupons?: Coupon[],
+  reviewQuotes?: ReviewQuote[],
 };
