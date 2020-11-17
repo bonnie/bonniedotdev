@@ -1,26 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import Alert from '@material-ui/lab/Alert';
 import Course from './Course';
-
-type CourseProps = {
-  title: string,
-  coupons: string[],
-};
+import LoadingSpinner from './LoadingSpinner';
+import { CourseType, CourseProps } from '../types';
+import { getCoursesFromServer } from '../axios';
 
 export default function Courses() {
   // store course information
-  const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState<CourseType[]>([]);
+  const [error, setError] = useState<String | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // get information about courses from Udemy API on component mount
   useEffect(() => {
+    async function setCoursesFromServer() {
+      setLoading(true);
+      const { courses: coursesFromServer, error: responseError } = await getCoursesFromServer();
 
+      setLoading(false);
+      setError(responseError);
+      setCourses(coursesFromServer);
+    }
+    setCoursesFromServer();
   }, []);
-
-  const courseElements = courses.map((course: CourseProps) => <Course title={course.title} />);
 
   return (
     <>
       <h1>Courses</h1>
-      {courseElements}
+      <LoadingSpinner open={loading} />
+      {error
+        ? <Alert severity="error">Error retrieving courses from server. Please try again later.</Alert> : null}
+      {courses.map((course: CourseProps) => <Course title={course.name} />)}
     </>
   );
 }
