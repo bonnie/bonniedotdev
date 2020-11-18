@@ -43,8 +43,6 @@ class Course(db.Model, Base):
         self.set_coupons(coupons)
         self.set_review_quotes(review_quotes)
 
-        print("(" * 20, self.coupons)
-
         self.update_db()
 
     def set_relations_property(
@@ -88,7 +86,6 @@ class Course(db.Model, Base):
         # update to_dict output to have 'coupons' key rather than 'valid_coupons'
         current_data = self.to_dict()
 
-        print("*" * 20, current_data)
         current_data["coupons"] = current_data["valid_coupons"]
         del current_data["valid_coupons"]
 

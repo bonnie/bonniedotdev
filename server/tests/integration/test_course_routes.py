@@ -39,7 +39,9 @@ def test_get_nonexistent_course(test_db, test_client):
 
 
 def test_add_coupons_to_course(test_db, test_client, simple_course_id):
-    coupons = [{"code": "test", "expiration_iso_string": future_iso_date}]
+    coupons = [
+        {"code": "test", "expiration_iso_string": future_iso_date, "price": 12.99},
+    ]
     patch = [{"op": "add", "path": "/coupons", "value": coupons}]
 
     response = test_client.patch(f"/api/course/{simple_course_id}", json=patch)

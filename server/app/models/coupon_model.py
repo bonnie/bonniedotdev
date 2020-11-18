@@ -15,12 +15,14 @@ class Coupon(db.Model, Base):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey("courses.id"))
     code = db.Column(db.String, nullable=False)
+    price = db.Column(db.Numeric(4, 2), nullable=False)
     utc_expiration = db.Column(db.DateTime(timezone=True), nullable=False)
 
     def __init__(
         self,
         code: str,
         expiration_iso_string: str,
+        price: float,
         local_tz_string: str = "US/Pacific",
         course_id: int = None,
     ):
@@ -39,6 +41,7 @@ class Coupon(db.Model, Base):
         self.course_id = course_id
         self.code = code
         self.utc_expiration = utc_expiration
+        self.price = price
 
         self.update_db()
 
@@ -48,6 +51,7 @@ class Coupon(db.Model, Base):
             "id": self.id,
             "course_id": self.course_id,
             "code": self.code,
+            "price": float(self.price),
             "utc_expiration": datetime.isoformat(self.utc_expiration),
         }
 
@@ -61,4 +65,5 @@ class Coupon(db.Model, Base):
         return f""" < CourseCoupon(id={self.id},
                    course_id={self.course_id},
                    code={self.code},
+                   price={self.price},
                    utc_expiration={self.utc_expiration} >"""

@@ -8,6 +8,7 @@ from marshmallow import Schema
 class CouponSchema(Schema):
     code = fields.Str(required=True)
     expiration_iso_string = fields.Str(required=True)
+    price = fields.Float(required=True)
     local_tz_string = fields.Str()
 
 
@@ -31,7 +32,6 @@ class NewCourse(Resource):
     def post(self):
         """Create new course."""
 
-        print("*" * 20, request.json)
         args = self.schema.load(request.json)
         new_course = CourseModel(**args)
 

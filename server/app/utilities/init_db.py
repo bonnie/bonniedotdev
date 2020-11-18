@@ -76,7 +76,7 @@ def create_tables():
     app = create_app(flask_env)
     connect_to_db(app)
 
-    print(f"Creating tables in {db}")
+    print_debug(f"Creating tables in {db}")
     db.create_all()
 
 

@@ -32,6 +32,7 @@ def valid_coupon(mock_update_db, future_date_iso):
     return Coupon(
         code="NOT_EXPIRED",
         expiration_iso_string=future_date_iso,
+        price=12.99,
         course_id=1,
     )
 
@@ -41,13 +42,20 @@ def invalid_coupon(mock_update_db, past_date_iso):
     return Coupon(
         code="EXPIRED",
         expiration_iso_string=past_date_iso,
+        price=9.99,
         course_id=1,
     )
 
 
 def test_to_dict(valid_coupon):
     out_dict = valid_coupon.to_dict()
-    assert set(out_dict.keys()) == {"id", "code", "utc_expiration", "course_id"}
+    assert set(out_dict.keys()) == {
+        "id",
+        "code",
+        "utc_expiration",
+        "course_id",
+        "price",
+    }
 
 
 def test_valid_coupon_is_valid(valid_coupon):

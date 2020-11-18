@@ -6,6 +6,7 @@ class CouponDict(TypedDict):
     code: str
     expiration_iso_string: str
     local_tz_string: str
+    price: float
 
 
 class ReviewQuoteDict(TypedDict):
