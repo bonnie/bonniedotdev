@@ -1,13 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import About from './About';
+import Course from './Course';
+import { courseWithCouponsAndQuotes, courseWithoutCouponsAndQuotes } from '../tests/data';
 
-const courseInfo = {
-  title: 'React Testing with Jest and Enzyme',
-};
-
-test.skip('renders course title', () => {
-  render(<About />);
-  const courseTitle = screen.getByRole('accordian', { name: courseInfo.title });
-  expect(courseTitle).toBeInTheDocument();
+test('renders course title', () => {
+  render(<Course data={courseWithCouponsAndQuotes} />);
 });

@@ -1,10 +1,11 @@
-export type Coupon = {
+export type CouponType = {
   id: number,
+  price: number,
   code: string,
   utcExpiration: Date,
 };
 
-export type ReviewQuote = {
+export type ReviewQuoteType = {
   id: number,
   reviewQuote: string,
 };
@@ -14,6 +15,6 @@ export type CourseType = {
   name: string,
   description: string,
   link: string,
-  coupons?: Coupon[],
-  reviewQuotes?: ReviewQuote[],
+  coupons?: CouponType[],
+  reviewQuotes?: ReviewQuoteType[],
 };
