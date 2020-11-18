@@ -63,5 +63,8 @@
     "moxios": "^0.4.0",
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.4"
+  },
+  "jest": {
+    "resetMocks": false
   }
 }

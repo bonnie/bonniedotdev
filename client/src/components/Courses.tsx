@@ -2,21 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Course from './Course';
 import LoadingSpinner from './LoadingSpinner';
-import { CourseType, Coupon } from '../types';
-import { getCoursesFromServer } from '../axios';
+import { CourseType } from '../types';
+import { getCoursesFromServer } from '../axiosActions';
 
 // TODO: update Alert to Snackbar, using context or other state management
 
-type CourseProps = {
-  name: string,
-  coupons: Coupon[],
-};
-
 export default function Courses() {
   // store course information
-  const [courses, setCourses] = useState<CourseType[]>([]);
+  const [courses, setCourses] = useState<CourseType[] | null>(null);
   const [error, setError] = useState<String | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // get information about courses from Udemy API on component mount
   useEffect(() => {
@@ -37,7 +32,7 @@ export default function Courses() {
       <LoadingSpinner open={loading} />
       {error
         ? <Alert severity="error">Error retrieving courses from server. Please try again later.</Alert> : null}
-      {courses.map((course: CourseProps) => <Course title={course.name} />)}
+      {courses?.map((course: CourseType) => <Course key={course.id} data={course} />)}
     </>
   );
 }
