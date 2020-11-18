@@ -9,7 +9,13 @@ type SocialLinkProps = {
 
 export default function SocialLink({ icon, target, label }: SocialLinkProps) {
   return (
-    <IconButton key={label} aria-label={label} href={target}>
+    <IconButton
+      key={label}
+      aria-label={label}
+      href={target}
+      target="_blank"
+      rel="noreferrer"
+    >
       {icon}
     </IconButton>
   );

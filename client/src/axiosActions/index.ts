@@ -9,7 +9,7 @@ export interface CoursesResponse {
 
 export async function getCoursesFromServer(): Promise<CoursesResponse> {
   try {
-    const response = await axios.get('/courses');
+    const response = await axios.get('/api/courses');
     if (response.status === 200) {
       let courses = response.data;
       courses = courses.map((course) => translateCouponValuesToDates(course));

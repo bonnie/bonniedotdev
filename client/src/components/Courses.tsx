@@ -5,26 +5,35 @@ import LoadingSpinner from './LoadingSpinner';
 import { CourseType } from '../types';
 import { getCoursesFromServer } from '../axiosActions';
 
+// TODO; remove!
+import { courseWithCouponsAndQuotes, courseWithoutCouponsAndQuotes } from '../tests/data';
+
 // TODO: update Alert to Snackbar, using context or other state management
 
 export default function Courses() {
   // store course information
-  const [courses, setCourses] = useState<CourseType[] | null>(null);
+
+  // TODO; revert!
+  // const [courses, setCourses] = useState<CourseType[] | null>(null);
+  // eslint-disable-next-line max-len
+  const [courses, setCourses] = useState<CourseType[] | null>([courseWithCouponsAndQuotes, courseWithoutCouponsAndQuotes]);
   const [error, setError] = useState<String | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  // get information about courses from Udemy API on component mount
-  useEffect(() => {
-    async function setCoursesFromServer() {
-      setLoading(true);
-      const { courses: coursesFromServer, error: responseError } = await getCoursesFromServer();
+  // TODO: revert
+  // // get information about courses from Udemy API on component mount
+  // useEffect(() => {
+  //   async function setCoursesFromServer() {
+  //     setLoading(true);
+  //     const { courses: coursesFromServer, error: responseError } = await getCoursesFromServer();
 
-      setLoading(false);
-      setError(responseError);
-      setCourses(coursesFromServer);
-    }
-    setCoursesFromServer();
-  }, []);
+  //     setLoading(false);
+  //     setError(responseError);
+  //     setCourses(coursesFromServer);
+  //   }
+  //   setCoursesFromServer();
+  // }, []);
+  // END: revert
 
   return (
     <>
@@ -32,7 +41,7 @@ export default function Courses() {
       <LoadingSpinner open={loading} />
       {error
         ? <Alert severity="error">Error retrieving courses from server. Please try again later.</Alert> : null}
-      {courses?.map((course: CourseType) => <Course key={course.id} data={course} />)}
+      {courses?.map((course: CourseType) => <Course key={course.id} courseData={course} />)}
     </>
   );
 }
