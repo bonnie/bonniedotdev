@@ -28,7 +28,7 @@ def test_get_existing_course(
         "link",
         "description",
         "review_quotes",
-        "valid_coupons",
+        "best_coupon",
     }
 
 
@@ -40,7 +40,7 @@ def test_get_nonexistent_course(test_db, test_client):
 
 def test_add_coupons_to_course(test_db, test_client, simple_course_id):
     coupons = [
-        {"code": "test", "expiration_iso_string": future_iso_date, "price": 12.99},
+        {"code": "test", "expiration_iso_string": future_iso_date, "price": 9.99},
     ]
     patch = [{"op": "add", "path": "/coupons", "value": coupons}]
 
@@ -48,8 +48,8 @@ def test_add_coupons_to_course(test_db, test_client, simple_course_id):
 
     assert response.status_code == 200
 
-    first_coupon = response.json["valid_coupons"][0]
-    assert first_coupon["code"] == "test"
+    best_coupon = response.json["best_coupon"]
+    assert best_coupon["code"] == "test"
 
 
 def test_update_description_and_delete_review(test_db, test_client, full_course_id):

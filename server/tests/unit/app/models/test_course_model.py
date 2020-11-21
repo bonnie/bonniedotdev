@@ -13,7 +13,7 @@ def mock_update_db(mocker):
 @pytest.fixture
 def mock_coupon_property(mocker):
     # make sure db doesn't get called
-    mocker.patch.object(Course, "valid_coupons", PropertyMock)
+    mocker.patch.object(Course, "best_coupon", PropertyMock)
 
 
 @pytest.fixture
@@ -33,5 +33,5 @@ def test_to_dict(course):
         "link",
         "description",
         "review_quotes",
-        "valid_coupons",
+        "best_coupon",
     }

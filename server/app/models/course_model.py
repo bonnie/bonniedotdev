@@ -75,19 +75,38 @@ class Course(db.Model, Base):
         self.set_relations_property(review_quotes, "review_quotes", ReviewQuote)
 
     @property
-    def valid_coupons(self) -> List[CouponDict]:
+    def best_coupon(self) -> CouponDict:
         """Return dicts for all valid coupon codes for course."""
 
-        return [coupon.to_dict() for coupon in self.coupons if coupon.is_valid()]
+        best_coupon = None
+        for coupon in self.coupons:
+            if best_coupon is None:
+                best_coupon = coupon
+                continue
+            if coupon.is_valid():
+                # is the price better than the current best_coupon?
+                if coupon.price < best_coupon.price:
+                    best_coupon = coupon
+                    continue
+                # if price is the same, is expiration better?
+                if coupon.price == best_coupon.price:
+                    if coupon.utc_expiration > best_coupon.utc_expiration:
+                        best_coupon = coupon
+
+        # at the end of it all, who's the winner?
+        if best_coupon is None:
+            return None
+
+        return best_coupon.to_dict()
 
     def update_from_patch(self, json_patch: Dict):
         """Update based on JsonPatch."""
 
-        # update to_dict output to have 'coupons' key rather than 'valid_coupons'
+        # update to_dict output to have all coupons rather than just the "best"
         current_data = self.to_dict()
 
-        current_data["coupons"] = current_data["valid_coupons"]
-        del current_data["valid_coupons"]
+        current_data["coupons"] = [c.to_dict() for c in self.coupons]
+        del current_data["best_coupon"]
 
         # Apply patch to existing dict
         updated_data = jsonpatch.apply_patch(current_data, json_patch)
@@ -114,7 +133,7 @@ class Course(db.Model, Base):
             "name": self.name,
             "description": self.description,
             "link": self.link,
-            "valid_coupons": self.valid_coupons,
+            "best_coupon": self.best_coupon,
             "review_quotes": [r.to_dict() for r in self.review_quotes],
         }
 

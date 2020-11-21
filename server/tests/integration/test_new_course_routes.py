@@ -11,5 +11,5 @@ def test_create_new_course_with_coupons_and_quotes(test_db, test_client):
         "link",
         "description",
         "review_quotes",
-        "valid_coupons",
+        "best_coupon",
     }
