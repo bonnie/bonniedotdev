@@ -1,10 +1,10 @@
 import { ButtonGroup } from '@material-ui/core';
 import { GitHub, LinkedIn, Twitter } from '@material-ui/icons';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import SocialLink from './SocialLink';
 
-export default function SocialLinks() {
+export default function SocialLinks(): ReactElement {
   const linkedInTarget = 'https://www.linkedin.com/in/bonnie-schulkin/';
   const twitterTarget = 'https://twitter.com/bonniedotdev/';
   const githubTarget = 'http://github.com/bonnie';

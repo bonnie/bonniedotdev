@@ -12,6 +12,7 @@ export default function SocialLink({ icon, target, label }: SocialLinkProps): Re
     <IconButton
       key={label}
       aria-label={label}
+      color="primary"
       href={target}
       target="_blank"
       rel="noreferrer"
