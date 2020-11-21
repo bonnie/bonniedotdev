@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   quoteBox: {
     display: 'flex',
     flexDirection: 'column',
-    borderRadius: '25px 25px 25px 0px',
+    borderRadius: '25px 25px 0px 25px',
     width: '100%',
     justifyContent: 'space-between',
   },
