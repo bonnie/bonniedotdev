@@ -1,5 +1,6 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
+
 import LoadingSpinner from './LoadingSpinner';
 
 test('Loading spinner is hidden when open prop is false', () => {

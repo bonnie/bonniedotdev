@@ -1,15 +1,16 @@
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
 }
 
 body {
-  background-image: url("../images/fog_light.jpg");
+  background-image: url('../images/fog_light.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  color: #1A2838;
+  color: #1a2838;
   font-family: 'Lato', sans-serif;
 }
 

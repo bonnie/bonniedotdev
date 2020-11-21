@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { CourseType } from '../types';
+
 import { translateCouponValuesToDates } from '../helpers';
+import { CourseType } from '../types';
 
 export interface CoursesResponse {
   courses: CourseType[];

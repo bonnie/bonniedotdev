@@ -1,5 +1,5 @@
-import React from 'react';
 import { IconButton } from '@material-ui/core';
+import React from 'react';
 
 type SocialLinkProps = {
   icon: JSX.Element, // TODO: make more specific to a MUI icon component

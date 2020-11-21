@@ -1,6 +1,7 @@
 import moxios from 'moxios';
+
+import { testCourses, testCoursesJSONResponse } from '../tests/data';
 import { getCoursesFromServer } from '.';
-import { testCoursesJSONResponse, testCourses } from '../tests/data';
 
 describe('moxios tests', () => {
   beforeEach(() => {
@@ -10,7 +11,7 @@ describe('moxios tests', () => {
     moxios.uninstall();
   });
   test('courses response without error', async () => {
-    moxios.stubRequest('/courses', {
+    moxios.stubRequest('/api/courses', {
       status: 200,
       response: testCoursesJSONResponse,
     });
@@ -19,7 +20,7 @@ describe('moxios tests', () => {
     expect(processedResponse).toEqual({ courses: testCourses, error: null });
   });
   test('courses error response', async () => {
-    moxios.stubRequest('/courses', {
+    moxios.stubRequest('/api/courses', {
       status: 500,
       response: { message: 'Internal Server Error' },
     });

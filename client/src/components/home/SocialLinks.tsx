@@ -1,6 +1,7 @@
-import React from 'react';
 import { ButtonGroup } from '@material-ui/core';
-import { LinkedIn, Twitter, GitHub } from '@material-ui/icons';
+import { GitHub, LinkedIn, Twitter } from '@material-ui/icons';
+import React from 'react';
+
 import SocialLink from './SocialLink';
 
 export default function SocialLinks() {

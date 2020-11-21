@@ -6,12 +6,9 @@ import { CourseType } from '../types';
  * @param courses JSON response from server, with coupon as an ISO string
  */
 export function translateCouponValuesToDates(course): CourseType {
-  if (course.coupons) {
+  if (course.bestCoupon) {
     // eslint-disable-next-line no-param-reassign
-    course.coupons = course.coupons.map((coupon) => ({
-      ...coupon,
-      utcExpiration: new Date(coupon.utcExpiration),
-    }));
+    course.bestCoupon.utcExpiration = new Date(course.bestCoupon.utcExpiration);
   }
   return course;
 }

@@ -1,11 +1,17 @@
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router';
-import { render, screen, fireEvent } from '@testing-library/react';
 
+import Nav from './nav/Nav';
 import Routes from './Routes';
 
 function renderAndClickRoute(routeName) {
-  render(<MemoryRouter><Routes /></MemoryRouter>);
+  render(
+    <MemoryRouter>
+      <Nav />
+      <Routes />
+    </MemoryRouter>,
+  );
 
   // Click the requested nav link
   const navLink = screen.getByRole('tab', { name: routeName });

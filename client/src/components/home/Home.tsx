@@ -1,6 +1,7 @@
-import React from 'react';
+import '../App.css';
 
-import './App.css';
+import React, { ReactElement } from 'react';
+
 import SocialLinks from './SocialLinks';
 
 /**
@@ -9,7 +10,7 @@ import SocialLinks from './SocialLinks';
  *
  * @returns {JSX.Element} component JSX
  */
-function Home() {
+export default function Home(): ReactElement {
   return (
     <div>
       <h1>Bonnie Schulkin</h1>
@@ -18,5 +19,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

@@ -1,8 +1,8 @@
-import { translateCouponValuesToDates } from '.';
 import {
   CourseJSONWithCouponsAndQuotes,
   CourseJSONWithoutCouponsAndQuotes,
 } from '../tests/data';
+import { translateCouponValuesToDates } from '.';
 
 describe('translateCouponValuesToDates', () => {
   test('does not change course without coupons', () => {

@@ -15,6 +15,7 @@ export type CourseType = {
   name: string,
   description: string,
   link: string,
-  coupons?: CouponType[],
+  imageName: string,
+  bestCoupon?: CouponType,
   reviewQuotes?: ReviewQuoteType[],
 };

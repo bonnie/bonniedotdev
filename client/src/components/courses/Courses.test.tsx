@@ -1,17 +1,18 @@
 // mock network calls
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
+
+import { getCoursesFromServer } from '../../axiosActions';
 import Courses from './Courses';
 
-jest.mock('../axiosActions');
-const mockAxiosActions = require('../axiosActions');
+// mock will return testCourses from tests/data/index.js for getCoursesFromServer
+jest.mock('../../axiosActions');
 
 test('renders two courses from mock axios response', async () => {
   render(<Courses />);
 
-  // wait until data is loaded
-  // accordions have role "button"
-  const courses = await screen.findAllByRole('button');
+  // wait until data has loaded by searching for link with image alt text
+  const courses = await screen.findAllByRole('link', { name: /Course Image/ });
 
   // mocked data has two courses
   expect(courses).toHaveLength(2);
@@ -28,7 +29,7 @@ test('Loading spinner appears at first and disappears after data loads', async (
   expect(spinner).toBeVisible();
 
   // wait until data is loaded
-  await screen.findAllByRole('button');
+  await screen.findAllByRole('link');
 
   // spinner should be hidden
   // the backdrop has attribute "aria-hidden" whether or not it's showing
@@ -36,9 +37,9 @@ test('Loading spinner appears at first and disappears after data loads', async (
   expect(hiddenSpinner).not.toBeVisible();
 });
 
-test.only('load error on error response from server', async () => {
+test('load error on error response from server', async () => {
   // update mock response from server to be an error
-  mockAxiosActions.getCoursesFromServer
+  getCoursesFromServer
     .mockResolvedValue({ courses: [], error: 'ahooooga!' });
 
   render(<Courses />);
