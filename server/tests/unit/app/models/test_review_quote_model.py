@@ -11,8 +11,11 @@ def mock_update_db(mocker):
 def test_to_dict(mock_update_db):
     review_quote = ReviewQuote(
         course_id=1,
-        review_quote="greatest course ever!!!!",
+        body="greatest course ever!!!!",
     )
 
     quote_dict = review_quote.to_dict()
-    assert set(quote_dict.keys()) == {"id", "course_id", "review_quote"}
+    assert set(quote_dict.keys()) == {"id", "course_id", "body"}
+
+
+# note: get_display_data tested in test_review_quotes_routes.py

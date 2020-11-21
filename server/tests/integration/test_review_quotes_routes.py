@@ -6,8 +6,10 @@ import pytest
 def test_courses_route(test_db, test_client):
     response = test_client.get("/api/review_quotes")
 
-    # two courses in test data, but only one has review quotes
-    assert len(response.json) == 1
+    # two quotes in test data
+    assert len(response.json) == 2
 
-    # should be two review quotes for the course
-    assert len(response.json[0]["reviewQuotes"]) == 2
+    # check for proper keys
+    expected_keys = {"id", "body", "courseName", "courseLink"}
+    first_quote_keys = set(response.json[0].keys())
+    assert first_quote_keys == expected_keys

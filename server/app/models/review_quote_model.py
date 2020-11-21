@@ -10,30 +10,48 @@ class ReviewQuote(db.Model, Base):
 
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey("courses.id"))
-    review_quote = db.Column(db.String, nullable=False)
+    body = db.Column(db.String, nullable=False)
+
+    course = db.relationship("Course")
 
     def __init__(
         self,
-        review_quote: str,
+        body: str,
         course_id: int = None,
     ):
         """Add record to database."""
 
         self.course_id = course_id
-        self.review_quote = review_quote
+        self.body = body
 
         self.update_db()
+
+    @classmethod
+    def get_display_data(cls):
+        """Get display data for all quotes, including course name and course link."""
+
+        allQuotes = cls.query.all()
+
+        return [
+            {
+                "courseName": q.course.name,
+                "courseLink": q.course.link,
+                "id": q.id,
+                "body": q.body,
+            }
+            for q in allQuotes
+        ]
 
     def to_dict(self):
         """Return the called upon resource to dictionary format."""
         return {
             "id": self.id,
             "course_id": self.course_id,
-            "review_quote": self.review_quote,
+            "body": self.body,
         }
 
     def __repr__(self):
         """Return a pretty print version of the retrieved resource."""
         return f"""<ReviewQuote (id={self.id},
                    course_id={self.course_id},
-                   quote (excerpt)={self.quote[:25]}>"""
+                   body (excerpt)={self.quote[:25]}>"""

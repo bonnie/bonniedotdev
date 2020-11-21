@@ -6,14 +6,11 @@ export type CouponType = {
 };
 
 export type ReviewQuoteType = {
-  id: number,
-  reviewQuote: string,
-};
-
-export type ReviewQuotesByCourseType = {
   courseName: string,
-  reviewQuotes: ReviewQuoteType[],
-}[];
+  courseLink: string,
+  id: number,
+  body: string,
+};
 
 export type CourseType = {
   id: number,

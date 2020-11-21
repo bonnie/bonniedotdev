@@ -13,7 +13,7 @@ class CouponSchema(Schema):
 
 
 class ReviewQuoteSchema(Schema):
-    review_quote = fields.Str(required=True)
+    body = fields.Str(required=True)
 
 
 class CoursePostDataSchema(Schema):
