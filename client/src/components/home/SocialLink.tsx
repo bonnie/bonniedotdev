@@ -1,5 +1,5 @@
 import { IconButton } from '@material-ui/core';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 type SocialLinkProps = {
   icon: JSX.Element, // TODO: make more specific to a MUI icon component
@@ -7,7 +7,7 @@ type SocialLinkProps = {
   label: string
 };
 
-export default function SocialLink({ icon, target, label }: SocialLinkProps) {
+export default function SocialLink({ icon, target, label }: SocialLinkProps): ReactElement {
   return (
     <IconButton
       key={label}

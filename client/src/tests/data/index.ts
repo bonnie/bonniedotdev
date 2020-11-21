@@ -8,8 +8,8 @@ export const couponWithDate = {
 };
 
 export const reviewQuotes = [
-  { id: 1, reviewQuote: 'This is one of the best instructors I have come across on Udemy. Super clear, very knowledgeable, and straight to the point. There was no time-wasting and she didn\'t move too quickly. The tutorial is very thorough and clear for such a complex topic.' },
-  { id: 2, reviewQuote: 'One of the best courses on Udemy. It was clear, and efficient.' },
+  { id: 1, body: 'This is one of the best instructors I have come across on Udemy. Super clear, very knowledgeable, and straight to the point. There was no time-wasting and she didn\'t move too quickly. The tutorial is very thorough and clear for such a complex topic.' },
+  { id: 2, body: 'One of the best courses on Udemy. It was clear, and efficient.' },
 ];
 
 export const courseWithCouponsAndQuotes: CourseType = {

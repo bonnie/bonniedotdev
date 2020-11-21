@@ -8,18 +8,21 @@ import ReviewQuotes from './ReviewQuotes';
 const fakeReviewQuotesData = [
   {
     courseName: 'React Testing with Jest and Enzyme',
-    reviewQuotes: [
-      { id: 1, reviewQuote: 'Massacre a bird in the living room and then look like the cutest and most innocent animal on the planet poop on grasses for eat fish on floor. Scamper vommit food and eat it again chase after silly colored fish toys around the house claws in the eye of the beholder. Catty ipsum sleep on dog bed, force dog to sleep on floor. Hiiiiiiiiii feed me now do not try to mix old food with new one to fool me!' },
-      { id: 2, reviewQuote: 'Cats are fats i like to pets them' },
-    ],
+    courseLink: 'http://npr.org',
+    id: 1,
+    body: 'Massacre a bird in the living room and then look like the cutest and most innocent animal on the planet poop on grasses for eat fish on floor. Scamper vommit food and eat it again chase after silly colored fish toys around the house claws in the eye of the beholder. Catty ipsum sleep on dog bed, force dog to sleep on floor. Hiiiiiiiiii feed me now do not try to mix old food with new one to fool me!',
   },
   {
-    courseName: 'Regular Expressions for Beginners and Beyond! With Exercises',
-    reviewQuotes: [
-      { id: 1, reviewQuote: 'Massacre a bird in the living room and then look like the cutest and most innocent animal on the planet poop on grasses for eat fish on floor. Scamper vommit food and eat it again chase after silly colored fish toys around the house claws in the eye of the beholder. Catty ipsum sleep on dog bed, force dog to sleep on floor. Hiiiiiiiiii feed me now do not try to mix old food with new one to fool me!' },
-      { id: 2, reviewQuote: 'Cats are fats i like to pets them' },
-      { id: 3, reviewQuote: 'i like to walk on the deck, watching the horizon, dreaming of a good bowl of milk cat walks in keyboard ' },
-    ],
+    courseName: 'React Testing with Jest and Enzyme', courseLink: 'http://npr.org', id: 2, body: 'Cats are fats i like to pets them',
+  },
+  {
+    courseName: 'Regular Expressions for Beginners and Beyond! With Exercises', courseLink: '', id: 1, body: 'Massacre a bird in the living room and then look like the cutest and most innocent animal on the planet poop on grasses for eat fish on floor. Scamper vommit food and eat it again chase after silly colored fish toys around the house claws in the eye of the beholder. Catty ipsum sleep on dog bed, force dog to sleep on floor. Hiiiiiiiiii feed me now do not try to mix old food with new one to fool me!',
+  },
+  {
+    courseName: 'Regular Expressions for Beginners and Beyond! With Exercises', courseLink: '', id: 2, body: 'Cats are fats i like to pets them',
+  },
+  {
+    courseName: 'Regular Expressions for Beginners and Beyond! With Exercises', courseLink: '', id: 3, body: 'i like to walk on the deck, watching the horizon, dreaming of a good bowl of milk cat walks in keyboard ',
   },
 ];
   /** ******* end: for testing -- remove */
