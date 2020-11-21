@@ -10,5 +10,4 @@ def test_courses_route(test_db, test_client):
     assert len(response.json) == 1
 
     # should be two review quotes for the course
-    review_quotes = list(response.json.values())[0]
-    assert len(review_quotes) == 2
+    assert len(response.json[0]["reviewQuotes"]) == 2

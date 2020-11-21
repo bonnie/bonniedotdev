@@ -1,65 +1,51 @@
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import clsx from 'clsx';
 import React, { ReactElement } from 'react';
 
-import { ReviewQuoteType } from '../../types';
+import { ReviewQuotesByCourseType } from '../../types';
 
 type ReviewQuotesProps = {
-  reviewQuotesData: ReviewQuoteType[],
+  reviewQuotesData: ReviewQuotesByCourseType,
 };
 
-// eslint-disable-next-line max-lines-per-function
+const sortQuotes = function (quotes) {
+  // mash quotes up so they're not sorted by course
+  const mashQuotes = quotes.reduce((allQuotes, item) => (allQuotes.concat(
+    item.reviewQuotes.map((quote) => ({
+      courseName: item.courseName,
+      id: quote.id,
+      body: quote.reviewQuote,
+    })),
+  )), []);
+
+  return mashQuotes.sort((a, b) => a.body.length > b.body.length);
+};
+
 export default function ReviewQuotes({ reviewQuotesData }: ReviewQuotesProps): ReactElement {
-  const useStyles = makeStyles((theme: Theme) => createStyles({
-    expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
-    },
-  }));
-
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  // sort by length
+  const sortedQuotes = sortQuotes(reviewQuotesData);
 
   return (
-    <>
-      <CardActions disableSpacing>
-        <Typography>Students are saying...</Typography>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="Show review quotes"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          {reviewQuotesData?.map(
-            (reviewQuote) => (
-              <Typography key={reviewQuote.id} paragraph>{reviewQuote.reviewQuote}</Typography>
-            ),
-          )}
-        </CardContent>
-      </Collapse>
-    </>
+    <Box component="section" mt={4} mb={4} p={2} pt={2}>
+      <Typography variant="h2" gutterBottom>
+        Students say...
+      </Typography>
+      <Grid container spacing={3}>
+        {sortedQuotes.map((quote) => (
+          <Grid item xs={12} sm={6} md={4} key={quote.id}>
+            <Box key={quote.id} p={3} pt={3} pb={3} color="primary.main" bgcolor="background.main" style={{ borderRadius: '25px 25px 25px 5px' }}>
+              <Box fontStyle="italic">
+                <Typography component="p">{quote.body}</Typography>
+              </Box>
+              <Box color="secondary.main" fontSize={12} mt={2}>
+                <Typography>{quote.courseName}</Typography>
+              </Box>
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 }

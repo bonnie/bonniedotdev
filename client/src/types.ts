@@ -10,6 +10,11 @@ export type ReviewQuoteType = {
   reviewQuote: string,
 };
 
+export type ReviewQuotesByCourseType = {
+  courseName: string,
+  reviewQuotes: ReviewQuoteType[],
+}[];
+
 export type CourseType = {
   id: number,
   name: string,

@@ -8,18 +8,22 @@ export const colors = {
   lightTeal: '#5594B7',
   mediumTeal: '#4781A5',
   darkGrey: '#1A2838',
-  lightGrey: '#B1B1B5',
+  lightGrey: '#E0E0E0',
+  white: '#FFFFFF',
   transparentDarkGrey: 'rgba(0, 0, 0, 0.7)',
+  transparentLightGrey: 'rgba(240, 240, 240, 0.7)',
 };
 
 const rawTheme = createMuiTheme({
   palette: {
     background: {
-      main: colors.darkGrey,
+      main: colors.transparentLightGrey,
+      dark: colors.transparentDarkGrey,
     },
     primary: {
-      // font color against image background
+      light: colors.white,
       main: colors.darkGrey,
+      contrastText: colors.darkTeal,
     },
     secondary: {
       // color font for contrast
@@ -52,12 +56,12 @@ const rawTheme = createMuiTheme({
   },
 });
 
-const fontHeader = {
-  color: rawTheme.palette.text.primary,
-  fontWeight: rawTheme.typography.fontWeightMedium,
-  fontFamily: rawTheme.typography.fontFamilySecondary,
-  textTransform: 'uppercase',
-};
+// const fontHeader = {
+//   color: rawTheme.palette.text.primary,
+//   fontWeight: rawTheme.typography.fontWeightMedium,
+//   fontFamily: rawTheme.typography.fontFamilySecondary,
+//   textTransform: 'uppercase',
+// };
 
 const theme = {
   ...rawTheme,
@@ -71,38 +75,34 @@ const theme = {
   },
   typography: {
     ...rawTheme.typography,
-    fontHeader,
     h1: {
       ...rawTheme.typography.h1,
-      ...fontHeader,
       letterSpacing: 0,
-      fontSize: 60,
+      fontSize: 32,
       fontWeight: 700,
     },
     h2: {
       ...rawTheme.typography.h2,
-      ...fontHeader,
-      fontSize: 48,
+      fontSize: 30,
+      fontWeight: 700,
     },
     h3: {
       ...rawTheme.typography.h3,
-      ...fontHeader,
-      fontSize: 42,
+      fontSize: 24,
+      fontWeight: 600,
     },
     h4: {
       ...rawTheme.typography.h4,
-      ...fontHeader,
-      fontSize: 36,
+      fontSize: 20,
     },
     h5: {
       ...rawTheme.typography.h5,
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: rawTheme.typography.fontWeightLight,
     },
     h6: {
       ...rawTheme.typography.h6,
-      ...fontHeader,
-      fontSize: 18,
+      fontSize: 16,
     },
     subtitle1: {
       ...rawTheme.typography.subtitle1,
