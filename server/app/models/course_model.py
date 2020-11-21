@@ -80,18 +80,19 @@ class Course(db.Model, Base):
 
         best_coupon = None
         for coupon in self.coupons:
+            if not coupon.is_valid():
+                continue
             if best_coupon is None:
                 best_coupon = coupon
                 continue
-            if coupon.is_valid():
-                # is the price better than the current best_coupon?
-                if coupon.price < best_coupon.price:
+            # is the price better than the current best_coupon?
+            if coupon.price < best_coupon.price:
+                best_coupon = coupon
+                continue
+            # if price is the same, is expiration better?
+            if coupon.price == best_coupon.price:
+                if coupon.utc_expiration > best_coupon.utc_expiration:
                     best_coupon = coupon
-                    continue
-                # if price is the same, is expiration better?
-                if coupon.price == best_coupon.price:
-                    if coupon.utc_expiration > best_coupon.utc_expiration:
-                        best_coupon = coupon
 
         # at the end of it all, who's the winner?
         if best_coupon is None:
