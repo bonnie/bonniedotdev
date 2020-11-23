@@ -4,9 +4,9 @@ import Container from '@material-ui/core/Container';
 import React, { ReactElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import About from './about/About';
-import Courses from './courses/Courses';
-import Home from './home/Home';
+import About from '../about/About';
+import Courses from '../courses/Courses';
+import Home from '../home/Home';
 
 export default function App(): ReactElement {
   return (

@@ -12,8 +12,6 @@ describe('translateCouponValuesToDates', () => {
   test('translates dates for course with coupons', () => {
     const translatedCourse = translateCouponValuesToDates(CourseJSONWithCouponsAndQuotes);
 
-    translatedCourse.coupons?.forEach((coupon) => {
-      expect(coupon.utcExpiration).toEqual(new Date('2020-11-17T20:01:03.182265+00:00'));
-    });
+    expect(translatedCourse.bestCoupon?.utcExpiration).toEqual(new Date('2020-11-17T20:01:03.182265+00:00'));
   });
 });

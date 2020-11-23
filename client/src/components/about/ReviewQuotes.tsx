@@ -3,13 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
+import { getDataFromServer } from '../../redux/actions';
 import { ReviewQuoteDisplayType } from '../../types';
-
-type ReviewQuotesProps = {
-  reviewQuotesData: ReviewQuoteDisplayType[],
-};
 
 const useStyles = makeStyles(() => ({
   quoteGrid: {
@@ -38,11 +35,21 @@ const useStyles = makeStyles(() => ({
 }));
 
 // eslint-disable-next-line max-lines-per-function
-export default function ReviewQuotes({ reviewQuotesData }: ReviewQuotesProps): ReactElement {
+export default function ReviewQuotes(): ReactElement {
+  const [reviewQuotesData, setReviewQuotesData] = useState<ReviewQuoteDisplayType[]>([]);
   const classes = useStyles();
 
+  useEffect(() => {
+    const getAndSortQuotes = async () => {
+      await getDataFromServer('/api/review_quotes', setReviewQuotesData);
+
+      // sort the data by length for more even rows
+      setReviewQuotesData(reviewQuotesData.sort((a, b) => a.body.length - b.body.length));
+    };
+    getAndSortQuotes();
+  }, []);
+
   // sort by length
-  const sortedQuotes = reviewQuotesData.sort((a, b) => a.body.length - b.body.length);
 
   return (
     <Box component="section" mt={4} mb={4} p={2} pt={2}>
@@ -50,7 +57,7 @@ export default function ReviewQuotes({ reviewQuotesData }: ReviewQuotesProps): R
         Students say...
       </Typography>
       <Grid container spacing={3}>
-        {sortedQuotes.map((quote) => (
+        {reviewQuotesData.map((quote) => (
           <Grid
             item
             className={classes.quoteGrid}

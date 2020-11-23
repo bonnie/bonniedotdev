@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router';
 
-import Nav from './nav/Nav';
+import Nav from './Nav';
 import Routes from './Routes';
 
 function renderAndClickRoute(routeName) {
@@ -14,7 +14,7 @@ function renderAndClickRoute(routeName) {
   );
 
   // Click the requested nav link
-  const navLink = screen.getByRole('tab', { name: routeName });
+  const navLink = screen.getByRole('tab', { name: RegExp(routeName) });
   fireEvent.click(navLink);
 }
 
@@ -24,12 +24,12 @@ describe('navigate to routes', () => {
     renderAndClickRoute('about');
 
     // check correct page showed up
-    const headline = screen.getByRole('heading', { name: 'About' });
+    const headline = screen.getByRole('heading', { name: 'About Bonnie' });
     expect(headline).toBeInTheDocument();
   });
   it('navigates to Home', () => {
     // render and click the link
-    renderAndClickRoute('home');
+    renderAndClickRoute('bonnie.dev');
 
     // check correct page showed up
     const headline = screen.getByRole('heading', { name: 'Bonnie Schulkin' });
