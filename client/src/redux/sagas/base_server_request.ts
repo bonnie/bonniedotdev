@@ -15,7 +15,7 @@ export function* makeServerRequest({ payload }: ServerRequestActionType) {
   const {
     method, url, data, actionTypeToDispatch,
   } = payload;
-  const errorString = 'There was a problem connection to the server';
+  const errorString = 'There was a problem connecting to the server';
   yield put(setLoading());
 
   try {

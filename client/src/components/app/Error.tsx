@@ -1,6 +1,7 @@
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
+import Alert from '@material-ui/lab/Alert';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,22 +17,23 @@ export default function Error(): (ReactElement) {
   };
 
   return (
-    <div>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={error !== null}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={error}
-        action={(
-          <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        )}
-      />
-    </div>
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      open={error !== null}
+      autoHideDuration={6000}
+      onClose={handleClose}
+      action={(
+        <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+          <CloseIcon fontSize="small" />
+        </IconButton>
+    )}
+    >
+      <Alert onClose={handleClose} severity="error">
+        {error}
+      </Alert>
+    </Snackbar>
   );
 }
