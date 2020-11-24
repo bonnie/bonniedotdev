@@ -1,13 +1,13 @@
-import { UserActionType, UserType } from '../../types';
+import { UserActionType, UserLoginDataType } from '../../types';
 import { actionTypes } from '../actions';
 
 export default function setErrorState(
   state = null,
   action: UserActionType,
-): UserType | null {
+): UserLoginDataType | null {
   switch (action.type) {
     case actionTypes.SET_USER:
-      return action.payload;
+      return action.payload ? action.payload : null;
     default:
       return state;
   }

@@ -5,7 +5,7 @@ body {
 }
 
 body {
-  background-image: url('../images/fog_light.jpg');
+  background-image: url('../../images/fog_light.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;

@@ -1,6 +1,11 @@
+export type CoursesActionType = {
+  type: string,
+  payload?: CourseType[]
+}
+
 export type ErrorActionType = {
   type: string,
-  payload: (string | null)
+  payload?: string
 }
 
 export type LoadingActionType = {
@@ -10,10 +15,8 @@ export type LoadingActionType = {
 
 export type UserActionType = {
   type: string,
-  payload: (UserType | null)
+  payload?: UserLoginDataType
 }
-
-export type ActionType = (ErrorActionType | UserActionType | LoadingActionType)
 
 export type CouponType = {
   id: number,
@@ -39,6 +42,11 @@ export type UserType = {
   username: string,
 };
 
+export type UserLoginDataType = {
+  username: string,
+  password: string,
+}
+
 export type CourseType = {
   id: number,
   name: string,
@@ -48,3 +56,34 @@ export type CourseType = {
   bestCoupon?: CouponType,
   reviewQuotes?: ReviewQuoteType[],
 };
+
+// TODO: can I import this?
+export enum axiosMethodEnum {
+  get='get',
+  GET='GET',
+  delete='delete',
+  DELETE='DELETE',
+  head='head',
+  HEAD='HEAD',
+  options='options',
+  OPTIONS='OPTIONS',
+  post='post',
+  POST='POST',
+  put='put',
+  PUT='PUT',
+  patch='patch',
+  PATCH='PATCH',
+  purge='purge',
+  PURGE='PURGE',
+  link='link',
+  LINK='LINK',
+  unlink='unlink',
+  UNLINK='UNLINK',
+}
+
+export type ServerRequestPayloadType = {
+  method: axiosMethodEnum,
+  url: string,
+  actionTypeToDispatch: string,
+  data?: UserLoginDataType,
+}

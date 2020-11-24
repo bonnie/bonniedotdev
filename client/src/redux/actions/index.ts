@@ -1,11 +1,14 @@
-import axios from 'axios';
-
-import { ErrorActionType, LoadingActionType, UserActionType } from '../../types';
+import {
+  CoursesActionType, CourseType, ErrorActionType, LoadingActionType, UserActionType,
+} from '../../types';
 
 export const actionTypes = {
   SET_ERROR: 'SET_ERROR',
   SET_LOADING: 'SET_LOADING',
   SET_USER: 'SET_USER',
+  SET_COURSES: 'SET_COURSES',
+  GET_DATA_FROM_SERVER: 'GET_DATA_FROM_SERVER',
+  SET_COURSES_FROM_SERVER: 'SET_COURSES_FROM_SERVER',
 };
 
 export function setError(error: string): ErrorActionType {
@@ -18,7 +21,6 @@ export function setError(error: string): ErrorActionType {
 export function clearError(): ErrorActionType {
   return {
     type: actionTypes.SET_ERROR,
-    payload: null,
   };
 }
 
@@ -39,15 +41,21 @@ export function clearLoading(): LoadingActionType {
 export function setUser(username: string, password: string): UserActionType {
   return {
     type: actionTypes.SET_USER,
-    // TODO: actually set the
-    payload: null,
+    // TODO: actually set the payload
+    payload: { username, password },
   };
 }
 
 export function clearUser(): UserActionType {
   return {
     type: actionTypes.SET_USER,
-    payload: null,
+  };
+}
+
+export function setCourses(payload: CourseType[]): CoursesActionType {
+  return {
+    type: actionTypes.SET_COURSES,
+    payload,
   };
 }
 

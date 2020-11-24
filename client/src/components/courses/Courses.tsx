@@ -1,26 +1,19 @@
 import Grid from '@material-ui/core/Grid';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { translateCouponValuesToDates } from '../../helpers';
-import { getDataFromServer } from '../../redux/actions';
+import { actionTypes } from '../../redux/actions';
 import { CourseType } from '../../types';
 import Course from './Course';
 
-// TODO: update Alert to Snackbar, using context or other state management
-
 export default function Courses(): ReactElement {
-  const [courses, setCourses] = useState<CourseType[] | null>(null);
+  const dispatch = useDispatch();
+  const courses = useSelector((state) => state.courses);
 
   // get information about courses from Udemy API on component mount
   useEffect(() => {
-    async function setCoursesFromServer() {
-      await getDataFromServer('/api/courses', setCourses);
-      if (courses !== null) {
-        setCourses(courses.map((course) => translateCouponValuesToDates(course)));
-      }
-    }
-    setCoursesFromServer();
-  }, []);
+    dispatch({ type: actionTypes.SET_COURSES_FROM_SERVER });
+  }, [dispatch]);
 
   return (
     <>

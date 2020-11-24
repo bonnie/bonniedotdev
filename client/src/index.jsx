@@ -5,8 +5,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import App from './components/app/App';
-import store from './redux/configureStore';
+import store, { sagaMiddleware } from './redux/configureStore';
+import rootSaga from './redux/sagas';
 import reportWebVitals from './reportWebVitals';
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>
