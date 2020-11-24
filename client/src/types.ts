@@ -13,6 +13,11 @@ export type LoadingActionType = {
   payload: boolean,
 }
 
+export type ReviewQuotesActionType = {
+  type: string,
+  payload: ReviewQuoteDisplayType[],
+}
+
 export type UserActionType = {
   type: string,
   payload?: UserLoginDataType
@@ -81,7 +86,7 @@ export enum axiosMethodEnum {
   UNLINK='UNLINK',
 }
 
-export type ServerRequestConfigType = {
+export type ServerRequestPayloadType = {
   method: axiosMethodEnum,
   url: string,
   actionTypeToDispatch: string,

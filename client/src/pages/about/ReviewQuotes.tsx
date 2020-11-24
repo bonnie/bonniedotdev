@@ -3,10 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { getDataFromServer } from '../../redux/actions';
-import { ReviewQuoteDisplayType } from '../../types';
+import { actionTypes } from '../../redux/actions';
 
 const useStyles = makeStyles(() => ({
   quoteGrid: {
@@ -36,18 +36,13 @@ const useStyles = makeStyles(() => ({
 
 // eslint-disable-next-line max-lines-per-function
 export default function ReviewQuotes(): ReactElement {
-  const [reviewQuotesData, setReviewQuotesData] = useState<ReviewQuoteDisplayType[]>([]);
+  const dispatch = useDispatch();
+  const reviewQuotes = useSelector((state) => state.reviewQuotes);
   const classes = useStyles();
 
   useEffect(() => {
-    const getAndSortQuotes = async () => {
-      await getDataFromServer('/api/review_quotes', setReviewQuotesData);
-
-      // sort the data by length for more even rows
-      setReviewQuotesData(reviewQuotesData.sort((a, b) => a.body.length - b.body.length));
-    };
-    getAndSortQuotes();
-  }, []);
+    dispatch({ type: actionTypes.SET_REVIEW_QUOTES_FROM_SERVER });
+  }, [dispatch]);
 
   // sort by length
 
@@ -57,7 +52,7 @@ export default function ReviewQuotes(): ReactElement {
         Students say...
       </Typography>
       <Grid container spacing={3}>
-        {reviewQuotesData.map((quote) => (
+        {reviewQuotes.map((quote) => (
           <Grid
             item
             className={classes.quoteGrid}

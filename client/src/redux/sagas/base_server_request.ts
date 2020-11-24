@@ -13,19 +13,23 @@ type ServerRequestActionType = {
 
 export function* makeServerRequest({ payload }: ServerRequestActionType) {
   const {
-    method, url, data, actionTypeToDispatch,
+    method, url, data,
   } = payload;
+  let responseData = null;
   const errorString = 'There was a problem connecting to the server';
   yield put(setLoading());
 
   try {
     const response = yield call(() => axios({ method, url, data }));
-    yield put({ type: actionTypeToDispatch, payload: response.data });
+    responseData = response.data;
   } catch {
     // TODO: log this
     yield put(setError(errorString));
   }
   yield put(clearLoading());
+
+  // finally, yield the response data so that the calling function can make use of it
+  yield responseData;
 }
 
 export default function* watchGetCoursesFromServer() {

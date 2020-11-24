@@ -1,5 +1,11 @@
 import {
-  CoursesActionType, CourseType, ErrorActionType, LoadingActionType, UserActionType,
+  CoursesActionType,
+  CourseType,
+  ErrorActionType,
+  LoadingActionType,
+  ReviewQuoteDisplayType,
+  ReviewQuotesActionType,
+  UserActionType,
 } from '../../types';
 
 export const actionTypes = {
@@ -7,8 +13,10 @@ export const actionTypes = {
   SET_LOADING: 'SET_LOADING',
   SET_USER: 'SET_USER',
   SET_COURSES: 'SET_COURSES',
+  SET_REVIEW_QUOTES: 'SET_REVIEW_QUOTES',
   GET_DATA_FROM_SERVER: 'GET_DATA_FROM_SERVER',
   SET_COURSES_FROM_SERVER: 'SET_COURSES_FROM_SERVER',
+  SET_REVIEW_QUOTES_FROM_SERVER: 'SET_REVIEW_QUOTES_FROM_SERVER',
 };
 
 export function setError(error: string): ErrorActionType {
@@ -59,29 +67,9 @@ export function setCourses(payload: CourseType[]): CoursesActionType {
   };
 }
 
-/* generic function to get data from server, setting loading and error state appropriately */
-export async function getDataFromServer(
-  endpoint: string,
-  setData: (JSON) => void,
-): Promise<void> {
-  // TODO: update using React saga
-  /*
-  const errorString = 'There was a problem retrieving data from the server';
-  setLoading();
-
-  try {
-    const response = await axios.get(endpoint);
-    if (response.status >= 200 && response.status < 300) {
-      setData(response.data);
-    } else {
-      // TODO: log this
-      setError(errorString);
-    }
-  } catch {
-    // TODO: log this
-    setError(errorString);
-  }
-  clearLoading();
-  */
-  return Promise.resolve();
+export function setReviewQuotes(payload: ReviewQuoteDisplayType[]): ReviewQuotesActionType {
+  return {
+    type: actionTypes.SET_REVIEW_QUOTES,
+    payload,
+  };
 }
