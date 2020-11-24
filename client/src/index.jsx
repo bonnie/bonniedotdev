@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import App from './components/app/App';
+import App from './pages/app/App';
 import store, { sagaMiddleware } from './redux/configureStore';
 import rootSaga from './redux/sagas';
 import reportWebVitals from './reportWebVitals';

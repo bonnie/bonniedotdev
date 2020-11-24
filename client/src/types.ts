@@ -81,7 +81,7 @@ export enum axiosMethodEnum {
   UNLINK='UNLINK',
 }
 
-export type ServerRequestPayloadType = {
+export type ServerRequestConfigType = {
   method: axiosMethodEnum,
   url: string,
   actionTypeToDispatch: string,
