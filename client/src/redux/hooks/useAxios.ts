@@ -43,8 +43,6 @@ async function callServer(dispatch,
     responseData = response?.data;
   } catch (e) {
     // TODO: log this to file
-    console.log('server connection failed:', e);
-
     // display error if needed
     dispatch(setError(errorString));
   }
