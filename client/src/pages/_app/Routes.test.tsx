@@ -1,16 +1,20 @@
+// reference: https://testing-library.com/docs/example-react-router/
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter, Provider } from 'react-router';
 
+import store from '../../redux/configureStore';
 import Nav from './Nav';
 import Routes from './Routes';
 
 function renderAndClickRoute(routeName) {
   render(
-    <MemoryRouter>
-      <Nav />
-      <Routes />
-    </MemoryRouter>,
+    <Provider store={store}>
+      <MemoryRouter>
+        <Nav />
+        <Routes />
+      </MemoryRouter>
+    </Provider>,
   );
 
   // Click the requested nav link
