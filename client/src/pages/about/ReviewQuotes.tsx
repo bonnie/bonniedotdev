@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import urls from '../../constants/urls';
 import { actionTypes } from '../../redux/actions';
 import useAxios from '../../redux/hooks/useAxios';
 import { axiosMethodEnum } from '../../types';
@@ -46,11 +47,10 @@ export default function ReviewQuotes(): ReactElement {
   useEffect(() => {
     const getDataFromServer = async () => {
       const rawData = await callServer(dispatch, {
-        method: axiosMethodEnum.get,
-        url: '/api/review_quotes',
+        method: axiosMethodEnum.GET,
+        url: urls.reviewQuotesURL,
       });
       let payload = rawData;
-      // TODO: figure out typescript here...
       if (rawData !== null && rawData?.length > 1) {
         payload = rawData.sort((a, b) => a.body.length - b.body.length);
       }

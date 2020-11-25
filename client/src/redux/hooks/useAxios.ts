@@ -1,15 +1,38 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 
-import { axiosArgsType, serverResponseType } from '../../types';
+import {
+  CoursesEndpointType,
+  LoginEndpointType,
+  ReviewQuotesEndpointType,
+} from '../../constants/urls';
+import {
+  axiosMethodEnum, CourseType, ReviewQuoteDisplayType, UserType,
+} from '../../types';
 import { clearLoading, setError, setLoading } from '../actions';
 
-const useAxios = () => async (
-  dispatch: Dispatch,
-  axiosArgs: axiosArgsType,
-): Promise<serverResponseType> => {
-  let responseData: serverResponseType = null;
+type getMethod = axiosMethodEnum.GET;
+
+// TODO: this seems excessive. Is there a better way?
+function callServer(dispatch: Dispatch,
+  axiosArgs: { url: ReviewQuotesEndpointType; method: getMethod }
+  ): Promise<ReviewQuoteDisplayType[] | null>;
+function callServer(dispatch: Dispatch,
+  axiosArgs: { url: CoursesEndpointType; method: getMethod }
+  ): Promise<CourseType[] | null>;
+function callServer(dispatch: Dispatch,
+  axiosArgs: { url: LoginEndpointType; method: getMethod }
+  ): Promise<UserType | null>;
+async function callServer(dispatch,
+  axiosArgs) {
+  let responseData = null;
   const errorString = 'There was a problem connecting to the server';
+
+  if (process.env.NODE_ENV === 'development') {
+    // for development, use flask server running in background
+    // eslint-disable-next-line no-param-reassign
+    axiosArgs.url = `http://localhost:5000${axiosArgs.url}`;
+  }
 
   // start loading spinner
   dispatch(setLoading());
@@ -31,6 +54,8 @@ const useAxios = () => async (
 
   // return data
   return responseData;
-};
+}
+
+const useAxios = () => callServer;
 
 export default useAxios;
