@@ -1,7 +1,7 @@
 import {
   CourseJSONWithCouponsAndQuotes,
   CourseJSONWithoutCouponsAndQuotes,
-} from '../tests/data';
+} from '../testUtils/data';
 import { translateCouponValuesToDates } from '.';
 
 describe('translateCouponValuesToDates', () => {

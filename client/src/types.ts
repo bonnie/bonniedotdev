@@ -18,6 +18,11 @@ export type ReviewQuotesActionType = {
   payload: ReviewQuoteDisplayType[],
 }
 
+export type ServerRequestActionType = {
+  type: string,
+  payload: ServerRequestPayloadType
+}
+
 export type UserActionType = {
   type: string,
   payload?: UserLoginDataType
@@ -89,6 +94,5 @@ export enum axiosMethodEnum {
 export type ServerRequestPayloadType = {
   method: axiosMethodEnum,
   url: string,
-  actionTypeToDispatch: string,
   data?: UserLoginDataType,
 }

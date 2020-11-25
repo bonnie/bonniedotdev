@@ -1,35 +1,35 @@
 import axios from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { ServerRequestPayloadType } from '../../types';
+import { ServerRequestActionType, ServerRequestPayloadType } from '../../types';
 import {
   actionTypes, clearLoading, setError, setLoading,
 } from '../actions';
 
-type ServerRequestActionType = {
-  type: string,
-  payload: ServerRequestPayloadType
-}
+export const getAxiosResponseData = async (axiosConfig: ServerRequestPayloadType) => {
+  // any errors will bubble up
+  const response = await axios(axiosConfig);
+  return response.data;
+};
 
 export function* makeServerRequest({ payload }: ServerRequestActionType) {
-  const {
-    method, url, data,
-  } = payload;
   let responseData = null;
   const errorString = 'There was a problem connecting to the server';
   yield put(setLoading());
 
   try {
-    const response = yield call(() => axios({ method, url, data }));
-    responseData = response.data;
-  } catch {
+    // const responseA = await axios({ method, url, data });
+    responseData = yield call(getAxiosResponseData, payload);
+    // const response = yield axios({ method, url, data });
+    // const response = yield call('.'.join(['a', 'b']), 'hooha');
+  } catch (e) {
     // TODO: log this
     yield put(setError(errorString));
   }
   yield put(clearLoading());
-
-  // finally, yield the response data so that the calling function can make use of it
-  yield responseData;
+  // finally, return the response data so that the calling function can make use of it
+  // QUESTION: is this even a thing with a generator?
+  // return responseData;
 }
 
 export default function* watchGetCoursesFromServer() {
