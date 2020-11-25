@@ -1,8 +1,11 @@
 /* eslint-disable max-lines-per-function */
 import { fireEvent, render, screen } from '@testing-library/react';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 import React from 'react';
 import { Provider } from 'react-redux';
 
+import urls from '../../constants/urls';
 import store from '../../redux/configureStore';
 import App from '../_app/App';
 
@@ -41,7 +44,7 @@ export const testReviewQuotesData = [
 ];
 
 describe('tests with mocked server response', () => {
-  beforeEach(() => {
+  test('Renders five review quotes for non-error server response', async () => {
     // Note: mocked server response is handled by msw, in the src/mocks folder
     // and src/setupTests.js. The handler is set to return testReviewQuotesData
     // for /api/review_quotes
@@ -56,13 +59,12 @@ describe('tests with mocked server response', () => {
     // click the 'about' tab to trigger the review quotes retrieval
     const aboutNavLink = screen.getByRole('tab', { name: /about/ });
     fireEvent.click(aboutNavLink);
-  });
-  test('Renders five review quotes for non-error server response', async () => {
+    // END: setup /////////////////////////////////////////
+
     // check loading spinner
     // note: the loading spinner has aria-hidden true whether or not it's visible >_<
-    // TODO: is it possible to wait for it to show...?
-    // const loadingSpinner = await screen.findByRole('progressbar', { hidden: true });
-    // expect(loadingSpinner).toBeVisible();
+    const loadingSpinner = await screen.findByRole('progressbar', { hidden: true });
+    expect(loadingSpinner).toBeVisible();
 
     // check quotes
     const quotes = await screen.findAllByText(/body \d/);
@@ -73,15 +75,54 @@ describe('tests with mocked server response', () => {
     expect(courseLinks.length).toBe(5);
     courseLinks.forEach((course) => expect(course).toHaveAttribute('href'));
 
-    // confirm no loading spinner
-    // note: the loading spinner has aria-hidden true whether or not it's visible >_<
-    // TODO: how do I wait for this...?
-    // const loadingSpinner = screen.getByRole('progressbar', { hidden: true });
-    // expect(loadingSpinner).not.toBeVisible();
+    // confirm loading spinner has disappeared
+    const notLoadingSpinner = screen.queryByRole('progressbar', { hidden: true });
+    expect(notLoadingSpinner).toBe(null);
 
     // confirm no error
     const errorAlert = screen.queryByRole('alert');
     expect(errorAlert).not.toBeInTheDocument();
   });
-  test.todo('Renders error alert for error server response');
 });
+
+// TODO: how to simulate error response from the server?
+test.todo('Renders error alert for error server response');
+
+// , async () => {
+//   // close server listening with "good" response
+//   server.close();
+
+//   // set up error response
+//   const errorServer = setupServer(
+//     rest.get(urls.reviewQuotesURL,
+//       (req, res, ctx) => res(ctx.status(500), ctx.json({ message: 'oops' }))),
+//   );
+//   errorServer.listen();
+
+//   // render entire App so that we can check Loading and Error
+//   render(
+//     <Provider store={store}>
+//       <App />
+//     </Provider>,
+//   );
+
+//   // click the 'about' tab to trigger the review quotes retrieval
+//   const aboutNavLink = screen.getByRole('tab', { name: /about/ });
+//   fireEvent.click(aboutNavLink);
+//   // END: setup ///////////////////////////////////////
+
+//   // check loading spinner
+//   // note: the loading spinner has aria-hidden true whether or not it's visible >_<
+//   const loadingSpinner = await screen.findByRole('progressbar', { hidden: true });
+//   expect(loadingSpinner).toBeVisible();
+
+//   // confirm error
+//   const errorAlert = screen.getByRole('alert');
+//   expect(errorAlert).toBeInTheDocument();
+
+//   // confirm loading spinner has disappeared
+//   const notLoadingSpinner = screen.queryByRole('progressbar', { hidden: true });
+//   expect(notLoadingSpinner).toBe(null);
+
+//   errorServer.close();
+// });

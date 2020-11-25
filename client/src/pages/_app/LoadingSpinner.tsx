@@ -2,7 +2,6 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { ReactElement } from 'react';
-import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -12,11 +11,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoadingSpinner(): ReactElement {
-  const loading = useSelector((state) => state.loading);
   const classes = useStyles();
 
+  // TODO: make "open" dependent on `loading` state in a way that's testable
+  // (instead of conditionally rendering the element in App.tsx)
   return (
-    <Backdrop className={classes.backdrop} open={loading}>
+    <Backdrop className={classes.backdrop} open>
       <CircularProgress color="inherit" />
     </Backdrop>
   );
