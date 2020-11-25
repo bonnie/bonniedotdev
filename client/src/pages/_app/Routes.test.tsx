@@ -1,7 +1,11 @@
-// reference: https://testing-library.com/docs/example-react-router/
+/* eslint-disable max-lines-per-function */
+// reference:
+//   - https://testing-library.com/docs/example-react-router/
+//   - https://reactrouter.com/web/guides/testing
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { MemoryRouter, Provider } from 'react-router';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
 
 import store from '../../redux/configureStore';
 import Nav from './Nav';
@@ -23,7 +27,7 @@ function renderAndClickRoute(routeName) {
 }
 
 describe('navigate to routes', () => {
-  it('navigates to About', () => {
+  test('navigates to About', () => {
     // render and click the link
     renderAndClickRoute('about');
 
@@ -31,7 +35,7 @@ describe('navigate to routes', () => {
     const headline = screen.getByRole('heading', { name: 'About Bonnie' });
     expect(headline).toBeInTheDocument();
   });
-  it('navigates to Home', () => {
+  test('navigates to Home', () => {
     // render and click the link
     renderAndClickRoute('bonnie.dev');
 
@@ -39,12 +43,26 @@ describe('navigate to routes', () => {
     const headline = screen.getByRole('heading', { name: 'Bonnie Schulkin' });
     expect(headline).toBeInTheDocument();
   });
-  it('navigates to Courses', () => {
+  test('navigates to Courses', () => {
     // render and click the link
     renderAndClickRoute('courses');
 
     // check correct page showed up
     const headline = screen.getByRole('heading', { name: 'Courses' });
+    expect(headline).toBeInTheDocument();
+  });
+  test('displays "not found" page for unknown route', () => {
+    // render and update location to unknown route
+    render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['this_aint_no_route']}>
+          <Nav />
+          <Routes />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    const headline = screen.getByRole('heading', { name: /oops/i });
     expect(headline).toBeInTheDocument();
   });
 });

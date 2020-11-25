@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 import About from '../about/About';
 import Courses from '../courses/Courses';
 import Home from '../home/Home';
+import PageNotFound from './PageNotFound';
 
 export default function App(): ReactElement {
   return (
@@ -15,6 +16,7 @@ export default function App(): ReactElement {
         <Route exact path="/" component={Home} />
         <Route path="/courses" component={Courses} />
         <Route path="/about" component={About} />
+        <Route path="*" component={PageNotFound} />
       </Switch>
     </Container>
   );

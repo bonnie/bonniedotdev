@@ -10,6 +10,7 @@
     "clsx": "^1.1.1",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
+    "history": "^5.0.0",
     "json-merge-patch": "^1.0.1",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.32",
