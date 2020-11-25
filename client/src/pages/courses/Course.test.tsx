@@ -28,7 +28,7 @@ describe('course with coupon', () => {
   test('renders course image', () => {
     render(<Course courseData={courseWithCoupon} />);
 
-    // TODO: testing implementation? How else can I determine if the image is showing?
+    // check that correct image is showing
     const courseImage = screen.getByTitle('Course Image');
     expect(courseImage).toHaveStyle({ backgroundImage: url('/images/course-images/img.png') });
   });
@@ -49,9 +49,8 @@ describe('course with coupon', () => {
   test('renders coupon expiration text', () => {
     render(<Course courseData={courseWithCoupon} />);
 
-    // TODO: why does the 'note' <p> element have an empty string for a name?
-    // const expirationText = screen.getByRole('note', { name: /expires/ });
-    // expect(expirationText).toBeInTheDocument();
+    const expirationText = screen.getByText(/expires/i);
+    expect(expirationText).toBeInTheDocument();
   });
 });
 
@@ -59,7 +58,7 @@ describe('course without coupon', () => {
   test('renders course image', () => {
     render(<Course courseData={courseWithCoupon} />);
 
-    // TODO: testing implementation? How else can I determine if the image is showing?
+    // check that correct image is showing
     const courseImage = screen.getByTitle('Course Image');
     expect(courseImage).toHaveStyle({ backgroundImage: url('/images/course-images/img.png') });
   });
