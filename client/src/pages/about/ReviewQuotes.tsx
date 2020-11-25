@@ -7,6 +7,8 @@ import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { actionTypes } from '../../redux/actions';
+import useAxios from '../../redux/hooks/useAxios';
+import { axiosMethodEnum } from '../../types';
 
 const useStyles = makeStyles(() => ({
   quoteGrid: {
@@ -39,10 +41,23 @@ export default function ReviewQuotes(): ReactElement {
   const dispatch = useDispatch();
   const reviewQuotes = useSelector((state) => state.reviewQuotes);
   const classes = useStyles();
+  const callServer = useAxios();
 
   useEffect(() => {
-    dispatch({ type: actionTypes.SET_REVIEW_QUOTES_FROM_SERVER });
-  }, [dispatch]);
+    const getDataFromServer = async () => {
+      const rawData = await callServer(dispatch, {
+        method: axiosMethodEnum.get,
+        url: '/api/review_quotes',
+      });
+      let payload = rawData;
+      // TODO: figure out typescript here...
+      if (rawData !== null && rawData?.length > 1) {
+        payload = rawData.sort((a, b) => a.body.length - b.body.length);
+      }
+      dispatch({ type: actionTypes.SET_REVIEW_QUOTES, payload });
+    };
+    getDataFromServer();
+  }, [dispatch, callServer]);
 
   // sort by length
 

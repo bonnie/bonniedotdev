@@ -4,9 +4,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import store from '../../redux/configureStore';
-import storeFactory from '../../testUtils/storeFactory';
-import App from '../app/App';
-import ReviewQuotes from './ReviewQuotes';
+import App from '../_app/App';
 
 // eslint-disable-next-line import/prefer-default-export
 export const testReviewQuotesData = [
@@ -42,31 +40,7 @@ export const testReviewQuotesData = [
   },
 ];
 
-describe('Set up ReviewQuotes with fake data in store', () => {
-  beforeEach(() => {
-    // QUESTION: this works. But is it testing implementation...?
-    // seems so, by supplying the state :-/
-    const storeWithState = storeFactory({ reviewQuotes: testReviewQuotesData });
-    render(
-      <Provider store={storeWithState}>
-        <ReviewQuotes />
-      </Provider>,
-    );
-  });
-
-  test('displays quotes', () => {
-    const quotes = screen.getAllByText(/body \d/);
-    expect(quotes.length).toBe(5);
-  });
-  test('displays links to courses', () => {
-    const courseLinks = screen.getAllByRole('link', { name: /Course \d/ });
-    expect(courseLinks.length).toBe(5);
-    courseLinks.forEach((course) => expect(course).toHaveAttribute('href'));
-  });
-});
-
-describe.skip('tests with mocked server response', () => {
-  // TODO: How to get redux saga to watch during tests??
+describe('tests with mocked server response', () => {
   beforeEach(() => {
     // Note: mocked server response is handled by msw, in the src/mocks folder
     // and src/setupTests.js. The handler is set to return testReviewQuotesData
@@ -84,9 +58,30 @@ describe.skip('tests with mocked server response', () => {
     fireEvent.click(aboutNavLink);
   });
   test('Renders five review quotes for non-error server response', async () => {
-    // wait until the quotes show up
-    // spoiler alert: they don't :/
+    // check loading spinner
+    // note: the loading spinner has aria-hidden true whether or not it's visible >_<
+    // TODO: is it possible to wait for it to show...?
+    // const loadingSpinner = await screen.findByRole('progressbar', { hidden: true });
+    // expect(loadingSpinner).toBeVisible();
+
+    // check quotes
     const quotes = await screen.findAllByText(/body \d/);
     expect(quotes.length).toBe(5);
+
+    // check course links
+    const courseLinks = screen.getAllByRole('link', { name: /Course \d/ });
+    expect(courseLinks.length).toBe(5);
+    courseLinks.forEach((course) => expect(course).toHaveAttribute('href'));
+
+    // confirm no loading spinner
+    // note: the loading spinner has aria-hidden true whether or not it's visible >_<
+    // TODO: how do I wait for this...?
+    // const loadingSpinner = screen.getByRole('progressbar', { hidden: true });
+    // expect(loadingSpinner).not.toBeVisible();
+
+    // confirm no error
+    const errorAlert = screen.queryByRole('alert');
+    expect(errorAlert).not.toBeInTheDocument();
   });
+  test.todo('Renders error alert for error server response');
 });

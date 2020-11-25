@@ -18,10 +18,10 @@ export type ReviewQuotesActionType = {
   payload: ReviewQuoteDisplayType[],
 }
 
-export type ServerRequestActionType = {
-  type: string,
-  payload: ServerRequestPayloadType
-}
+// export type ServerRequestActionType = {
+//   type: string,
+//   payload: ServerRequestPayloadType
+// }
 
 export type UserActionType = {
   type: string,
@@ -67,6 +67,13 @@ export type CourseType = {
   reviewQuotes?: ReviewQuoteType[],
 };
 
+export type serverResponseType = (
+  CourseType[]
+  | ReviewQuoteDisplayType[]
+  | UserType
+  | null
+);
+
 // TODO: can I import this?
 export enum axiosMethodEnum {
   get='get',
@@ -91,7 +98,7 @@ export enum axiosMethodEnum {
   UNLINK='UNLINK',
 }
 
-export type ServerRequestPayloadType = {
+export type axiosArgsType = {
   method: axiosMethodEnum,
   url: string,
   data?: UserLoginDataType,
