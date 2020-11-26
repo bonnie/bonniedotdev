@@ -7,7 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 import About from '../about/About';
 import Courses from '../courses/Courses';
 import Home from '../home/Home';
-import PageNotFound from './PageNotFound';
+import PageNotFound from '../notFound/PageNotFound';
 
 export default function App(): ReactElement {
   return (
