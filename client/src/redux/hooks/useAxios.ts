@@ -7,9 +7,10 @@ import {
   ReviewQuotesEndpointType,
 } from '../../constants/urls';
 import {
+  AlertTypeOptions,
   axiosMethodEnum, CourseType, ReviewQuoteDisplayType, UserType,
 } from '../../types';
-import { clearLoading, setError, setLoading } from '../actions';
+import { clearLoading, setAlert, setLoading } from '../actions';
 
 type getMethod = axiosMethodEnum.GET;
 
@@ -44,7 +45,7 @@ async function callServer(dispatch,
   } catch (e) {
     // TODO: log this to file
     // display error if needed
-    dispatch(setError(errorString));
+    dispatch(setAlert(errorString, AlertTypeOptions.error));
   }
 
   // clear loading spinner

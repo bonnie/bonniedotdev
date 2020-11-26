@@ -1,7 +1,7 @@
 import { UserActionType, UserLoginDataType } from '../../types';
 import { actionTypes } from '../actions';
 
-export default function setErrorState(
+export default function setUserState(
   state = null,
   action: UserActionType,
 ): UserLoginDataType | null {

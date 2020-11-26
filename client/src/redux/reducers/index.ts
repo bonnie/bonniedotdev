@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
 
-import auth from './auth_reducer';
+import alert from './alert_reducer';
 import courses from './courses_reducer';
-import error from './error_reducer';
 import loading from './loading_reducer';
 import reviewQuotes from './review_quotes_reducer';
+import user from './user_reducer';
 
 export default combineReducers({
-  auth,
+  user,
   courses,
-  error,
+  alert,
   loading,
   reviewQuotes,
 });

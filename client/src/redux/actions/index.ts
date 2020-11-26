@@ -1,7 +1,8 @@
 import {
+  AlertActionType,
+  AlertTypeOptions,
   CoursesActionType,
   CourseType,
-  ErrorActionType,
   LoadingActionType,
   ReviewQuoteDisplayType,
   ReviewQuotesActionType,
@@ -9,7 +10,7 @@ import {
 } from '../../types';
 
 export const actionTypes = {
-  SET_ERROR: 'SET_ERROR',
+  SET_ALERT: 'SET_ALERT',
   SET_LOADING: 'SET_LOADING',
   SET_USER: 'SET_USER',
   SET_COURSES: 'SET_COURSES',
@@ -19,16 +20,16 @@ export const actionTypes = {
   SET_REVIEW_QUOTES_FROM_SERVER: 'SET_REVIEW_QUOTES_FROM_SERVER',
 };
 
-export function setError(error: string): ErrorActionType {
+export function setAlert(message: string, alertType: AlertTypeOptions): AlertActionType {
   return {
-    type: actionTypes.SET_ERROR,
-    payload: error,
+    type: actionTypes.SET_ALERT,
+    payload: { message, alertType },
   };
 }
 
-export function clearError(): ErrorActionType {
+export function clearAlert(): AlertActionType {
   return {
-    type: actionTypes.SET_ERROR,
+    type: actionTypes.SET_ALERT,
   };
 }
 

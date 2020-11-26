@@ -3,9 +3,9 @@ export type CoursesActionType = {
   payload?: CourseType[]
 }
 
-export type ErrorActionType = {
+export type AlertActionType = {
   type: string,
-  payload?: string
+  payload?: AlertConfigType
 }
 
 export type LoadingActionType = {
@@ -18,14 +18,14 @@ export type ReviewQuotesActionType = {
   payload: ReviewQuoteDisplayType[],
 }
 
-// export type ServerRequestActionType = {
-//   type: string,
-//   payload: ServerRequestPayloadType
-// }
-
 export type UserActionType = {
   type: string,
   payload?: UserLoginDataType
+}
+
+export type AlertConfigType = {
+  message: string,
+  alertType: AlertTypeOptions,
 }
 
 export type CouponType = {
@@ -96,6 +96,13 @@ export enum axiosMethodEnum {
   LINK='LINK',
   unlink='unlink',
   UNLINK='UNLINK',
+}
+
+export enum AlertTypeOptions {
+  error='error',
+  info='info',
+  warning='warning',
+  success='success'
 }
 
 export type axiosArgsType = {

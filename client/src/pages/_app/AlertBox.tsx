@@ -5,15 +5,18 @@ import Alert from '@material-ui/lab/Alert';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { clearNotification } from '../../redux/actions';
+import { clearAlert } from '../../redux/actions';
 
-export default function Error(): (ReactElement) {
+export default function AlertBox(): ReactElement {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.error);
+  const { message, alertType } = useSelector((state) => {
+    if (state.alert) return state.alert;
+    return { message: null, alertType: null };
+  });
 
   const handleClose = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
     if (reason === 'clickaway') return;
-    dispatch(clearNotification());
+    dispatch(clearAlert());
   };
 
   return (
@@ -22,7 +25,7 @@ export default function Error(): (ReactElement) {
         vertical: 'bottom',
         horizontal: 'left',
       }}
-      open={error !== null}
+      open={message !== null}
       autoHideDuration={6000}
       onClose={handleClose}
       action={(
@@ -31,8 +34,8 @@ export default function Error(): (ReactElement) {
         </IconButton>
     )}
     >
-      <Alert onClose={handleClose} severity="error">
-        {error}
+      <Alert onClose={handleClose} severity={alertType}>
+        {message}
       </Alert>
     </Snackbar>
   );

@@ -1,7 +1,7 @@
 import { LoadingActionType } from '../../types';
 import { actionTypes } from '../actions';
 
-export default function setErrorState(
+export default function setLoadingState(
   state = false,
   action: LoadingActionType,
 ): boolean {

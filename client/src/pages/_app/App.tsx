@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import theme from '../../theme';
-import Error from './Error';
+import AlertBox from './AlertBox';
 import LoadingSpinner from './LoadingSpinner';
 import Nav from './Nav';
 import Routes from './Routes';
@@ -15,7 +15,7 @@ export default function App(): ReactElement {
   return (
     <ThemeProvider theme={theme}>
       { loading ? <LoadingSpinner /> : null }
-      <Error />
+      <AlertBox />
       <BrowserRouter>
         <Toolbar>
           <Nav />
