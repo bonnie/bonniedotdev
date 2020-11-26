@@ -1,3 +1,4 @@
+import Box from '@material-ui/core/Box';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import React, { ReactElement } from 'react';
