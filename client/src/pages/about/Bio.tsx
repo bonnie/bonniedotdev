@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react';
 
 export default function Bio(): ReactElement {
   return (
-    <Box component="section" mt={4} mb={4} p={2} pt={2}>
+    <Box component="section" mb={4} p={2} pt={2}>
       <Typography variant="h2" gutterBottom>About Bonnie</Typography>
       <Typography style={{ fontSize: 16, fontWeight: 500 }}>
         Bonnie&apos;s wide-ranging past positions include high school physics teacher,

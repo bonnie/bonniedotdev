@@ -44,7 +44,7 @@ export default function PageNotFound(): ReactElement {
     'Gus is ashamed.',
     'Gus is distraught.',
     'Moxie is very concerned.',
-    'Gus won\t let the feather get away with this.',
+    'Gus won\'t let the feather get away with this.',
     'Gus swears it wasn\'t him.',
     'Moxie is not amused.',
     'Gus can\'t let Moxie see this.',
@@ -55,20 +55,18 @@ export default function PageNotFound(): ReactElement {
   const image = kittenImages[randNum];
   const caption = kittenCaptions[randNum];
   return (
-    <Box m={5}>
-      <Grid container>
-        <Grid item xs={12}>
-          <Typography variant="h1" gutterBottom>Oops!</Typography>
-          <Typography variant="subtitle1" gutterBottom>That page doesn&apos;t exist.</Typography>
-        </Grid>
-        <Divider />
-        <Grid item xs={12}>
-          <Box pt={5} textAlign="center">
-            <Typography variant="h3" gutterBottom>{caption}</Typography>
-            <img className={classes.kittenImage} src={image} alt="silly kitten" />
-          </Box>
-        </Grid>
+    <Grid container>
+      <Grid item xs={12}>
+        <Typography variant="h1" gutterBottom>Oops!</Typography>
+        <Typography variant="subtitle1" gutterBottom>That page doesn&apos;t exist.</Typography>
       </Grid>
-    </Box>
+      <Divider />
+      <Grid item xs={12}>
+        <Box pt={5} textAlign="center">
+          <Typography variant="h3" gutterBottom>{caption}</Typography>
+          <img className={classes.kittenImage} src={image} alt="silly kitten" />
+        </Box>
+      </Grid>
+    </Grid>
   );
 }

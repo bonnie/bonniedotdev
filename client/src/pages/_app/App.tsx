@@ -20,7 +20,9 @@ export default function App(): ReactElement {
         <Toolbar>
           <Nav />
         </Toolbar>
-        <Routes />
+        <Box m={5}>
+          <Routes />
+        </Box>
       </BrowserRouter>
     </ThemeProvider>
 
