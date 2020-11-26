@@ -1,4 +1,7 @@
-import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
 import React, { ReactElement } from 'react';
 
@@ -10,8 +13,19 @@ import featherGus from '../../images/kittens/featherGus.jpg';
 import gusPlant from '../../images/kittens/gusPlant.jpg';
 import sleeping from '../../images/kittens/sleepingKittens.jpg';
 
+const useStyles = makeStyles(() => ({
+  kittenImage: {
+    width: '100%',
+    maxWidth: '512px',
+    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+  },
+}));
+
+// eslint-disable-next-line max-lines-per-function
 export default function PageNotFound(): ReactElement {
-  const kittenImages = {
+  const classes = useStyles();
+
+  const kittenImages = [
     concernedGus,
     sleeping,
     shameGus,
@@ -19,7 +33,7 @@ export default function PageNotFound(): ReactElement {
     carefreeMoxie,
     featherGus,
     gusPlant,
-  };
+  ];
   const kittenCaptions = [
     'Gus is very concerned.',
     'Moxie and Gus will get right on that.',
@@ -27,7 +41,7 @@ export default function PageNotFound(): ReactElement {
     'Gus is distraught.',
     'Moxie is very concerned.',
     'Gus will make the feather pay.',
-    'Gus swears it wasn&apos;t him.',
+    'Gus swears it wasn\'t him.',
   ];
 
   // pick a kitten pic / caption at random
@@ -35,11 +49,20 @@ export default function PageNotFound(): ReactElement {
   const image = kittenImages[randNum];
   const caption = kittenCaptions[randNum];
   return (
-    <Container>
-      <Typography variant="h1" gutterBottom>Oops!</Typography>
-      <Typography variant="subtitle1" gutterBottom>That page doesn&apos;t exist.</Typography>
-      <Typography variant="h3" gutterBottom>{caption}</Typography>
-      <img src={image} alt="silly kitten" />
-    </Container>
+    <Box m={5}>
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography variant="h1" gutterBottom>Oops!</Typography>
+          <Typography variant="subtitle1" gutterBottom>That page doesn&apos;t exist.</Typography>
+        </Grid>
+        <Divider />
+        <Grid item xs={12}>
+          <Box pt={5} textAlign="center">
+            <Typography variant="h3" gutterBottom>{caption}</Typography>
+            <img className={classes.kittenImage} src={image} alt="silly kitten" />
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
