@@ -45,4 +45,12 @@ def create_app(flask_env):
         """Serve the built react app."""
         return send_file("index.html")
 
+    # make sure react router urls route back to react, and not to the server
+    @app.route("/", defaults={"input_path": ""})
+    @app.route("/<path:input_path>")
+    def homepage(input_path):
+        """Serve the built react app."""
+
+        return send_file("index.html")
+
     return app

@@ -8,10 +8,12 @@ import React, { ReactElement } from 'react';
 import shameGus from '../../images/kittens/ashamedGus.jpg';
 import carefreeMoxie from '../../images/kittens/carefreeMoxie.jpg';
 import concernedGus from '../../images/kittens/concernedGus.jpg';
+import coverEyes from '../../images/kittens/coverEyes.jpg';
 import distraughtGus from '../../images/kittens/distraughtGus.jpg';
 import featherGus from '../../images/kittens/featherGus.jpg';
 import gusPlant from '../../images/kittens/gusPlant.jpg';
 import sleeping from '../../images/kittens/sleepingKittens.jpg';
+import whyGus from '../../images/kittens/whyGus.jpg';
 
 const useStyles = makeStyles(() => ({
   kittenImage: {
@@ -33,6 +35,8 @@ export default function PageNotFound(): ReactElement {
     carefreeMoxie,
     featherGus,
     gusPlant,
+    whyGus,
+    coverEyes,
   ];
   const kittenCaptions = [
     'Gus is very concerned.',
@@ -40,8 +44,10 @@ export default function PageNotFound(): ReactElement {
     'Gus is ashamed.',
     'Gus is distraught.',
     'Moxie is very concerned.',
-    'Gus will make the feather pay.',
+    'Gus won\t let the feather get away with this.',
     'Gus swears it wasn\'t him.',
+    'Moxie is not amused.',
+    'Gus can\'t let Moxie see this.',
   ];
 
   // pick a kitten pic / caption at random
