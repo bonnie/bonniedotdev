@@ -16,10 +16,13 @@ class Login(Resource):
 
         return parser.parse_args()
 
-    def get(self):
-        """Return whether or not user/password is valid."""
+    def post(self):
+        """Return username and userID for valid login; error for invalid."""
 
         args = self._get_args()
-        valid = UserModel.is_valid_user(args["username"], args["password"])
+        user = UserModel.validate_user(args["username"], args["password"])
 
-        return {"valid": valid}, 200
+        if user is None:
+            return {"message": "incorrect login"}, 400
+
+        return {"username": user.username, "id": user.id}, 200

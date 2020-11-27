@@ -44,20 +44,23 @@ class User(db.Model, Base):
         )
 
     @classmethod
-    def is_valid_user(
+    def validate_user(
         cls,
         username: str,
         password: str,
-    ) -> bool:
-        """Return the called upon resource to dictionary format."""
+    ):
+        """Return the user object if there's a username/password match; None otherwise."""
 
         try:
             user = cls.query.filter(cls.username == username).one()
         except NoResultFound:
-            return False
+            return None
 
         hashed_password = cls.hash_password(password, user.salt)
-        return hashed_password == user.hashed_password
+        if hashed_password == user.hashed_password:
+            return user
+
+        return None
 
     def __repr__(self):
         """Return a pretty print version of the retrieved resource."""

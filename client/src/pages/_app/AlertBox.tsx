@@ -29,7 +29,7 @@ export default function AlertBox(): ReactElement | null {
         vertical: 'bottom',
         horizontal: 'left',
       }}
-      open={message}
+      open
       autoHideDuration={6000}
       onClose={handleClose}
       action={(

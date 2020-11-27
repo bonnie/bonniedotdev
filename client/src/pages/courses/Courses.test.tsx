@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { rest } from 'msw';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 
 import urls from '../../constants/urls';
 import server from '../../mocks/server';
@@ -17,7 +18,9 @@ test('Renders five review quotes for non-error server response', async () => {
   // render entire App so that we can check Loading and Error
   render(
     <Provider store={store}>
-      <App />
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
     </Provider>,
   );
 
@@ -55,7 +58,9 @@ test('Renders error alert for error server response', async () => {
   // render entire App so that we can check Loading and Error
   render(
     <Provider store={store}>
-      <App />
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
     </Provider>,
   );
 

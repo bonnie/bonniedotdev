@@ -3,7 +3,6 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 
 import theme from '../../theme';
 import AlertBox from './AlertBox';
@@ -17,15 +16,12 @@ export default function App(): ReactElement {
     <ThemeProvider theme={theme}>
       { loading ? <LoadingSpinner /> : null }
       <AlertBox />
-      <BrowserRouter>
-        <Toolbar>
-          <Nav />
-        </Toolbar>
-        <Box m={5}>
-          <Routes />
-        </Box>
-      </BrowserRouter>
+      <Toolbar>
+        <Nav />
+      </Toolbar>
+      <Box m={5}>
+        <Routes />
+      </Box>
     </ThemeProvider>
-
   );
 }

@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 
 import urls from '../../constants/urls';
-import { setUser } from '../../redux/actions';
+import { setAlert, setUser } from '../../redux/actions';
 import useAxios from '../../redux/hooks/useAxios';
-import { axiosMethodEnum } from '../../types';
+import { AlertTypeOptions, axiosMethodEnum } from '../../types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -36,10 +36,19 @@ export default function Login(): ReactElement {
       dispatch,
       { url: urls.loginURL, method: axiosMethodEnum.POST, data: formData },
     );
-
-    // this will re-render and redirect to auth
-    if (responseData !== null) dispatch(setUser(responseData));
+    if (responseData !== null) {
+      // this will re-render and redirect to auth
+      dispatch(setUser(responseData));
+    } else {
+      // TODO: log this!
+      dispatch(setAlert('Incorrect login', AlertTypeOptions.warning));
+    }
   };
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   dispatch(setUser({ username: 'admin', id: 1 }));
+  // };
 
   // if someone manually enters the url while logged in, or state changes, redirect to auth
   if (user) {

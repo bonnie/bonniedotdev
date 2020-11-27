@@ -1,5 +1,3 @@
-// TODO: use default export and only import one object
-
 export type CoursesActionType = {
   type: string,
   payload?: CourseType[]

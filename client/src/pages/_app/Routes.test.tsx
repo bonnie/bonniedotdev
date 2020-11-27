@@ -1,7 +1,4 @@
 /* eslint-disable max-lines-per-function */
-// reference:
-//   - https://testing-library.com/docs/example-react-router/
-//   - https://reactrouter.com/web/guides/testing
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -11,6 +8,7 @@ import store from '../../redux/configureStore';
 import Nav from './Nav';
 import Routes from './Routes';
 
+// TODO: update to use renderWithRouterAndProvider
 function renderAndClickRoute(routeName) {
   render(
     <Provider store={store}>
