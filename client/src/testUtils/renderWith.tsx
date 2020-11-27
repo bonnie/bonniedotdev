@@ -26,7 +26,7 @@ export function renderWithProvider(ui: ReactElement, initialState = {}): Screen 
 
 export function renderWithRouterAndProvider(
   ui: ReactElement,
-  { initialRouterEntries = [], initialState = {} } = {},
+  { initialRouterEntries = ['/'], initialState = {} } = {},
 ): Screen {
   const store = storeFactory(initialState);
   render(

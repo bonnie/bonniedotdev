@@ -44,11 +44,6 @@ export default function Login(): ReactElement {
       dispatch(setAlert('Incorrect login', AlertTypeOptions.warning));
     }
   };
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   dispatch(setUser({ username: 'admin', id: 1 }));
-  // };
 
   // if someone manually enters the url while logged in, or state changes, redirect to auth
   if (user) {

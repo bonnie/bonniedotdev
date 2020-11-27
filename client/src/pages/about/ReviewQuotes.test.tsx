@@ -1,13 +1,11 @@
 /* eslint-disable max-lines-per-function */
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { rest } from 'msw';
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 
 import urls from '../../constants/urls';
 import server from '../../mocks/server';
-import store from '../../redux/configureStore';
+import { renderWithRouterAndProvider } from '../../testUtils/renderWith';
 import App from '../_app/App';
 
 // TODO: update to use renderWithRouterAndProvider
@@ -17,13 +15,7 @@ test('Renders five review quotes for non-error server response', async () => {
   // for /api/review_quotes
 
   // render entire App so that we can check Loading and Error
-  render(
-    <Provider store={store}>
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    </Provider>,
-  );
+  const screen = renderWithRouterAndProvider(<App />);
 
   // click the 'about' tab to trigger the review quotes retrieval
   const aboutNavLink = screen.getByRole('tab', { name: /about/ });
@@ -61,13 +53,7 @@ test('Renders error alert for error server response', async () => {
   );
 
   // render entire App so that we can check Loading and Error
-  render(
-    <Provider store={store}>
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    </Provider>,
-  );
+  const screen = renderWithRouterAndProvider(<App />);
 
   // click the 'about' tab to trigger the review quotes retrieval
   const aboutNavLink = screen.getByRole('tab', { name: /about/ });

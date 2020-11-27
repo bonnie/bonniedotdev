@@ -1,33 +1,30 @@
 /* eslint-disable max-lines-per-function */
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router';
 
-import store from '../../redux/configureStore';
+import { renderWithRouterAndProvider } from '../../testUtils/renderWith';
 import Nav from './Nav';
 import Routes from './Routes';
 
-// TODO: update to use renderWithRouterAndProvider
-function renderAndClickRoute(routeName) {
-  render(
-    <Provider store={store}>
-      <MemoryRouter>
-        <Nav />
-        <Routes />
-      </MemoryRouter>
-    </Provider>,
-  );
+const NavAndRoutes = (
+  <>
+    <Nav />
+    <Routes />
+  </>
+);
 
+function renderAndClickRoute(routeName) {
+  const screen = renderWithRouterAndProvider(NavAndRoutes);
   // Click the requested nav link
   const navLink = screen.getByRole('tab', { name: RegExp(routeName) });
   fireEvent.click(navLink);
+  return screen;
 }
 
 describe('navigate to routes', () => {
   test('navigates to About', () => {
     // render and click the link
-    renderAndClickRoute('about');
+    const screen = renderAndClickRoute('about');
 
     // check correct page showed up
     const headline = screen.getByRole('heading', { name: 'About Bonnie' });
@@ -35,7 +32,7 @@ describe('navigate to routes', () => {
   });
   test('navigates to Home', () => {
     // render and click the link
-    renderAndClickRoute('bonnie.dev');
+    const screen = renderAndClickRoute('bonnie.dev');
 
     // check correct page showed up
     const headline = screen.getByRole('heading', { name: 'Bonnie Schulkin' });
@@ -43,7 +40,7 @@ describe('navigate to routes', () => {
   });
   test('navigates to Courses', () => {
     // render and click the link
-    renderAndClickRoute('courses');
+    const screen = renderAndClickRoute('courses');
 
     // check correct page showed up
     const headline = screen.getByRole('heading', { name: 'Courses' });
@@ -51,13 +48,9 @@ describe('navigate to routes', () => {
   });
   test('displays "not found" page for unknown route', () => {
     // render and update location to unknown route
-    render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['this_aint_no_route']}>
-          <Nav />
-          <Routes />
-        </MemoryRouter>
-      </Provider>,
+    const screen = renderWithRouterAndProvider(
+      NavAndRoutes,
+      { initialRouterEntries: ['this_aint_no_route'] },
     );
 
     const headline = screen.getByRole('heading', { name: /oops/i });

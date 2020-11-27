@@ -1,13 +1,11 @@
 /* eslint-disable max-lines-per-function */
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { rest } from 'msw';
 import React from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 
 import urls from '../../constants/urls';
 import server from '../../mocks/server';
-import store from '../../redux/configureStore';
+import { renderWithRouterAndProvider } from '../../testUtils/renderWith';
 import App from '../_app/App';
 
 test('Renders five review quotes for non-error server response', async () => {
@@ -16,13 +14,7 @@ test('Renders five review quotes for non-error server response', async () => {
   // for /api/courses
 
   // render entire App so that we can check Loading and Error
-  render(
-    <Provider store={store}>
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    </Provider>,
-  );
+  const screen = renderWithRouterAndProvider(<App />);
 
   // click the 'courses' tab to trigger the courses retrieval
   const coursesNavLink = screen.getByRole('tab', { name: /courses/ });
@@ -56,13 +48,7 @@ test('Renders error alert for error server response', async () => {
   );
 
   // render entire App so that we can check Loading and Error
-  render(
-    <Provider store={store}>
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    </Provider>,
-  );
+  const screen = renderWithRouterAndProvider(<App />);
 
   // click the 'courses' tab to trigger the courses retrieval
   const coursesNavLink = screen.getByRole('tab', { name: /courses/ });
