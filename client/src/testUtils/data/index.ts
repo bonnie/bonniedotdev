@@ -1,4 +1,9 @@
-import { CourseType } from '../../types';
+import { CourseType, UserType } from '../../types';
+
+export const testSuccessLoginReponse: UserType = {
+  id: 1,
+  username: 'admin',
+};
 
 export const testReviewQuotesData = [
   {

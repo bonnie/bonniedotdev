@@ -7,12 +7,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { clearAlert } from '../../redux/actions';
 
-export default function AlertBox(): ReactElement {
+// eslint-disable-next-line sonarjs/cognitive-complexity
+export default function AlertBox(): ReactElement | null {
   const dispatch = useDispatch();
   const { message, alertType } = useSelector((state) => {
     if (state.alert) return state.alert;
     return { message: null, alertType: null };
   });
+
+  // if there's no alert, nothing to see here
+  if (message === null && alertType === null) return null;
 
   const handleClose = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
     if (reason === 'clickaway') return;
@@ -25,7 +29,7 @@ export default function AlertBox(): ReactElement {
         vertical: 'bottom',
         horizontal: 'left',
       }}
-      open={message !== null}
+      open={message}
       autoHideDuration={6000}
       onClose={handleClose}
       action={(

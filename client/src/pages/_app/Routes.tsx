@@ -5,7 +5,9 @@ import React, { ReactElement } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import About from '../about/About';
-import Auth from '../auth/Auth';
+import Login from '../auth/Login';
+import Logout from '../auth/Logout';
+import UserHome from '../auth/UserHome';
 import Courses from '../courses/Courses';
 import Home from '../home/Home';
 import PageNotFound from '../notFound/PageNotFound';
@@ -17,8 +19,9 @@ export default function App(): ReactElement {
         <Route exact path="/" component={Home} />
         <Route path="/courses" component={Courses} />
         <Route path="/about" component={About} />
-        <Route path="/login" component={Auth} />
-        <Route path="/logout" component={Auth} />
+        <Route path="/user" component={UserHome} />
+        <Route path="/login" component={Login} />
+        <Route path="/logout" component={Logout} />
         <Route path="*" component={PageNotFound} />
       </Switch>
     </Container>

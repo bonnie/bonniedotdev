@@ -1,11 +1,17 @@
-import Typography from '@material-ui/core/Typography';
 import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import { actionTypes } from '../../redux/actions';
+import { clearUser, setAlert } from '../../redux/actions';
+import { AlertTypeOptions } from '../../types';
 
 export default function Login(): ReactElement {
+  const dispatch = useDispatch();
   // log the user out
-  useDispatch({ type: actionTypes.SET_USER });
-  return (<Typography>You have been logged out!</Typography>);
+  dispatch(clearUser());
+
+  // set a success message
+  dispatch(setAlert('You have been logged out!', AlertTypeOptions.success));
+
+  return <Redirect to="/login" />;
 }

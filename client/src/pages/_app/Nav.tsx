@@ -10,6 +10,7 @@ import React, { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import avatar from '../../images/avatar_small.png';
+import LogoutIconButton from './LogoutIconButton';
 
 // TODO: get this from theme rather than hard-coding
 const useStyles = makeStyles(() => ({
@@ -27,13 +28,27 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+// eslint-disable-next-line max-lines-per-function
 export default function Nav(): ReactElement {
+  // for hidden auth routes, no tab associated
+  const nonTabRoutes = RegExp(/login|logout/);
+
   const classes = useStyles();
   const { pathname } = window.location;
   const [value, setValue] = useState(pathname);
+
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    if (nonTabRoutes.test(newValue)) {
+      setValue('/');
+    } else {
+      setValue(newValue);
+    }
   };
+
+  // handle page reload for non-tab routes gracefully
+  if (nonTabRoutes.test(value)) {
+    setValue('/');
+  }
 
   const homeButton = (
     <Button>
@@ -48,10 +63,11 @@ export default function Nav(): ReactElement {
     <AppBar>
       <Box bgcolor="background.dark" color="primary.light" position="static">
         <Tabs value={value} onChange={handleChange}>
-          { /* TODO: remove indicator from home tab */ }
+          { /* TODO: make hamburger on xs */ }
           <Tab className={classes.tab} label={homeButton} value="/" component={Link} to="/" />
           <Tab className={classes.tab} label="courses" value="/courses" component={Link} to="/courses" />
           <Tab className={classes.tab} label="about" value="/about" component={Link} to="/about" />
+          <LogoutIconButton />
         </Tabs>
       </Box>
     </AppBar>

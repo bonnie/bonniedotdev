@@ -7,6 +7,7 @@ import {
   ReviewQuoteDisplayType,
   ReviewQuotesActionType,
   UserActionType,
+  UserType,
 } from '../../types';
 
 export const actionTypes = {
@@ -47,11 +48,10 @@ export function clearLoading(): LoadingActionType {
   };
 }
 
-export function setUser(username: string, password: string): UserActionType {
+export function setUser(userData: UserType): UserActionType {
   return {
     type: actionTypes.SET_USER,
-    // TODO: actually set the payload
-    payload: { username, password },
+    payload: userData,
   };
 }
 

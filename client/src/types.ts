@@ -1,3 +1,5 @@
+// TODO: use default export and only import one object
+
 export type CoursesActionType = {
   type: string,
   payload?: CourseType[]
@@ -20,7 +22,7 @@ export type ReviewQuotesActionType = {
 
 export type UserActionType = {
   type: string,
-  payload?: UserLoginDataType
+  payload?: UserType
 }
 
 export type AlertConfigType = {

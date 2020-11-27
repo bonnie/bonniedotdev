@@ -8,11 +8,16 @@ import {
 } from '../../constants/urls';
 import {
   AlertTypeOptions,
-  axiosMethodEnum, CourseType, ReviewQuoteDisplayType, UserType,
+  axiosMethodEnum,
+  CourseType,
+  ReviewQuoteDisplayType,
+  UserLoginDataType,
+  UserType,
 } from '../../types';
 import { clearLoading, setAlert, setLoading } from '../actions';
 
 type getMethod = axiosMethodEnum.GET;
+type postMethod = axiosMethodEnum.POST;
 
 // TODO: this seems excessive. Is there a better way?
 function callServer(dispatch: Dispatch,
@@ -22,7 +27,7 @@ function callServer(dispatch: Dispatch,
   axiosArgs: { url: CoursesEndpointType; method: getMethod }
   ): Promise<CourseType[] | null>;
 function callServer(dispatch: Dispatch,
-  axiosArgs: { url: LoginEndpointType; method: getMethod }
+  axiosArgs: { url: LoginEndpointType; method: postMethod; data: UserLoginDataType }
   ): Promise<UserType | null>;
 async function callServer(dispatch,
   axiosArgs) {
@@ -32,7 +37,7 @@ async function callServer(dispatch,
   if (process.env.NODE_ENV === 'development') {
     // for development, use flask server running in background
     // eslint-disable-next-line no-param-reassign
-    axiosArgs.url = `http://localhost:5000${axiosArgs.url}`;
+    axiosArgs.url = `http://localhost:5050${axiosArgs.url}`;
   }
 
   // start loading spinner
