@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 
 import {
+  addReviewQuoteEndpointType,
   CoursesEndpointType,
   LoginEndpointType,
   ReviewQuotesEndpointType,
@@ -11,6 +12,7 @@ import {
   axiosMethodEnum,
   CourseType,
   ReviewQuoteDisplayType,
+  ReviewQuoteType,
   UserLoginDataType,
   UserType,
 } from '../../types';
@@ -29,6 +31,9 @@ function callServer(dispatch: Dispatch,
 function callServer(dispatch: Dispatch,
   axiosArgs: { url: LoginEndpointType; method: postMethod; data: UserLoginDataType }
   ): Promise<UserType | null>;
+function callServer(dispatch: Dispatch,
+  axiosArgs: { url: addReviewQuoteEndpointType; method: postMethod; data: ReviewQuoteType }
+  ): Promise<ReviewQuoteDisplayType | null>;
 async function callServer(dispatch,
   axiosArgs) {
   let responseData = null;

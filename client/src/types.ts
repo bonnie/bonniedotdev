@@ -45,6 +45,7 @@ export type ReviewQuoteDisplayType = {
 export type ReviewQuoteType = {
   id: number,
   body: string,
+  courseId?: number
 };
 
 export type UserType = {

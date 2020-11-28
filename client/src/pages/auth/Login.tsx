@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 
 import urls from '../../constants/urls';
+import { getFormData } from '../../helpers';
 import { setAlert, setUser } from '../../redux/actions';
 import useAxios from '../../redux/hooks/useAxios';
 import { AlertTypeOptions, axiosMethodEnum } from '../../types';
@@ -21,8 +22,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
+interface LoginPropsType {
+  referrer: string | null,
+}
+
 // eslint-disable-next-line max-lines-per-function
-export default function Login(): ReactElement {
+export default function Login({ referrer = null }: LoginPropsType): ReactElement {
   const classes = useStyles();
   const callServer = useAxios();
   const dispatch = useDispatch();
@@ -30,7 +35,8 @@ export default function Login(): ReactElement {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = event.target.value;
+    const formData = getFormData(event);
+
     // TODO: abstract this out to an action using Redux Thunk (or Saga)
     const responseData = await callServer(
       dispatch,
@@ -47,7 +53,8 @@ export default function Login(): ReactElement {
 
   // if someone manually enters the url while logged in, or state changes, redirect to auth
   if (user) {
-    return <Redirect to="/user" />;
+    const redirect = referrer || '/user';
+    return <Redirect to={redirect} />;
   }
 
   return (

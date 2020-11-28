@@ -37,11 +37,12 @@ test('error-free login / logout flow', async () => {
   // TODO: figure out how to get around error after "clicking" logout:
   //     Warning: Cannot update a component (`AlertBox`)
   //     while rendering a different component (`Login`).
+  // Very recent stackoverflow with no answers: https://stackoverflow.com/q/65030740
   // No error in actual app...
   // find and click the logout button
   // can't find by role, since title text isn't accessible to refine findByRole query
-  // const logoutButton = screen.getByTitle('Log out');
-  // fireEvent.click(logoutButton);
+  const logoutButton = screen.getByTitle('Log out');
+  fireEvent.click(logoutButton);
 
   // // Expect to be redirected to login page
   // const loginHeader = await screen.findByRole('heading', { name: 'Log in' });
