@@ -70,7 +70,7 @@ export default function ReviewQuote(
     const formData = getFormData(event);
     const newQuote = callServer(
       dispatch,
-      { url: urls.addReviewQuoteURL, method: axiosMethodEnum.POST, data: formData },
+      { url: urls.reviewQuoteURL, method: axiosMethodEnum.POST, data: formData },
     );
 
     // let the parent know it's time to refresh the quotes

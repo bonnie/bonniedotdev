@@ -56,7 +56,6 @@ export const courseWithCouponsAndQuotes: CourseType = {
   link: 'https://udemy.com/awesomecourse',
   description: 'Purr get my claw stuck in the dog\'s ear. Toilet paper attack claws fluff everywhere meow miao french ciao litterbox. Making bread on the bathrobe suddenly go on wild-eyed crazy rampage. ',
   bestCoupon: couponWithDate,
-  reviewQuotes,
   imageName: 'udemy-course-image.jpg',
 };
 

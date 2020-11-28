@@ -1,10 +1,12 @@
+/* eslint-disable no-param-reassign */
 import axios from 'axios';
 import { Dispatch } from 'redux';
 
 import {
-  addReviewQuoteEndpointType,
+  CourseEndpointType,
   CoursesEndpointType,
   LoginEndpointType,
+  ReviewQuoteEndpointType,
   ReviewQuotesEndpointType,
 } from '../../constants/urls';
 import {
@@ -20,6 +22,7 @@ import { clearLoading, setAlert, setLoading } from '../actions';
 
 type getMethod = axiosMethodEnum.GET;
 type postMethod = axiosMethodEnum.POST;
+type deleteMethod = axiosMethodEnum.DELETE;
 
 // TODO: this seems excessive. Is there a better way?
 function callServer(dispatch: Dispatch,
@@ -32,18 +35,24 @@ function callServer(dispatch: Dispatch,
   axiosArgs: { url: LoginEndpointType; method: postMethod; data: UserLoginDataType }
   ): Promise<UserType | null>;
 function callServer(dispatch: Dispatch,
-  axiosArgs: { url: addReviewQuoteEndpointType; method: postMethod; data: ReviewQuoteType }
+  axiosArgs: { url: ReviewQuoteEndpointType; method: postMethod; data: ReviewQuoteType }
+  ): Promise<ReviewQuoteDisplayType | null>;
+function callServer(dispatch: Dispatch,
+  axiosArgs: { url: CourseEndpointType; method: deleteMethod; urlParam: number }
   ): Promise<ReviewQuoteDisplayType | null>;
 async function callServer(dispatch, axiosArgs) {
   let responseData = null;
   const errorString = 'There was a problem connecting to the server';
 
-  console.log('_#_#_#_#_#_#_#__#_# sending data', axiosArgs.data);
-
   if (process.env.NODE_ENV === 'development') {
     // for development, use flask server running in background
-    // eslint-disable-next-line no-param-reassign
     axiosArgs.url = `http://localhost:5050${axiosArgs.url}`;
+  }
+
+  // handle urlParam if one exists
+  if (axiosArgs.urlParam) {
+    axiosArgs.url += `/${axiosArgs.urlParam}`;
+    delete axiosArgs.urlParam;
   }
 
   // start loading spinner

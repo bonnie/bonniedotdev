@@ -65,7 +65,6 @@ export type CourseType = {
   link: string,
   imageName: string,
   bestCoupon?: CouponType,
-  reviewQuotes?: ReviewQuoteType[],
 };
 
 export type serverResponseType = (

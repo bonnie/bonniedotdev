@@ -16,11 +16,11 @@ export default function ReviewQuotes(): ReactElement {
   const dispatch = useDispatch();
   const reviewQuotes = useSelector((state) => state.reviewQuotes);
   const callServer = useAxios();
-  // const user = useSelector((state) => state.user);
-  const user = true;
+  const user = useSelector((state) => state.user);
 
   // track whether quotes have been updated
   const [newQuotes, updateNewQuotes] = useState(false);
+
   useEffect(() => {
     const getDataFromServer = async () => {
       const rawData = await callServer(dispatch, {
@@ -37,6 +37,8 @@ export default function ReviewQuotes(): ReactElement {
     };
     getDataFromServer();
   }, [dispatch, callServer, newQuotes]);
+  // TODO: this will only work once, since once newQuotes is set to true,
+  //  it's never set to false again. can't set to false within useEffect (infinite loop)
 
   const addQuote = () => {
     const newQuote: ReviewQuoteType = { body: null, id: null };
