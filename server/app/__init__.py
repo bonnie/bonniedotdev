@@ -31,8 +31,7 @@ def create_app(flask_env):
     if flask_env == "development":
         from flask_cors import CORS
 
-        # CORS(app, resources={r"/api/*": {"origins": "localhost:3000"}})
-        CORS(app)
+        CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
     # for Flask-RESTful
     api = Api(app, prefix="/api", catch_all_404s=True)
