@@ -1,15 +1,12 @@
 """SQLAlchemy database model for Udemy Course."""
 from typing import Dict
 from typing import List
-from typing import Union
 
 import jsonpatch
 from app.db import db
 from app.models.base_model import Base
 from app.models.coupon_model import Coupon
-from app.models.review_quote_model import ReviewQuote
 from app.typed_dicts import CouponDict
-from app.typed_dicts import ReviewQuoteDict
 
 
 class Course(db.Model, Base):
@@ -22,7 +19,6 @@ class Course(db.Model, Base):
     link = db.Column(db.String)  # link to include referral code
     description = db.Column(db.String)
     coupons = db.relationship("Coupon")
-    review_quotes = db.relationship("ReviewQuote")
 
     def __init__(
         self,
@@ -30,49 +26,29 @@ class Course(db.Model, Base):
         link: str,
         description: str,
         coupons: List[CouponDict] = None,
-        review_quotes: List[ReviewQuoteDict] = None,
     ):
         """Create record and add to db."""
 
         coupons = coupons or []
-        review_quotes = review_quotes or []
 
         self.name = name
         self.link = link
         self.description = description
         self.set_coupons(coupons)
-        self.set_review_quotes(review_quotes)
 
         self.update_db()
 
-    def set_relations_property(
-        self,
-        data: Union[CouponDict, ReviewQuoteDict],
-        property_to_update: str,
-        model: Union[Coupon, ReviewQuote],
-    ) -> None:
-        """Abstracted code from set_coupons and set_review_quotes."""
-        final = []
+    def set_coupons(self, newCoupons: List[Coupon]) -> None:
+        """Set coupon property."""
+        self.coupons = []
 
-        for item in data:
-            if "id" in item:
+        for coupon in newCoupons:
+            if "id" in coupon:
                 # this is already in the db, no need to make a new one
-                final.append(model.query.get(item["id"]))
+                self.coupons.append(Coupon.query.get(coupon["id"]))
             else:
                 # not in db, need to make a new one
-                final.append(model(**item))
-
-        setattr(self, property_to_update, final)
-
-    def set_coupons(self, coupons: List[CouponDict]):
-        """Set coupons with new data."""
-
-        self.set_relations_property(coupons, "coupons", Coupon)
-
-    def set_review_quotes(self, review_quotes: List[ReviewQuoteDict]):
-        """Set review quotes with new data."""
-
-        self.set_relations_property(review_quotes, "review_quotes", ReviewQuote)
+                self.coupons.append(Coupon(**coupon))
 
     @property
     def best_coupon(self) -> CouponDict:
@@ -112,14 +88,10 @@ class Course(db.Model, Base):
         # Apply patch to existing dict
         updated_data = jsonpatch.apply_patch(current_data, json_patch)
 
-        # handle coupons and review_quotes separately
+        # handle coupons separately
         if "coupons" in updated_data:
             self.set_coupons(updated_data["coupons"])
             del updated_data["coupons"]
-
-        if "review_quotes" in updated_data:
-            self.set_review_quotes(updated_data["review_quotes"])
-            del updated_data["review_quotes"]
 
         # Apply the patched dictionary back to the model
         for key, value in updated_data.items():
@@ -135,7 +107,6 @@ class Course(db.Model, Base):
             "description": self.description,
             "link": self.link,
             "best_coupon": self.best_coupon,
-            "review_quotes": [r.to_dict() for r in self.review_quotes],
         }
 
     def __repr__(self):

@@ -42,6 +42,13 @@ class ReviewQuote(db.Model, Base):
             for q in allQuotes
         ]
 
+    def patch(self, body: str, courseId: int):
+        """Update quote with new data."""
+
+        self.body = body
+        self.course_id = courseId
+        self.update_db()
+
     def to_dict(self):
         """Return the called upon resource to dictionary format."""
         return {

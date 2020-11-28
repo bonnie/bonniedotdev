@@ -78,3 +78,6 @@ def test_delete_course(test_db, test_client, full_course_id):
 
     assert response.status_code == 204
     assert CourseModel.query.get(full_course_id) is None
+
+
+# TODO: test creating new course!

@@ -87,7 +87,7 @@ export default function EditCourse({ course = null }: EditCourseProps): ReactEle
         control={control}
         defaultValue={course ? course.link : ''}
       />
-      <Controller
+      {/* <Controller
         name="imageName"
         as={Select}
         options={[
@@ -98,7 +98,7 @@ export default function EditCourse({ course = null }: EditCourseProps): ReactEle
         default={course ? course.imageName : ''}
         control={control}
         rules={{ required: true }}
-      />
+      /> */}
       <Box>
         {/* <EditCoupon /> */}
       </Box>
