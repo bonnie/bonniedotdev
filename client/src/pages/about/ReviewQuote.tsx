@@ -43,6 +43,10 @@ const useStyles = makeStyles(() => ({
     alignSelf: 'flex-end',
     textAlign: 'right',
   },
+  uploadButton: {
+    alignSelf: 'flex-end',
+    textAlign: 'right',
+  },
 }));
 
 interface ReviewQuoteProps {
@@ -95,8 +99,8 @@ export default function ReviewQuote(
   const editQuote = (
     <Box>
       <form onSubmit={handleSubmit}>
-        <Input type="textarea" name="body" id="body" defaultValue={quoteData ? quoteData.body : ''} />
-        <Box width="100%">
+        <Input multiline name="body" id="body" style={{ width: '100%' }} defaultValue={quoteData ? quoteData.body : ''} />
+        <Box mt={2}>
           <FormControl>
             <InputLabel id="course-select">Course</InputLabel>
             <Select
@@ -104,6 +108,7 @@ export default function ReviewQuote(
               id="courseId"
               name="courseId"
               defaultValue={1}
+              style={{ width: '100%' }}
             >
               <MenuItem value={1}>Course1</MenuItem>
               <MenuItem value={2}>Course2</MenuItem>
@@ -111,7 +116,9 @@ export default function ReviewQuote(
             </Select>
           </FormControl>
         </Box>
-        <IconButton type="submit"><CloudUploadIcon /></IconButton>
+        <Box className={classes.uploadButton}>
+          <IconButton type="submit"><CloudUploadIcon /></IconButton>
+        </Box>
       </form>
     </Box>
   );
