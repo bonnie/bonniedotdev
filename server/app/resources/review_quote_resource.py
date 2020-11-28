@@ -2,12 +2,21 @@ from app.models.review_quote_model import ReviewQuote as ReviewQuoteModel
 from flask import request
 from flask_restful import Resource
 from marshmallow import fields
+from marshmallow import post_load
 from marshmallow import Schema
 
 
 class ReviewQuoteSchema(Schema):
     body = fields.Str(required=True)
     courseId = fields.Int(required=True)
+
+    @post_load
+    def make_review_quote(self, data, **kwargs):
+
+        # translate courseId to snake case
+        data["course_id"] = data["courseId"]
+        del data["courseId"]
+        return ReviewQuoteModel(**data)
 
 
 class ReviewQuote(Resource):
@@ -38,7 +47,6 @@ class ReviewQuote(Resource):
     def post(self):
         """Create new quote."""
 
-        args = ReviewQuoteSchema.load(request.json)
-        new_quote = ReviewQuoteModel(**args)
+        new_quote = ReviewQuoteSchema().load(request.json)
 
         return new_quote.to_dict(), 201

@@ -34,10 +34,11 @@ function callServer(dispatch: Dispatch,
 function callServer(dispatch: Dispatch,
   axiosArgs: { url: addReviewQuoteEndpointType; method: postMethod; data: ReviewQuoteType }
   ): Promise<ReviewQuoteDisplayType | null>;
-async function callServer(dispatch,
-  axiosArgs) {
+async function callServer(dispatch, axiosArgs) {
   let responseData = null;
   const errorString = 'There was a problem connecting to the server';
+
+  console.log('_#_#_#_#_#_#_#__#_# sending data', axiosArgs.data);
 
   if (process.env.NODE_ENV === 'development') {
     // for development, use flask server running in background
@@ -50,7 +51,7 @@ async function callServer(dispatch,
 
   try {
     // make server call
-    const response = await axios(axiosArgs);
+    const response = await axios({ ...axiosArgs, headers: { 'Content-Type': 'application/json' } });
     responseData = response?.data;
   } catch (e) {
     // TODO: log this to file

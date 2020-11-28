@@ -5,9 +5,10 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import urls from '../../constants/urls';
-import { actionTypes } from '../../redux/actions';
+import { actionTypes, setReviewQuotes } from '../../redux/actions';
 import useAxios from '../../redux/hooks/useAxios';
-import { axiosMethodEnum } from '../../types';
+import { axiosMethodEnum, ReviewQuoteType } from '../../types';
+import AddButton from '../common/AddButton';
 import ReviewQuote from './ReviewQuote';
 
 // eslint-disable-next-line max-lines-per-function
@@ -15,7 +16,8 @@ export default function ReviewQuotes(): ReactElement {
   const dispatch = useDispatch();
   const reviewQuotes = useSelector((state) => state.reviewQuotes);
   const callServer = useAxios();
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
+  const user = true;
 
   // track whether quotes have been updated
   const [newQuotes, updateNewQuotes] = useState(false);
@@ -26,6 +28,8 @@ export default function ReviewQuotes(): ReactElement {
         url: urls.reviewQuotesURL,
       });
       let payload = rawData;
+
+      // sort by length for more compact rows
       if (rawData !== null && rawData?.length > 1) {
         payload = rawData.sort((a, b) => a.body.length - b.body.length);
       }
@@ -34,7 +38,10 @@ export default function ReviewQuotes(): ReactElement {
     getDataFromServer();
   }, [dispatch, callServer, newQuotes]);
 
-  // sort by length
+  const addQuote = () => {
+    const newQuote: ReviewQuoteType = { body: null, id: null };
+    dispatch(setReviewQuotes([...reviewQuotes, newQuote]));
+  };
 
   return (
     <Box component="section" mt={4} mb={4} p={2} pt={2}>
@@ -50,6 +57,7 @@ export default function ReviewQuotes(): ReactElement {
             updateNewQuotes={updateNewQuotes}
           />
         ))}
+        {user ? <AddButton onClick={addQuote} /> : null}
       </Grid>
     </Box>
   );

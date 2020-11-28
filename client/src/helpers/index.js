@@ -2,7 +2,7 @@
 export const getFormData = function (event) {
   const rawData = [...event.target.elements];
   return rawData.reduce((acc, element) => {
-    if (element.id) acc[element.id] = element.value;
+    if (element.name) acc[element.name] = element.value;
     return acc;
   }, {});
 };

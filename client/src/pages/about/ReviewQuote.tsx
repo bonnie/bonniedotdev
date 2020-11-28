@@ -3,12 +3,12 @@ import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Typography from '@material-ui/core/Typography';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import React, { ReactElement } from 'react';
@@ -73,48 +73,47 @@ export default function ReviewQuote(
     if (newQuote) updateNewQuotes(true);
   };
 
-  const quoteBody = (
-    <Box fontStyle="italic">
-      <Typography component="p">{quoteData ? quoteData.body : ''}</Typography>
-    </Box>
+  const readOnlyQuote = (
+    <>
+      <Box fontStyle="italic">
+        <Typography component="p">{quoteData ? quoteData.body : ''}</Typography>
+      </Box>
+      <Link
+        className={classes.courseLink}
+        underline="none"
+        href={quoteData ? quoteData.courseLink : ''}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Box className={classes.courseLinkBox} color="secondary.main" fontSize={12} mt={2}>
+          <Typography>{quoteData ? quoteData.courseName : ''}</Typography>
+        </Box>
+      </Link>
+    </>
   );
 
-  const quoteBodyEdit = (
+  const editQuote = (
     <Box>
       <form onSubmit={handleSubmit}>
-        <TextareaAutosize name="newBody" defaultValue={quoteData ? quoteData.body : ''} />
+        <Input type="textarea" name="body" id="body" defaultValue={quoteData ? quoteData.body : ''} />
+        <Box width="100%">
+          <FormControl>
+            <InputLabel id="course-select">Course</InputLabel>
+            <Select
+              labelId="course-select"
+              id="courseId"
+              name="courseId"
+              defaultValue={1}
+            >
+              <MenuItem value={1}>Course1</MenuItem>
+              <MenuItem value={2}>Course2</MenuItem>
+              <MenuItem value={3}>Course3</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
         <IconButton type="submit"><CloudUploadIcon /></IconButton>
       </form>
     </Box>
-  );
-
-  const courseLink = (
-    <Link
-      className={classes.courseLink}
-      underline="none"
-      href={quoteData ? quoteData.courseLink : ''}
-      target="_blank"
-      rel="noreferrer"
-    >
-      <Box className={classes.courseLinkBox} color="secondary.main" fontSize={12} mt={2}>
-        <Typography>{quoteData ? quoteData.courseName : ''}</Typography>
-      </Box>
-    </Link>
-  );
-
-  const courseLinkEdit = (
-    <FormControl>
-      <InputLabel id="course-select">Course</InputLabel>
-      <Select
-        labelId="course-select"
-        id="course"
-      >
-        <MenuItem value={1}>Course1</MenuItem>
-        <MenuItem value={2}>Course2</MenuItem>
-        <MenuItem value={3}>Course3</MenuItem>
-
-      </Select>
-    </FormControl>
   );
 
   return (
@@ -133,8 +132,7 @@ export default function ReviewQuote(
         color="primary.main"
         bgcolor="background.main"
       >
-        {editable ? quoteBodyEdit : quoteBody}
-        {editable ? courseLinkEdit : courseLink}
+        {editable ? editQuote : readOnlyQuote}
       </Box>
     </Grid>
   );
