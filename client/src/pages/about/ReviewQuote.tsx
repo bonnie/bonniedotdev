@@ -74,10 +74,7 @@ export default function ReviewQuote(
     if (newQuote) updateNewQuotes(true);
   };
 
-  const handleDelete = async (confirmed) => {
-    if (!confirmed) return; // they bailed
-
-    // otherwise, delete the course
+  const handleDelete = async () => {
     if (quoteData.id < 0) {
       // negative id indicates not in the db. Just delete from state.
       const newQuotes = reviewQuotes.filter((quote) => quote.id !== quoteData.id);

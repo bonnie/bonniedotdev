@@ -9,7 +9,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import React, { ReactElement, useState } from 'react';
 
 interface EditButtonsProps {
-  handleDelete: (boolean) => void,
+  handleDelete: () => void,
   deleteItemString: string,
 }
 
@@ -22,8 +22,8 @@ export default function EditButtons(
     // close the dialog
     setConfirmationOpen(false);
 
-    // send the confirmation choice along to the callback
-    handleDelete(confirmed);
+    // trigger the delete if the user confirmed
+    if (confirmed) handleDelete();
   };
 
   const dialogMessage = `Are you sure you want to delete this ${deleteItemString}?`;

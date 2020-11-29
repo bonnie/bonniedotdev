@@ -52,10 +52,7 @@ export default function EditCourse(
     // process coupons
   };
 
-  const handleDelete = async (confirmed) => {
-    if (!confirmed) return; // they bailed
-
-    // otherwise, delete the course
+  const handleDelete = async () => {
     if (courseData.id < 0) {
       // negative id indicates not in the db. Just delete from state.
       const newCourses = courses.filter((course) => course.id !== courseData.id);
