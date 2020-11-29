@@ -36,12 +36,12 @@ function EditCoupon({ coupon, courseId }: EditCouponProps): ReactElement {
 
 interface EditCourseProps {
   courseData: CourseType,
-  updateNewCourses: (boolean) => void
+  setUpdateCourses: () => void
 }
 
 // eslint-disable-next-line max-lines-per-function
 export default function EditCourse(
-  { courseData, updateNewCourses }: EditCourseProps,
+  { courseData, setUpdateCourses }: EditCourseProps,
 ): ReactElement {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
@@ -54,10 +54,7 @@ export default function EditCourse(
     // process coupons
   };
 
-  const handleDeleteDialogClose = (confirmed) => {
-    console.log('confirmed', confirmed);
-    console.log('courseData.id', courseData.id);
-
+  const handleDeleteDialogClose = async (confirmed) => {
     // close the dialog
     setConfirmationOpen(false);
 
@@ -65,19 +62,17 @@ export default function EditCourse(
 
     // otherwise, delete the course
     if (courseData.id < 0) {
-      console.log('deleting "new" course');
       // negative id indicates not in the db. Just delete from state.
       const newCourses = courses.filter((course) => course.id !== courseData.id);
-      console.log('new courses', newCourses);
-      setCourses(newCourses);
-      updateNewCourses(true);
+      dispatch(setCourses(newCourses));
     } else {
       // it's got to be deleted from the db
-      callServer(
+      await callServer(
         dispatch,
         { url: urls.courseURL, method: axiosMethodEnum.DELETE, urlParam: courseData.id },
       );
-      updateNewCourses(true);
+
+      // TODO: update courses state with new data from the server
     }
   };
 

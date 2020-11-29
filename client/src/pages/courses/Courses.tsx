@@ -14,12 +14,17 @@ import EditCourse from './EditCourse';
 export default function Courses(): ReactElement {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
+  console.log(')_)_)_)_)_)_)_) COURSES', courses);
   const callServer = useAxios();
   // const user = useSelector((state) => state.user);
   const user = true; // TODO <------ for testing only
 
   // track whether quotes have been updated
-  const [newCourses, updateNewCourses] = useState(false);
+  // TODO: it seems janky to increment a number when the increment has no meaning
+  // I could use a boolean, but then I'd need to reset it within useEffect
+  // I could only reset it when the value was true, but that would still run useEffect
+  // twice when it only needs to run once.
+  const [updateCourses, setUpdateCourses] = useState(0);
 
   // get information about courses on component mount
   useEffect(() => {
@@ -31,9 +36,7 @@ export default function Courses(): ReactElement {
       dispatch({ type: actionTypes.SET_COURSES, payload });
     };
     getDataFromServer();
-  }, [dispatch, callServer, newCourses]);
-  // TODO: this will only work once, since once newCourses is set to true,
-  //  it's never set to false again. can't set to false within useEffect (infinite loop)
+  }, [dispatch, callServer, updateCourses]);
 
   const addCourse = () => {
     // TODO: better to make an EmptyCourseType instead? Would have to update reducer etc.
@@ -55,7 +58,12 @@ export default function Courses(): ReactElement {
         {courses?.map((course: CourseType) => (
           <Grid key={course.id} item xs={12} sm={6} md={4}>
             {user
-              ? <EditCourse courseData={course} updateNewCourses={updateNewCourses} />
+              ? (
+                <EditCourse
+                  courseData={course}
+                  setUpdateCourses={() => setUpdateCourses(updateCourses + 1)}
+                />
+              )
               : <Course courseData={course} />}
           </Grid>
         ))}
