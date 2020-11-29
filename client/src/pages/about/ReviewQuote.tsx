@@ -1,9 +1,7 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import Box from '@material-ui/core/Box';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import InputLabel from '@material-ui/core/InputLabel';
 import Link from '@material-ui/core/Link';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,16 +9,15 @@ import Select from '@material-ui/core/Select';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { DeleteIcon, UpdateIcon } from '../../constants/icons';
 import urls from '../../constants/urls';
 import { getFormData } from '../../helpers';
 import { setReviewQuotes } from '../../redux/actions';
 import useAxios from '../../redux/hooks/useAxios';
 import { axiosMethodEnum, ReviewQuoteDisplayType } from '../../types';
-import ConfirmationDialog from '../common/ConfirmationDialog';
+import EditButtons from '../common/EditButtons';
 
 const useStyles = makeStyles(() => ({
   quoteGrid: {
@@ -46,10 +43,6 @@ const useStyles = makeStyles(() => ({
     alignSelf: 'flex-end',
     textAlign: 'right',
   },
-  buttons: {
-    alignSelf: 'flex-end',
-    textAlign: 'right',
-  },
 }));
 
 interface ReviewQuoteProps {
@@ -65,7 +58,6 @@ export default function ReviewQuote(
   const classes = useStyles();
   const dispatch = useDispatch();
   const callServer = useAxios();
-  const [confirmationOpen, setConfirmationOpen] = useState(false);
   const reviewQuotes = useSelector((state) => state.reviewQuotes);
 
   const handleSubmit = (event) => {
@@ -82,10 +74,7 @@ export default function ReviewQuote(
     if (newQuote) updateNewQuotes(true);
   };
 
-  const handleDeleteDialogClose = async (confirmed) => {
-    // close the dialog
-    setConfirmationOpen(false);
-
+  const handleDelete = async (confirmed) => {
     if (!confirmed) return; // they bailed
 
     // otherwise, delete the course
@@ -150,18 +139,8 @@ export default function ReviewQuote(
             </Select>
           </FormControl>
         </Box>
-        <Box className={classes.buttons}>
-          <ButtonGroup>
-            <IconButton type="submit" color="primary"><UpdateIcon /></IconButton>
-            <IconButton color="primary" onClick={() => setConfirmationOpen(true)}><DeleteIcon /></IconButton>
-          </ButtonGroup>
-        </Box>
+        <EditButtons handleDelete={handleDelete} deleteItemString="quote" />
       </form>
-      <ConfirmationDialog
-        open={confirmationOpen}
-        handleClose={handleDeleteDialogClose}
-        message="Are you sure you want to delete this quote?"
-      />
     </Box>
   );
 
