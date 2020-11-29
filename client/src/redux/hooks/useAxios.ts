@@ -37,9 +37,13 @@ function callServer(dispatch: Dispatch,
 function callServer(dispatch: Dispatch,
   axiosArgs: { url: ReviewQuoteEndpointType; method: postMethod; data: ReviewQuoteType }
   ): Promise<ReviewQuoteDisplayType | null>;
-function callServer(dispatch: Dispatch,
-  axiosArgs: { url: CourseEndpointType; method: deleteMethod; urlParam: number }
-  ): Promise<ReviewQuoteDisplayType | null>;
+function callServer(
+  dispatch: Dispatch,
+  axiosArgs: {
+    url: CourseEndpointType | ReviewQuoteEndpointType;
+    method: deleteMethod;
+    urlParam: number }
+  ): Promise<null>;
 async function callServer(dispatch, axiosArgs) {
   let responseData = null;
   const errorString = 'There was a problem connecting to the server';

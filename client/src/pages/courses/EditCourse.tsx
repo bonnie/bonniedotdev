@@ -2,8 +2,9 @@
 // https://www.npmjs.com/package/json-merge-patch
 
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Card from '@material-ui/core/Card';
+import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +12,7 @@ import { DateTimePicker } from '@material-ui/pickers';
 import React, { ReactElement, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { DeleteIcon, UpdateIcon } from '../../constants/icons';
 import urls from '../../constants/urls';
 import { getFormData } from '../../helpers';
 import { setCourses } from '../../redux/actions';
@@ -89,16 +91,11 @@ export default function EditCourse(
             {/* <EditCoupon /> */}
           </Box>
 
-          <Button type="submit">
-            {courseData ? 'Update' : 'Create'}
-            {' '}
-            Course
-          </Button>
-          <Button onClick={() => setConfirmationOpen(true)}>
-            DeleteCourse
-          </Button>
-          {/* TODO: make this ^^ consistent with ReviewQuotes editing --
-      either an icon button or conditional text */}
+          <ButtonGroup>
+            <IconButton type="submit"><UpdateIcon /></IconButton>
+            <IconButton onClick={() => setConfirmationOpen(true)}><DeleteIcon /></IconButton>
+          </ButtonGroup>
+
         </form>
       </Box>
       <ConfirmationDialog

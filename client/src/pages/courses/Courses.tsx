@@ -14,7 +14,6 @@ import EditCourse from './EditCourse';
 export default function Courses(): ReactElement {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
-  console.log(')_)_)_)_)_)_)_) COURSES', courses);
   const callServer = useAxios();
   // const user = useSelector((state) => state.user);
   const user = true; // TODO <------ for testing only
@@ -39,9 +38,8 @@ export default function Courses(): ReactElement {
   }, [dispatch, callServer, updateCourses]);
 
   const addCourse = () => {
-    // TODO: better to make an EmptyCourseType instead? Would have to update reducer etc.
     const newCourse: CourseType = {
-      // new courses get a negative number, to distinguish from an actual course
+      // new courses get a negative number, to distinguish from existing courses
       id: 0 - (courses.length + 1),
       name: '',
       description: '',

@@ -1,3 +1,4 @@
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
@@ -15,11 +16,16 @@ export default function ConfirmationDialog({
 }: ConfirmationDialogProps): ReactElement {
   return (
     <Dialog onClose={handleClose} aria-labelledby="confirm-action" open={open}>
-      <DialogTitle id="confirm-dialog-title">{message}</DialogTitle>
-      <ButtonGroup>
-        <Button variant="outlined" onClick={() => handleClose(false)}>Cancel</Button>
-        <Button variant="contained" color="secondary" onClick={() => handleClose(true)}>Confirm</Button>
-      </ButtonGroup>
+      <Box m={2}>
+        <DialogTitle id="confirm-dialog-title">{message}</DialogTitle>
+        <ButtonGroup
+          variant="text"
+          style={{ float: 'right' }}
+        >
+          <Button onClick={() => handleClose(false)}>Cancel</Button>
+          <Button color="secondary" onClick={() => handleClose(true)}>Confirm</Button>
+        </ButtonGroup>
+      </Box>
     </Dialog>
   );
 }

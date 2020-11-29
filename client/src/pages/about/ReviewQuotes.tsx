@@ -16,7 +16,9 @@ export default function ReviewQuotes(): ReactElement {
   const dispatch = useDispatch();
   const reviewQuotes = useSelector((state) => state.reviewQuotes);
   const callServer = useAxios();
-  const user = useSelector((state) => state.user);
+
+  // const user = useSelector((state) => state.user);
+  const user = true; // TODO: <------------ for testing only!!!
 
   // track whether quotes have been updated
   const [newQuotes, updateNewQuotes] = useState(false);
@@ -41,7 +43,7 @@ export default function ReviewQuotes(): ReactElement {
   //  it's never set to false again. can't set to false within useEffect (infinite loop)
 
   const addQuote = () => {
-    const newQuote: ReviewQuoteType = { body: null, id: null };
+    const newQuote: ReviewQuoteType = { body: '', id: 0 - reviewQuotes.length - 1 };
     dispatch(setReviewQuotes([...reviewQuotes, newQuote]));
   };
 

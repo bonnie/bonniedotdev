@@ -43,8 +43,8 @@ export type ReviewQuoteDisplayType = {
 };
 
 export type ReviewQuoteType = {
-  id: number | null,
-  body: string | null,
+  id: number,
+  body: string,
   courseId?: number
 };
 
