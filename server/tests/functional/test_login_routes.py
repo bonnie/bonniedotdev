@@ -1,8 +1,6 @@
 import pytest
 
 
-@pytest.mark.usefixtures("test_client")
-@pytest.mark.usefixtures("test_db")
 @pytest.mark.parametrize(
     ["username", "password", "expected_response"],
     [

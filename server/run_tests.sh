@@ -1,2 +1,2 @@
-export flask_env=test
+export FLASK_ENV=test
 py.test

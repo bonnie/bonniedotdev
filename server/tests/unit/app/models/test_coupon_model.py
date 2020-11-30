@@ -6,6 +6,7 @@ from app.models.coupon_model import Coupon
 from pytz import utc
 
 
+# TODO: move to conftest so they can be used in test_course_model
 @pytest.fixture
 def now_date_utc():
     return datetime.now(utc)

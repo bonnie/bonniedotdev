@@ -6,6 +6,10 @@ import pytest
 from app.models.coupon_model import Coupon
 from app.models.course_model import Course
 
+###########################################################
+# fixtures
+###########################################################
+
 
 @pytest.fixture
 def mock_update_db(mocker):
@@ -28,6 +32,11 @@ def course(mock_update_db, mock_coupon_property):
     )
 
 
+###########################################################
+# methods
+#############################################################
+
+
 def test_to_dict(course):
     course_dict = course.to_dict()
     assert set(course_dict.keys()) == {
@@ -39,6 +48,8 @@ def test_to_dict(course):
         "best_coupon",
     }
 
+
+# TODO: test to_dict for course with coupons (remove best_coupon mock fixture)
 
 ###########################################################
 # Best coupon tests

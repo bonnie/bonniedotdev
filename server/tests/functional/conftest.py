@@ -26,10 +26,6 @@ course_with_coupons_and_quotes = {
         },
         {"code": "EXPIRED", "expiration_iso_string": past_iso_date, "price": 9.99},
     ],
-    "review_quotes": [
-        {"body": "the best!"},
-        {"body": "meh"},
-    ],
 }
 
 course_without_coupons_and_quotes = {

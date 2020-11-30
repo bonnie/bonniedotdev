@@ -27,7 +27,6 @@ def test_get_existing_course(
         "name",
         "link",
         "description",
-        "review_quotes",
         "best_coupon",
     }
 
@@ -52,6 +51,7 @@ def test_add_coupons_to_course(test_db, test_client, simple_course_id):
     assert best_coupon["code"] == "test"
 
 
+# TODO: we don't delete reviews like this :-/
 def test_update_description_and_delete_review(test_db, test_client, full_course_id):
     patch = [
         {"op": "remove", "path": "/review_quotes/1"},

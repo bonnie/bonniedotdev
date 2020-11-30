@@ -52,6 +52,10 @@ def app():
     return create_app(flask_env="test")
 
 
+# TODO: move this to appropriate conftest
+# TODO: optimize to have one dependency for test_db and test_client instead of 2
+# TODO: understand "with" contexts here:
+#           https://flask.palletsprojects.com/en/1.1.x/testing/
 @pytest.fixture
 def test_client(app):
     return app.test_client()
