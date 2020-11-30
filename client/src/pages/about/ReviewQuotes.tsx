@@ -5,7 +5,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import urls from '../../constants/urls';
-import { actionTypes, setReviewQuotes } from '../../redux/actions';
+import { actionIds, setReviewQuotes } from '../../redux/actions';
 import useAxios from '../../redux/hooks/useAxios';
 import { axiosMethodEnum, ReviewQuoteType } from '../../types';
 import AddButton from '../common/AddButton';
@@ -35,7 +35,7 @@ export default function ReviewQuotes(): ReactElement {
       if (rawData !== null && rawData?.length > 1) {
         payload = rawData.sort((a, b) => a.body.length - b.body.length);
       }
-      dispatch({ type: actionTypes.SET_REVIEW_QUOTES, payload });
+      dispatch({ type: actionIds.SET_REVIEW_QUOTES, payload });
     };
     getDataFromServer();
   }, [dispatch, callServer, newQuotes]);

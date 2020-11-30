@@ -10,7 +10,7 @@ import {
   UserType,
 } from '../../types';
 
-export const actionTypes = {
+export const actionIds = {
   SET_ALERT: 'SET_ALERT',
   SET_LOADING: 'SET_LOADING',
   SET_USER: 'SET_USER',
@@ -23,54 +23,55 @@ export const actionTypes = {
 
 export function setAlert(message: string, alertType: AlertTypeOptions): AlertActionType {
   return {
-    type: actionTypes.SET_ALERT,
+    type: actionIds.SET_ALERT,
     payload: { message, alertType },
   };
 }
 
 export function clearAlert(): AlertActionType {
   return {
-    type: actionTypes.SET_ALERT,
+    type: actionIds.SET_ALERT,
   };
 }
 
 export function setLoading(): LoadingActionType {
   return {
-    type: actionTypes.SET_LOADING,
+    type: actionIds.SET_LOADING,
     payload: true,
   };
 }
 
 export function clearLoading(): LoadingActionType {
   return {
-    type: actionTypes.SET_LOADING,
+    type: actionIds.SET_LOADING,
     payload: false,
   };
 }
 
 export function setUser(userData: UserType): UserActionType {
   return {
-    type: actionTypes.SET_USER,
+    type: actionIds.SET_USER,
     payload: userData,
   };
 }
 
 export function clearUser(): UserActionType {
   return {
-    type: actionTypes.SET_USER,
+    type: actionIds.SET_USER,
   };
 }
 
 export function setCourses(payload: CourseType[]): CoursesActionType {
+  console.log('SETTING COURSES', payload);
   return {
-    type: actionTypes.SET_COURSES,
+    type: actionIds.SET_COURSES,
     payload,
   };
 }
 
 export function setReviewQuotes(payload: ReviewQuoteDisplayType[]): ReviewQuotesActionType {
   return {
-    type: actionTypes.SET_REVIEW_QUOTES,
+    type: actionIds.SET_REVIEW_QUOTES,
     payload,
   };
 }

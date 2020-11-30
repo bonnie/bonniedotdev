@@ -35,13 +35,10 @@ function EditCoupon({ coupon, courseId }: EditCouponProps): ReactElement {
 
 interface EditCourseProps {
   courseData: CourseType,
-  setUpdateCourses: () => void
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default function EditCourse(
-  { courseData, setUpdateCourses }: EditCourseProps,
-): ReactElement {
+export default function EditCourse({ courseData }: EditCourseProps): ReactElement {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
   const callServer = useAxios();
