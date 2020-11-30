@@ -1,0 +1,36 @@
+import { put, takeEvery } from 'redux-saga/effects';
+
+import { axiosMethodEnum } from '../../types';
+import { actionIds } from '../actions';
+
+interface actionType {
+  type: string, // TODO make more specific to this action?
+  payload: {
+    url: string,
+    id: number,
+    method: axiosMethodEnum,
+    updateStateAction: {type: string, },
+    data?: any,
+  }
+}
+
+export function* editServerItem({ payload }:actionType) {
+  // if id is negative, this is actually a new item
+  const url = (payload.id < 0) ? payload.url : `${payload.url}/${payload.id}`;
+
+  yield put({
+    type: actionIds.SERVER_REQUEST,
+    payload: {
+      url,
+      method: payload.method,
+      data: payload.data,
+    },
+  });
+
+  // update state
+  yield put({ type: payload.updateStateAction });
+}
+
+export default function* watchEditServerItem() {
+  yield takeEvery(actionIds.EDIT_SERVER_ITEM, editServerItem);
+}

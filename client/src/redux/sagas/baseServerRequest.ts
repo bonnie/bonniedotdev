@@ -36,12 +36,6 @@ export function* makeServerRequest({ payload }:makeServerRequestArgs) {
     axiosArgs.url = `http://localhost:5050${axiosArgs.url}`;
   }
 
-  // handle urlParam if one exists
-  if (axiosArgs.urlParam) {
-    axiosArgs.url += `/${axiosArgs.urlParam}`;
-    delete axiosArgs.urlParam;
-  }
-
   try {
     responseData = yield call(getAxiosResponseData, axiosArgs);
   } catch (e) {
@@ -56,5 +50,5 @@ export function* makeServerRequest({ payload }:makeServerRequestArgs) {
 }
 
 export default function* watchMakeServerRequest() {
-  yield takeEvery(actionIds.GET_DATA_FROM_SERVER, makeServerRequest);
+  yield takeEvery(actionIds.SERVER_REQUEST, makeServerRequest);
 }

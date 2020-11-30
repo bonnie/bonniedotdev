@@ -1,8 +1,8 @@
 import Grid from '@material-ui/core/Grid';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { actionIds, setCourses } from '../../redux/actions';
+import { setCourses, setCoursesFromServer } from '../../redux/actions';
 import { CourseType } from '../../types';
 import AddButton from '../common/AddButton';
 import Course from './Course';
@@ -15,10 +15,8 @@ export default function Courses(): ReactElement {
   // const user = useSelector((state) => state.user);
   const user = true; // TODO <------ for testing only
 
-  // get information about courses on component mount and when courses update
-  useEffect(() => {
-    dispatch({ type: actionIds.SET_COURSES_FROM_SERVER });
-  }, [dispatch]);
+  // load courses from server on component mount
+  useEffect(() => { dispatch(setCoursesFromServer()); }, [dispatch]);
 
   const addCourse = () => {
     const newCourse: CourseType = {

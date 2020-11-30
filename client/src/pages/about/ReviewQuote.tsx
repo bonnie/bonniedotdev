@@ -14,8 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import urls from '../../constants/urls';
 import { getFormData } from '../../helpers';
-import { setReviewQuotes } from '../../redux/actions';
-import useAxios from '../../redux/hooks/useAxios';
+import { actionIds, setReviewQuotes, setReviewQuotesFromServer } from '../../redux/actions';
 import { axiosMethodEnum, ReviewQuoteDisplayType } from '../../types';
 import EditButtons from '../common/EditButtons';
 
@@ -48,30 +47,33 @@ const useStyles = makeStyles(() => ({
 interface ReviewQuoteProps {
   quoteData: ReviewQuoteDisplayType,
   editable: boolean,
-  updateNewQuotes: (boolean) => void,
 }
 
 // eslint-disable-next-line max-lines-per-function
 export default function ReviewQuote(
-  { quoteData, editable, updateNewQuotes }: ReviewQuoteProps,
+  { quoteData, editable }: ReviewQuoteProps,
 ): ReactElement {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const callServer = useAxios();
   const reviewQuotes = useSelector((state) => state.reviewQuotes);
 
-  const handleSubmit = (event) => {
+  const handleEdit = (event) => {
     event.preventDefault();
 
     // send the new quote back to the server
     const formData = getFormData(event);
-    const newQuote = callServer(
-      dispatch,
-      { url: urls.reviewQuoteURL, method: axiosMethodEnum.POST, data: formData },
-    );
 
-    // let the parent know it's time to refresh the quotes
-    if (newQuote) updateNewQuotes(true);
+    // send edits back to server
+    dispatch({
+      type: actionIds.EDIT_SERVER_ITEM,
+      payload: {
+        url: urls.reviewQuotesURL,
+        id: quoteData.id,
+        method: axiosMethodEnum.post,
+        data: formData,
+        updateStateAction: setReviewQuotesFromServer(),
+      },
+    });
   };
 
   const handleDelete = async () => {
@@ -81,15 +83,19 @@ export default function ReviewQuote(
       dispatch(setReviewQuotes(newQuotes));
     } else {
       // it's got to be deleted from the db
-      await callServer(
-        dispatch,
-        { url: urls.reviewQuoteURL, method: axiosMethodEnum.DELETE, urlParam: quoteData.id },
-      );
-
-      // TODO: update reviewQuotes state with new data from the server
+      dispatch({
+        type: actionIds.EDIT_SERVER_ITEM,
+        payload: {
+          url: urls.reviewQuotesURL,
+          id: quoteData.id,
+          method: axiosMethodEnum.delete,
+          updateStateAction: setReviewQuotesFromServer(),
+        },
+      });
     }
   };
 
+  // TODO: separate this into two components
   const readOnlyQuote = (
     <>
       <Box fontStyle="italic">
@@ -111,7 +117,7 @@ export default function ReviewQuote(
 
   const editQuote = (
     <Box>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleEdit}>
         <TextField
           multiline
           name="body"

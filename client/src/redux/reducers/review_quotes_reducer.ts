@@ -7,10 +7,9 @@ export default function setReviewQuotes(
 ): ReviewQuoteType[] {
   switch (action.type) {
     case actionIds.SET_REVIEW_QUOTES: {
-      // sort the data by length, if there's data
-      if (action.payload && action.payload.length > 1) {
-        return action.payload.sort((a, b) => a.body.length - b.body.length);
-      }
+      // if data is truthy, return it
+      if (action.payload) return action.payload;
+
       // otherwise just return an empty array
       return [];
     }

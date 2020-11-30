@@ -9,8 +9,7 @@ import { Redirect } from 'react-router';
 
 import urls from '../../constants/urls';
 import { getFormData } from '../../helpers';
-import { setAlert, setUser } from '../../redux/actions';
-import useAxios from '../../redux/hooks/useAxios';
+import { actionIds, setAlert, setUser } from '../../redux/actions';
 import { AlertTypeOptions, axiosMethodEnum } from '../../types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -29,7 +28,6 @@ interface LoginPropsType {
 // eslint-disable-next-line max-lines-per-function
 export default function Login({ referrer = null }: LoginPropsType): ReactElement {
   const classes = useStyles();
-  const callServer = useAxios();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -38,17 +36,10 @@ export default function Login({ referrer = null }: LoginPropsType): ReactElement
     const formData = getFormData(event);
 
     // TODO: abstract this out to an action using Redux Thunk (or Saga)
-    const responseData = await callServer(
-      dispatch,
-      { url: urls.loginURL, method: axiosMethodEnum.POST, data: formData },
-    );
-    if (responseData !== null) {
-      // this will re-render and redirect to auth
-      dispatch(setUser(responseData));
-    } else {
-      // TODO: log this!
-      dispatch(setAlert('Incorrect login', AlertTypeOptions.warning));
-    }
+    dispatch({
+      type: actionIds.LOGIN_USER,
+      payload: { data: formData },
+    });
   };
 
   // if someone manually enters the url while logged in, or state changes, redirect to auth

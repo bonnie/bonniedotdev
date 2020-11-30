@@ -109,6 +109,5 @@ export type axiosArgsType = {
   method: axiosMethodEnum,
   url: string,
   data?: UserLoginDataType,
-  urlParam?: string
   callback?: (data) => void
 }

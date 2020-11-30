@@ -12,8 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import urls from '../../constants/urls';
 import { getFormData } from '../../helpers';
-import { setCourses } from '../../redux/actions';
-import useAxios from '../../redux/hooks/useAxios';
+import { actionIds, setCourses, setCoursesFromServer } from '../../redux/actions';
 import { axiosMethodEnum, CouponType, CourseType } from '../../types';
 import EditButtons from '../common/EditButtons';
 
@@ -41,7 +40,6 @@ interface EditCourseProps {
 export default function EditCourse({ courseData }: EditCourseProps): ReactElement {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
-  const callServer = useAxios();
 
   const handleSubmit = (event) => {
     const formData = getFormData(event);
@@ -56,10 +54,15 @@ export default function EditCourse({ courseData }: EditCourseProps): ReactElemen
       dispatch(setCourses(newCourses));
     } else {
       // it's got to be deleted from the db
-      await callServer(
-        dispatch,
-        { url: urls.courseURL, method: axiosMethodEnum.DELETE, urlParam: courseData.id },
-      );
+      dispatch({
+        type: actionIds.EDIT_SERVER_ITEM,
+        payload: {
+          url: urls.courseURL,
+          id: courseData.id,
+          method: axiosMethodEnum.delete,
+          updateStateAction: setCoursesFromServer(),
+        },
+      });
 
       // TODO: update courses state with new data from the server
     }

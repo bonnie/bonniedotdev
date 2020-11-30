@@ -1,3 +1,4 @@
+import urls from '../../constants/urls';
 import {
   AlertActionType,
   AlertTypeOptions,
@@ -16,9 +17,13 @@ export const actionIds = {
   SET_USER: 'SET_USER',
   SET_COURSES: 'SET_COURSES',
   SET_REVIEW_QUOTES: 'SET_REVIEW_QUOTES',
-  GET_DATA_FROM_SERVER: 'GET_DATA_FROM_SERVER',
-  SET_COURSES_FROM_SERVER: 'SET_COURSES_FROM_SERVER',
-  SET_REVIEW_QUOTES_FROM_SERVER: 'SET_REVIEW_QUOTES_FROM_SERVER',
+  SERVER_REQUEST: 'SERVER_REQUEST',
+  LOGIN_USER: 'LOGIN_USER',
+  SET_DATA_FROM_SERVER: 'SET_DATA_FROM_SERVER',
+  DELETE_SERVER_ITEM: 'DELETE_SERVER_ITEM',
+  EDIT_SERVER_ITEM: 'EDIT_SERVER_ITEM',
+  ADD_SERVER_ITEM: 'ADD_SERVER_ITEM',
+  UPDATE_SERVER_ITEM: 'UPDATE_SERVER_ITEM',
 };
 
 export function setAlert(message: string, alertType: AlertTypeOptions): AlertActionType {
@@ -62,7 +67,6 @@ export function clearUser(): UserActionType {
 }
 
 export function setCourses(payload: CourseType[]): CoursesActionType {
-  console.log('SETTING COURSES', payload);
   return {
     type: actionIds.SET_COURSES,
     payload,
@@ -73,5 +77,28 @@ export function setReviewQuotes(payload: ReviewQuoteDisplayType[]): ReviewQuotes
   return {
     type: actionIds.SET_REVIEW_QUOTES,
     payload,
+  };
+}
+
+export function setCoursesFromServer() {
+  return {
+    type: actionIds.SET_DATA_FROM_SERVER,
+    payload: {
+      url: urls.coursesURL,
+      callback: setCourses,
+    },
+  };
+}
+
+export function setReviewQuotesFromServer() {
+  return {
+    type: actionIds.SET_DATA_FROM_SERVER,
+    payload: {
+      url: urls.reviewQuotesURL,
+      callback: (data) => {
+        data.sort((a, b) => a.body.length - b.body.length);
+        setReviewQuotes(data);
+      },
+    },
   };
 }
