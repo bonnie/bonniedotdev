@@ -3,14 +3,11 @@ import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { getFormData } from 'Helpers';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
-
-import urls from '../../constants/urls';
-import { getFormData } from '../../helpers';
-import { actionIds, setAlert, setUser } from '../../redux/actions';
-import { AlertTypeOptions, axiosMethodEnum } from '../../types';
+import sagaActionIds from 'Redux/Sagas/actionIds';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -37,8 +34,8 @@ export default function Login({ referrer = null }: LoginPropsType): ReactElement
 
     // TODO: abstract this out to an action using Redux Thunk (or Saga)
     dispatch({
-      type: actionIds.LOGIN_USER,
-      payload: { data: formData },
+      type: sagaActionIds.LOGIN_USER,
+      payload: { ...formData },
     });
   };
 

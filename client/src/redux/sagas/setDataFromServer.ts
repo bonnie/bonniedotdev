@@ -1,7 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 
-import { axiosMethodEnum } from '../../types';
-import { actionIds } from '../actions';
+import sagaActionIds from './actionIds';
+import { axiosMethodOptions } from './Types';
 
 interface actionType {
   type: string, // TODO make more specific to this action?
@@ -13,14 +13,14 @@ interface actionType {
 
 export function* setDataFromServer({ payload }: actionType) {
   yield put({
-    type: actionIds.SERVER_REQUEST,
+    type: sagaActionIds.SERVER_REQUEST,
     payload: {
-      method: axiosMethodEnum.get,
+      method: axiosMethodOptions.get,
       ...payload,
     },
   });
 }
 
 export default function* watchSetDataFromServer() {
-  yield takeEvery(actionIds.SET_DATA_FROM_SERVER, setDataFromServer);
+  yield takeEvery(sagaActionIds.SET_DATA_FROM_SERVER, setDataFromServer);
 }

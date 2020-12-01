@@ -3,9 +3,9 @@ import moxios from 'moxios';
 import { call, put } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
-import { axiosMethodEnum } from '../../types';
-import { actionIds } from '../actions';
+import sagaActionIds from './actionIds';
 import { getAxiosResponseData, makeServerRequest } from './baseServerRequest';
+import { axiosMethodOptions } from './Types';
 
 describe('test by simulating axios conditions with moxios', () => {
   beforeEach(() => {
@@ -29,12 +29,12 @@ describe('test by simulating axios conditions with moxios', () => {
 
     // SETUP: define inputs and create generator
     // const serverPayload: ServerRequestPayloadType = {
-    //   method: axiosMethodEnum.get,
+    //   method: axiosMethodOptions.get,
     //   url: 'url',
     // };
 
     // const serverRequestAction: ServerRequestActionType = {
-    //   type: actionIds.GET_DATA_FROM_SERVER, payload: serverPayload,
+    //   type: sagaActionIds.GET_DATA_FROM_SERVER, payload: serverPayload,
     // };
 
     // const gen = makeServerRequest(serverRequestAction);
@@ -43,7 +43,7 @@ describe('test by simulating axios conditions with moxios', () => {
     // // first yield should set loading
     // let next = gen.next();
     // expect(next.value).toEqual(
-    //   put({ type: actionIds.SET_LOADING, payload: true }),
+    //   put({ type: sagaActionIds.SET_LOADING, payload: true }),
     // );
 
     // // next yield should call axios
@@ -58,7 +58,7 @@ describe('test by simulating axios conditions with moxios', () => {
     // Solution: mock getAxiosResponseData...?
     // next = gen.next();
     // expect(next.value).toEqual(
-    //   put({ type: actionIds.SET_LOADING, payload: false }),
+    //   put({ type: sagaActionIds.SET_LOADING, payload: false }),
     // );
   });
 });

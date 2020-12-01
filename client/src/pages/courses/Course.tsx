@@ -8,10 +8,10 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React, { ReactElement } from 'react';
+import { colors } from 'Theme';
 
-import { colors } from '../../theme';
-import { CourseType } from '../../types';
 import Coupon from './Coupon';
+import { CourseType } from './Types/index';
 
 const useStyles = makeStyles(() => ({
   root: {

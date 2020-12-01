@@ -3,10 +3,10 @@ import { fireEvent } from '@testing-library/react';
 import { rest } from 'msw';
 import React from 'react';
 
-import urls from '../../constants/urls';
-import server from '../../mocks/server';
-import { renderWithRouterAndProvider } from '../../testUtils/renderWith';
-import App from '../_app/App';
+import urls from '../../Constants/urls';
+import server from '../../TestUtils/Mocks/server';
+import { renderWithRouterAndProvider } from '../../TestUtils/renderWith';
+import App from '../App/App';
 
 test('Renders five review quotes for non-error server response', async () => {
   // Note: mocked server response is handled by msw, in the src/mocks folder

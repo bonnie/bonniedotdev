@@ -3,6 +3,7 @@
     "target": "es5",
     "module": "esnext",
     "moduleResolution": "node",
+    "baseUrl": "src",
     "esModuleInterop": true,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
@@ -10,18 +11,9 @@
     "removeComments": false,
     "noImplicitAny": false,
     "jsx": "react",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": [
-      "node",
-      "jest"
-    ],
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node", "jest"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -32,9 +24,5 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "node_modules/@types"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "node_modules/@types"]
 }

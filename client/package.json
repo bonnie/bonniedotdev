@@ -82,5 +82,10 @@
   },
   "jest": {
     "resetMocks": false
+  },
+  "jsconfig": {
+    "compilerOptions": {
+      "baseUrl": "src"
+    }
   }
 }

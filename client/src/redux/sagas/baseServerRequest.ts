@@ -1,12 +1,13 @@
 // reference: https://github.com/Lemoncode/redux-sagas-typescript-by-example
 
 import axios from 'axios';
+import { setAlert } from 'Pages/App/Alert/Redux/actions';
+import { AlertTypeOptions } from 'Pages/App/Alert/Types';
+import { clearLoading, setLoading } from 'Pages/App/Loading/Redux/actions';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { AlertTypeOptions, axiosArgsType } from '../../types';
-import {
-  actionIds, clearLoading, setAlert, setLoading,
-} from '../actions';
+import sagaActionIds from './actionIds';
+import { axiosArgsType } from './Types';
 
 export const getAxiosResponseData = async (axiosConfig) => {
   // any errors will bubble up
@@ -50,5 +51,5 @@ export function* makeServerRequest({ payload }:makeServerRequestArgs) {
 }
 
 export default function* watchMakeServerRequest() {
-  yield takeEvery(actionIds.SERVER_REQUEST, makeServerRequest);
+  yield takeEvery(sagaActionIds.SERVER_REQUEST, makeServerRequest);
 }

@@ -1,9 +1,10 @@
+import { setAlert } from 'Pages/App/Alert/Redux/actions';
+import { AlertTypeOptions } from 'Pages/App/Alert/Types';
 import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { clearUser, setAlert } from '../../redux/actions';
-import { AlertTypeOptions } from '../../types';
+import { clearUser } from './Redux/actions';
 
 export default function Login(): ReactElement {
   const dispatch = useDispatch();

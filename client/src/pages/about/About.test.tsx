@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import React from 'react';
 
-import { renderWithProvider } from '../../testUtils/renderWith';
+import { renderWithProvider } from '../../TestUtils/renderWith';
 import About from './About';
 
 test('renders bio', () => {

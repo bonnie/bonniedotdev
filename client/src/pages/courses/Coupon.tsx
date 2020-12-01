@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import moment from 'moment-timezone';
 import React, { ReactElement } from 'react';
 
-import { CouponType } from '../../types';
+import { CouponType } from './Types';
 
 type CouponProps = {
   couponData: CouponType,

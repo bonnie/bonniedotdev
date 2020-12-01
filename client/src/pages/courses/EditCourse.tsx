@@ -4,17 +4,14 @@
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import Input from '@material-ui/core/Input';
-import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import { DateTimePicker } from '@material-ui/pickers';
+import { getFormData } from 'Helpers';
+import EditButtons from 'Pages/Common/EditButtons';
+import { addCourse, deleteCourse, setCourses } from 'Pages/Courses/Redux/actions';
+import { CouponType, CourseType } from 'Pages/Courses/Types';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import urls from '../../constants/urls';
-import { getFormData } from '../../helpers';
-import { actionIds, setCourses, setCoursesFromServer } from '../../redux/actions';
-import { axiosMethodEnum, CouponType, CourseType } from '../../types';
-import EditButtons from '../common/EditButtons';
 
 interface EditCouponProps {
   coupon: CouponType | null,
@@ -44,7 +41,10 @@ export default function EditCourse({ courseData }: EditCourseProps): ReactElemen
   const handleSubmit = (event) => {
     const formData = getFormData(event);
 
-    // process coupons
+    // TODO: process coupons
+    const data = formData;
+
+    dispatch(addCourse(formData));
   };
 
   const handleDelete = async () => {
@@ -54,17 +54,7 @@ export default function EditCourse({ courseData }: EditCourseProps): ReactElemen
       dispatch(setCourses(newCourses));
     } else {
       // it's got to be deleted from the db
-      dispatch({
-        type: actionIds.EDIT_SERVER_ITEM,
-        payload: {
-          url: urls.courseURL,
-          id: courseData.id,
-          method: axiosMethodEnum.delete,
-          updateStateAction: setCoursesFromServer(),
-        },
-      });
-
-      // TODO: update courses state with new data from the server
+      dispatch(deleteCourse(courseData.id));
     }
   };
 

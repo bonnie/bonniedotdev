@@ -2,11 +2,11 @@ import Grid from '@material-ui/core/Grid';
 import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setCourses, setCoursesFromServer } from '../../redux/actions';
-import { CourseType } from '../../types';
-import AddButton from '../common/AddButton';
+import AddButton from '../Common/AddButton';
 import Course from './Course';
 import EditCourse from './EditCourse';
+import { setCourses, setCoursesFromServer } from './Redux/actions';
+import { CourseType } from './Types';
 
 // eslint-disable-next-line max-lines-per-function
 export default function Courses(): ReactElement {

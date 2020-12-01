@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react';
 import { url } from 'inspector';
 import React from 'react';
 
-import { CouponType, CourseType } from '../../types';
 import Course from './Course';
+import { CouponType, CourseType } from './Types/index';
 
 const coupon: CouponType = {
   id: 1,

@@ -1,4 +1,5 @@
-import { CourseType, UserType } from '../../types';
+import { UserType } from 'Pages/Auth/Types';
+import { CourseType } from 'Pages/Courses/Types';
 
 export const testSuccessLoginReponse: UserType = {
   id: 1,

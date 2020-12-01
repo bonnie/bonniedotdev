@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore, Store } from 'redux';
 
-import { middlewares } from '../redux/configureStore';
-import rootReducer from '../redux/reducers';
+import { middlewares } from '../Redux/configureStore';
+import rootReducer from '../Redux/reducers';
 
 /**
  * Create a testing store with imported reducers, middleware, and initial state.
