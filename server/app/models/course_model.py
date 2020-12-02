@@ -18,6 +18,7 @@ class Course(db.Model, Base):
     name = db.Column(db.String)
     link = db.Column(db.String)  # link to include referral code
     description = db.Column(db.String)
+    image_name = db.Column(db.String)  # name of image to display
     coupons = db.relationship("Coupon")
 
     def __init__(
@@ -25,6 +26,7 @@ class Course(db.Model, Base):
         name: str,
         link: str,
         description: str,
+        imageName: str,
         coupons: List[CouponDict] = None,
     ):
         """Create record and add to db."""
@@ -34,6 +36,7 @@ class Course(db.Model, Base):
         self.name = name
         self.link = link
         self.description = description
+        self.image_name = imageName  # data will come from JS, hence camelCase
         self.set_coupons(coupons)
 
         self.update_db()
@@ -106,7 +109,8 @@ class Course(db.Model, Base):
             "name": self.name,
             "description": self.description,
             "link": self.link,
-            "best_coupon": self.best_coupon,
+            "imageName": self.image_name,  # defer to JS for camel case
+            "bestCoupon": self.best_coupon,
         }
 
     def __repr__(self):

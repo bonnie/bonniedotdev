@@ -3,7 +3,11 @@
 
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
+import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
 import { DateTimePicker } from '@material-ui/pickers';
@@ -13,7 +17,7 @@ import {
   addCourse, deleteCourse, editCourse, setCourses,
 } from 'Pages/Courses/Redux/actions';
 import { CouponType, CourseType } from 'Pages/Courses/Types';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface EditCouponProps {
@@ -33,9 +37,9 @@ function EditCoupon({ coupon, courseId }: EditCouponProps): ReactElement {
 // utcExpiration: Date,
 
 const useStyles = makeStyles(() => ({
-  textField: {
+  formField: {
     width: '100%',
-    marginTop: '3px',
+    marginTop: '15px',
   },
   notSavedCard: {
     background: '#efe',
@@ -50,11 +54,19 @@ interface EditCourseProps {
 // eslint-disable-next-line max-lines-per-function
 export default function EditCourse({ courseData, showAddButton }: EditCourseProps): ReactElement {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const courses = useSelector((state) => state.courses);
   const error = useSelector((state) => state.alert);
+
   // negative id indicates not in the db. Just delete from state.
   const notSaved = courseData.id < 0;
-  const classes = useStyles();
+
+  // for the state-controlled select
+  const [courseImageName, setCourseImageName] = useState(courseData.imageName);
+
+  // I'd rather read this from the filesystem but that would require
+  // server-side rendering, which I'm not ready to take on just yet
+  const courseImageOptions = ['udemy-course-image.jpg'];
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -88,10 +100,26 @@ export default function EditCourse({ courseData, showAddButton }: EditCourseProp
       <Box p={2}>
         <form onSubmit={handleSubmit}>
           <Input type="hidden" name="id" value={courseData.id} />
-          <TextField className={classes.textField} multiline required name="name" label="Course name" defaultValue={courseData.name} />
-          <TextField className={classes.textField} multiline required name="description" label="Description" defaultValue={courseData.description} />
-          <TextField className={classes.textField} multiline required name="link" label="Full Link" defaultValue={courseData.link} />
-
+          <TextField className={classes.formField} multiline required name="name" label="Course name" defaultValue={courseData.name} />
+          <TextField className={classes.formField} multiline required name="description" label="Description" defaultValue={courseData.description} />
+          <TextField className={classes.formField} multiline required name="link" label="Full Link" defaultValue={courseData.link} />
+          <FormControl required className={classes.formField}>
+            <InputLabel id="course-image-label">Course Image Name</InputLabel>
+            <Select
+              labelId="course-image-label"
+              name="imageName"
+              value={courseImageName || ''}
+              onChange={(event) => setCourseImageName(event.target.value as string)}
+            >
+              {courseImageOptions.map(
+                (imageOption) => (
+                  <MenuItem key={imageOption} value={imageOption}>
+                    {imageOption}
+                  </MenuItem>
+                ),
+              )}
+            </Select>
+          </FormControl>
           <Box>
             {/* <EditCoupon /> */}
           </Box>

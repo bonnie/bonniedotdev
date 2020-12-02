@@ -18,6 +18,7 @@ class CoursePostDataSchema(Schema):
     name = fields.Str(required=True)
     link = fields.Str(required=True)
     description = fields.Str(required=True)
+    imageName = fields.Str(required=True)  # defer to JS for camel case
     # coupons = fields.Nested(CouponSchema, many=True)
 
 
