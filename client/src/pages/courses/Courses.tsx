@@ -1,5 +1,5 @@
 import Grid from '@material-ui/core/Grid';
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AddButton from '../Common/AddButton';
@@ -14,6 +14,7 @@ export default function Courses(): ReactElement {
   const courses = useSelector((state) => state.courses);
   // const user = useSelector((state) => state.user);
   const user = true; // TODO <------ for testing only
+  const [addButton, showAddButton] = useState(user);
 
   // load courses from server on component mount
   useEffect(() => { dispatch(setCoursesFromServer()); }, [dispatch]);
@@ -28,6 +29,7 @@ export default function Courses(): ReactElement {
       imageName: '',
     };
     dispatch(setCourses([...courses, newCourse]));
+    showAddButton(false);
   };
 
   return (
@@ -37,11 +39,11 @@ export default function Courses(): ReactElement {
         {courses?.map((course: CourseType) => (
           <Grid key={course.id} item xs={12} sm={6} md={4}>
             {user
-              ? <EditCourse courseData={course} />
+              ? <EditCourse courseData={course} showAddButton={showAddButton} />
               : <Course courseData={course} />}
           </Grid>
         ))}
-        { user ? <AddButton onClick={addEditableCourse} /> : null}
+        { addButton ? <AddButton onClick={addEditableCourse} /> : null}
       </Grid>
     </>
   );

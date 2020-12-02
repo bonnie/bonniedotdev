@@ -17,8 +17,6 @@ interface actionType {
 
 export function* editServerItem({ payload }:actionType) {
   // if id is negative, this is actually a new item
-  console.log('--------------------> editing server item', payload);
-
   const url = (payload.id < 0) ? payload.url : `${payload.url}/${payload.id}`;
 
   yield put({
