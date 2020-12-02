@@ -37,19 +37,19 @@ interface EditCourseProps {
 export default function EditCourse({ courseData }: EditCourseProps): ReactElement {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
+  // negative id indicates not in the db. Just delete from state.
+  const notSaved = courseData.id < 0;
+  const background = notSaved ? '#efe' : 'white';
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     const formData = getFormData(event);
-
-    // TODO: process coupons
-    const data = formData;
 
     dispatch(addCourse(formData));
   };
 
   const handleDelete = async () => {
-    if (courseData.id < 0) {
-      // negative id indicates not in the db. Just delete from state.
+    if (notSaved) {
       const newCourses = courses.filter((course) => course.id !== courseData.id);
       dispatch(setCourses(newCourses));
     } else {
@@ -59,13 +59,13 @@ export default function EditCourse({ courseData }: EditCourseProps): ReactElemen
   };
 
   return (
-    <Card>
+    <Card style={{ background }}>
       <Box p={2}>
         <form onSubmit={handleSubmit}>
           <Input type="hidden" name="id" value={courseData.id} />
-          <TextField style={{ width: '100%' }} multiline name="name" label="Course name" defaultValue={courseData.name} />
-          <TextField style={{ width: '100%' }} multiline name="description" label="Description" defaultValue={courseData.description} />
-          <TextField style={{ width: '100%' }} multiline name="link" label="Full Link" defaultValue={courseData.link} />
+          <TextField style={{ width: '100%' }} multiline required name="name" label="Course name" defaultValue={courseData.name} />
+          <TextField style={{ width: '100%' }} multiline required name="description" label="Description" defaultValue={courseData.description} />
+          <TextField style={{ width: '100%' }} multiline required name="link" label="Full Link" defaultValue={courseData.link} />
 
           <Box>
             {/* <EditCoupon /> */}

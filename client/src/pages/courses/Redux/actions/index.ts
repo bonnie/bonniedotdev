@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import sagaActionIds from 'Redux/Sagas/actionIds';
 import { axiosMethodOptions } from 'Redux/Sagas/Types';
 
@@ -20,7 +21,7 @@ export function setCoursesFromServer() {
     type: sagaActionIds.SET_DATA_FROM_SERVER,
     payload: {
       url: urls.coursesURL,
-      callback: setCourses,
+      actionCreatorCallback: (data) => setCourses(data),
     },
   };
 }
@@ -38,11 +39,16 @@ export function deleteCourse(courseId) {
 }
 
 export function addCourse(courseData) {
+  // remove the id from data to be sent to the server
+  const { id } = courseData;
+  delete courseData.id;
+
   return {
     type: sagaActionIds.EDIT_SERVER_ITEM,
     payload: {
       url: urls.courseURL,
       method: axiosMethodOptions.post,
+      id,
       updateStateAction: setCoursesFromServer(),
       data: courseData,
     },

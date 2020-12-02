@@ -18,7 +18,7 @@ class CoursePostDataSchema(Schema):
     name = fields.Str(required=True)
     link = fields.Str(required=True)
     description = fields.Str(required=True)
-    coupons = fields.Nested(CouponSchema, many=True)
+    # coupons = fields.Nested(CouponSchema, many=True)
 
 
 class Course(Resource):
@@ -55,7 +55,7 @@ class Course(Resource):
     def post(self):
         """Create new course."""
 
-        args = self.schema.load(request.json)
+        args = CoursePostDataSchema().load(request.json)
         new_course = CourseModel(**args)
 
         return new_course.to_dict(), 201

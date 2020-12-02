@@ -18,7 +18,7 @@ export default function Courses(): ReactElement {
   // load courses from server on component mount
   useEffect(() => { dispatch(setCoursesFromServer()); }, [dispatch]);
 
-  const addCourse = () => {
+  const addEditableCourse = () => {
     const newCourse: CourseType = {
       // new courses get a negative number, to distinguish from existing courses
       id: 0 - (courses.length + 1),
@@ -41,7 +41,7 @@ export default function Courses(): ReactElement {
               : <Course courseData={course} />}
           </Grid>
         ))}
-        { user ? <AddButton onClick={addCourse} /> : null}
+        { user ? <AddButton onClick={addEditableCourse} /> : null}
       </Grid>
     </>
   );

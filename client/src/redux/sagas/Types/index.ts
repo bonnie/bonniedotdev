@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export */
+import { Action } from 'redux';
 
 // TODO: can I import this?
 export enum axiosMethodOptions {
@@ -28,5 +28,5 @@ export type axiosArgsType = {
   method: axiosMethodOptions,
   url: string,
   data?: any,
-  callback?: (data) => void
+  actionCreatorCallback?: (data) => Action<any>;
 }

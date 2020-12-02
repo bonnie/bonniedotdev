@@ -20,34 +20,41 @@ interface makeServerRequestArgs {
   payload: axiosArgsType
 }
 
-export function* makeServerRequest({ payload }:makeServerRequestArgs) {
+export function* makeServerRequest({ payload }: makeServerRequestArgs) {
   let responseData = null;
   const errorString = 'There was a problem connecting to the server';
+
+  // TODO: only show loading if the loading takes a certain amount of time
+  // or, make loading less "blink the whole screen" (probably the latter)
   yield put(setLoading());
 
   // store callback before removing it for axios
-  const { callback } = payload;
+  const { actionCreatorCallback } = payload;
   const axiosArgs = payload;
 
   // remove the callback from the axios args if it's there
-  if (axiosArgs.callback) delete axiosArgs.callback;
+  if (axiosArgs.actionCreatorCallback) delete axiosArgs.actionCreatorCallback;
 
   if (process.env.NODE_ENV === 'development') {
     // for development, use flask server running in background
     axiosArgs.url = `http://localhost:5050${axiosArgs.url}`;
   }
 
+  const headers = { 'Content-Type': 'application/json' };
+
   try {
-    responseData = yield call(getAxiosResponseData, axiosArgs);
+    responseData = yield call(getAxiosResponseData, { headers, ...axiosArgs });
+    yield put(clearLoading());
+
+    // run the callback on the data on success
+    if (actionCreatorCallback) {
+      yield put(actionCreatorCallback(responseData));
+    }
   } catch (e) {
     // TODO: log this to file
-    console.error('error calling server', e);
     yield put(setAlert(errorString, AlertTypeOptions.error));
+    yield put(clearLoading());
   }
-  yield put(clearLoading());
-
-  // finally, run the callback on the data
-  if (callback) { callback(responseData); }
 }
 
 export default function* watchMakeServerRequest() {

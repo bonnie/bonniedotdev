@@ -1,3 +1,4 @@
+import { Action } from 'redux';
 import { put, takeEvery } from 'redux-saga/effects';
 
 import sagaActionIds from './actionIds';
@@ -6,13 +7,14 @@ import { axiosMethodOptions } from './Types';
 interface actionType {
   type: string, // TODO make more specific to this action?
   payload: {
-    callback: (data) => void;
+    // TODO unify this type with the one in Redux/Sagas/Types
+    actionCreatorCallback: (data) => Action<any>;
     url: string,
   }
 }
 
 export function* setDataFromServer({ payload }: actionType) {
-  yield put({
+  const data = yield put({
     type: sagaActionIds.SERVER_REQUEST,
     payload: {
       method: axiosMethodOptions.get,

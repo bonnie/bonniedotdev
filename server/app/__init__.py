@@ -42,7 +42,7 @@ def create_app(flask_env):
     api.add_resource(ReviewQuotes, "/review_quotes")
     api.add_resource(ReviewQuote, "review_quote/<int:id>", "/review_quote/add")
     api.add_resource(Courses, "/courses")
-    api.add_resource(Course, "/course/<int:id>", "/course/add")
+    api.add_resource(Course, "/course/<int:id>", "/course")
 
     @app.route("/")
     def serve_react():
