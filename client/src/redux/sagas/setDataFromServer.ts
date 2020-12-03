@@ -8,7 +8,7 @@ interface actionType {
   type: string, // TODO make more specific to this action?
   payload: {
     // TODO unify this type with the one in Redux/Sagas/Types
-    actionCreatorCallback: (data) => Action<any>;
+    callback: (data) => Action<any>;
     url: string,
   }
 }

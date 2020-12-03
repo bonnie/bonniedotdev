@@ -29,11 +29,11 @@ export function* makeServerRequest({ payload }: makeServerRequestArgs) {
   yield put(setLoading());
 
   // store callback before removing it for axios
-  const { actionCreatorCallback } = payload;
+  const { callback } = payload;
   const axiosArgs = payload;
 
   // remove the callback from the axios args if it's there
-  if (axiosArgs.actionCreatorCallback) delete axiosArgs.actionCreatorCallback;
+  if (axiosArgs.callback) delete axiosArgs.callback;
 
   if (process.env.NODE_ENV === 'development') {
     // for development, use flask server running in background
@@ -47,11 +47,12 @@ export function* makeServerRequest({ payload }: makeServerRequestArgs) {
     yield put(clearLoading());
 
     // run the callback on the data on success
-    if (actionCreatorCallback) {
-      yield put(actionCreatorCallback(responseData));
+    if (callback) {
+      yield put(callback(responseData));
     }
   } catch (e) {
     // TODO: log this to file
+    console.error('error in baseServerRequest', e);
     yield put(setAlert(errorString, AlertTypeOptions.error));
     yield put(clearLoading());
   }

@@ -25,7 +25,7 @@ export function* editServerItem({ payload }:actionType) {
       url,
       method: payload.method,
       data: payload.data,
-      actionCreatorCallback: () => payload.updateStateAction,
+      callback: () => payload.updateStateAction,
     },
   });
 }

@@ -42,17 +42,19 @@ const useStyles = makeStyles(() => ({
     marginTop: '15px',
   },
   notSavedCard: {
+    // TODO: something spiffier than a green background for a new course
+    // maybe a badge?
     background: '#efe',
   },
 }));
 
 interface EditCourseProps {
   courseData: CourseType,
-  showAddButton: (boolean) => void
+  setAddButton: (boolean) => void
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default function EditCourse({ courseData, showAddButton }: EditCourseProps): ReactElement {
+export default function EditCourse({ courseData, setAddButton }: EditCourseProps): ReactElement {
   const dispatch = useDispatch();
   const classes = useStyles();
   const courses = useSelector((state) => state.courses);
@@ -76,7 +78,7 @@ export default function EditCourse({ courseData, showAddButton }: EditCourseProp
       dispatch(addCourse(formData));
 
       // reinstate the "add" button if the action was successful
-      if (!error) showAddButton(true);
+      if (!error) setAddButton(true);
     } else {
       dispatch(editCourse(formData, courseData));
     }
@@ -88,7 +90,7 @@ export default function EditCourse({ courseData, showAddButton }: EditCourseProp
       dispatch(setCourses(newCourses));
 
       // reinstate the "add" button
-      if (!error) showAddButton(true);
+      if (!error) setAddButton(true);
     } else {
       // it's got to be deleted from the db
       dispatch(deleteCourse(courseData.id));
@@ -124,7 +126,7 @@ export default function EditCourse({ courseData, showAddButton }: EditCourseProp
             {/* <EditCoupon /> */}
           </Box>
 
-          <EditButtons handleDelete={handleDelete} deleteItemString="course" />
+          <EditButtons handleDelete={handleDelete} itemString="course" />
         </form>
       </Box>
     </Card>

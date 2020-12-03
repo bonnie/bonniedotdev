@@ -14,7 +14,7 @@ export default function Courses(): ReactElement {
   const courses = useSelector((state) => state.courses);
   // const user = useSelector((state) => state.user);
   const user = true; // TODO <------ for testing only
-  const [addButton, showAddButton] = useState(user);
+  const [addButton, setAddButton] = useState(user !== null);
 
   // load courses from server on component mount
   useEffect(() => { dispatch(setCoursesFromServer()); }, [dispatch]);
@@ -29,7 +29,7 @@ export default function Courses(): ReactElement {
       imageName: '',
     };
     dispatch(setCourses([...courses, newCourse]));
-    showAddButton(false);
+    setAddButton(false);
   };
 
   return (
@@ -39,7 +39,7 @@ export default function Courses(): ReactElement {
         {courses?.map((course: CourseType) => (
           <Grid key={course.id} item xs={12} sm={6} md={4}>
             {user
-              ? <EditCourse courseData={course} showAddButton={showAddButton} />
+              ? <EditCourse courseData={course} setAddButton={setAddButton} />
               : <Course courseData={course} />}
           </Grid>
         ))}

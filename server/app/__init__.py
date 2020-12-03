@@ -40,7 +40,7 @@ def create_app(flask_env):
     # api.add_resource(FooterLinks, "/api/footer_links")
     api.add_resource(Login, "/login")
     api.add_resource(ReviewQuotes, "/review_quotes")
-    api.add_resource(ReviewQuote, "review_quote/<int:id>", "/review_quote/add")
+    api.add_resource(ReviewQuote, "/review_quote/<int:id>", "/review_quote")
     api.add_resource(Courses, "/courses")
     api.add_resource(Course, "/course/<int:id>", "/course")
 

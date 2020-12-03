@@ -23,7 +23,7 @@ export function setCoursesFromServer() {
     type: sagaActionIds.SET_DATA_FROM_SERVER,
     payload: {
       url: urls.coursesURL,
-      actionCreatorCallback: (data) => setCourses(data.sort((a, b) => a.name < b.name)),
+      callback: (data) => setCourses(data.sort((a, b) => a.name < b.name)),
     },
   };
 }

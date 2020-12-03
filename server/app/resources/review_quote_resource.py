@@ -22,6 +22,8 @@ class ReviewQuoteSchema(Schema):
 class ReviewQuote(Resource):
     """Flask RESTful Resource for individual quotes."""
 
+    # TODO: reduce boilerplate for this and Course resource by subclassing
+
     def _get_by_id(self, id: int) -> ReviewQuoteModel:
         """Return record object for specified ID."""
 
@@ -50,3 +52,11 @@ class ReviewQuote(Resource):
         new_quote = ReviewQuoteSchema().load(request.json)
 
         return new_quote.to_dict(), 201
+
+    def delete(self, id):
+        """Delete review quote."""
+
+        review_quote = self._get_by_id(id)
+        review_quote.delete()
+
+        return None, 204

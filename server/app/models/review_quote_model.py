@@ -53,8 +53,10 @@ class ReviewQuote(db.Model, Base):
         """Return the called upon resource to dictionary format."""
         return {
             "id": self.id,
-            "course_id": self.course_id,
             "body": self.body,
+            "courseId": self.course_id,
+            "courseName": self.course.name,
+            "courseLink": self.course.link,
         }
 
     def __repr__(self):

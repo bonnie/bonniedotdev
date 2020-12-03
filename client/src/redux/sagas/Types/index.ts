@@ -28,5 +28,5 @@ export type axiosArgsType = {
   method: axiosMethodOptions,
   url: string,
   data?: any,
-  actionCreatorCallback?: (data) => Action<any>;
+  callback?: (data) => Action<any>;
 }

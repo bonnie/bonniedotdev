@@ -10,11 +10,11 @@ import React, { ReactElement, useState } from 'react';
 
 interface EditButtonsProps {
   handleDelete: () => void,
-  deleteItemString: string,
+  itemString: string,
 }
 
 export default function EditButtons(
-  { handleDelete, deleteItemString }: EditButtonsProps,
+  { handleDelete, itemString }: EditButtonsProps,
 ): ReactElement {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
 
@@ -26,7 +26,7 @@ export default function EditButtons(
     if (confirmed) handleDelete();
   };
 
-  const dialogMessage = `Are you sure you want to delete this ${deleteItemString}?`;
+  const dialogMessage = `Are you sure you want to delete this ${itemString}?`;
   return (
     <>
       <Box style={{ float: 'right' }}>
