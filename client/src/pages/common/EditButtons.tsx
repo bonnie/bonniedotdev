@@ -29,7 +29,7 @@ export default function EditButtons(
   const dialogMessage = `Are you sure you want to delete this ${itemString}?`;
   return (
     <>
-      <Box style={{ float: 'right' }}>
+      <Box style={{ alignSelf: 'flex-end', textAlign: 'right' }}>
         <ButtonGroup>
           <IconButton type="submit" color="primary"><CloudUploadIcon /></IconButton>
           <IconButton color="primary" onClick={() => setConfirmationOpen(true)}><DeleteForeverIcon /></IconButton>

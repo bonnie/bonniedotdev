@@ -1,9 +1,6 @@
 import Box from '@material-ui/core/Box';
-import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { getFormData } from 'Helpers';
@@ -21,15 +18,16 @@ import { ReviewQuoteType } from './Types';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   flexContainer: {
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
+    justifyContent: 'space-between',
   },
-  formControl: {
+  courseSelect: {
     minWidth: 120,
     maxWidth: '100%',
   },
-  bottomFlex: {
+  flexEnd: {
     alignSelf: 'flex-end',
   },
 }));
@@ -78,7 +76,7 @@ export default function EditReviewQuote(
   };
 
   const contents = (
-    <Box>
+    <Box className={classes.flexContainer}>
       <form onSubmit={handleSubmit}>
         <Input type="hidden" name="id" value={reviewQuoteData.id} />
         <TextField
@@ -90,23 +88,25 @@ export default function EditReviewQuote(
           style={{ width: '100%' }}
           defaultValue={reviewQuoteData.body || ''}
         />
-        <Box mt={2} className={classes.bottomFlex}>
-          <FormControl required className={classes.formControl}>
-            <InputLabel id="course-select">Course</InputLabel>
-            <Select
-              labelId="course-select"
-              name="courseId"
-              defaultValue={reviewQuoteData.courseId || ''}
-              style={{ width: '100%' }}
-            >
-              { courses.map((course) => (
-                <MenuItem key={course.id} value={course.id}>
-                  {course.name}
-                </MenuItem>
-              )) }
-            </Select>
-          </FormControl>
-          <EditButtons handleDelete={handleDelete} itemString="quote" />
+        {/* TODO: align this box at the bottom of its container */}
+        <Box mt={2} className={classes.flexEnd}>
+          <TextField
+            className={classes.courseSelect}
+            name="courseId"
+            label="Course"
+            defaultValue={reviewQuoteData.courseId || ''}
+            select
+          >
+            { courses.map((course) => (
+              <MenuItem key={course.id} value={course.id}>
+                {course.name}
+              </MenuItem>
+            )) }
+          </TextField>
+          <EditButtons
+            handleDelete={handleDelete}
+            itemString="quote"
+          />
         </Box>
       </form>
     </Box>

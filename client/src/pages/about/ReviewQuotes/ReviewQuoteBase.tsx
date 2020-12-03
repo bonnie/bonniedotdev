@@ -15,8 +15,9 @@ const useStyles = makeStyles(() => ({
     borderRadius: '25px 25px 0px 25px',
     width: '100%',
     justifyContent: 'space-between',
+    flexShrink: 3,
+    minWidth: 120,
   },
-
 }));
 
 interface ReviewQuoteProps {

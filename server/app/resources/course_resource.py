@@ -43,7 +43,6 @@ class Course(Resource):
     def patch(self, id):
         course = self._get_by_id(id)
 
-        # Create the patch object
         try:
             course.update_from_patch(request.json)
         except JsonPatchException as e:

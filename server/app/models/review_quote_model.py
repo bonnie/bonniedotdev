@@ -1,4 +1,7 @@
 """SQLAlchemy database model for course review quote."""
+from typing import Dict
+
+import jsonpatch
 from app.db import db
 from app.models.base_model import Base
 
@@ -9,7 +12,7 @@ class ReviewQuote(db.Model, Base):
     __tablename__ = "review_quotes"
 
     id = db.Column(db.Integer, primary_key=True)
-    course_id = db.Column(db.Integer, db.ForeignKey("courses.id"))
+    courseId = db.Column(db.Integer, db.ForeignKey("courses.id"))
     body = db.Column(db.String, nullable=False)
 
     course = db.relationship("Course")
@@ -17,36 +20,28 @@ class ReviewQuote(db.Model, Base):
     def __init__(
         self,
         body: str,
-        course_id: int = None,
+        courseId: int = None,
     ):
         """Add record to database."""
 
-        self.course_id = course_id
+        self.courseId = courseId
         self.body = body
 
         self.update_db()
 
-    @classmethod
-    def get_display_data(cls):
-        """Get display data for all quotes, including course name and course link."""
+    def update_from_patch(self, json_patch: Dict):
+        """Update based on JsonPatch."""
 
-        allQuotes = cls.query.all()
+        # get existing data
+        current_data = self.to_dict()
 
-        return [
-            {
-                "courseName": q.course.name,
-                "courseLink": q.course.link,
-                "id": q.id,
-                "body": q.body,
-            }
-            for q in allQuotes
-        ]
+        # Apply patch to existing dict
+        updated_data = jsonpatch.apply_patch(current_data, json_patch)
 
-    def patch(self, body: str, courseId: int):
-        """Update quote with new data."""
+        # Apply the patched dictionary back to the model
+        for key, value in updated_data.items():
+            setattr(self, key, value)
 
-        self.body = body
-        self.course_id = courseId
         self.update_db()
 
     def to_dict(self):
@@ -54,7 +49,7 @@ class ReviewQuote(db.Model, Base):
         return {
             "id": self.id,
             "body": self.body,
-            "courseId": self.course_id,
+            "courseId": self.courseId,
             "courseName": self.course.name,
             "courseLink": self.course.link,
         }
@@ -62,5 +57,5 @@ class ReviewQuote(db.Model, Base):
     def __repr__(self):
         """Return a pretty print version of the retrieved resource."""
         return f"""<ReviewQuote (id={self.id},
-                   course_id={self.course_id},
+                   courseId={self.courseId},
                    body (excerpt)={self.quote[:25]}>"""

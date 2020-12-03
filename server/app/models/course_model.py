@@ -86,7 +86,8 @@ class Course(db.Model, Base):
         current_data = self.to_dict()
 
         current_data["coupons"] = [c.to_dict() for c in self.coupons]
-        del current_data["best_coupon"]
+        if "best_coupon" in current_data:
+            del current_data["best_coupon"]
 
         # Apply patch to existing dict
         updated_data = jsonpatch.apply_patch(current_data, json_patch)
