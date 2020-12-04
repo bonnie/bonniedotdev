@@ -1,6 +1,7 @@
 """SQLAlchemy database model for Udemy course coupon."""
 from datetime import datetime
 
+import dateutil.parser
 from app.db import db
 from app.models.base_model import Base
 from pytz import utc
@@ -20,7 +21,7 @@ class Coupon(db.Model, Base):
     def __init__(
         self,
         code: str,
-        utcExpirationIso: str,
+        utcExpirationISO: str,
         price: float,
         course_id: int = None,
     ):
@@ -28,7 +29,7 @@ class Coupon(db.Model, Base):
 
         self.course_id = course_id
         self.code = code
-        self.utc_expiration = datetime.fromisoformat(utcExpirationIso)
+        self.utc_expiration = dateutil.parser.parse(utcExpirationISO)
         self.price = price
 
         self.update_db()

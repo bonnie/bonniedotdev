@@ -59,7 +59,14 @@ export default function EditCourse(
 
   // for coupon management. Store by id for easy access
   const couponsById: CouponsById = new Map();
-  if (courseData.coupons) courseData.coupons.forEach((c) => { couponsById[c.id] = c; });
+  if (courseData.coupons) {
+    courseData.coupons.forEach((c) => {
+    // all coupons will have ids (new coupons will have negative ids), but since
+    // the id will eventually get removed for new coupons, the property is optional
+    // in the type, and so typescript requires a check
+      if (c.id) couponsById[c.id] = c;
+    });
+  }
   const [coupons, setCoupons] = useState<CouponsById>(couponsById);
 
   // I'd rather read this from the filesystem but that would require
@@ -67,16 +74,30 @@ export default function EditCourse(
   const courseImageOptions = ['udemy-course-image.jpg'];
 
   const handleSubmit = (event) => {
+    console.log('((**(((**(((*( EDIT course data', courseData);
+
     event.preventDefault();
-    const formData = getFormData(event);
+
+    // gather non-coupon data from the form
+    const newCourseData = getFormData(event);
+
+    // gather coupon data from state
+    newCourseData.coupons = [];
+    for (const [id, couponData] of coupons) {
+      // remove id if it's negative, since new coupons don't need id
+      if (id < 0) delete couponData.id;
+      // update date to isoformat
+      couponData.utcExpirationISO = moment(couponData.utcExpirationISO).toISOString();
+      newCourseData.coupons.push(couponData);
+    }
 
     if (notSaved) {
-      dispatch(addCourse(formData));
+      dispatch(addCourse(newCourseData));
 
       // reinstate the "add" button if the action was successful
       if (!error) setAddCourseButton(true);
     } else {
-      dispatch(editCourse(formData, courseData));
+      dispatch(editCourse(newCourseData, courseData));
     }
   };
 
