@@ -9,9 +9,9 @@ from marshmallow import Schema
 
 class CouponSchema(Schema):
     code = fields.Str(required=True)
-    expiration_iso_string = fields.Str(required=True)
     price = fields.Float(required=True)
-    local_tz_string = fields.Str()
+    utcExpirationISO = fields.Str(required=True)
+    id = fields.Int()
 
 
 class CoursePostDataSchema(Schema):
@@ -19,7 +19,7 @@ class CoursePostDataSchema(Schema):
     link = fields.Str(required=True)
     description = fields.Str(required=True)
     imageName = fields.Str(required=True)  # defer to JS for camel case
-    # coupons = fields.Nested(CouponSchema, many=True)
+    coupons = fields.Nested(CouponSchema, many=True)
 
 
 class Course(Resource):

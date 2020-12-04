@@ -11,10 +11,15 @@ import React, { ReactElement, useState } from 'react';
 interface EditButtonsProps {
   handleDelete: () => void,
   itemString: string,
+  updateButton?: boolean
 }
 
+EditButtons.defaultProps = {
+  updateButton: true,
+};
+
 export default function EditButtons(
-  { handleDelete, itemString }: EditButtonsProps,
+  { handleDelete, itemString, updateButton }: EditButtonsProps,
 ): ReactElement {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
 
@@ -30,10 +35,8 @@ export default function EditButtons(
   return (
     <>
       <Box style={{ alignSelf: 'flex-end', textAlign: 'right' }}>
-        <ButtonGroup>
-          <IconButton type="submit" color="primary"><CloudUploadIcon /></IconButton>
-          <IconButton color="primary" onClick={() => setConfirmationOpen(true)}><DeleteForeverIcon /></IconButton>
-        </ButtonGroup>
+        {updateButton ? <IconButton type="submit" color="primary"><CloudUploadIcon /></IconButton> : null }
+        <IconButton color="primary" onClick={() => setConfirmationOpen(true)}><DeleteForeverIcon /></IconButton>
       </Box>
 
       <Dialog onClose={handleClose} aria-labelledby="confirm-action" open={confirmationOpen}>

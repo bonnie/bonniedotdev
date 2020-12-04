@@ -7,7 +7,7 @@ export type CouponType = {
   id: number,
   price: number,
   code: string,
-  utcExpiration: Date,
+  utcExpirationISO: string,
 };
 
 export type CourseType = {
@@ -17,4 +17,5 @@ export type CourseType = {
   link: string,
   imageName: string,
   bestCoupon?: CouponType,
+  coupons?: CouponType[]
 };

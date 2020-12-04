@@ -27,6 +27,7 @@ export default function Courses(): ReactElement {
       description: '',
       link: '',
       imageName: '',
+      coupons: [],
     };
     dispatch(setCourses([...courses, newCourse]));
     setAddButton(false);
@@ -37,9 +38,9 @@ export default function Courses(): ReactElement {
       <h1>Courses</h1>
       <Grid container spacing={3}>
         {courses?.map((course: CourseType) => (
-          <Grid key={course.id} item xs={12} sm={6} md={4}>
+          <Grid key={course.id} item xs={12} sm={6} md={4} style={{ display: 'flex', alignItems: 'stretch' }}>
             {user
-              ? <EditCourse courseData={course} setAddButton={setAddButton} />
+              ? <EditCourse courseData={course} setAddCourseButton={setAddButton} />
               : <Course courseData={course} />}
           </Grid>
         ))}

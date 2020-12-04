@@ -15,7 +15,7 @@ type CouponProps = {
 export default function Coupon({ courseLink, couponData }: CouponProps): ReactElement {
   const couponLink = `${courseLink}?couponCode=${couponData.code}`;
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const expirationString = moment(couponData.utcExpiration).tz(tz).format('MMM DD ha z');
+  const expirationString = moment(couponData.utcExpirationISO).tz(tz).format('MMM DD ha z');
 
   return (
     <Box display="flex">

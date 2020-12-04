@@ -27,31 +27,30 @@ class Course(db.Model, Base):
         link: str,
         description: str,
         imageName: str,
-        coupons: List[CouponDict] = None,
     ):
         """Create record and add to db."""
-
-        coupons = coupons or []
 
         self.name = name
         self.link = link
         self.description = description
         self.image_name = imageName  # data will come from JS, hence camelCase
-        self.set_coupons(coupons)
 
         self.update_db()
 
     def set_coupons(self, newCoupons: List[Coupon]) -> None:
         """Set coupon property."""
-        self.coupons = []
 
-        for coupon in newCoupons:
-            if "id" in coupon:
-                # this is already in the db, no need to make a new one
-                self.coupons.append(Coupon.query.get(coupon["id"]))
-            else:
-                # not in db, need to make a new one
-                self.coupons.append(Coupon(**coupon))
+        if newCoupons is not None and len(newCoupons) > 0:
+            self.coupons = []
+
+            for coupon in newCoupons:
+                print("^" * 30, coupon)
+                if "id" in coupon:
+                    # this is already in the db, no need to make a new one
+                    self.coupons.append(Coupon.query.get(coupon["id"]))
+                else:
+                    # not in db, need to make a new one
+                    self.coupons.append(Coupon(**coupon))
 
     @property
     def best_coupon(self) -> CouponDict:
@@ -85,12 +84,14 @@ class Course(db.Model, Base):
         # update to_dict output to have all coupons rather than just the "best"
         current_data = self.to_dict()
 
-        current_data["coupons"] = [c.to_dict() for c in self.coupons]
-        if "best_coupon" in current_data:
-            del current_data["best_coupon"]
+        if self.coupons is not None:
+            current_data["coupons"] = [c.to_dict() for c in self.coupons]
+            if "best_coupon" in current_data:
+                del current_data["best_coupon"]
 
         # Apply patch to existing dict
         updated_data = jsonpatch.apply_patch(current_data, json_patch)
+        print("*" * 30, updated_data)
 
         # handle coupons separately
         if "coupons" in updated_data:

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { UserType } from 'Pages/Auth/Types';
 import { CourseType } from 'Pages/Courses/Types';
 
@@ -43,7 +44,7 @@ export const couponWithDate = {
   id: 1,
   code: 'NOT_EXPIRED',
   price: 12.99,
-  utcExpiration: new Date('2020-11-17T20:01:03.182265+00:00'),
+  utcExpirationISO: moment(new Date('2020-11-17T20:01:03.182265+00:00')).toString(),
 };
 
 export const reviewQuotes = [
@@ -58,6 +59,7 @@ export const courseWithCouponsAndQuotes: CourseType = {
   description: 'Purr get my claw stuck in the dog\'s ear. Toilet paper attack claws fluff everywhere meow miao french ciao litterbox. Making bread on the bathrobe suddenly go on wild-eyed crazy rampage. ',
   bestCoupon: couponWithDate,
   imageName: 'udemy-course-image.jpg',
+  coupons: [],
 };
 
 export const courseWithoutCouponsAndQuotes: CourseType = {
@@ -78,7 +80,7 @@ export const couponWithString = {
   id: 1,
   code: 'NOT_EXPIRED',
   price: 12.99,
-  utcExpiration: '2020-11-17T20:01:03.182265+00:00',
+  utcExpirationISO: '2020-11-17T20:01:03.182265+00:00',
 };
 
 export const CourseJSONWithoutCouponsAndQuotes = courseWithoutCouponsAndQuotes;

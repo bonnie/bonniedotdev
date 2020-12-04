@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
-// https://www.npmjs.com/package/json-merge-patch
 
+import DateFnsUtils from '@date-io/date-fns';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import FormControl from '@material-ui/core/FormControl';
@@ -10,8 +10,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
-import { DateTimePicker } from '@material-ui/pickers';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { getFormData } from 'Helpers';
+import moment from 'moment';
+import AddButton from 'Pages/Common/AddButton';
 import EditButtons from 'Pages/Common/EditButtons';
 import {
   addCourse, deleteCourse, editCourse, setCourses,
@@ -20,21 +22,7 @@ import { CouponType, CourseType } from 'Pages/Courses/Types';
 import React, { ReactElement, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-interface EditCouponProps {
-  coupon: CouponType | null,
-  courseId: number | null,
-}
-
-function EditCoupon({ coupon, courseId }: EditCouponProps): ReactElement {
-  return (
-    <Box />
-  );
-}
-
-// id: number,
-// price: number,
-// code: string,
-// utcExpiration: Date,
+import EditCoupon from './EditCoupon';
 
 const useStyles = makeStyles(() => ({
   formField: {
@@ -48,13 +36,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+export type CouponsById = Map<number, CouponType>;
 interface EditCourseProps {
   courseData: CourseType,
-  setAddButton: (boolean) => void
+  setAddCourseButton: (boolean) => void
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default function EditCourse({ courseData, setAddButton }: EditCourseProps): ReactElement {
+export default function EditCourse(
+  { courseData, setAddCourseButton }: EditCourseProps,
+): ReactElement {
   const dispatch = useDispatch();
   const classes = useStyles();
   const courses = useSelector((state) => state.courses);
@@ -65,6 +56,11 @@ export default function EditCourse({ courseData, setAddButton }: EditCourseProps
 
   // for the state-controlled select
   const [courseImageName, setCourseImageName] = useState(courseData.imageName);
+
+  // for coupon management. Store by id for easy access
+  const couponsById: CouponsById = new Map();
+  if (courseData.coupons) courseData.coupons.forEach((c) => { couponsById[c.id] = c; });
+  const [coupons, setCoupons] = useState<CouponsById>(couponsById);
 
   // I'd rather read this from the filesystem but that would require
   // server-side rendering, which I'm not ready to take on just yet
@@ -78,7 +74,7 @@ export default function EditCourse({ courseData, setAddButton }: EditCourseProps
       dispatch(addCourse(formData));
 
       // reinstate the "add" button if the action was successful
-      if (!error) setAddButton(true);
+      if (!error) setAddCourseButton(true);
     } else {
       dispatch(editCourse(formData, courseData));
     }
@@ -90,12 +86,39 @@ export default function EditCourse({ courseData, setAddButton }: EditCourseProps
       dispatch(setCourses(newCourses));
 
       // reinstate the "add" button
-      if (!error) setAddButton(true);
+      if (!error) setAddCourseButton(true);
     } else {
       // it's got to be deleted from the db
       dispatch(deleteCourse(courseData.id));
     }
   };
+
+  const addCoupon = () => {
+    // add to the map by ID. Use negative id to indicate new coupon.
+    const newId = 0 - (coupons.size + 1);
+    const newCoupon: CouponType = {
+      id: newId,
+      code: '',
+      price: 9.99,
+      utcExpirationISO: moment(new Date()).toString(),
+    };
+    const newCoupons = new Map(coupons);
+    newCoupons.set(newId, newCoupon);
+    setCoupons(newCoupons);
+  };
+
+  const couponElements: ReactElement[] = [];
+  // when I use for ... in, typescript complains that id is a string(??)
+  for (const [id] of coupons) {
+    couponElements.push(
+      <EditCoupon
+        key={id}
+        couponId={id}
+        coupons={coupons}
+        setCoupons={setCoupons}
+      />,
+    );
+  }
 
   return (
     <Card className={notSaved ? classes.notSavedCard : ''}>
@@ -123,9 +146,11 @@ export default function EditCourse({ courseData, setAddButton }: EditCourseProps
             </Select>
           </FormControl>
           <Box>
-            {/* <EditCoupon /> */}
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              {couponElements}
+            </MuiPickersUtilsProvider>
+            <AddButton onClick={addCoupon} />
           </Box>
-
           <EditButtons handleDelete={handleDelete} itemString="course" />
         </form>
       </Box>

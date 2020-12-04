@@ -3,7 +3,6 @@ from datetime import datetime
 
 from app.db import db
 from app.models.base_model import Base
-from pytz import timezone
 from pytz import utc
 
 
@@ -21,26 +20,15 @@ class Coupon(db.Model, Base):
     def __init__(
         self,
         code: str,
-        expiration_iso_string: str,
+        utcExpirationIso: str,
         price: float,
-        local_tz_string: str = "US/Pacific",
         course_id: int = None,
     ):
         """Create record and add to db, translating the expiration date to utc."""
 
-        # translate iso string into datetime
-        naive_expiration = datetime.fromisoformat(expiration_iso_string)
-
-        # make datetime timezone aware
-        local_tz = timezone(local_tz_string)
-        local_expiration = local_tz.localize(naive_expiration)
-
-        # translate to utc for storage
-        utc_expiration = local_expiration.astimezone(utc)
-
         self.course_id = course_id
         self.code = code
-        self.utc_expiration = utc_expiration
+        self.utc_expiration = datetime.fromisoformat(utcExpirationIso)
         self.price = price
 
         self.update_db()

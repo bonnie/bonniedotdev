@@ -22,7 +22,8 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "downlevelIteration": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "node_modules/@types"]
 }

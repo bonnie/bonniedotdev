@@ -62,12 +62,13 @@ export function editCourse(newData, originalData) {
   const { id } = newData;
 
   // only deal with keys expected on the server
-  const patchRelevantKeys = ['name', 'description', 'link', 'imageName'];
+  const patchRelevantKeys = ['name', 'description', 'link', 'imageName', 'coupons'];
   const originalPatchData = _.pick(originalData, ...patchRelevantKeys);
   const newPatchData = _.pick(newData, ...patchRelevantKeys);
 
   // create a patch for the difference between newData and originalData
   const patch = jiff.diff(originalPatchData, newPatchData);
+  console.log('patch *(*(*(*(*(*(*(', patch);
 
   return {
     type: sagaActionIds.EDIT_SERVER_ITEM,
