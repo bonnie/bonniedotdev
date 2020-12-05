@@ -14,12 +14,12 @@ export default function App(): ReactElement {
   const loading = useSelector((state) => state.loading);
   return (
     <ThemeProvider theme={theme}>
-      { loading ? <LoadingSpinner /> : null }
       <AlertBox />
       <Toolbar>
         <Nav />
       </Toolbar>
       <Box m={5}>
+        { loading ? <LoadingSpinner /> : null }
         <Routes />
       </Box>
     </ThemeProvider>

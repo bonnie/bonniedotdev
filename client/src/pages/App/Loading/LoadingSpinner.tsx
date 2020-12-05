@@ -1,23 +1,28 @@
-import Backdrop from '@material-ui/core/Backdrop';
+import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { ReactElement } from 'react';
 
 const useStyles = makeStyles((theme) => ({
-  backdrop: {
+  root: {
     zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  loading: {
+    alignSelf: 'center',
   },
 }));
 
 export default function LoadingSpinner(): ReactElement {
   const classes = useStyles();
 
-  // TODO: make "open" dependent on `loading` state in a way that's testable
-  // (instead of conditionally rendering the element in App.tsx)
   return (
-    <Backdrop className={classes.backdrop} open>
-      <CircularProgress color="inherit" />
-    </Backdrop>
+    <Box className={classes.root}>
+      <CircularProgress className={classes.loading} />
+    </Box>
   );
 }
