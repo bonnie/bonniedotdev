@@ -13,6 +13,7 @@
     "cross-env": "^7.0.2",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
+    "fast-json-patch": "^3.0.0-1",
     "history": "^5.0.0",
     "jiff": "^0.7.3",
     "list-files": "^1.1.4",

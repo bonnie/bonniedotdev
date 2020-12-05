@@ -1,12 +1,13 @@
 # TODO integrate this with Marshmallow
+from typing import Optional
 from typing import TypedDict
 
 
 class CouponDict(TypedDict):
     code: str
-    expiration_iso_string: str
-    local_tz_string: str
     price: float
+    utcExpirationISO: str
+    courseId: Optional[int]
 
 
 class ReviewQuoteDict(TypedDict):

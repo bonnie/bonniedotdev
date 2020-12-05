@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { getFormData } from 'Helpers';
 import moment from 'moment';
@@ -21,6 +22,7 @@ import {
 import { CouponType, CourseType } from 'Pages/Courses/Types';
 import React, { ReactElement, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { colors } from 'Theme';
 
 import EditCoupon from './EditCoupon';
 
@@ -61,12 +63,11 @@ export default function EditCourse(
   const couponsById: CouponsById = new Map();
   if (courseData.coupons) {
     courseData.coupons.forEach((c) => {
-    // all coupons will have ids (new coupons will have negative ids), but since
-    // the id will eventually get removed for new coupons, the property is optional
-    // in the type, and so typescript requires a check
-      if (c.id) couponsById[c.id] = c;
+      // make a copy of the coupon data so it doesn't mutate with changes to the map
+      if (c.id) couponsById.set(c.id, { ...c });
     });
   }
+
   const [coupons, setCoupons] = useState<CouponsById>(couponsById);
 
   // I'd rather read this from the filesystem but that would require
@@ -74,8 +75,6 @@ export default function EditCourse(
   const courseImageOptions = ['udemy-course-image.jpg'];
 
   const handleSubmit = (event) => {
-    console.log('((**(((**(((*( EDIT course data', courseData);
-
     event.preventDefault();
 
     // gather non-coupon data from the form
@@ -166,11 +165,15 @@ export default function EditCourse(
               )}
             </Select>
           </FormControl>
-          <Box>
+          <Box style={{
+            border: `2px ${colors.mediumTeal} solid`, marginTop: '10px', background: '#eeeeee',
+          }}
+          >
+            <Typography style={{ paddingLeft: 5 }}>Coupons</Typography>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               {couponElements}
             </MuiPickersUtilsProvider>
-            <AddButton onClick={addCoupon} />
+            <AddButton onClick={addCoupon} size="small" />
           </Box>
           <EditButtons handleDelete={handleDelete} itemString="course" />
         </form>

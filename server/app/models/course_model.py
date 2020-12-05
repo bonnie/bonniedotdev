@@ -18,7 +18,7 @@ class Course(db.Model, Base):
     name = db.Column(db.String)
     link = db.Column(db.String)  # link to include referral code
     description = db.Column(db.String)
-    image_name = db.Column(db.String)  # name of image to display
+    imageName = db.Column(db.String)  # name of image to display
     coupons = db.relationship("Coupon")
 
     def __init__(
@@ -27,56 +27,60 @@ class Course(db.Model, Base):
         link: str,
         description: str,
         imageName: str,
+        coupons: List[CouponDict] = [],
     ):
         """Create record and add to db."""
 
         self.name = name
         self.link = link
         self.description = description
-        self.image_name = imageName  # data will come from JS, hence camelCase
+        self.imageName = imageName
+        if len(coupons) > 0:
+            self.set_coupons(coupons)
 
         self.update_db()
 
-    def set_coupons(self, newCoupons: List[Coupon]) -> None:
+    def set_coupons(self, newCoupons: List[CouponDict]) -> None:
         """Set coupon property."""
+        self.coupons = []
 
-        if newCoupons is not None and len(newCoupons) > 0:
-            self.coupons = []
-
-            for coupon in newCoupons:
-                print("^" * 30, coupon)
-                if "id" in coupon:
-                    # this is already in the db, no need to make a new one
-                    self.coupons.append(Coupon.query.get(coupon["id"]))
-                else:
-                    # not in db, need to make a new one
-                    self.coupons.append(Coupon(**coupon))
+        for coupon in newCoupons:
+            if "id" in coupon:
+                # this is already in the db, no need to make a new one
+                coupon_obj = Coupon.query.get(coupon["id"])
+                coupon_obj.update(coupon)
+                self.coupons.append(coupon_obj)
+            else:
+                # not in db, need to make a new one
+                # don't update the database yet, otherwise SQAlchemy gets confused
+                newCoupon = Coupon(**coupon, update_db=False)
+                self.coupons.append(newCoupon)
 
     @property
-    def best_coupon(self) -> CouponDict:
+    def bestCoupon(self) -> CouponDict:
         """Return dicts for all valid coupon codes for course."""
 
-        best_coupon = None
+        bestCoupon = None
         for coupon in self.coupons:
             if not coupon.is_valid():
                 continue
-            if best_coupon is None:
-                best_coupon = coupon
+            if bestCoupon is None:
+                bestCoupon = coupon
                 continue
-            # is the price better than the current best_coupon?
-            if coupon.price < best_coupon.price:
-                best_coupon = coupon
+            # is the price better than the current bestCoupon?
+            if coupon.price < bestCoupon.price:
+                bestCoupon = coupon
                 continue
             # if price is the same, is expiration better?
-            if coupon.price == best_coupon.price:
-                if coupon.utc_expiration > best_coupon.utc_expiration:
-                    best_coupon = coupon
+            if coupon.price == bestCoupon.price:
+                if coupon.utc_expiration > bestCoupon.utc_expiration:
+                    bestCoupon = coupon
 
         # at the end of it all, who's the winner?
-        if best_coupon is None:
+        if bestCoupon is None:
             return None
 
-        return best_coupon.to_dict()
+        return bestCoupon.to_dict()
 
     def update_from_patch(self, json_patch: Dict):
         """Update based on JsonPatch."""
@@ -86,12 +90,13 @@ class Course(db.Model, Base):
 
         if self.coupons is not None:
             current_data["coupons"] = [c.to_dict() for c in self.coupons]
-            if "best_coupon" in current_data:
-                del current_data["best_coupon"]
+
+        # remove bestCoupon
+        if "bestCoupon" in current_data:
+            del current_data["bestCoupon"]
 
         # Apply patch to existing dict
         updated_data = jsonpatch.apply_patch(current_data, json_patch)
-        print("*" * 30, updated_data)
 
         # handle coupons separately
         if "coupons" in updated_data:
@@ -111,8 +116,9 @@ class Course(db.Model, Base):
             "name": self.name,
             "description": self.description,
             "link": self.link,
-            "imageName": self.image_name,  # defer to JS for camel case
-            "bestCoupon": self.best_coupon,
+            "imageName": self.imageName,  # defer to JS for camel case
+            "bestCoupon": self.bestCoupon,
+            "coupons": [c.to_dict() for c in self.coupons],
         }
 
     def __repr__(self):

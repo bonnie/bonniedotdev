@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import urls from 'Constants/urls';
-import jiff from 'jiff';
+import jsonpatch from 'fast-json-patch';
 import sagaActionIds from 'Redux/Sagas/actionIds';
 import { axiosMethodOptions } from 'Redux/Sagas/Types';
 import _ from 'underscore';
@@ -66,8 +66,15 @@ export function editCourse(newData, originalData) {
   const originalPatchData = _.pick(originalData, ...patchRelevantKeys);
   const newPatchData = _.pick(newData, ...patchRelevantKeys);
 
+  console.log('(((((((( original data', originalPatchData);
+  console.log('))))))))) new data', newPatchData);
+
   // create a patch for the difference between newData and originalData
-  const patch = jiff.diff(originalPatchData, newPatchData);
+  const patch = jsonpatch.compare(originalPatchData, newPatchData);
+  console.log('******************** patch', patch);
+
+  // TODO: log to file (?) that edit was called with no differences
+  if (patch.length === 0) return { type: 'noop' };
 
   return {
     type: sagaActionIds.EDIT_SERVER_ITEM,

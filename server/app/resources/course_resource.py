@@ -41,14 +41,17 @@ class Course(Resource):
         return course.to_dict(), 200
 
     def patch(self, id):
+        patch = request.json
         course = self._get_by_id(id)
 
-        try:
-            course.update_from_patch(request.json)
-        except JsonPatchException as e:
-            # TODO: log this instead of printing
-            print(e)
-            abort(400)
+        # ignore empty patches
+        if len(patch) > 0:
+            try:
+                course.update_from_patch(patch)
+            except JsonPatchException as e:
+                # TODO: log this instead of printing
+                print(e)
+                abort(400)
 
         return course.to_dict(), 200
 

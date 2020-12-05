@@ -50,6 +50,7 @@ export default function EditCoupon(
         value={coupons.get(couponId)?.code}
         label="Code"
         onChange={(event) => handleChange('code', event.target.value)}
+        onBlur={(event) => handleChange('code', event.target.value)}
       />
       <TextField
         required
@@ -58,6 +59,7 @@ export default function EditCoupon(
         value={coupons.get(couponId)?.price}
         label="Price"
         onChange={(event) => handleChange('price', event.target.value)}
+        onBlur={(event) => handleChange('code', event.target.value)}
       />
       <DateTimePicker
         value={coupons.get(couponId)?.utcExpirationISO}
