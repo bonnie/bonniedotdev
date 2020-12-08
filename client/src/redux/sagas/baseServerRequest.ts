@@ -52,7 +52,7 @@ export function* makeServerRequest({ payload }: makeServerRequestArgs) {
     }
   } catch (e) {
     // TODO: log this to file
-    console.error('error in baseServerRequest', e);
+    // console.error('error in baseServerRequest', e);
     yield put(setAlert(errorString, AlertTypeOptions.error));
     yield put(clearLoading());
   }

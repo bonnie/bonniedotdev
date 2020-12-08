@@ -9,3 +9,9 @@ test('renders bio', () => {
   const bioTitle = screen.getByRole('heading', { name: 'About Bonnie' });
   expect(bioTitle).toBeInTheDocument();
 });
+
+test('renders review quotes title', () => {
+  const screen = renderWithProvider(<About />);
+  const quotesTitle = screen.getByRole('heading', { name: /students say/i });
+  expect(quotesTitle).toBeInTheDocument();
+});

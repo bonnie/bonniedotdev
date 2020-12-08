@@ -17,8 +17,7 @@ export default function ReviewQuotes(): ReactElement {
   const reviewQuotes = useSelector((state) => state.reviewQuotes);
   const courses = useSelector((state) => state.courses);
 
-  // const user = useSelector((state) => state.user);
-  const user = true; // TODO: <------------ for testing only!!!
+  const user = useSelector((state) => state.user);
 
   // TODO refactor so code is not repeated between this and Courses.tsx
   const [addButton, setAddButton] = useState(user !== null);
@@ -28,7 +27,7 @@ export default function ReviewQuotes(): ReactElement {
 
   // populate the courses, but only if they're needed for quote edit selection
   // Do this here, so it doesn't have to be done individually on each editable quote
-  useEffect(() => { dispatch(setCoursesFromServer()); }, [dispatch]);
+  useEffect(() => { if (user) dispatch(setCoursesFromServer()); }, [dispatch, user]);
 
   const addQuote = () => {
     const newQuote: ReviewQuoteType = { body: '', id: 0 - (reviewQuotes.length + 1) };

@@ -8,7 +8,7 @@ import {
   testCoursesJSONResponse,
   testReviewQuotesData,
   testSuccessLoginReponse,
-} from '../data';
+} from '../Data';
 
 // eslint-disable-next-line import/prefer-default-export
 export const handlers = [
