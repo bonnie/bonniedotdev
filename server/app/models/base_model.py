@@ -10,8 +10,8 @@ class Base:
         try:
             db.session.add(self)
             db.session.commit()
-        except SQLAlchemyError:
-            raise SQLAlchemyError("DB Commit failed.")
+        except SQLAlchemyError as e:
+            raise SQLAlchemyError("DB Commit failed.", e)
 
     def delete(self):
         """Delete object from db."""
