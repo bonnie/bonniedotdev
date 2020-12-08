@@ -6,7 +6,6 @@ import { Route, Switch } from 'react-router-dom';
 
 import About from '../About/About';
 import Login from '../Auth/Login';
-import Logout from '../Auth/Logout';
 import UserHome from '../Auth/UserHome';
 import Courses from '../Courses/Courses';
 import EditCourse from '../Courses/EditCourse';
@@ -25,7 +24,6 @@ export default function App(): ReactElement {
         <Route exact path="/about" component={About} />
         <Route exact path="/user" component={UserHome} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/logout" component={Logout} />
         <Route path="*" component={PageNotFound} />
       </Switch>
     </Container>

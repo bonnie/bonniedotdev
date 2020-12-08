@@ -3,8 +3,9 @@ import IconButton from '@material-ui/core/IconButton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import React, { ReactElement } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import sagaActionIds from 'Redux/Sagas/actionIds';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function LogoutIconButton(): ReactElement | null {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
   const user = useSelector((state) => state.user);
@@ -22,7 +24,9 @@ export default function LogoutIconButton(): ReactElement | null {
   if (user === null) return null;
 
   const handleLogout = () => {
-    history.push('/logout');
+    // TODO: make this cleaner with action creator function?
+    dispatch({ type: sagaActionIds.LOGOUT_USER });
+    history.push('/login');
   };
 
   return (

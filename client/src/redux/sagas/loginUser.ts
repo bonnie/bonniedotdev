@@ -23,8 +23,7 @@ export function* loginUser({ payload }: actionType) {
       method: axiosMethodOptions.POST,
       data: { ...payload },
       callback: (responseData) => {
-        if (responseData !== null) {
-          // this will re-render and redirect to auth
+        if (responseData) {
           return setUser(responseData);
         }
         // TODO: log this to file!

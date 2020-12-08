@@ -3,6 +3,7 @@ import { all, call, spawn } from 'redux-saga/effects';
 import watchServerRequests from './baseServerRequest';
 import watchEditServerItem from './editServerItem';
 import watchLoginUser from './loginUser';
+import watchLogoutUser from './logoutUser';
 import watchSetDataFromServer from './setDataFromServer';
 
 export default function* rootSaga() {
@@ -11,6 +12,7 @@ export default function* rootSaga() {
     watchServerRequests,
     watchEditServerItem,
     watchLoginUser,
+    watchLogoutUser,
   ];
 
   yield all(

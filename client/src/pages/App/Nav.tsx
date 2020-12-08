@@ -7,10 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import avatar from 'Images/avatar_small.png';
+import LogoutIconButton from 'Pages/Auth/LogoutIconButton';
 import React, { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import LogoutIconButton from './LogoutIconButton';
 
 // TODO: get this from theme rather than hard-coding
 const useStyles = makeStyles(() => ({
