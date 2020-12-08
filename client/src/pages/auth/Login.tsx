@@ -4,10 +4,11 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { getFormData } from 'Helpers';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router';
 import sagaActionIds from 'Redux/Sagas/actionIds';
+
+import history from '../../history';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -28,22 +29,25 @@ export default function Login({ referrer = null }: LoginPropsType): ReactElement
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
+  // avoid error
+  useEffect(() => {
+    // if someone manually enters the url while logged in, or state changes, redirect to auth
+    if (user) {
+      const redirect = referrer || '/user';
+      history.push(redirect);
+    }
+  }, [referrer, user]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = getFormData(event);
 
-    // TODO: abstract this out to an action using Redux Thunk (or Saga)
+    // submit the login
     dispatch({
       type: sagaActionIds.LOGIN_USER,
       payload: { ...formData },
     });
   };
-
-  // if someone manually enters the url while logged in, or state changes, redirect to auth
-  if (user) {
-    const redirect = referrer || '/user';
-    return <Redirect to={redirect} />;
-  }
 
   return (
     <>

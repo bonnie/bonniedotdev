@@ -47,12 +47,11 @@ export function* makeServerRequest({ payload }: makeServerRequestArgs) {
     yield put(clearLoading());
 
     // run the callback on the data on success
-    if (callback) {
-      yield put(callback(responseData));
-    }
+    if (callback) yield put(callback(responseData));
   } catch (e) {
     // TODO: log this to file
-    // console.error('error in baseServerRequest', e);
+    console.error('error in baseServerRequest', e);
+    console.error('payload:', payload);
     yield put(setAlert(errorString, AlertTypeOptions.error));
     yield put(clearLoading());
   }

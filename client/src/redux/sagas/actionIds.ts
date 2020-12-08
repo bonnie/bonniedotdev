@@ -7,6 +7,7 @@ const sagaActionIds = {
   ADD_SERVER_ITEM: 'ADD_SERVER_ITEM',
   UPDATE_SERVER_ITEM: 'UPDATE_SERVER_ITEM',
   LOGIN_USER: 'LOGIN_USER',
+  LOGOUT_USER: 'LOGOUT_USER',
 };
 
 export default sagaActionIds;

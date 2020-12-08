@@ -18,17 +18,18 @@ interface actionType {
 export function* loginUser({ payload }: actionType) {
   yield put({
     type: sagaActionIds.SERVER_REQUEST,
-    url: urls.loginURL,
-    method: axiosMethodOptions.POST,
-    data: { ...payload },
-    callback: (responseData) => {
-      if (responseData !== null) {
-        // this will re-render and redirect to auth
-        put(setUser(responseData));
-      } else {
+    payload: {
+      url: urls.loginURL,
+      method: axiosMethodOptions.POST,
+      data: { ...payload },
+      callback: (responseData) => {
+        if (responseData !== null) {
+          // this will re-render and redirect to auth
+          return setUser(responseData);
+        }
         // TODO: log this to file!
-        put(setAlert('Incorrect login', AlertTypeOptions.warning));
-      }
+        return (setAlert('Incorrect login', AlertTypeOptions.warning));
+      },
     },
   });
 }
