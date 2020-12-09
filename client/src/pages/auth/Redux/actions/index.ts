@@ -14,9 +14,8 @@ export function setUser(userData: UserType): UserActionType {
   };
 }
 
-export function clearUser(): AlertActionType {
+export function clearUser() {
   return {
     type: actionIds.LOGOUT_USER,
-    payload: { message: 'You have been logged out!', alertLevel: alertLevelOptions.success },
   };
 }
