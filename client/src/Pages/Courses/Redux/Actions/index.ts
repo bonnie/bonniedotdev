@@ -20,10 +20,11 @@ export function setCourses(payload: CourseType[]): CoursesActionType {
 
 export function setCoursesFromServer() {
   return {
-    type: sagaActionIds.SET_DATA_FROM_SERVER,
+    type: sagaActionIds.SERVER_REQUEST,
     payload: {
+      method: axiosMethodOptions.get,
       url: urls.coursesURL,
-      callback: (data) => setCourses(data.sort((a, b) => a.name < b.name)),
+      callback: setCourses,
     },
   };
 }

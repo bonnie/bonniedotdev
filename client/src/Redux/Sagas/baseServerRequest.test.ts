@@ -9,7 +9,6 @@ import { axiosMethodOptions } from './Types';
 
 describe('test by simulating axios conditions with moxios', () => {
   beforeEach(() => {
-    console.log('*******************************SETTING UP MOXIOS');
     moxios.install();
   });
   afterEach(() => {

@@ -20,10 +20,11 @@ export function setReviewQuotes(payload: ReviewQuoteType[]): ReviewQuotesActionT
 
 export function setReviewQuotesFromServer() {
   return {
-    type: sagaActionIds.SET_DATA_FROM_SERVER,
+    type: sagaActionIds.SERVER_REQUEST,
     payload: {
+      method: axiosMethodOptions.get,
       url: urls.reviewQuotesURL,
-      callback: (data) => setReviewQuotes(data.sort((a, b) => a.body.length - b.body.length)),
+      callback: setReviewQuotes,
     },
   };
 }
@@ -80,47 +81,3 @@ export function editReviewQuote(newData, originalData) {
     },
   };
 }
-
-// export function setReviewQuotes(payload: ReviewQuoteType[]): ReviewQuotesActionType {
-//   return {
-//     type: actionIds.SET_REVIEW_QUOTES,
-//     payload,
-//   };
-// }
-
-// export function setReviewQuotesFromServer() {
-//   return {
-//     type: sagaActionIds.SET_DATA_FROM_SERVER,
-//     payload: {
-//       url: urls.reviewQuotesURL,
-//       callback: (data) => {
-//         data.sort((a, b) => a.body.length - b.body.length);
-//         setReviewQuotes(data);
-//       },
-//     },
-//   };
-// }
-
-// export function deleteReviewQuote(courseId) {
-//   return {
-//     type: sagaActionIds.EDIT_SERVER_ITEM,
-//     payload: {
-//       url: urls.reviewQuoteURL,
-//       id: courseId,
-//       method: axiosMethodOptions.delete,
-//       updateStateAction: setReviewQuotesFromServer(),
-//     },
-//   };
-// }
-
-// export function addReviewQuote(reviewQuoteData) {
-//   return {
-//     type: sagaActionIds.EDIT_SERVER_ITEM,
-//     payload: {
-//       url: urls.reviewQuoteURL,
-//       method: axiosMethodOptions.post,
-//       updateStateAction: setReviewQuotesFromServer(),
-//       data: reviewQuoteData,
-//     },
-//   };
-// }

@@ -1,8 +1,6 @@
 import { Action } from 'redux';
-import { put, takeEvery } from 'redux-saga/effects';
-
-import sagaActionIds from './actionIds';
-import { axiosMethodOptions } from './Types';
+import sagaActionIds from 'Redux/Sagas/actionIds';
+import { axiosMethodOptions } from 'Redux/Sagas/Types';
 
 interface actionType {
   type: string, // TODO make more specific to this action?
@@ -15,11 +13,11 @@ interface actionType {
   }
 }
 
-export function* editServerItem({ payload }:actionType) {
+export function editServerItem({ payload }:actionType) {
   // if id is negative, this is actually a new item
   const url = (payload.id < 0) ? payload.url : `${payload.url}/${payload.id}`;
 
-  yield put({
+  return {
     type: sagaActionIds.SERVER_REQUEST,
     payload: {
       url,
@@ -27,9 +25,7 @@ export function* editServerItem({ payload }:actionType) {
       data: payload.data,
       callback: () => payload.updateStateAction,
     },
-  });
+  };
 }
 
-export default function* watchEditServerItem() {
-  yield takeEvery(sagaActionIds.EDIT_SERVER_ITEM, editServerItem);
-}
+export default editServerItem;

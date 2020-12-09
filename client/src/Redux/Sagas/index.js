@@ -1,15 +1,9 @@
 import { all, call, spawn } from 'redux-saga/effects';
 
 import watchServerRequests from './baseServerRequest';
-import watchEditServerItem from './editServerItem';
-import watchSetDataFromServer from './setDataFromServer';
 
 export default function* rootSaga() {
-  const sagas = [
-    watchSetDataFromServer,
-    watchServerRequests,
-    watchEditServerItem,
-  ];
+  const sagas = [watchServerRequests];
 
   yield all(
     sagas.map(
