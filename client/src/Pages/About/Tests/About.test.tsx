@@ -1,8 +1,8 @@
 /* eslint-disable max-lines-per-function */
 import React from 'react';
 
-import { renderWithProvider } from '../../TestUtils/renderWith';
-import About from './About';
+import { renderWithProvider } from '../../../TestUtils/renderWith';
+import About from '../About';
 
 test('renders bio', () => {
   const screen = renderWithProvider(<About />);

@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
   addReviewQuote, deleteReviewQuote,
-  editReviewQuote, setReviewQuotes,
+  editReviewQuote,
 } from './Redux/actions';
 import ReviewQuoteBase from './ReviewQuoteBase';
 import { ReviewQuoteType } from './Types';
@@ -35,16 +35,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface EditReviewQuoteProps {
   reviewQuoteData: ReviewQuoteType,
   courses: CourseType[],
-  setAddButton: (boolean) => void
+  deleteReviewQuoteFromState: (number) => void,
+  setAddButton: (boolean) => void,
+  reviewQuoteIndex: number,
 }
 
 // eslint-disable-next-line max-lines-per-function
 export default function EditReviewQuote(
-  { reviewQuoteData, courses, setAddButton }: EditReviewQuoteProps,
+  {
+    reviewQuoteData, courses, deleteReviewQuoteFromState, setAddButton, reviewQuoteIndex,
+  }: EditReviewQuoteProps,
 ): ReactElement {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const reviewQuotes = useSelector((state) => state.reviewQuotes);
   const error = useSelector((state) => state.alert);
   const notSaved = reviewQuoteData.id < 1;
 
@@ -64,50 +67,56 @@ export default function EditReviewQuote(
 
   const handleDelete = async () => {
     if (notSaved) {
-      const newReviewQuotes = reviewQuotes.filter((rq) => rq.id !== reviewQuoteData.id);
-      dispatch(setReviewQuotes(newReviewQuotes));
-
-      // reinstate the "add" button
-      if (!error) setAddButton(true);
+      deleteReviewQuoteFromState(reviewQuoteData.id);
     } else {
       // it's got to be deleted from the db
       dispatch(deleteReviewQuote(reviewQuoteData.id));
     }
   };
 
+  const itemLabel = `Review Quote ${reviewQuoteIndex}`;
+  const itemId = `review-quote-${reviewQuoteIndex}`;
+
   const contents = (
     <Box className={classes.flexContainer}>
-      <form onSubmit={handleSubmit}>
-        <Input type="hidden" name="id" value={reviewQuoteData.id} />
-        <TextField
-          required
-          multiline
-          name="body"
-          id="body"
-          label="Quote"
-          style={{ width: '100%' }}
-          defaultValue={reviewQuoteData.body || ''}
-        />
-        {/* TODO: align this box at the bottom of its container */}
-        <Box mt={2} className={classes.flexEnd}>
+      <form aria-label={itemLabel} onSubmit={handleSubmit}>
+        <fieldset>
+          <legend style={{ display: 'none' }}>{itemLabel}</legend>
+          <Input type="hidden" id={`${itemId}-id`} name="id" value={reviewQuoteData.id} />
           <TextField
-            className={classes.courseSelect}
-            name="courseId"
-            label="Course"
-            defaultValue={reviewQuoteData.courseId || ''}
-            select
-          >
-            { courses.map((course) => (
-              <MenuItem key={course.id} value={course.id}>
-                {course.name}
-              </MenuItem>
-            )) }
-          </TextField>
-          <EditButtons
-            handleDelete={handleDelete}
-            itemString="quote"
+            required
+            multiline
+            name="body"
+            id={`${itemId}-body`}
+            aria-label={`${itemLabel} body`}
+            label="Quote"
+            style={{ width: '100%' }}
+            defaultValue={reviewQuoteData.body || ''}
           />
-        </Box>
+          {/* TODO: align this box at the bottom of its container */}
+          <Box mt={2} className={classes.flexEnd}>
+            <TextField
+              className={classes.courseSelect}
+              name="courseId"
+              id={`${itemId}-course`}
+              aria-label={`${itemLabel} course`}
+              label="Course"
+              defaultValue={reviewQuoteData.courseId || ''}
+              select
+            >
+              { courses.map((course) => (
+                <MenuItem key={course.id} value={course.id}>
+                  {course.name}
+                </MenuItem>
+              )) }
+            </TextField>
+          </Box>
+        </fieldset>
+        <EditButtons
+          handleDelete={handleDelete}
+          itemString="review quote"
+          itemLabel={itemLabel}
+        />
       </form>
     </Box>
   );
