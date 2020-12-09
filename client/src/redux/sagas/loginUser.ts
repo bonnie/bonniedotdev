@@ -1,5 +1,5 @@
 import { setAlert } from 'Pages/App/Alert/Redux/actions';
-import { AlertTypeOptions } from 'Pages/App/Alert/Types';
+import { alertLevelOptions } from 'Pages/App/Alert/Types';
 import { setUser } from 'Pages/Auth/Redux/actions';
 import { put, takeEvery } from 'redux-saga/effects';
 
@@ -27,7 +27,7 @@ export function* loginUser({ payload }: actionType) {
           return setUser(responseData);
         }
         // TODO: log this to file!
-        return (setAlert('Incorrect login', AlertTypeOptions.warning));
+        return (setAlert('Incorrect login', alertLevelOptions.warning));
       },
     },
   });

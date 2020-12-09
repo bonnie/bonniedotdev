@@ -1,7 +1,10 @@
+import { AlertActionType, alertLevelOptions } from 'Pages/App/Alert/Types';
+
 import { UserActionType, UserType } from '../../Types';
 
 export const actionIds = {
   SET_USER: 'SET_USER',
+  LOGOUT_USER: 'LOGOUT_USER',
 };
 
 export function setUser(userData: UserType): UserActionType {
@@ -11,8 +14,9 @@ export function setUser(userData: UserType): UserActionType {
   };
 }
 
-export function clearUser(): UserActionType {
+export function clearUser(): AlertActionType {
   return {
-    type: actionIds.SET_USER,
+    type: actionIds.LOGOUT_USER,
+    payload: { message: 'You have been logged out!', alertLevel: alertLevelOptions.success },
   };
 }

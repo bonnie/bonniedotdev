@@ -10,13 +10,13 @@ import { clearAlert } from './Redux/actions';
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function AlertBox(): ReactElement | null {
   const dispatch = useDispatch();
-  const { message, alertType } = useSelector((state) => {
+  const { message, alertLevel } = useSelector((state) => {
     if (state.alert) return state.alert;
-    return { message: null, alertType: null };
+    return { message: null, alertLevel: null };
   });
 
   // if there's no alert, nothing to see here
-  if (message === null && alertType === null) return null;
+  if (message === null && alertLevel === null) return null;
 
   const handleClose = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
     if (reason === 'clickaway') return;
@@ -38,7 +38,7 @@ export default function AlertBox(): ReactElement | null {
         </IconButton>
     )}
     >
-      <Alert onClose={handleClose} severity={alertType}>
+      <Alert onClose={handleClose} severity={alertLevel}>
         {message}
       </Alert>
     </Snackbar>

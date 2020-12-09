@@ -9,6 +9,8 @@ import rootSaga from 'Redux/Sagas';
 
 import storeFactory from './storeFactory';
 
+// TODO: does this help reduce repetitive code? https://redux.js.org/recipes/writing-tests
+
 export function renderWithRouter(ui: ReactElement, initialRouterEntries = []): Screen {
   render(
     <MemoryRouter initialEntries={initialRouterEntries}>

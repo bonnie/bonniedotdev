@@ -5,5 +5,5 @@ export type UserType = {
 
 export type UserActionType = {
   type: string,
-  payload?: UserType
+  payload: UserType
 }
