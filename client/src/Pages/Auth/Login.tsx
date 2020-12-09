@@ -7,7 +7,8 @@ import { getFormData } from 'Helpers';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
-import sagaActionIds from 'Redux/Sagas/actionIds';
+
+import { loginUser } from './Redux/Actions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -39,10 +40,10 @@ export default function Login({ referrer = null }: LoginPropsType): ReactElement
     const formData = getFormData(event);
 
     // submit the login
-    dispatch({
-      type: sagaActionIds.LOGIN_USER,
-      payload: { ...formData },
-    });
+    dispatch(loginUser({
+      username: formData.username,
+      password: formData.password,
+    }));
   };
 
   return (
