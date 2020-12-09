@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { setAlert } from 'Pages/App/Alert/Redux/actions';
-import { AlertTypeOptions } from 'Pages/App/Alert/Types';
+import { alertLevelOptions } from 'Pages/App/Alert/Types';
 import { clearLoading, setLoading } from 'Pages/App/Loading/Redux/actions';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
@@ -50,7 +50,7 @@ export function* makeServerRequest({ payload }: makeServerRequestArgs) {
     if (callback) yield put(callback(responseData));
   } catch (e) {
     // TODO: log this to file
-    yield put(setAlert(errorString, AlertTypeOptions.error));
+    yield put(setAlert(errorString, alertLevelOptions.error));
     yield put(clearLoading());
   }
 }

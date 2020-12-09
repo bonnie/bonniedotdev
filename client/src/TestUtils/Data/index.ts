@@ -47,12 +47,7 @@ export const couponWithDate = {
   utcExpirationISO: moment(new Date('2020-11-17T20:01:03.182265+00:00')).toString(),
 };
 
-export const reviewQuotes = [
-  { id: 1, body: 'This is one of the best instructors I have come across on Udemy. Super clear, very knowledgeable, and straight to the point. There was no time-wasting and she didn\'t move too quickly. The tutorial is very thorough and clear for such a complex topic.' },
-  { id: 2, body: 'One of the best courses on Udemy. It was clear, and efficient.' },
-];
-
-export const courseWithCouponsAndQuotes: CourseType = {
+export const courseWithCoupons: CourseType = {
   id: 1,
   name: 'React Testing with Jest and Enzyme',
   link: 'https://udemy.com/awesomecourse',
@@ -62,7 +57,7 @@ export const courseWithCouponsAndQuotes: CourseType = {
   coupons: [],
 };
 
-export const courseWithoutCouponsAndQuotes: CourseType = {
+export const courseWithoutCoupons: CourseType = {
   id: 2,
   name: 'Regular Expressions for Beginners and Beyond! With Exercises',
   link: 'https://udemy.com/simplecourse',
@@ -70,9 +65,9 @@ export const courseWithoutCouponsAndQuotes: CourseType = {
   imageName: 'udemy-course-image.jpg',
 };
 
-export const testCourses: CourseType[] = [
-  courseWithCouponsAndQuotes,
-  courseWithoutCouponsAndQuotes,
+export const testCourseData: CourseType[] = [
+  courseWithCoupons,
+  courseWithoutCoupons,
 ];
 
 /** JSON */
@@ -83,15 +78,15 @@ export const couponWithString = {
   utcExpirationISO: '2020-11-17T20:01:03.182265+00:00',
 };
 
-export const CourseJSONWithoutCouponsAndQuotes = courseWithoutCouponsAndQuotes;
-export const CourseJSONWithCouponsAndQuotes = {
-  ...courseWithCouponsAndQuotes,
+export const CourseJSONWithoutCoupons = courseWithoutCoupons;
+export const CourseJSONWithCoupons = {
+  ...courseWithCoupons,
   bestCoupon: couponWithString,
 };
 
 export const testCoursesJSONResponse = [
-  CourseJSONWithCouponsAndQuotes,
-  CourseJSONWithoutCouponsAndQuotes,
+  CourseJSONWithCoupons,
+  CourseJSONWithoutCoupons,
 ];
 
 /** END: JSON */

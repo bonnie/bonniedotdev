@@ -5,7 +5,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import sagaActionIds from 'Redux/Sagas/actionIds';
+
+import { logoutUser } from './Redux/actions';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -25,7 +26,7 @@ export default function LogoutIconButton(): ReactElement | null {
 
   const handleLogout = () => {
     // TODO: make this cleaner with action creator function?
-    dispatch({ type: sagaActionIds.LOGOUT_USER });
+    dispatch(logoutUser());
     history.push('/login');
   };
 

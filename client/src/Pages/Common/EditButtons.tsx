@@ -12,14 +12,18 @@ interface EditButtonsProps {
   handleDelete: () => void,
   itemString: string,
   updateButton?: boolean
+  itemLabel: string,
 }
 
 EditButtons.defaultProps = {
   updateButton: true,
 };
 
+// eslint-disable-next-line max-lines-per-function
 export default function EditButtons(
-  { handleDelete, itemString, updateButton }: EditButtonsProps,
+  {
+    handleDelete, itemString, updateButton, itemLabel,
+  }: EditButtonsProps,
 ): ReactElement {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
 
@@ -32,11 +36,14 @@ export default function EditButtons(
   };
 
   const dialogMessage = `Are you sure you want to delete this ${itemString}?`;
+
   return (
     <>
       <Box style={{ alignSelf: 'flex-end', textAlign: 'right' }}>
-        {updateButton ? <IconButton type="submit" color="primary"><CloudUploadIcon /></IconButton> : null }
-        <IconButton color="primary" onClick={() => setConfirmationOpen(true)}><DeleteForeverIcon /></IconButton>
+        {updateButton
+          ? <IconButton type="submit" aria-label={`Update ${itemLabel}`} color="primary"><CloudUploadIcon /></IconButton>
+          : null }
+        <IconButton color="primary" aria-label={`Delete ${itemLabel}`} onClick={() => setConfirmationOpen(true)}><DeleteForeverIcon /></IconButton>
       </Box>
 
       <Dialog onClose={handleClose} aria-labelledby="confirm-action" open={confirmationOpen}>

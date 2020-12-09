@@ -6,8 +6,11 @@ export default function setUserState(
   action: UserActionType,
 ): UserType | null {
   switch (action.type) {
-    case actionIds.SET_USER:
-      return action.payload ? action.payload : null;
+    case actionIds.LOGIN_USER_RESPONSE:
+      if (action.payload) return action.payload;
+      return null;
+    case actionIds.LOGOUT_USER:
+      return null;
     default:
       return state;
   }

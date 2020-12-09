@@ -37,13 +37,23 @@ export default function ReviewQuotes(): ReactElement {
     setAddButton(false);
   };
 
+  const deleteQuote = (id) => {
+    const newReviewQuotes = reviewQuotes.filter((rq) => rq.id !== id);
+    dispatch(setReviewQuotes(newReviewQuotes));
+
+    // reinstate the "add" button
+    setAddButton(true);
+  };
+
   const mapQuoteToElement = user
-    ? (reviewQuote) => (
+    ? (reviewQuote, index) => (
       <EditReviewQuote
         key={reviewQuote.id}
         reviewQuoteData={reviewQuote}
         courses={courses}
         setAddButton={setAddButton}
+        deleteReviewQuoteFromState={deleteQuote}
+        reviewQuoteIndex={index}
       />
     )
     : (reviewQuote) => (

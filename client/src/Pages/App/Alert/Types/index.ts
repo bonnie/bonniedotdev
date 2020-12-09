@@ -1,4 +1,4 @@
-export enum AlertTypeOptions {
+export enum alertLevelOptions {
   error='error',
   info='info',
   warning='warning',
@@ -7,7 +7,7 @@ export enum AlertTypeOptions {
 
 export type AlertConfigType = {
   message: string,
-  alertType: AlertTypeOptions,
+  alertLevel: alertLevelOptions,
 }
 
 export type AlertActionType = {

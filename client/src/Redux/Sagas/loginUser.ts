@@ -1,6 +1,4 @@
-import { setAlert } from 'Pages/App/Alert/Redux/actions';
-import { AlertTypeOptions } from 'Pages/App/Alert/Types';
-import { setUser } from 'Pages/Auth/Redux/actions';
+import { actionIds as authActionIds } from 'Pages/Auth/Redux/actions';
 import { put, takeEvery } from 'redux-saga/effects';
 
 import urls from '../../Constants/urls';
@@ -22,13 +20,10 @@ export function* loginUser({ payload }: actionType) {
       url: urls.loginURL,
       method: axiosMethodOptions.POST,
       data: { ...payload },
-      callback: (responseData) => {
-        if (responseData) {
-          return setUser(responseData);
-        }
-        // TODO: log this to file!
-        return (setAlert('Incorrect login', AlertTypeOptions.warning));
-      },
+      callback: (responseData) => ({
+        type: authActionIds.LOGIN_USER_RESPONSE,
+        payload: responseData,
+      }),
     },
   });
 }
