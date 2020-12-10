@@ -24,7 +24,7 @@ export default function ReviewQuotes(): ReactElement {
   // any other quotes-in-progress
   const [addButton, setAddButton] = useState(user !== null);
   useEffect(
-    () => { if (user && hasNewItem(reviewQuotes)) setAddButton(false); },
+    () => { if (user) setAddButton(!hasNewItem(reviewQuotes)); },
     [user, reviewQuotes],
   );
 
@@ -70,7 +70,7 @@ export default function ReviewQuotes(): ReactElement {
       </Typography>
       <Grid container spacing={3}>
         {reviewQuotes.map(mapQuoteToElement)}
-        {addButton ? <AddButton onClick={addQuote} /> : null}
+        {addButton ? <AddButton onClick={addQuote} itemString="Review Quote" /> : null}
       </Grid>
     </Box>
   );

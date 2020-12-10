@@ -174,7 +174,7 @@ export default function EditCourse(
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               {couponElements}
             </MuiPickersUtilsProvider>
-            <AddButton onClick={addCoupon} size="small" />
+            <AddButton onClick={addCoupon} size="small" itemString="Coupon" />
           </Box>
           <EditButtons handleDelete={handleDelete} itemString="course" itemLabel={`Course ${courseIndex}`} />
         </form>

@@ -44,7 +44,7 @@ export default function Courses(): ReactElement {
               : <Course courseData={course} />}
           </Grid>
         ))}
-        { addButton ? <AddButton onClick={addEditableCourse} /> : null}
+        { addButton ? <AddButton onClick={addEditableCourse} itemString="Course" /> : null}
       </Grid>
     </>
   );

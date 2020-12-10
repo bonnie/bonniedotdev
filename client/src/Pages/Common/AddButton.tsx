@@ -8,15 +8,16 @@ type Size = 'small' | 'inherit' | 'large' | 'default' | undefined
 
 interface addButtonProps {
   onClick: (event) => void
+  itemString: string
   size?: Size
 }
 
 AddButton.defaultProps = { size: 'large' };
 
-export default function AddButton({ onClick, size }: addButtonProps): ReactElement {
+export default function AddButton({ onClick, itemString, size }: addButtonProps): ReactElement {
   return (
     <Grid item>
-      <IconButton onClick={onClick}>
+      <IconButton onClick={onClick} aria-label={`Add ${itemString}`}>
         <AddCircleIcon fontSize={size} />
       </IconButton>
     </Grid>
