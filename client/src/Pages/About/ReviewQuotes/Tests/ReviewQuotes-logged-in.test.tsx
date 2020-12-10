@@ -8,6 +8,10 @@ import React from 'react';
 import server from 'TestUtils/Mocks/server';
 import { renderWithProvider, renderWithRouterProviderAndUser } from 'TestUtils/renderWith';
 
+// TODO: why tf does this test and 'All forms render for multiple quotes'
+// succeed when run independently, but the second one fails when run one
+// after the other (doesn't matter which is first, the second will fail).
+
 test('On server success, renders spinner, then quotes, then spinner disappears', async () => {
   // Note: mocked server response is handled by msw, in the src/mocks folder
   // and src/setupTests.js. The handler is set to return
@@ -25,21 +29,19 @@ test('On server success, renders spinner, then quotes, then spinner disappears',
   const loadingSpinner = await loadingScreen.findByRole('progressbar');
   expect(loadingSpinner).toBeVisible();
 
-  // confirm loading spinner disappears
-  const notLoadingSpinner = await loadingScreen.findByRole('progressbar');
-  expect(notLoadingSpinner).toBe(null);
+  // confirm alert
+  const errorAlert = await loadingScreen.findByRole('alert');
+  expect(errorAlert).toHaveTextContent('Log in succeeded');
 
-  // confirm no error
-  const errorAlert = loadingScreen.queryByRole('alert');
-  expect(errorAlert).not.toBeInTheDocument();
+  // confirm loading spinner disappears
+  const notLoadingSpinner = loadingScreen.queryByRole('progressbar');
+  expect(notLoadingSpinner).not.toBeInTheDocument();
 });
 
 test('All forms render for multiple quotes', async () => {
   // render once before all tests, with pre-defined state
-  const initialState = {
-    user: { id: 1, username: 'fred' },
-  };
-  const allFormsScreen = await renderWithProvider(<ReviewQuotes />, initialState);
+  const initialState = { user: { id: 1, username: 'sheila' } };
+  const allFormsScreen = renderWithProvider(<ReviewQuotes />, initialState);
 
   // wait until quote forms appear
   const quoteForms = await allFormsScreen.findAllByRole('form', { name: /review quote \d+/i });
@@ -49,7 +51,7 @@ test('All forms render for multiple quotes', async () => {
 test.todo('update a quote');
 test.todo('delete a quote');
 
-describe('server error response', () => {
+describe.skip('server error response', () => {
   test('Renders error alert for error server response', async () => {
   // override default msw response for review_quotes endpoint with error response
     server.resetHandlers(

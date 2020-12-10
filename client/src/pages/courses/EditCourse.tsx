@@ -18,7 +18,7 @@ import AddButton from 'Pages/Common/AddButton';
 import EditButtons from 'Pages/Common/EditButtons';
 import {
   addCourse, deleteCourse, editCourse, setCourses,
-} from 'Pages/Courses/Redux/actions';
+} from 'Pages/Courses/Redux/Actions';
 import { CouponType, CourseType } from 'Pages/Courses/Types';
 import React, { ReactElement, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,12 +41,13 @@ const useStyles = makeStyles(() => ({
 export type CouponsById = Map<number, CouponType>;
 interface EditCourseProps {
   courseData: CourseType,
+  courseIndex: number,
   setAddCourseButton: (boolean) => void
 }
 
 // eslint-disable-next-line max-lines-per-function
 export default function EditCourse(
-  { courseData, setAddCourseButton }: EditCourseProps,
+  { courseData, courseIndex, setAddCourseButton }: EditCourseProps,
 ): ReactElement {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -175,7 +176,7 @@ export default function EditCourse(
             </MuiPickersUtilsProvider>
             <AddButton onClick={addCoupon} size="small" />
           </Box>
-          <EditButtons handleDelete={handleDelete} itemString="course" />
+          <EditButtons handleDelete={handleDelete} itemString="course" itemLabel={`Course ${courseIndex}`} />
         </form>
       </Box>
     </Card>

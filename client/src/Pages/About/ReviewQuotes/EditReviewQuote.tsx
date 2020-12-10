@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   addReviewQuote, deleteReviewQuote,
   editReviewQuote,
-} from './Redux/actions';
+} from './Redux/Actions';
 import ReviewQuoteBase from './ReviewQuoteBase';
 import { ReviewQuoteType } from './Types';
 

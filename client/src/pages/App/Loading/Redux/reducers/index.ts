@@ -1,5 +1,5 @@
 import { LoadingActionType } from '../../Types';
-import { actionIds } from '../actions';
+import { actionIds } from '../Actions';
 
 export default function setLoadingState(
   state = false,

@@ -6,7 +6,7 @@ import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { logoutUser } from './Redux/actions';
+import { logoutUser } from './Redux/Actions';
 
 const useStyles = makeStyles(() => ({
   root: {

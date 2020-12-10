@@ -1,5 +1,5 @@
 import { CoursesActionType, CourseType } from '../../Types';
-import { actionIds } from '../actions';
+import { actionIds } from '../Actions';
 
 function sortCoursesAlphabetically(courses: CourseType[]): CourseType[] {
   return courses.sort((a, b) => (a.name < b.name ? 1 : 0));

@@ -5,15 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import AddButton from '../Common/AddButton';
 import Course from './Course';
 import EditCourse from './EditCourse';
-import { setCourses, setCoursesFromServer } from './Redux/actions';
+import { setCourses, setCoursesFromServer } from './Redux/Actions';
 import { CourseType } from './Types';
 
 // eslint-disable-next-line max-lines-per-function
 export default function Courses(): ReactElement {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
-  // const user = useSelector((state) => state.user);
-  const user = true; // TODO <------ for testing only
+  const user = useSelector((state) => state.user);
+  // const user = true; // TODO <------ for testing only
   const [addButton, setAddButton] = useState(user !== null);
 
   // load courses from server on component mount
@@ -37,10 +37,10 @@ export default function Courses(): ReactElement {
     <>
       <h1>Courses</h1>
       <Grid container spacing={3}>
-        {courses?.map((course: CourseType) => (
+        {courses?.map((course: CourseType, i: number) => (
           <Grid key={course.id} item xs={12} sm={6} md={4} style={{ display: 'flex', alignItems: 'stretch' }}>
             {user
-              ? <EditCourse courseData={course} setAddCourseButton={setAddButton} />
+              ? <EditCourse courseData={course} courseIndex={i} setAddCourseButton={setAddButton} />
               : <Course courseData={course} />}
           </Grid>
         ))}

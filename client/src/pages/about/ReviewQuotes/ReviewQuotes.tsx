@@ -2,20 +2,25 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import AddButton from 'Pages/Common/AddButton';
-import { setCoursesFromServer } from 'Pages/Courses/Redux/actions';
+import { setCoursesFromServer } from 'Pages/Courses/Redux/Actions';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import EditReviewQuote from './EditReviewQuote';
 import ReadOnlyReviewQuote from './ReadOnlyReviewQuote';
-import { setReviewQuotes, setReviewQuotesFromServer } from './Redux/actions';
+import { setReviewQuotes, setReviewQuotesFromServer } from './Redux/Actions';
 import { ReviewQuoteType } from './Types';
 
 // eslint-disable-next-line max-lines-per-function
 export default function ReviewQuotes(): ReactElement {
   const dispatch = useDispatch();
-  const reviewQuotes = useSelector((state) => state.reviewQuotes);
+  const reviewQuotes = useSelector((state) => {
+    console.log('~!~!~!~!~!~!~!~!~! state updated to', state);
+    return state.reviewQuotes;
+  });
   const courses = useSelector((state) => state.courses);
+
+  // console.log('REVIEW QUOTES', reviewQuotes);
 
   const user = useSelector((state) => state.user);
 
@@ -27,6 +32,7 @@ export default function ReviewQuotes(): ReactElement {
 
   // populate the courses, but only if they're needed for quote edit selection
   // Do this here, so it doesn't have to be done individually on each editable quote
+  // TODO: cache this!
   useEffect(() => { if (user) dispatch(setCoursesFromServer()); }, [dispatch, user]);
 
   const addQuote = () => {

@@ -1,7 +1,7 @@
-import { actionIds as authActionIds } from 'Pages/Auth/Redux/actions';
+import { actionIds as authActionIds } from 'Pages/Auth/Redux/Actions';
 
 import { AlertActionType, AlertConfigType, alertLevelOptions } from '../../Types';
-import { actionIds } from '../actions';
+import { actionIds } from '../Actions';
 
 export default function setAlertState(
   state = null, action: AlertActionType,

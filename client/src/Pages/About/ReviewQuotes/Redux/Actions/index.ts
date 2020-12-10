@@ -31,27 +31,24 @@ export function setReviewQuotesFromServer() {
 
 export function deleteReviewQuote(reviewQuoteId) {
   return {
-    type: sagaActionIds.EDIT_SERVER_ITEM,
+    type: sagaActionIds.SERVER_REQUEST,
     payload: {
-      url: urls.reviewQuoteURL,
-      id: reviewQuoteId,
+      url: `${urls.reviewQuoteURL}/{reviewQuoteId}`,
       method: axiosMethodOptions.delete,
-      updateStateAction: setReviewQuotesFromServer(),
+      callback: setReviewQuotesFromServer,
     },
   };
 }
 
 export function addReviewQuote(newData) {
   // remove the id from data to be sent to the server
-  const { id } = newData;
   delete newData.id;
 
   return {
-    type: sagaActionIds.EDIT_SERVER_ITEM,
+    type: sagaActionIds.SERVER_REQUEST,
     payload: {
       url: urls.reviewQuoteURL,
       method: axiosMethodOptions.post,
-      id,
       updateStateAction: setReviewQuotesFromServer(),
       data: newData,
     },
@@ -59,11 +56,8 @@ export function addReviewQuote(newData) {
 }
 
 export function editReviewQuote(newData, originalData) {
-  // remove the id from data for the patch
-  const { id } = newData;
-
   // only deal with keys expected on the server
-  const patchRelevantKeys = ['body', 'id', 'courseId'];
+  const patchRelevantKeys = ['body', 'courseId'];
   const originalPatchData = _.pick(originalData, ...patchRelevantKeys);
   const newPatchData = _.pick(newData, ...patchRelevantKeys);
 
@@ -71,11 +65,10 @@ export function editReviewQuote(newData, originalData) {
   const patch = jiff.diff(originalPatchData, newPatchData);
 
   return {
-    type: sagaActionIds.EDIT_SERVER_ITEM,
+    type: sagaActionIds.SERVER_REQUEST,
     payload: {
-      url: urls.reviewQuoteURL,
+      url: `${urls.reviewQuoteURL}/{newData.id}`,
       method: axiosMethodOptions.patch,
-      id,
       updateStateAction: setReviewQuotesFromServer(),
       data: patch,
     },

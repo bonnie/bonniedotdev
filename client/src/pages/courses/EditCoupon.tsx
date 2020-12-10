@@ -66,7 +66,12 @@ export default function EditCoupon(
         format="MMM dd Y, H:mm"
         style={{ width: '100%' }}
       />
-      <EditButtons itemString="coupon" updateButton={false} handleDelete={handleDelete} />
+      <EditButtons
+        itemString="coupon"
+        updateButton={false}
+        handleDelete={handleDelete}
+        itemLabel={`Coupon ${couponId}`}
+      />
     </Box>
   );
 }

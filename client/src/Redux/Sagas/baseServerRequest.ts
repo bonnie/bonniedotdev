@@ -1,9 +1,9 @@
 // reference: https://github.com/Lemoncode/redux-sagas-typescript-by-example
 
 import axios from 'axios';
-import { setAlert } from 'Pages/App/Alert/Redux/actions';
+import { setAlert } from 'Pages/App/Alert/Redux/Actions';
 import { alertLevelOptions } from 'Pages/App/Alert/Types';
-import { clearLoading, setLoading } from 'Pages/App/Loading/Redux/actions';
+import { clearLoading, setLoading } from 'Pages/App/Loading/Redux/Actions';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import sagaActionIds from './actionIds';

@@ -5,7 +5,7 @@ import Alert from '@material-ui/lab/Alert';
 import React, { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { clearAlert } from './Redux/actions';
+import { clearAlert } from './Redux/Actions';
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function AlertBox(): ReactElement | null {

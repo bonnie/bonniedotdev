@@ -1,14 +1,13 @@
 /* eslint-disable max-lines-per-function */
 import { fireEvent } from '@testing-library/react';
+import urls from 'Constants/urls';
 import { rest } from 'msw';
+import App from 'Pages/App/App';
 import React from 'react';
+import server from 'TestUtils/Mocks/server';
+import { renderWithRouterAndProvider } from 'TestUtils/renderWith';
 
-import urls from '../../Constants/urls';
-import server from '../../TestUtils/Mocks/server';
-import { renderWithRouterAndProvider } from '../../TestUtils/renderWith';
-import App from '../App/App';
-
-test('Renders five review quotes for non-error server response', async () => {
+test('Renders two courses for non-error server response', async () => {
   // Note: mocked server response is handled by msw, in the src/mocks folder
   // and src/setupTests.js. The handler is set to return testCoursesJSONResponse
   // for /api/courses
