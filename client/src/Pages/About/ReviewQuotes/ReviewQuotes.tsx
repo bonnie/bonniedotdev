@@ -1,6 +1,8 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { hasNewItem } from 'Helpers';
 import AddButton from 'Pages/Common/AddButton';
 import { setCoursesFromServer } from 'Pages/Courses/Redux/Actions';
 import React, { ReactElement, useEffect, useState } from 'react';
@@ -14,18 +16,17 @@ import { ReviewQuoteType } from './Types';
 // eslint-disable-next-line max-lines-per-function
 export default function ReviewQuotes(): ReactElement {
   const dispatch = useDispatch();
-  const reviewQuotes = useSelector((state) => {
-    console.log('~!~!~!~!~!~!~!~!~! state updated to', state);
-    return state.reviewQuotes;
-  });
+  const reviewQuotes = useSelector((state) => state.reviewQuotes);
   const courses = useSelector((state) => state.courses);
-
-  // console.log('REVIEW QUOTES', reviewQuotes);
-
   const user = useSelector((state) => state.user);
 
-  // TODO refactor so code is not repeated between this and Courses.tsx
+  // only allow one new quote at a time, since submitting a new quote will obliterate
+  // any other quotes-in-progress
   const [addButton, setAddButton] = useState(user !== null);
+  useEffect(
+    () => { if (user && hasNewItem(reviewQuotes)) setAddButton(false); },
+    [user, reviewQuotes],
+  );
 
   // populate review quotes data from the server
   useEffect(() => { dispatch(setReviewQuotesFromServer()); }, [dispatch]);
@@ -38,17 +39,11 @@ export default function ReviewQuotes(): ReactElement {
   const addQuote = () => {
     const newQuote: ReviewQuoteType = { body: '', id: 0 - (reviewQuotes.length + 1) };
     dispatch(setReviewQuotes([...reviewQuotes, newQuote]));
-
-    // only allow adding one quote at a time
-    setAddButton(false);
   };
 
   const deleteQuote = (id) => {
     const newReviewQuotes = reviewQuotes.filter((rq) => rq.id !== id);
     dispatch(setReviewQuotes(newReviewQuotes));
-
-    // reinstate the "add" button
-    setAddButton(true);
   };
 
   const mapQuoteToElement = user
@@ -57,7 +52,6 @@ export default function ReviewQuotes(): ReactElement {
         key={reviewQuote.id}
         reviewQuoteData={reviewQuote}
         courses={courses}
-        setAddButton={setAddButton}
         deleteReviewQuoteFromState={deleteQuote}
         reviewQuoteIndex={index}
       />

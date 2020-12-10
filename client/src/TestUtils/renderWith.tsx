@@ -4,10 +4,22 @@ import {
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { sagaMiddleware } from 'Redux/configureStore';
+import { applyMiddleware, createStore, Store } from 'redux';
 import rootSaga from 'Redux/Sagas';
+// import { sagaMiddleware } from 'Redux/configureStore';
+import createSagaMiddleware from 'redux-saga';
 
-import storeFactory from './storeFactory';
+// import { middlewares } from '../Redux/configureStore';
+import rootReducer from '../Redux/reducers';
+
+function storeFactory(initialState = {}): Store {
+  // necessary to have separate saga middleware instance for each test, since they run concurrently
+  const sagaMiddleware = createSagaMiddleware();
+  const store = createStore(rootReducer, initialState, applyMiddleware(sagaMiddleware));
+  sagaMiddleware.run(rootSaga);
+
+  return store;
+}
 
 // TODO: does this help reduce repetitive code? https://redux.js.org/recipes/writing-tests
 
@@ -23,9 +35,6 @@ export function renderWithRouter(ui: ReactElement, initialRouterEntries = []): S
 export function renderWithProvider(ui: ReactElement, initialState = {}): Screen {
   const store = storeFactory(initialState);
 
-  // run saga listeners
-  sagaMiddleware.run(rootSaga);
-
   render(
     <Provider store={store}>
       {ui}
@@ -39,9 +48,6 @@ export function renderWithRouterAndProvider(
   { initialRouterEntries = ['/'], initialState = {} } = {},
 ): Screen {
   const store = storeFactory(initialState);
-
-  // run saga listeners
-  sagaMiddleware.run(rootSaga);
 
   render(
     <Provider store={store}>
@@ -61,9 +67,6 @@ export async function renderWithRouterProviderAndUser(
   { initialState = {} } = {},
 ): Promise<Screen> {
   const store = storeFactory(initialState);
-
-  // run saga listeners
-  sagaMiddleware.run(rootSaga);
 
   // route to '/login' first
   render(

@@ -7,7 +7,7 @@ import { getFormData } from 'Helpers';
 import EditButtons from 'Pages/Common/EditButtons';
 import { CourseType } from 'Pages/Courses/Types';
 import React, { ReactElement } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import {
   addReviewQuote, deleteReviewQuote,
@@ -36,19 +36,17 @@ interface EditReviewQuoteProps {
   reviewQuoteData: ReviewQuoteType,
   courses: CourseType[],
   deleteReviewQuoteFromState: (number) => void,
-  setAddButton: (boolean) => void,
   reviewQuoteIndex: number,
 }
 
 // eslint-disable-next-line max-lines-per-function
 export default function EditReviewQuote(
   {
-    reviewQuoteData, courses, deleteReviewQuoteFromState, setAddButton, reviewQuoteIndex,
+    reviewQuoteData, courses, deleteReviewQuoteFromState, reviewQuoteIndex,
   }: EditReviewQuoteProps,
 ): ReactElement {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.alert);
   const notSaved = reviewQuoteData.id < 1;
 
   const handleSubmit = (event) => {
@@ -57,9 +55,6 @@ export default function EditReviewQuote(
 
     if (notSaved) {
       dispatch(addReviewQuote(formData));
-
-      // reinstate the "add" button if the action was successful
-      if (!error) setAddButton(true);
     } else {
       dispatch(editReviewQuote(formData, reviewQuoteData));
     }

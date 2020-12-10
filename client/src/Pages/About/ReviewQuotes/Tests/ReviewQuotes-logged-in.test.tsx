@@ -48,6 +48,7 @@ test('All forms render for multiple quotes', async () => {
   expect(quoteForms.length).toBe(5);
 });
 
+test.todo('add a quote');
 test.todo('update a quote');
 test.todo('delete a quote');
 
