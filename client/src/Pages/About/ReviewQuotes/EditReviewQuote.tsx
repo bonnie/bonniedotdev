@@ -1,6 +1,5 @@
 import Box from '@material-ui/core/Box';
 import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -27,6 +26,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   courseSelect: {
     minWidth: 120,
     maxWidth: '100%',
+  },
+  courseOption: {
+    backgroundColor: theme.palette.background.paper,
+    padding: '10px',
+    '&:focus': {
+      borderColor: '#80bdff',
+    },
   },
   flexEnd: {
     alignSelf: 'flex-end',
@@ -101,7 +107,8 @@ export default function EditReviewQuote(
             native
           >
             { courses.map((course, i) => (
-              <option key={course.id} value={course.id}>
+              // TODO: this is testable, but ugly :-/
+              <option className={classes.courseOption} key={course.id} value={course.id}>
                 {course.name}
               </option>
             )) }
