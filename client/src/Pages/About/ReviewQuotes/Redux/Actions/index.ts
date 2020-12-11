@@ -33,7 +33,7 @@ export function deleteReviewQuote(reviewQuoteId) {
   return {
     type: sagaActionIds.SERVER_REQUEST,
     payload: {
-      url: `${urls.reviewQuoteURL}/{reviewQuoteId}`,
+      url: `${urls.reviewQuoteURL}/${reviewQuoteId}`,
       method: axiosMethodOptions.delete,
       callback: setReviewQuotesFromServer,
     },
@@ -67,7 +67,7 @@ export function editReviewQuote(newData, originalData) {
   return {
     type: sagaActionIds.SERVER_REQUEST,
     payload: {
-      url: `${urls.reviewQuoteURL}/{newData.id}`,
+      url: `${urls.reviewQuoteURL}/${newData.id}`,
       method: axiosMethodOptions.patch,
       updateStateAction: setReviewQuotesFromServer(),
       data: patch,

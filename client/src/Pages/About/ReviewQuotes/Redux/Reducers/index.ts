@@ -7,6 +7,7 @@ function sortByPositiveIdThenLength(reviewQuotes: ReviewQuoteType[]): ReviewQuot
   return reviewQuotes.sort((a, b) => {
     if (a.id < 0 && b.id < 0) return a.id - b.id;
     if (a.id < 0) return 1;
+    if (b.id < 0) return -1;
     return a.body.length - b.body.length;
   });
 }

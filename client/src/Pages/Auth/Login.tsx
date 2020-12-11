@@ -38,6 +38,7 @@ export default function Login({ referrer = null }: LoginPropsType): ReactElement
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = getFormData(event);
+    console.log('^^^^^^^^^^^^', formData);
 
     // submit the login
     dispatch(loginUser({
@@ -51,11 +52,11 @@ export default function Login({ referrer = null }: LoginPropsType): ReactElement
       <Typography variant="h1">Log In</Typography>
       <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
 
-        <TextField required id="username" label="Username" />
+        <TextField required name="username" label="Username" />
 
         <TextField
           required
-          id="password"
+          name="password"
           label="Password"
           type="password"
           autoComplete="current-password"

@@ -75,38 +75,35 @@ export default function EditReviewQuote(
   const contents = (
     <Box className={classes.flexContainer}>
       <form aria-label={itemLabel} onSubmit={handleSubmit}>
-        <fieldset>
-          <legend style={{ display: 'none' }}>{itemLabel}</legend>
-          <Input type="hidden" id={`${itemId}-id`} name="id" value={reviewQuoteData.id} />
+        <Input type="hidden" id={`${itemId}-id`} name="id" value={reviewQuoteData.id} />
+        <TextField
+          required
+          multiline
+          name="body"
+          id={`${itemId}-body`}
+          aria-label={`${itemLabel} body`}
+          label="Quote"
+          style={{ width: '100%' }}
+          defaultValue={reviewQuoteData.body || ''}
+        />
+        {/* TODO: align this box at the bottom of its container */}
+        <Box mt={2} className={classes.flexEnd}>
           <TextField
-            required
-            multiline
-            name="body"
-            id={`${itemId}-body`}
-            aria-label={`${itemLabel} body`}
-            label="Quote"
-            style={{ width: '100%' }}
-            defaultValue={reviewQuoteData.body || ''}
-          />
-          {/* TODO: align this box at the bottom of its container */}
-          <Box mt={2} className={classes.flexEnd}>
-            <TextField
-              className={classes.courseSelect}
-              name="courseId"
-              id={`${itemId}-course`}
-              aria-label={`${itemLabel} course`}
-              label="Course"
-              defaultValue={reviewQuoteData.courseId || ''}
-              select
-            >
-              { courses.map((course) => (
-                <MenuItem key={course.id} value={course.id}>
-                  {course.name}
-                </MenuItem>
-              )) }
-            </TextField>
-          </Box>
-        </fieldset>
+            className={classes.courseSelect}
+            name="courseId"
+            id={`${itemId}-course`}
+            aria-label={`${itemLabel} course`}
+            label="Course"
+            defaultValue={reviewQuoteData.courseId || ''}
+            select
+          >
+            { courses.map((course) => (
+              <MenuItem key={course.id} value={course.id}>
+                {course.name}
+              </MenuItem>
+            )) }
+          </TextField>
+        </Box>
         <EditButtons
           handleDelete={handleDelete}
           itemString="review quote"

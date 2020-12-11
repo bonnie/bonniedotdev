@@ -25,7 +25,6 @@ export default function ReviewQuotes(): ReactElement {
   const [addButton, setAddButton] = useState(user !== null);
   useEffect(
     () => {
-      console.log('updating addbutton', reviewQuotes);
       if (user) setAddButton(!hasNewItem(reviewQuotes));
     },
     [user, reviewQuotes],
