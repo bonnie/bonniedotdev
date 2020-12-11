@@ -12,8 +12,6 @@ export const actionIds = {
 };
 
 export function setReviewQuotes(payload: ReviewQuoteType[]): ReviewQuotesActionType {
-  console.log('SETTING REVIEW QUOTES TO', payload);
-
   return {
     type: actionIds.SET_REVIEW_QUOTES,
     payload,
@@ -21,7 +19,6 @@ export function setReviewQuotes(payload: ReviewQuoteType[]): ReviewQuotesActionT
 }
 
 export function setReviewQuotesFromServer() {
-  console.log('******************* setting quotes from server');
   return {
     type: sagaActionIds.SERVER_REQUEST,
     payload: {
@@ -46,7 +43,6 @@ export function deleteReviewQuote(reviewQuoteId) {
 export function addReviewQuote(newData) {
   // remove the id from data to be sent to the server
   delete newData.id;
-  console.log('()()()()()() adding review quote');
 
   return {
     type: sagaActionIds.SERVER_REQUEST,
