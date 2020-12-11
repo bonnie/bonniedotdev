@@ -6,6 +6,7 @@ from jsonpatch import JsonPatchException
 from marshmallow import fields
 from marshmallow import post_load
 from marshmallow import Schema
+from marshmallow.exceptions import ValidationError
 
 
 class ReviewQuoteSchema(Schema):
@@ -53,7 +54,10 @@ class ReviewQuote(Resource):
     def post(self):
         """Create new quote."""
 
-        new_quote = ReviewQuoteSchema().load(request.json)
+        try:
+            new_quote = ReviewQuoteSchema().load(request.json)
+        except ValidationError as e:
+            return {"message", f"failed to validate input: {e}"}, 400
 
         return new_quote.to_dict(), 201
 

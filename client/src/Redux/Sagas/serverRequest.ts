@@ -24,8 +24,6 @@ export function* makeServerRequest({ payload }: makeServerRequestArgs) {
   let responseData = null;
   const errorString = 'There was a problem connecting to the server';
 
-  // TODO: only show loading if the loading takes a certain amount of time
-  // or, make loading less "blink the whole screen" (probably the latter)
   yield put(setLoading());
 
   // store callback before removing it for axios

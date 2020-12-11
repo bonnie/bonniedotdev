@@ -38,7 +38,6 @@ export default function Login({ referrer = null }: LoginPropsType): ReactElement
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = getFormData(event);
-    console.log('^^^^^^^^^^^^', formData);
 
     // submit the login
     dispatch(loginUser({

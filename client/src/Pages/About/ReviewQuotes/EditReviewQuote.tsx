@@ -95,6 +95,7 @@ export default function EditReviewQuote(
             aria-label={`${itemLabel} course`}
             label="Course"
             defaultValue={reviewQuoteData.courseId || ''}
+            required
             select
           >
             { courses.map((course) => (

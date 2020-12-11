@@ -3,7 +3,7 @@ from flask import request
 from flask_restful import Resource
 from marshmallow import fields
 from marshmallow import Schema
-from marshmallow import ValidationError
+from marshmallow.exceptions import ValidationError
 
 
 class userLoginSchema(Schema):

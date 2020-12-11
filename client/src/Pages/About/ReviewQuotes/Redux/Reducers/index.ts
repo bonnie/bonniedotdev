@@ -18,12 +18,9 @@ export default function setReviewQuotes(
 ): ReviewQuoteType[] {
   switch (action.type) {
     case actionIds.SET_REVIEW_QUOTES: {
-      // if data is truthy, return it
-      if (action.payload) {
-        return sortByPositiveIdThenLength(action.payload);
-      }
-      // otherwise just return an empty array
-      return [];
+      return (action.payload)
+        ? sortByPositiveIdThenLength(action.payload)
+        : [];
     }
     default:
       return state;
