@@ -1,6 +1,7 @@
 import Box from '@material-ui/core/Box';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { getFormData } from 'Helpers';
@@ -88,7 +89,7 @@ export default function EditReviewQuote(
         />
         {/* TODO: align this box at the bottom of its container */}
         <Box mt={2} className={classes.flexEnd}>
-          <TextField
+          <Select
             className={classes.courseSelect}
             name="courseId"
             id={`${itemId}-course`}
@@ -96,14 +97,15 @@ export default function EditReviewQuote(
             label="Course"
             defaultValue={reviewQuoteData.courseId || ''}
             required
-            select
+            // using 'native' for easier testing
+            native
           >
-            { courses.map((course) => (
-              <MenuItem key={course.id} value={course.id}>
+            { courses.map((course, i) => (
+              <option key={course.id} value={course.id}>
                 {course.name}
-              </MenuItem>
+              </option>
             )) }
-          </TextField>
+          </Select>
         </Box>
         <EditButtons
           handleDelete={handleDelete}

@@ -22,6 +22,16 @@ const handlers = [
     res(ctx.status(201), ctx.json(newReviewQuoteJSONResponse)),
   ),
 
+  // update a quote
+  rest.patch(`${urls.reviewQuoteURL}/:quoteId`, (req, res, ctx) =>
+    res(ctx.status(200)),
+  ),
+
+  // delete a quote
+  rest.delete(`${urls.reviewQuoteURL}/:quoteId`, (req, res, ctx) =>
+    res(ctx.status(204)),
+  ),
+
   // get all courses
   rest.get(urls.coursesURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testCoursesJSONResponse)),
