@@ -5,21 +5,29 @@ import { rest } from 'msw';
 
 import urls from '../../Constants/urls';
 import {
+  newReviewQuoteJSONResponse,
   testCoursesJSONResponse,
   testReviewQuotesData,
   testSuccessLoginReponse,
 } from '../Data';
 
 const handlers = [
+  // get all quotes
   rest.get(urls.reviewQuotesURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testReviewQuotesData)),
   ),
-  rest.post(urls.reviewQuoteURL, (req, res, ctx) => res(ctx.status(201))),
 
+  // post new quote
+  rest.post(urls.reviewQuoteURL, (req, res, ctx) =>
+    res(ctx.status(201), ctx.json(newReviewQuoteJSONResponse)),
+  ),
+
+  // get all courses
   rest.get(urls.coursesURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testCoursesJSONResponse)),
   ),
 
+  // log in user
   rest.post(urls.loginURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testSuccessLoginReponse)),
   ),

@@ -24,7 +24,10 @@ export default function ReviewQuotes(): ReactElement {
   // any other quotes-in-progress
   const [addButton, setAddButton] = useState(user !== null);
   useEffect(
-    () => { if (user) setAddButton(!hasNewItem(reviewQuotes)); },
+    () => {
+      console.log('updating addbutton', reviewQuotes);
+      if (user) setAddButton(!hasNewItem(reviewQuotes));
+    },
     [user, reviewQuotes],
   );
 

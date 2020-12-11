@@ -89,4 +89,12 @@ export const testCoursesJSONResponse = [
   CourseJSONWithoutCoupons,
 ];
 
+export const newReviewQuoteJSONResponse = {
+  courseId: 5,
+  courseName: 'Course 5',
+  courseLink: 'http://test5.org',
+  id: 12,
+  body: 'What a great course!',
+};
+
 /** END: JSON */
