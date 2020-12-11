@@ -82,6 +82,7 @@
     "moxios": "^0.4.0",
     "msw": "^0.22.3",
     "prettier": "^2.1.2",
+    "react-select-event": "^5.1.0",
     "redux-saga-test-plan": "^4.0.1",
     "redux-saga-tester": "^1.0.874",
     "ts-jest": "^26.4.4"

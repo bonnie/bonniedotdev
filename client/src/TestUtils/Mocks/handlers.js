@@ -10,11 +10,11 @@ import {
   testSuccessLoginReponse,
 } from '../Data';
 
-// eslint-disable-next-line import/prefer-default-export
-export const handlers = [
+const handlers = [
   rest.get(urls.reviewQuotesURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testReviewQuotesData)),
   ),
+  rest.post(urls.reviewQuoteURL, (req, res, ctx) => res(ctx.status(201))),
 
   rest.get(urls.coursesURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testCoursesJSONResponse)),
@@ -24,3 +24,5 @@ export const handlers = [
     res(ctx.status(200), ctx.json(testSuccessLoginReponse)),
   ),
 ];
+
+export default handlers;

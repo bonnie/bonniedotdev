@@ -57,3 +57,35 @@ describe.only('Test form render details for individual quote', () => {
     expect(deleteButton).toBeInTheDocument();
   });
 });
+
+// test.only('send new quote to server', async () => {
+//   // render with pre-defined state for user
+//   const newQuoteScreen = renderWithProvider(<ReviewQuotes />, initialState);
+
+//   // wait until quote forms appear
+//   const quoteForms = await newQuoteScreen.findAllByRole('form', { name: /review quote \d+/i });
+//   expect(quoteForms.length).toBe(5);
+
+//   // find and click add button
+//   const addButton = newQuoteScreen.getByRole('button', { name: /add review quote/i });
+//   fireEvent.click(addButton);
+
+//   // wait for new quote to show
+//   const quoteFormsPlusOne = await newQuoteScreen.findAllByRole('form', { name: /review quote \d/i });
+//   expect(quoteFormsPlusOne.length).toBe(6);
+
+//   // add text to quote (new quote will have last index, indexing starts at 0)
+//   const textBodyField = newQuoteScreen.getByRole('textarea', { name: /review quote 5 body/i });
+//   fireEvent.change(textBodyField, { value: 'The best course I have attended on Udemy so far.' });
+
+//   // select course for quote
+//   const courseSelector = newQuoteScreen.getByRole('button', { name: /review quote 5 course/i })
+
+//   // check that add button re-appears
+//   const reappearedAddButton = await newQuoteScreen.findByRole('button', { name: /add review quote/i });
+//   expect(reappearedAddButton).toBeInTheDocument();
+// });
+// });
+
+// test.todo('update a quote');
+// test.todo('delete a quote');

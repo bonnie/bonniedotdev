@@ -1,6 +1,6 @@
 import { all, call, spawn } from 'redux-saga/effects';
 
-import watchServerRequests from './baseServerRequest';
+import watchServerRequests from './serverRequest';
 
 export default function* rootSaga() {
   const sagas = [watchServerRequests];

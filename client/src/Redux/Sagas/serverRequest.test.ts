@@ -4,7 +4,7 @@ import { call, put } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 
 import sagaActionIds from './actionIds';
-import { getAxiosResponseData, makeServerRequest } from './baseServerRequest';
+import { getAxiosResponseData, makeServerRequest } from './serverRequest';
 import { axiosMethodOptions } from './Types';
 
 describe('test by simulating axios conditions with moxios', () => {
