@@ -20,7 +20,7 @@ const editReviewQuoteProps = {
   reviewQuoteIndex: 1,
 };
 
-describe.only('Test form render details for individual quote', () => {
+describe('Test form render details for individual quote', () => {
   test('renders quote form', () => {
     const screen = renderWithProvider(<EditReviewQuote {...editReviewQuoteProps} />);
     const quoteForm = screen.getByRole('form', { name: /review quote \d+/i });
