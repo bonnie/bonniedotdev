@@ -51,11 +51,12 @@ export default function Login({ referrer = null }: LoginPropsType): ReactElement
       <Typography variant="h1">Log In</Typography>
       <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
 
-        <TextField required name="username" label="Username" />
+        <TextField required name="username" label="Username" id="username" />
 
         <TextField
           required
           name="password"
+          id="password"
           label="Password"
           type="password"
           autoComplete="current-password"

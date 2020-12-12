@@ -77,13 +77,8 @@ export async function renderWithRouterProviderAndUser(
     </Provider>,
   );
 
-  // enter username and password
-  // actual values not relevant for tests, since server response is mocked
-  const userField = await screen.findByLabelText(/username/i);
-  fireEvent.change(userField, 'my_username');
-
-  const passwordField = screen.getByLabelText(/password/i);
-  fireEvent.change(passwordField, 'my_password');
+  // actual username/password values not relevant to tests
+  // since server response is hard-coded
 
   // submit the form
   const submitButton = screen.getByRole('button', { name: /log in/i });

@@ -12,6 +12,7 @@ import {
 } from '../Data';
 
 const handlers = [
+  // ////////////// review quotes /////////// //
   // get all quotes
   rest.get(urls.reviewQuotesURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testReviewQuotesData)),
@@ -32,11 +33,13 @@ const handlers = [
     res(ctx.status(204)),
   ),
 
+  // ////////////// courses /////////// //
   // get all courses
   rest.get(urls.coursesURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testCoursesJSONResponse)),
   ),
 
+  // ////////////// log in /////////// //
   // log in user
   rest.post(urls.loginURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testSuccessLoginReponse)),

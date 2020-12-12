@@ -6,6 +6,10 @@ import React from 'react';
 import { renderWithProvider } from 'TestUtils/renderWith';
 
 test('send new quote to server', async () => {
+  // this test sometimes exceeds the time limit 😭
+  // update to 10 seconds
+  jest.setTimeout(10000);
+
   // render with pre-defined state for user
   const initialState = { user: { id: 1, username: 'sheila' } };
   const newQuoteScreen = renderWithProvider(<ReviewQuotes />, initialState);

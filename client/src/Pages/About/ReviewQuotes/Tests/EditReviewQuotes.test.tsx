@@ -38,11 +38,12 @@ describe.only('Test form render details for individual quote', () => {
     // NOTE: course dropdown will be populated by testCourseData, which has two courses
     const screen = renderWithProvider(<EditReviewQuote {...editReviewQuoteProps} />);
 
-    // check for course dropdown (select has role "button")
-    const courseSelect = screen.getByRole('button', { name: /Course\s*/ });
-    expect(courseSelect).toBeInTheDocument();
+    // check the select options
+    const courseOption1 = screen.getByRole('option', { name: 'React Testing with Jest and Enzyme' });
+    expect(courseOption1).toBeInTheDocument();
 
-    // TODO: check for the actual select
+    const courseOption2 = screen.getByRole('option', { name: 'Regular Expressions for Beginners and Beyond! With Exercises' });
+    expect(courseOption2).toBeInTheDocument();
   });
 
   test('renders update buttons', () => {

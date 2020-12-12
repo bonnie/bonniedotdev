@@ -37,7 +37,11 @@ test('Renders error alert for error server response', async () => {
   // TODO: why does this cause "Error: Error: connect ECONNREFUSED 127.0.0.1:80" when
   // run in parallel with the other tests, even though all tests pass?
   // Commenting this '.skip' or '.only' makes the warning go away T.T
-  // AND: why does it work ok in the notLoggedIn test file??
+  // AND: why does this error not appear with the notLoggedIn test file??
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+  // END: todo
+
   server.resetHandlers(
     rest.get(urls.reviewQuotesURL, (req, res, ctx) => res(ctx.status(500), ctx.json({ message: 'oops' }))),
   );

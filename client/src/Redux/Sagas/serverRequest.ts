@@ -37,7 +37,6 @@ export function* makeServerRequest({ payload }: makeServerRequestArgs) {
     // for development, use flask server running in background
     axiosArgs.url = `http://localhost:5050${axiosArgs.url}`;
   }
-
   const headers = { 'Content-Type': 'application/json' };
 
   try {
