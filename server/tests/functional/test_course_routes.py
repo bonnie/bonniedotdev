@@ -1,17 +1,6 @@
-import pytest
 from app.models.course_model import Course as CourseModel
 
 # from conftest import future_iso_date
-
-
-@pytest.fixture
-def simple_course_id(test_db):
-    return CourseModel.query.filter(CourseModel.name == "Simple Course").one().id
-
-
-@pytest.fixture
-def full_course_id(test_db):
-    return CourseModel.query.filter(CourseModel.name == "Awesome Course").one().id
 
 
 def test_get_existing_course(
@@ -40,6 +29,7 @@ def test_get_nonexistent_course(test_db, test_client):
     assert response.status_code == 404
 
 
+# TODO
 # def test_add_coupons_to_course(test_db, test_client, simple_course_id):
 #     coupons = [
 #         {"code": "test", "utcExpirationISO": future_iso_date, "price": 9.99},

@@ -80,3 +80,13 @@ def test_db(app):
     db.session.close()
     db.drop_all()
     # drop_db()  # TODO: get this working
+
+
+@pytest.fixture
+def simple_course_id(test_db):
+    return Course.query.filter(Course.name == "Simple Course").one().id
+
+
+@pytest.fixture
+def full_course_id(test_db):
+    return Course.query.filter(Course.name == "Awesome Course").one().id
