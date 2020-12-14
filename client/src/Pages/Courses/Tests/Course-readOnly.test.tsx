@@ -9,7 +9,7 @@ const coupon: CouponType = {
   id: 1,
   code: 'COUPON_CODE',
   price: 12.99,
-  utcExpiration: new Date('2020-11-17T20:01:03.182265+00:00'),
+  utcExpirationISO: new Date('2020-11-17T20:01:03.182265+00:00').toISOString(),
 };
 
 const courseWithoutCoupon: CourseType = {

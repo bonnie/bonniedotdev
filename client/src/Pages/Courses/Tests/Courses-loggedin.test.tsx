@@ -5,7 +5,7 @@ import { rest } from 'msw';
 import App from 'Pages/App/App';
 import React from 'react';
 import server from 'TestUtils/Mocks/server';
-import { renderWithRouterAndProvider } from 'TestUtils/renderWith';
+import { renderWithRouterProviderAndUser } from 'TestUtils/renderWith';
 
 test('Renders two courses for non-error server response', async () => {
   // Note: mocked server response is handled by msw, in the src/mocks folder
@@ -13,7 +13,7 @@ test('Renders two courses for non-error server response', async () => {
   // for /api/courses
 
   // render entire App so that we can check Loading and Error
-  const screen = renderWithRouterAndProvider(<App />);
+  const screen = await renderWithRouterProviderAndUser(<App />);
 
   // click the 'courses' tab to trigger the courses retrieval
   const coursesNavLink = screen.getByRole('tab', { name: /courses/ });
@@ -25,18 +25,21 @@ test('Renders two courses for non-error server response', async () => {
   const loadingSpinner = await screen.findByRole('progressbar', { hidden: true });
   expect(loadingSpinner).toBeVisible();
 
-  // check courses by looking for link on image
-  // actual course details checked in Course.test.tsx
-  const courses = await screen.findAllByRole('link', { name: /Course Image/ });
-  expect(courses.length).toBe(2);
+  // check courses by looking for field to enter/edit course name
+  // actual course details checked in EditCourse.test.tsx
+  const course1 = await screen.findByText('React Testing with Jest and Enzyme');
+  expect(course1).toBeInTheDocument();
+
+  const course2 = await screen.findByText('Regular Expressions for Beginners and Beyond! With Exercises');
+  expect(course2).toBeInTheDocument();
 
   // confirm loading spinner has disappeared
   const notLoadingSpinner = screen.queryByRole('progressbar', { hidden: true });
   expect(notLoadingSpinner).toBe(null);
 
-  // confirm no error
+  // confirm no error (there will be a "log in successful" alert, but it won't have error class)
   const errorAlert = screen.queryByRole('alert');
-  expect(errorAlert).not.toBeInTheDocument();
+  expect(errorAlert).not.toHaveClass('MuiAlert-standardError');
 });
 
 test('Renders error alert for error server response', async () => {
@@ -47,7 +50,7 @@ test('Renders error alert for error server response', async () => {
   );
 
   // render entire App so that we can check Loading and Error
-  const screen = renderWithRouterAndProvider(<App />);
+  const screen = await renderWithRouterProviderAndUser(<App />);
 
   // click the 'courses' tab to trigger the courses retrieval
   const coursesNavLink = screen.getByRole('tab', { name: /courses/ });
@@ -61,7 +64,7 @@ test('Renders error alert for error server response', async () => {
 
   // confirm error
   const errorAlert = await screen.findByRole('alert');
-  expect(errorAlert).toBeInTheDocument();
+  expect(errorAlert).toHaveClass('MuiAlert-standardError');
 
   // confirm loading spinner has disappeared
   const notLoadingSpinner = screen.queryByRole('progressbar', { hidden: true });
