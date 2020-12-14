@@ -1,25 +1,5 @@
-from datetime import datetime
-from datetime import timedelta
-
 import pytest
 from app.models.coupon_model import Coupon
-from pytz import utc
-
-
-# TODO: move to conftest so they can be used in test_course_model
-@pytest.fixture
-def now_date_utc():
-    return datetime.now(utc)
-
-
-@pytest.fixture
-def future_date_iso():
-    return datetime.isoformat(datetime.now(utc) + timedelta(days=5))
-
-
-@pytest.fixture
-def past_date_iso():
-    return datetime.isoformat(datetime.now(utc) - timedelta(days=5))
 
 
 @pytest.fixture
@@ -29,20 +9,20 @@ def mock_update_db(mocker):
 
 
 @pytest.fixture
-def valid_coupon(mock_update_db, future_date_iso):
+def valid_coupon(mock_update_db, iso_30_days_from_now):
     return Coupon(
         code="NOT_EXPIRED",
-        utcExpirationISO=future_date_iso,
+        utcExpirationISO=iso_30_days_from_now,
         price=12.99,
         courseId=1,
     )
 
 
 @pytest.fixture
-def invalid_coupon(mock_update_db, past_date_iso):
+def invalid_coupon(mock_update_db, iso_30_days_ago):
     return Coupon(
         code="EXPIRED",
-        utcExpirationISO=past_date_iso,
+        utcExpirationISO=iso_30_days_ago,
         price=9.99,
         courseId=1,
     )

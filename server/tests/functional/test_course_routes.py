@@ -29,19 +29,23 @@ def test_get_nonexistent_course(test_db, test_client):
     assert response.status_code == 404
 
 
-# TODO
-# def test_add_coupons_to_course(test_db, test_client, simple_course_id):
-#     coupons = [
-#         {"code": "test", "utcExpirationISO": future_iso_date, "price": 9.99},
-#     ]
-#     patch = [{"op": "add", "path": "/coupons", "value": coupons}]
+def test_add_coupons_to_course(
+    test_db,
+    test_client,
+    simple_course_id,
+    iso_30_days_from_now,
+):
+    coupons = [
+        {"code": "test", "utcExpirationISO": iso_30_days_from_now, "price": 9.99},
+    ]
+    patch = [{"op": "add", "path": "/coupons", "value": coupons}]
 
-#     response = test_client.patch(f"/api/course/{simple_course_id}", json=patch)
+    response = test_client.patch(f"/api/course/{simple_course_id}", json=patch)
 
-#     assert response.status_code == 200
+    assert response.status_code == 200
 
-#     bestCoupon = response.json["bestCoupon"]
-#     assert bestCoupon["code"] == "test"
+    bestCoupon = response.json["bestCoupon"]
+    assert bestCoupon["code"] == "test"
 
 
 def test_update_description(test_db, test_client, full_course_id):

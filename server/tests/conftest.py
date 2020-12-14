@@ -9,6 +9,21 @@ from pytz import utc
 
 
 @pytest.fixture
+def now_date_utc():
+    return datetime.now(utc)
+
+
+@pytest.fixture
+def iso_30_days_from_now():
+    return datetime.isoformat(datetime.now(utc) + timedelta(days=5))
+
+
+@pytest.fixture
+def iso_30_days_ago():
+    return datetime.isoformat(datetime.now(utc) - timedelta(days=5))
+
+
+@pytest.fixture
 def courses():
     return [
         {
@@ -19,16 +34,16 @@ def courses():
 
 
 @pytest.fixture
-def coupons():
+def coupons(iso_30_days_from_now, iso_30_days_ago):
     return [
         {
             "code": "NOT_EXPIRED",
-            "utcExpirationISO": datetime.now(utc) + timedelta(days=30),
+            "utcExpirationISO": iso_30_days_from_now,
             "course_id": 1,
         },
         {
             "code": "EXPIRED",
-            "utcExpirationISO": datetime.now(utc) - timedelta(days=30),
+            "utcExpirationISO": iso_30_days_ago,
             "course_id": 1,
         },
     ]

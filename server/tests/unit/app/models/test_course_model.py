@@ -76,19 +76,19 @@ def mock_coupon_update_db(mocker):
 
 
 @pytest.fixture
-def expired_coupon(mock_coupon_update_db):
+def expired_coupon(mock_coupon_update_db, iso_30_days_ago):
     return Coupon(
         code="EXPIRED",
-        utcExpirationISO=datetime.isoformat(datetime.now(utc) - timedelta(days=30)),
+        utcExpirationISO=iso_30_days_ago,
         price=9.99,
     )
 
 
 @pytest.fixture
-def good_coupon_30_days(mock_coupon_update_db):
+def good_coupon_30_days(mock_coupon_update_db, iso_30_days_from_now):
     return Coupon(
         code="GOOD_30",
-        utcExpirationISO=datetime.isoformat(datetime.now(utc) + timedelta(days=30)),
+        utcExpirationISO=iso_30_days_from_now,
         price=9.99,
     )
 
@@ -103,10 +103,10 @@ def good_coupon_4_days(mock_coupon_update_db):
 
 
 @pytest.fixture
-def bad_coupon(mock_coupon_update_db):
+def bad_coupon(mock_coupon_update_db, iso_30_days_from_now):
     return Coupon(
         code="BAD",
-        utcExpirationISO=datetime.isoformat(datetime.now(utc) + timedelta(days=30)),
+        utcExpirationISO=iso_30_days_from_now,
         price=12.99,
     )
 
