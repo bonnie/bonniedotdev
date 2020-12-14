@@ -80,3 +80,51 @@ describe('Test form render details for course with coupon', () => {
     expect(deleteButton).toBeInTheDocument();
   });
 });
+
+describe('Test form render details for course without coupon', () => {
+  test('renders course form', () => {
+    const screen = renderWithProvider(<EditCourse {...editCourseWithoutCouponProps} />);
+    const courseForm = screen.getByRole('form', { name: /course \d+/i });
+    expect(courseForm).toBeInTheDocument();
+  });
+
+  test('renders course title field', () => {
+    const screen = renderWithProvider(<EditCourse {...editCourseWithoutCouponProps} />);
+
+    const courseTitleField = screen.getByText('Course 1');
+    expect(courseTitleField).toBeRequired();
+  });
+
+  test('renders course description field', () => {
+    const screen = renderWithProvider(<EditCourse {...editCourseWithoutCouponProps} />);
+
+    const courseDescriptionField = screen.getByText(/fluff everywhere meow miao/);
+    expect(courseDescriptionField).toBeRequired();
+  });
+
+  test('renders course link field', () => {
+    const screen = renderWithProvider(<EditCourse {...editCourseWithoutCouponProps} />);
+
+    const courseLinkField = screen.getByText('https://udemy.com/awesomecourse');
+    expect(courseLinkField).toBeRequired();
+  });
+
+  test('renders no coupons', () => {
+    const screen = renderWithProvider(<EditCourse {...editCourseWithoutCouponProps} />);
+
+    const updateCouponButtons = screen.queryAllByRole('button', { name: /delete coupon \d+/i });
+    expect(updateCouponButtons).toHaveLength(0);
+  });
+
+  test('renders update button', () => {
+    const screen = renderWithProvider(<EditCourse {...editCourseWithoutCouponProps} />);
+    const updateButton = screen.getByRole('button', { name: /update course \d+/i });
+    expect(updateButton).toBeInTheDocument();
+  });
+
+  test('renders delete button', () => {
+    const screen = renderWithProvider(<EditCourse {...editCourseWithoutCouponProps} />);
+    const deleteButton = screen.getByRole('button', { name: /delete course \d+/i });
+    expect(deleteButton).toBeInTheDocument();
+  });
+});
