@@ -14,12 +14,12 @@ def now_date_utc():
 
 @pytest.fixture
 def future_date_iso():
-    return datetime.isoformat(datetime.now() + timedelta(days=5))
+    return datetime.isoformat(datetime.now(utc) + timedelta(days=5))
 
 
 @pytest.fixture
 def past_date_iso():
-    return datetime.isoformat(datetime.now() - timedelta(days=5))
+    return datetime.isoformat(datetime.now(utc) - timedelta(days=5))
 
 
 @pytest.fixture
@@ -32,9 +32,9 @@ def mock_update_db(mocker):
 def valid_coupon(mock_update_db, future_date_iso):
     return Coupon(
         code="NOT_EXPIRED",
-        expiration_iso_string=future_date_iso,
+        utcExpirationISO=future_date_iso,
         price=12.99,
-        course_id=1,
+        courseId=1,
     )
 
 
@@ -42,9 +42,9 @@ def valid_coupon(mock_update_db, future_date_iso):
 def invalid_coupon(mock_update_db, past_date_iso):
     return Coupon(
         code="EXPIRED",
-        expiration_iso_string=past_date_iso,
+        utcExpirationISO=past_date_iso,
         price=9.99,
-        course_id=1,
+        courseId=1,
     )
 
 
@@ -53,8 +53,8 @@ def test_to_dict(valid_coupon):
     assert set(out_dict.keys()) == {
         "id",
         "code",
-        "utc_expiration",
-        "course_id",
+        "utcExpirationISO",
+        "courseId",
         "price",
     }
 

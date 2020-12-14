@@ -6,25 +6,28 @@ from app import create_app
 from app.db import connect_to_db
 from app.db import db
 from app.models.course_model import Course
+from app.models.review_quote_model import ReviewQuote
 from app.models.user_model import User
 from app.utilities.init_db import create_db
+from pytz import utc
 
 # from app.utilities.init_db import drop_db
 
-future_iso_date = datetime.isoformat(datetime.now() + timedelta(days=30))
-past_iso_date = datetime.isoformat(datetime.now() - timedelta(days=30))
+future_iso_date = datetime.isoformat(datetime.now(utc) + timedelta(days=30))
+past_iso_date = datetime.isoformat(datetime.now(utc) - timedelta(days=30))
 
 course_with_coupons_and_quotes = {
     "name": "Awesome Course",
     "link": "https://udemy.com/awesomecourse",
     "description": "Whatta course!",
+    "imageName": "course_image.png",
     "coupons": [
         {
             "code": "NOT_EXPIRED",
-            "expiration_iso_string": future_iso_date,
+            "utcExpirationISO": future_iso_date,
             "price": 12.99,
         },
-        {"code": "EXPIRED", "expiration_iso_string": past_iso_date, "price": 9.99},
+        {"code": "EXPIRED", "utcExpirationISO": past_iso_date, "price": 9.99},
     ],
 }
 
@@ -32,6 +35,7 @@ course_without_coupons_and_quotes = {
     "name": "Simple Course",
     "link": "https://udemy.com/simplecourse",
     "description": "simple, but good",
+    "imageName": "course_image.png",
 }
 
 admin_user = {"username": "admin", "password": "abc123"}
@@ -42,12 +46,17 @@ def load_test_data():
 
     courses = [course_with_coupons_and_quotes, course_without_coupons_and_quotes]
     users = [admin_user]
+    review_quotes = ["Wowza", "Stinks"]
 
     for course in courses:
         Course(**course)
 
     for user in users:
         User(**user)
+
+    course = Course.query.first()
+    for review_quote in review_quotes:
+        ReviewQuote(body=review_quote, courseId=course.id)
 
 
 @pytest.fixture

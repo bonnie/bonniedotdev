@@ -5,6 +5,7 @@ from unittest.mock import PropertyMock
 import pytest
 from app.models.coupon_model import Coupon
 from app.models.course_model import Course
+from pytz import utc
 
 ###########################################################
 # fixtures
@@ -20,7 +21,7 @@ def mock_update_db(mocker):
 @pytest.fixture
 def mock_coupon_property(mocker):
     # make sure db doesn't get called
-    mocker.patch.object(Course, "best_coupon", PropertyMock)
+    mocker.patch.object(Course, "bestCoupon", PropertyMock)
 
 
 @pytest.fixture
@@ -29,6 +30,7 @@ def course(mock_update_db, mock_coupon_property):
         name="coursey course",
         link="https://udemy.com/coursey-course",
         description="the coursiest of courses",
+        imageName="image.png",
     )
 
 
@@ -44,12 +46,13 @@ def test_to_dict(course):
         "name",
         "link",
         "description",
-        "review_quotes",
-        "best_coupon",
+        "imageName",
+        "bestCoupon",
+        "coupons",
     }
 
 
-# TODO: test to_dict for course with coupons (remove best_coupon mock fixture)
+# TODO: test to_dict for course with coupons (remove bestCoupon mock fixture)
 
 ###########################################################
 # Best coupon tests
@@ -62,6 +65,7 @@ def unmocked_course(mock_update_db):
         name="coursey course",
         link="https://udemy.com/coursey-course",
         description="the coursiest of courses",
+        imageName="image.png",
     )
 
 
@@ -75,7 +79,7 @@ def mock_coupon_update_db(mocker):
 def expired_coupon(mock_coupon_update_db):
     return Coupon(
         code="EXPIRED",
-        expiration_iso_string=datetime.isoformat(datetime.now() - timedelta(days=30)),
+        utcExpirationISO=datetime.isoformat(datetime.now(utc) - timedelta(days=30)),
         price=9.99,
     )
 
@@ -84,7 +88,7 @@ def expired_coupon(mock_coupon_update_db):
 def good_coupon_30_days(mock_coupon_update_db):
     return Coupon(
         code="GOOD_30",
-        expiration_iso_string=datetime.isoformat(datetime.now() + timedelta(days=30)),
+        utcExpirationISO=datetime.isoformat(datetime.now(utc) + timedelta(days=30)),
         price=9.99,
     )
 
@@ -93,7 +97,7 @@ def good_coupon_30_days(mock_coupon_update_db):
 def good_coupon_4_days(mock_coupon_update_db):
     return Coupon(
         code="GOOD_4",
-        expiration_iso_string=datetime.isoformat(datetime.now() + timedelta(days=4)),
+        utcExpirationISO=datetime.isoformat(datetime.now(utc) + timedelta(days=4)),
         price=9.99,
     )
 
@@ -102,37 +106,37 @@ def good_coupon_4_days(mock_coupon_update_db):
 def bad_coupon(mock_coupon_update_db):
     return Coupon(
         code="BAD",
-        expiration_iso_string=datetime.isoformat(datetime.now() + timedelta(days=30)),
+        utcExpirationISO=datetime.isoformat(datetime.now(utc) + timedelta(days=30)),
         price=12.99,
     )
 
 
-def test_best_coupon_no_coupons(unmocked_course):
-    best_coupon = unmocked_course.best_coupon
-    assert best_coupon is None
+def test_bestCoupon_no_coupons(unmocked_course):
+    bestCoupon = unmocked_course.bestCoupon
+    assert bestCoupon is None
 
 
-def test_best_coupon_one_expired(unmocked_course, expired_coupon):
+def test_bestCoupon_one_expired(unmocked_course, expired_coupon):
     unmocked_course.coupons.append(expired_coupon)
-    assert unmocked_course.best_coupon is None
+    assert unmocked_course.bestCoupon is None
 
 
-def test_best_coupon_one_good_coupon(unmocked_course, good_coupon_30_days):
+def test_bestCoupon_one_good_coupon(unmocked_course, good_coupon_30_days):
     unmocked_course.coupons.append(good_coupon_30_days)
-    assert unmocked_course.best_coupon["code"] == "GOOD_30"
+    assert unmocked_course.bestCoupon["code"] == "GOOD_30"
 
 
-def test_best_coupon_three_coupons(
+def test_bestCoupon_three_coupons(
     unmocked_course,
     good_coupon_30_days,
     bad_coupon,
     expired_coupon,
 ):
     unmocked_course.coupons.extend([good_coupon_30_days, bad_coupon, expired_coupon])
-    assert unmocked_course.best_coupon["code"] == "GOOD_30"
+    assert unmocked_course.bestCoupon["code"] == "GOOD_30"
 
 
-def test_best_coupon_three_coupons_price_tie(
+def test_bestCoupon_three_coupons_price_tie(
     unmocked_course,
     good_coupon_30_days,
     good_coupon_4_days,
@@ -141,7 +145,7 @@ def test_best_coupon_three_coupons_price_tie(
     unmocked_course.coupons.extend(
         [good_coupon_30_days, good_coupon_4_days, expired_coupon],
     )
-    assert unmocked_course.best_coupon["code"] == "GOOD_30"
+    assert unmocked_course.bestCoupon["code"] == "GOOD_30"
 
 
 ###########################################################

@@ -27,8 +27,10 @@ def test_get_existing_course(
         "id",
         "name",
         "link",
+        "imageName",
         "description",
-        "best_coupon",
+        "bestCoupon",
+        "coupons",
     }
 
 
@@ -40,7 +42,7 @@ def test_get_nonexistent_course(test_db, test_client):
 
 # def test_add_coupons_to_course(test_db, test_client, simple_course_id):
 #     coupons = [
-#         {"code": "test", "expiration_iso_string": future_iso_date, "price": 9.99},
+#         {"code": "test", "utcExpirationISO": future_iso_date, "price": 9.99},
 #     ]
 #     patch = [{"op": "add", "path": "/coupons", "value": coupons}]
 
@@ -48,8 +50,8 @@ def test_get_nonexistent_course(test_db, test_client):
 
 #     assert response.status_code == 200
 
-#     best_coupon = response.json["best_coupon"]
-#     assert best_coupon["code"] == "test"
+#     bestCoupon = response.json["bestCoupon"]
+#     assert bestCoupon["code"] == "test"
 
 
 def test_update_description(test_db, test_client, full_course_id):
@@ -69,11 +71,12 @@ def test_update_description(test_db, test_client, full_course_id):
     assert response.json["description"] == "Awesome course, now with more awesome!!"
 
 
-def test_delete_course(test_db, test_client, full_course_id):
-    response = test_client.delete(f"/api/course/{full_course_id}")
+def test_delete_course(test_db, test_client, simple_course_id):
+    # use the simple course, or there are referential integrity errors
+    response = test_client.delete(f"/api/course/{simple_course_id}")
 
     assert response.status_code == 204
-    assert CourseModel.query.get(full_course_id) is None
+    assert CourseModel.query.get(simple_course_id) is None
 
 
 def test_create_new_course(test_db, test_client):
@@ -81,6 +84,7 @@ def test_create_new_course(test_db, test_client):
         "name": "Coursey Course",
         "description": "The coursiest of courses",
         "link": "http://udemy.com/coursey-course",
+        "imageName": "image.png",
     }
 
     response = test_client.post("/api/course", json=course_data)

@@ -23,12 +23,12 @@ def coupons():
     return [
         {
             "code": "NOT_EXPIRED",
-            "utc_expiration": datetime.now(utc) + timedelta(days=30),
+            "utcExpirationISO": datetime.now(utc) + timedelta(days=30),
             "course_id": 1,
         },
         {
             "code": "EXPIRED",
-            "utc_expiration": datetime.now(utc) - timedelta(days=30),
+            "utcExpirationISO": datetime.now(utc) - timedelta(days=30),
             "course_id": 1,
         },
     ]
@@ -37,8 +37,8 @@ def coupons():
 @pytest.fixture
 def review_quotes():
     return [
-        {"quote": "the best!", "course_id": 1},
-        {"quote": "meh", "course_id": 1},
+        {"quote": "the best!", "courseId": 1},
+        {"quote": "meh", "courseId": 1},
     ]
 
 

@@ -73,7 +73,7 @@ class Course(db.Model, Base):
                 continue
             # if price is the same, is expiration better?
             if coupon.price == bestCoupon.price:
-                if coupon.utc_expiration > bestCoupon.utc_expiration:
+                if coupon.utcExpirationISO > bestCoupon.utcExpirationISO:
                     bestCoupon = coupon
 
         # at the end of it all, who's the winner?

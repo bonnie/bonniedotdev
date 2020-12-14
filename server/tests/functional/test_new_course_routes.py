@@ -9,7 +9,8 @@ def test_create_new_course_with_coupons_and_quotes(test_db, test_client):
         "id",
         "name",
         "link",
+        "imageName",
         "description",
-        "review_quotes",
-        "best_coupon",
+        "bestCoupon",
+        "coupons",
     }
