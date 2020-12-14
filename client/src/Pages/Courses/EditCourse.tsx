@@ -147,7 +147,7 @@ export default function EditCourse(
     const couponData = coupons.get(id);
 
     // to make TypeScript happy :-/
-    if (couponData) {
+    if (couponData !== undefined) {
       couponElements.push(
         <EditCoupon
           key={id}

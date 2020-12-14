@@ -30,9 +30,10 @@ export default function EditCoupon(
   };
 
   const itemLabel = `Coupon ${couponId}`;
+  const itemId = `coupon-${couponId}`;
 
   return (
-    <Box m={2}>
+    <Box m={2} data-testid={`${itemId}-form`}>
       <Input type="hidden" name="id" value={couponId} />
       <TextField
         required
