@@ -47,7 +47,7 @@ test.skip('mount when localstorage has login info already', async () => {
   // render login page
   const userScreen = renderWithRouterAndProvider(<App />, { initialRouterEntries: ['/login'] });
 
-  // should show welcome message for logge-in user
+  // should show welcome message for logged-in user
   const welcomeHeader = await userScreen.findByRole('heading', { name: /welcome loggedinUser/i });
   expect(welcomeHeader).toBeInTheDocument();
 });

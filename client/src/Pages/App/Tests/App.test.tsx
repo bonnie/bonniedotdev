@@ -1,7 +1,7 @@
 import React from 'react';
+import { renderWithRouterAndProvider } from 'TestUtils/renderWith';
 
-import { renderWithRouterAndProvider } from '../../TestUtils/renderWith';
-import App from './App';
+import App from '../App';
 
 describe('App rendering tests', () => {
   test('it starts at the home page', () => {
