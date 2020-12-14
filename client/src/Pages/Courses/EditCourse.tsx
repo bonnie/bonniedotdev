@@ -71,7 +71,7 @@ export default function EditCourse(
 
   const [coupons, setCoupons] = useState<CouponsById>(couponsById);
 
-  // I'd rather read this from the filesystem but that would require
+  // TODO: I'd rather read this from the filesystem but that would require
   // server-side rendering, which I'm not ready to take on just yet
   const courseImageOptions = ['udemy-course-image.jpg'];
 
@@ -141,10 +141,13 @@ export default function EditCourse(
     );
   }
 
+  const itemLabel = `Course ${courseIndex}`;
+  const itemId = `course-${courseIndex}`;
+
   return (
     <Card className={notSaved ? classes.notSavedCard : ''}>
       <Box p={2}>
-        <form onSubmit={handleSubmit}>
+        <form aria-label={itemLabel} onSubmit={handleSubmit}>
           <Input type="hidden" name="id" value={courseData.id} />
           <TextField className={classes.formField} multiline required name="name" label="Course name" defaultValue={courseData.name} />
           <TextField className={classes.formField} multiline required name="description" label="Description" defaultValue={courseData.description} />

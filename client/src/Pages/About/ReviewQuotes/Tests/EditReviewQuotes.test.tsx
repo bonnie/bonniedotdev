@@ -39,11 +39,8 @@ describe('Test form render details for individual quote', () => {
     const screen = renderWithProvider(<EditReviewQuote {...editReviewQuoteProps} />);
 
     // check the select options
-    const courseOption1 = screen.getByRole('option', { name: 'React Testing with Jest and Enzyme' });
-    expect(courseOption1).toBeInTheDocument();
-
-    const courseOption2 = screen.getByRole('option', { name: 'Regular Expressions for Beginners and Beyond! With Exercises' });
-    expect(courseOption2).toBeInTheDocument();
+    const courseOptions = screen.getAllByRole('option', { name: /course \d/i });
+    expect(courseOptions).toHaveLength(2);
   });
 
   test('renders update buttons', () => {

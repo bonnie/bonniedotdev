@@ -27,11 +27,8 @@ test('Renders two courses for non-error server response', async () => {
 
   // check courses by looking for field to enter/edit course name
   // actual course details checked in EditCourse.test.tsx
-  const course1 = await screen.findByText('React Testing with Jest and Enzyme');
-  expect(course1).toBeInTheDocument();
-
-  const course2 = await screen.findByText('Regular Expressions for Beginners and Beyond! With Exercises');
-  expect(course2).toBeInTheDocument();
+  const courses = await screen.findAllByText(/Course \d/);
+  expect(courses).toHaveLength(2);
 
   // confirm loading spinner has disappeared
   const notLoadingSpinner = screen.queryByRole('progressbar', { hidden: true });
@@ -43,6 +40,14 @@ test('Renders two courses for non-error server response', async () => {
 });
 
 test('Renders error alert for error server response', async () => {
+  // TODO: why does this cause "Error: Error: connect ECONNREFUSED 127.0.0.1:80" when
+  // run in parallel with the other tests, even though all tests pass?
+  // Commenting this '.skip' or '.only' makes the warning go away T.T
+  // AND: why does this error not appear with the notLoggedIn test file??
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+  // END: todo
+
   // override default msw response for review_quotes endpoint with error response
   server.resetHandlers(
     rest.get(urls.coursesURL,

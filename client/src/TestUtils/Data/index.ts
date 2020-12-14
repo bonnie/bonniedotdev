@@ -54,7 +54,7 @@ export const couponWithDate = {
 
 export const courseWithCoupons: CourseType = {
   id: 1,
-  name: 'React Testing with Jest and Enzyme',
+  name: 'Course 1',
   link: 'https://udemy.com/awesomecourse',
   description: 'Purr get my claw stuck in the dog\'s ear. Toilet paper attack claws fluff everywhere meow miao french ciao litterbox. Making bread on the bathrobe suddenly go on wild-eyed crazy rampage. ',
   bestCoupon: couponWithDate,
@@ -64,7 +64,7 @@ export const courseWithCoupons: CourseType = {
 
 export const courseWithoutCoupons: CourseType = {
   id: 2,
-  name: 'Regular Expressions for Beginners and Beyond! With Exercises',
+  name: 'Course 2',
   link: 'https://udemy.com/simplecourse',
   description: 'Find empty spot in cupboard and sleep all day human give me attention meow and please stop looking at your phone and pet me find empty spot in cupboard and sleep all day for attack the dog then pretend like nothing happened. ',
   imageName: 'udemy-course-image.jpg',
