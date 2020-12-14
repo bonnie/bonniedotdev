@@ -17,11 +17,11 @@ import moment from 'moment';
 import AddButton from 'Pages/Common/AddButton';
 import EditButtons from 'Pages/Common/EditButtons';
 import {
-  addCourse, deleteCourse, editCourse, setCourses,
+  addCourse, deleteCourse, editCourse,
 } from 'Pages/Courses/Redux/Actions';
 import { CouponType, CourseType } from 'Pages/Courses/Types';
 import React, { ReactElement, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { colors } from 'Theme';
 
 import EditCoupon from './EditCoupon';
@@ -42,17 +42,15 @@ export type CouponsById = Map<number, CouponType>;
 interface EditCourseProps {
   courseData: CourseType,
   courseIndex: number,
-  setAddCourseButton: (boolean) => void
+  deleteCourseFromState: (number) => void,
 }
 
 // eslint-disable-next-line max-lines-per-function
 export default function EditCourse(
-  { courseData, courseIndex, setAddCourseButton }: EditCourseProps,
+  { courseData, courseIndex, deleteCourseFromState }: EditCourseProps,
 ): ReactElement {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const courses = useSelector((state) => state.courses);
-  const error = useSelector((state) => state.alert);
 
   // negative id indicates not in the db. Just delete from state.
   const notSaved = courseData.id < 0;
@@ -93,9 +91,6 @@ export default function EditCourse(
 
     if (notSaved) {
       dispatch(addCourse(newCourseData));
-
-      // reinstate the "add" button if the action was successful
-      if (!error) setAddCourseButton(true);
     } else {
       dispatch(editCourse(newCourseData, courseData));
     }
@@ -103,11 +98,7 @@ export default function EditCourse(
 
   const handleDelete = async () => {
     if (notSaved) {
-      const newCourses = courses.filter((course) => course.id !== courseData.id);
-      dispatch(setCourses(newCourses));
-
-      // reinstate the "add" button
-      if (!error) setAddCourseButton(true);
+      deleteCourseFromState(courseData.id);
     } else {
       // it's got to be deleted from the db
       dispatch(deleteCourse(courseData.id));
@@ -115,7 +106,7 @@ export default function EditCourse(
   };
 
   const addCoupon = () => {
-    // add to the map by ID. Use negative id to indicate new coupon.
+    // add to the Map by ID. Use negative id to indicate new coupon.
     const newId = 0 - (coupons.size + 1);
     const newCoupon: CouponType = {
       id: newId,
@@ -128,17 +119,44 @@ export default function EditCourse(
     setCoupons(newCoupons);
   };
 
+  const deleteCoupon = (couponId) => {
+    // remove from coupon state
+    const newCoupons = new Map(coupons);
+    newCoupons.delete(couponId);
+    setCoupons(newCoupons);
+  };
+
+  const updateCoupon = (property, value, couponId) => {
+    // update state
+    const newCoupons = new Map(coupons);
+    const couponData = coupons.get(couponId);
+    if (!couponData) {
+    // something went wrong if the id is not in the coupons state
+    // TODO log error to file
+      console.error('found coupon id not in state', couponId);
+      return;
+    }
+    couponData[property] = value;
+    newCoupons.set(couponId, couponData);
+    setCoupons(newCoupons);
+  };
+
   const couponElements: ReactElement[] = [];
   // when I use for ... in, typescript complains that id is a string(??)
   for (const [id] of coupons) {
-    couponElements.push(
-      <EditCoupon
-        key={id}
-        couponId={id}
-        coupons={coupons}
-        setCoupons={setCoupons}
-      />,
-    );
+    const couponData = coupons.get(id);
+
+    // to make TypeScript happy :-/
+    if (couponData) {
+      couponElements.push(
+        <EditCoupon
+          key={id}
+          couponData={couponData}
+          deleteCoupon={deleteCoupon}
+          updateCoupon={updateCoupon}
+        />,
+      );
+    }
   }
 
   const itemLabel = `Course ${courseIndex}`;
@@ -149,9 +167,9 @@ export default function EditCourse(
       <Box p={2}>
         <form aria-label={itemLabel} onSubmit={handleSubmit}>
           <Input type="hidden" name="id" value={courseData.id} />
-          <TextField className={classes.formField} multiline required name="name" label="Course name" defaultValue={courseData.name} />
-          <TextField className={classes.formField} multiline required name="description" label="Description" defaultValue={courseData.description} />
-          <TextField className={classes.formField} multiline required name="link" label="Full Link" defaultValue={courseData.link} />
+          <TextField className={classes.formField} multiline required name="name" aria-label={`${itemLabel} name`} label="Course name" defaultValue={courseData.name} />
+          <TextField className={classes.formField} multiline required name="description" aria-label={`${itemLabel} description`} label="Description" defaultValue={courseData.description} />
+          <TextField className={classes.formField} multiline required name="link" aria-label={`${itemLabel} link`} label="Full Link" defaultValue={courseData.link} />
           <FormControl required className={classes.formField}>
             <InputLabel id="course-image-label">Course Image Name</InputLabel>
             <Select

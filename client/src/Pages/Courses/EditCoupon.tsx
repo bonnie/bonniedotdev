@@ -5,40 +5,31 @@ import { DateTimePicker } from '@material-ui/pickers';
 import EditButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement } from 'react';
 
-import { CouponsById } from './EditCourse';
+import { CouponType } from './Types';
 
 interface EditCouponProps {
-  couponId: number,
-  coupons: CouponsById,
-  setCoupons: (coupons: CouponsById) => void
+  couponData: CouponType,
+  deleteCoupon: (number) => void
+  updateCoupon: (property: string, value: string | Date, couponId: number) => void
 }
 
 // eslint-disable-next-line max-lines-per-function
 export default function EditCoupon(
-  { couponId, coupons, setCoupons }: EditCouponProps,
+  { couponData, deleteCoupon, updateCoupon }: EditCouponProps,
 ): ReactElement {
+  const couponId = couponData.id;
+
   const handleChange = (property, value) => {
-    // update state
     // TODO: debounce
-    const newCoupons = new Map(coupons);
-    const couponData = coupons.get(couponId);
-    if (!couponData) {
-      // something went wrong if the id is not in the coupons state
-      // TODO log error to file
-      console.error('found coupon id not in state', couponId);
-      return;
+    if (couponId) {
+      updateCoupon(property, value, couponId);
+    } else {
+      // TODO: log to file
+      console.error('Coupon without ID', couponData);
     }
-    couponData[property] = value;
-    newCoupons.set(couponId, couponData);
-    setCoupons(newCoupons);
   };
 
-  const handleDelete = () => {
-    // remove from coupon state
-    const newCoupons = new Map(coupons);
-    newCoupons.delete(couponId);
-    setCoupons(newCoupons);
-  };
+  const itemLabel = `Coupon ${couponId}`;
 
   return (
     <Box m={2}>
@@ -47,20 +38,23 @@ export default function EditCoupon(
         required
         type="text"
         name="code"
-        value={coupons.get(couponId)?.code}
+        value={couponData.code}
         label="Code"
+        aria-label={`${itemLabel} code`}
         onChange={(event) => handleChange('code', event.target.value)}
       />
       <TextField
         required
         type="number"
         name="price"
-        value={coupons.get(couponId)?.price}
+        value={couponData.price}
         label="Price"
+        aria-label={`${itemLabel} price`}
         onChange={(event) => handleChange('price', event.target.value)}
       />
       <DateTimePicker
-        value={coupons.get(couponId)?.utcExpirationISO}
+        aria-label={`${itemLabel} date`}
+        value={couponData.utcExpirationISO}
         onChange={(value) => handleChange('utcExpirationISO', value)}
         label="Expiration date (local time)"
         format="MMM dd Y, H:mm"
@@ -69,7 +63,7 @@ export default function EditCoupon(
       <EditButtons
         itemString="coupon"
         updateButton={false}
-        handleDelete={handleDelete}
+        handleDelete={() => deleteCoupon(couponId)}
         itemLabel={`Coupon ${couponId}`}
       />
     </Box>

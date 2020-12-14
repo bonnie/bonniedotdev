@@ -36,7 +36,7 @@ test('send new quote to server', async () => {
   expect(textBodyField).toHaveValue('The best course I have attended on Udemy so far.');
 
   // select course for quote.
-  const courseSelectOption = getByRole(newQuoteForm, 'option', { name: 'React Testing with Jest and Enzyme' });
+  const courseSelectOption = getByRole(newQuoteForm, 'option', { name: 'Course 1' });
   fireEvent.click(courseSelectOption);
 
   // click button to upload new data

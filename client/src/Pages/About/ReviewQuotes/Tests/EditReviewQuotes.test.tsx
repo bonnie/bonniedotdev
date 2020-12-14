@@ -27,14 +27,14 @@ describe('Test form render details for individual quote', () => {
     expect(quoteForm).toBeInTheDocument();
   });
 
-  test('renders quote body fields', () => {
+  test('renders quote body field', () => {
     const screen = renderWithProvider(<EditReviewQuote {...editReviewQuoteProps} />);
 
     const quoteBodyField = screen.getByRole('textbox', { name: 'Quote' });
     expect(quoteBodyField).toBeInTheDocument();
   });
 
-  test('renders course dropdowns', () => {
+  test('renders course dropdown', () => {
     // NOTE: course dropdown will be populated by testCourseData, which has two courses
     const screen = renderWithProvider(<EditReviewQuote {...editReviewQuoteProps} />);
 
@@ -43,13 +43,13 @@ describe('Test form render details for individual quote', () => {
     expect(courseOptions).toHaveLength(2);
   });
 
-  test('renders update buttons', () => {
+  test('renders update button', () => {
     const screen = renderWithProvider(<EditReviewQuote {...editReviewQuoteProps} />);
     const updateButton = screen.getByRole('button', { name: /update review quote \d+/i });
     expect(updateButton).toBeInTheDocument();
   });
 
-  test('renders delete buttons', () => {
+  test('renders delete button', () => {
     const screen = renderWithProvider(<EditReviewQuote {...editReviewQuoteProps} />);
     const deleteButton = screen.getByRole('button', { name: /delete review quote \d+/i });
     expect(deleteButton).toBeInTheDocument();

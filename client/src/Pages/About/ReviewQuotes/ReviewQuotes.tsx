@@ -20,6 +20,7 @@ export default function ReviewQuotes(): ReactElement {
   const courses = useSelector((state) => state.courses);
   const user = useSelector((state) => state.user);
 
+  // TODO: unify this code so it's shared with Courses.tsx rather than repeated
   // only allow one new quote at a time, since submitting a new quote will obliterate
   // any other quotes-in-progress
   const [addButton, setAddButton] = useState(user !== null);

@@ -4,7 +4,7 @@ export type CoursesActionType = {
 }
 
 export type CouponType = {
-  id?: number, // new coupons don't need an id
+  id?: number,
   price: number,
   code: string,
   utcExpirationISO: string,
