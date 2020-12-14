@@ -19,30 +19,35 @@ import ReviewQuotes from '../ReviewQuotes';
 //     courseLink: 'http://test1.org',
 //     id: 1,
 //     body: 'body 12345',
+//     courseId: 1,
 //   },
 //   {
 //     courseName: 'Course 2',
 //     courseLink: 'http://test2.org',
 //     id: 2,
 //     body: 'body 2345',
+//     courseId: 1,
 //   },
 //   {
 //     courseName: 'Course 3',
 //     courseLink: 'http://test3.org',
 //     id: 3,
 //     body: 'body 345',
+//     courseId: 1,
 //   },
 //   {
 //     courseName: 'Course 4',
 //     courseLink: 'http://test4.org',
 //     id: 4,
 //     body: 'body 45',
+//     courseId: 1,
 //   },
 //   {
 //     courseName: 'Course 5',
 //     courseLink: 'http://test5.org',
 //     id: 5,
 //     body: 'body 5',
+//     courseId: 1,
 //   },
 // ];
 
