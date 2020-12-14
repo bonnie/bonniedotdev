@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import SocialLinks from './SocialLinks';
+import SocialLinks from '../SocialLinks';
 
 test('render twitter button', () => {
   render(<SocialLinks />);
