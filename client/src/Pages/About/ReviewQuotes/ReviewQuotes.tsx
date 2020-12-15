@@ -5,7 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import { hasNewItem } from 'Helpers';
 import AddButton from 'Pages/Common/AddButton';
 import { setCoursesFromServer } from 'Pages/Courses/Redux/Actions';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, {
+  ReactElement, useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import EditReviewQuote from './EditReviewQuote';
@@ -39,17 +41,18 @@ export default function ReviewQuotes(): ReactElement {
   // TODO: cache this!
   useEffect(() => { if (user) dispatch(setCoursesFromServer()); }, [dispatch, user]);
 
-  const addQuote = () => {
+  // wrap in useCallback to keep from regenerating needlessly
+  const addQuote = useCallback(() => {
     const newQuote: ReviewQuoteType = { body: '', id: 0 - (reviewQuotes.length + 1) };
     dispatch(setReviewQuotes([...reviewQuotes, newQuote]));
-  };
+  }, [reviewQuotes, dispatch]);
 
-  const deleteQuote = (id) => {
+  const deleteQuote = useCallback((id) => {
     const newReviewQuotes = reviewQuotes.filter((rq) => rq.id !== id);
     dispatch(setReviewQuotes(newReviewQuotes));
-  };
+  }, [reviewQuotes, dispatch]);
 
-  const mapQuoteToElement = user
+  const mapQuoteToElement = useMemo(() => (user
     ? (reviewQuote, index) => (
       <EditReviewQuote
         key={reviewQuote.id}
@@ -64,9 +67,9 @@ export default function ReviewQuotes(): ReactElement {
         key={reviewQuote.id}
         reviewQuoteData={reviewQuote}
       />
-    );
+    )), [user, courses, deleteQuote]);
 
-  return (
+  return useMemo(() => (
     <Box component="section" mt={4} mb={4} p={2} pt={2}>
       <Typography variant="h2" gutterBottom>
         Students say...
@@ -76,5 +79,5 @@ export default function ReviewQuotes(): ReactElement {
         {addButton ? <AddButton onClick={addQuote} itemString="Review Quote" /> : null}
       </Grid>
     </Box>
-  );
+  ), [addButton, addQuote, mapQuoteToElement, reviewQuotes]);
 }
