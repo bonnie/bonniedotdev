@@ -36,7 +36,7 @@ export function deleteCourse(courseId) {
     payload: {
       url: `${urls.courseURL}/${courseId}`,
       method: axiosMethodOptions.delete,
-      updateStateAction: setCoursesFromServer(),
+      callback: setCoursesFromServer,
     },
   };
 }
@@ -51,7 +51,7 @@ export function addCourse(newData) {
     payload: {
       url: urls.courseURL,
       method: axiosMethodOptions.post,
-      updateStateAction: setCoursesFromServer(),
+      callback: setCoursesFromServer,
       data: newData,
     },
   };
