@@ -34,6 +34,28 @@ def course(mock_update_db, mock_coupon_property):
     )
 
 
+@pytest.fixture
+def course_with_coupons(mock_update_db, iso_30_days_from_now):
+    return Course(
+        name="coursey course",
+        link="https://udemy.com/coursey-course",
+        description="the coursiest of courses",
+        imageName="image.png",
+        coupons=[
+            {
+                "code": "GOOD_COUPON",
+                "utcExpirationISO": iso_30_days_from_now,
+                "price": 1.99,
+            },
+            {
+                "code": "BAD_COUPON",
+                "utcExpirationISO": iso_30_days_from_now,
+                "price": 1111.99,
+            },
+        ],
+    )
+
+
 ###########################################################
 # methods
 #############################################################
@@ -52,7 +74,18 @@ def test_to_dict(course):
     }
 
 
-# TODO: test to_dict for course with coupons (remove bestCoupon mock fixture)
+def test_to_dict_with_coupons(course_with_coupons):
+    course_dict = course_with_coupons.to_dict()
+    assert set(course_dict.keys()) == {
+        "id",
+        "name",
+        "link",
+        "description",
+        "imageName",
+        "bestCoupon",
+        "coupons",
+    }
+
 
 ###########################################################
 # Best coupon tests
