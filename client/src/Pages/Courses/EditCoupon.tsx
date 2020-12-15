@@ -2,6 +2,7 @@ import Box from '@material-ui/core/Box';
 import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
 import { DateTimePicker } from '@material-ui/pickers';
+import logToFile from 'Logging/logging';
 import EditButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement } from 'react';
 
@@ -24,8 +25,7 @@ export default function EditCoupon(
     if (couponId) {
       updateCoupon(property, value, couponId);
     } else {
-      // TODO: log to file
-      console.error('Coupon without ID', couponData);
+      logToFile('critical', `Coupon without ID: [${couponData}]`);
     }
   };
 

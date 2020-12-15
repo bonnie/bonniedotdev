@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import urls from 'Constants/urls';
 import jsonpatch from 'fast-json-patch';
+import logToServer from 'Logging/logging';
 import sagaActionIds from 'Redux/Sagas/actionIds';
 import { axiosMethodOptions } from 'Redux/Sagas/Types';
 import _ from 'underscore';
@@ -65,8 +66,11 @@ export function editCourse(newData, originalData) {
   // create a patch for the difference between newData and originalData
   const patch = jsonpatch.compare(originalPatchData, newPatchData);
 
-  // TODO: log to file (?) that edit was called with no differences
-  if (patch.length === 0) return { type: 'noop' };
+  // edit was called with no differences
+  if (patch.length === 0) {
+    logToServer('error', 'editCourse was called with no differences');
+    return { type: 'noop' };
+  }
 
   return {
     type: sagaActionIds.SERVER_REQUEST,

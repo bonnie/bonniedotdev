@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { getFormData } from 'Helpers';
+import logToServer from 'Logging/logging';
 import moment from 'moment';
 import AddButton from 'Pages/Common/AddButton';
 import EditButtons from 'Pages/Common/EditButtons';
@@ -73,7 +74,7 @@ export default function EditCourse(
 
   // TODO: I'd rather read this from the filesystem but that would require
   // server-side rendering, which I'm not ready to take on just yet
-  const courseImageOptions = ['udemy-course-image.jpg'];
+  const courseImageOptions = useMemo(() => ['udemy-course-image.jpg'], []);
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
@@ -134,8 +135,7 @@ export default function EditCourse(
     const couponData = coupons.get(couponId);
     if (!couponData) {
     // something went wrong if the id is not in the coupons state
-    // TODO log error to file
-      console.error('found coupon id not in state', couponId);
+      logToServer('critical', `found coupon id [${couponId}] not in state`);
       return;
     }
     couponData[property] = value;

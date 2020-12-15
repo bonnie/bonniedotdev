@@ -41,13 +41,12 @@ export function* makeServerRequest({ payload }: makeServerRequestArgs) {
 
   try {
     responseData = yield call(getAxiosResponseData, { headers, ...axiosArgs });
-    yield put(clearLoading());
 
     // run the callback on the data on success
     if (callback) yield put(callback(responseData));
   } catch (e) {
-    // TODO: log this to file
     yield put(setAlert(errorString, alertLevelOptions.error));
+  } finally {
     yield put(clearLoading());
   }
 }
