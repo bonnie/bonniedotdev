@@ -136,3 +136,6 @@ dmypy.json
 
 # logs
 logs/
+
+# static directory with build artifacts
+static/

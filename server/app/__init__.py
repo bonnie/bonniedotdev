@@ -47,6 +47,18 @@ def create_app(flask_env: FlaskEnv):
         """Serve the built react app."""
         return send_file("index.html")
 
+    @app.route("/robots.txt")
+    def serve_robots():
+        return send_file("static/robots.txt")
+
+    @app.route("/manifest.json")
+    def serve_manifest():
+        return send_file("static/manifest.json")
+
+    @app.route("/asset-manifest.txt")
+    def serve_asset_manifest():
+        return send_file("static/asset-manifest.txt")
+
     # make sure react router urls route back to react, and not to the server
     @app.route("/", defaults={"input_path": ""})
     @app.route("/<path:input_path>")
