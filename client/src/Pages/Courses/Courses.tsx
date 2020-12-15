@@ -1,7 +1,9 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import Grid from '@material-ui/core/Grid';
 import { hasNewItem } from 'Helpers';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, {
+  ReactElement, useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AddButton from '../Common/AddButton';
@@ -35,7 +37,7 @@ export default function Courses(): ReactElement {
   // TODO: cache this!
   useEffect(() => { if (user) dispatch(setCoursesFromServer()); }, [dispatch, user]);
 
-  const addCourse = () => {
+  const addCourse = useCallback(() => {
     const newCourse: CourseType = {
       // new courses get a negative number, to distinguish from existing courses
       id: 0 - (courses.length + 1),
@@ -47,14 +49,14 @@ export default function Courses(): ReactElement {
     };
     dispatch(setCourses([...courses, newCourse]));
     setAddButton(false);
-  };
+  }, [dispatch, courses]);
 
-  const deleteCourse = (id) => {
+  const deleteCourse = useCallback((id) => {
     const newCourses = courses.filter((course) => course.id !== id);
     dispatch(setCourses(newCourses));
-  };
+  }, [courses, dispatch]);
 
-  return (
+  return useMemo(() => (
     <>
       <h1>Courses</h1>
       <Grid container spacing={3}>
@@ -74,5 +76,5 @@ export default function Courses(): ReactElement {
         { addButton ? <AddButton onClick={addCourse} itemString="Course" /> : null}
       </Grid>
     </>
-  );
+  ), [courses, addButton, addCourse, deleteCourse, user]);
 }

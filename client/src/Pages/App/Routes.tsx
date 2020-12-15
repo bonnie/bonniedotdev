@@ -13,7 +13,7 @@ import Home from '../Home/Home';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import PrivateRoute from './PrivateRoute';
 
-export default function App(): ReactElement {
+export default function Routes(): ReactElement {
   return (
     <Container>
       <Switch>

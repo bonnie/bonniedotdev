@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { getFormData } from 'Helpers';
 import EditButtons from 'Pages/Common/EditButtons';
 import { CourseType } from 'Pages/Courses/Types';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import {
@@ -56,7 +56,7 @@ export default function EditReviewQuote(
   const dispatch = useDispatch();
   const notSaved = reviewQuoteData.id < 1;
 
-  const handleSubmit = (event) => {
+  const handleSubmit = useCallback((event) => {
     event.preventDefault();
     const formData = getFormData(event);
 
@@ -65,21 +65,22 @@ export default function EditReviewQuote(
     } else {
       dispatch(editReviewQuote(formData, reviewQuoteData));
     }
-  };
+  }, [dispatch, notSaved, reviewQuoteData]);
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     if (notSaved) {
       deleteReviewQuoteFromState(reviewQuoteData.id);
     } else {
       // it's got to be deleted from the db
       dispatch(deleteReviewQuote(reviewQuoteData.id));
     }
-  };
+  }, [notSaved, reviewQuoteData, deleteReviewQuoteFromState, dispatch]);
 
   const itemLabel = `Review Quote ${reviewQuoteIndex}`;
   const itemId = `review-quote-${reviewQuoteIndex}`;
 
-  const contents = (
+  // eslint-disable-next-line max-lines-per-function
+  const contents = useMemo(() => (
     <Box className={classes.flexContainer}>
       <form aria-label={itemLabel} onSubmit={handleSubmit}>
         <Input type="hidden" id={`${itemId}-id`} name="id" value={reviewQuoteData.id} />
@@ -121,6 +122,6 @@ export default function EditReviewQuote(
         />
       </form>
     </Box>
-  );
+  ), [classes, courses, handleDelete, handleSubmit, itemId, itemLabel, reviewQuoteData]);
   return <ReviewQuoteBase contents={contents} newQuote={notSaved} />;
 }

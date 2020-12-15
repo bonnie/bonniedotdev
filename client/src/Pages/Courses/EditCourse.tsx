@@ -20,7 +20,9 @@ import {
   addCourse, deleteCourse, editCourse,
 } from 'Pages/Courses/Redux/Actions';
 import { CouponType, CourseType } from 'Pages/Courses/Types';
-import React, { ReactElement, useState } from 'react';
+import React, {
+  ReactElement, useCallback, useMemo, useState,
+} from 'react';
 import { useDispatch } from 'react-redux';
 import { colors } from 'Theme';
 
@@ -73,7 +75,7 @@ export default function EditCourse(
   // server-side rendering, which I'm not ready to take on just yet
   const courseImageOptions = ['udemy-course-image.jpg'];
 
-  const handleSubmit = (event) => {
+  const handleSubmit = useCallback((event) => {
     event.preventDefault();
 
     // gather non-coupon data from the form
@@ -94,18 +96,18 @@ export default function EditCourse(
     } else {
       dispatch(editCourse(newCourseData, courseData));
     }
-  };
+  }, [dispatch, coupons, courseData, notSaved]);
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     if (notSaved) {
       deleteCourseFromState(courseData.id);
     } else {
       // it's got to be deleted from the db
       dispatch(deleteCourse(courseData.id));
     }
-  };
+  }, [dispatch, notSaved, courseData.id, deleteCourseFromState]);
 
-  const addCoupon = () => {
+  const addCoupon = useCallback(() => {
     // add to the Map by ID. Use negative id to indicate new coupon.
     const newId = 0 - (coupons.size + 1);
     const newCoupon: CouponType = {
@@ -117,16 +119,16 @@ export default function EditCourse(
     const newCoupons = new Map(coupons);
     newCoupons.set(newId, newCoupon);
     setCoupons(newCoupons);
-  };
+  }, [coupons]);
 
-  const deleteCoupon = (couponId) => {
+  const deleteCoupon = useCallback((couponId) => {
     // remove from coupon state
     const newCoupons = new Map(coupons);
     newCoupons.delete(couponId);
     setCoupons(newCoupons);
-  };
+  }, [coupons]);
 
-  const updateCoupon = (property, value, couponId) => {
+  const updateCoupon = useCallback((property, value, couponId) => {
     // update state
     const newCoupons = new Map(coupons);
     const couponData = coupons.get(couponId);
@@ -139,30 +141,32 @@ export default function EditCourse(
     couponData[property] = value;
     newCoupons.set(couponId, couponData);
     setCoupons(newCoupons);
-  };
+  }, [coupons]);
 
-  const couponElements: ReactElement[] = [];
-  // when I use for ... in, typescript complains that id is a string(??)
-  for (const [id] of coupons) {
-    const couponData = coupons.get(id);
+  const couponElements: ReactElement[] = useMemo(() => {
+    const elements: ReactElement[] = [];
+    // when I use for ... in, typescript complains that id is a string(??)
+    for (const [id] of coupons) {
+      const couponData = coupons.get(id);
 
-    // to make TypeScript happy :-/
-    if (couponData !== undefined) {
-      couponElements.push(
-        <EditCoupon
-          key={id}
-          couponData={couponData}
-          deleteCoupon={deleteCoupon}
-          updateCoupon={updateCoupon}
-        />,
-      );
+      // to make TypeScript happy :-/
+      if (couponData !== undefined) {
+        elements.push(
+          <EditCoupon
+            key={id}
+            couponData={couponData}
+            deleteCoupon={deleteCoupon}
+            updateCoupon={updateCoupon}
+          />,
+        );
+      }
     }
-  }
+    return elements;
+  }, [coupons, updateCoupon, deleteCoupon]);
 
   const itemLabel = `Course ${courseIndex}`;
-  const itemId = `course-${courseIndex}`;
 
-  return (
+  return useMemo(() => (
     <Card className={notSaved ? classes.notSavedCard : ''}>
       <Box p={2}>
         <form aria-label={itemLabel} onSubmit={handleSubmit}>
@@ -201,12 +205,17 @@ export default function EditCourse(
         </form>
       </Box>
     </Card>
-  );
+  ), [
+    addCoupon,
+    classes,
+    courseData,
+    couponElements,
+    courseImageName,
+    handleDelete,
+    courseImageOptions,
+    courseIndex,
+    handleSubmit,
+    itemLabel,
+    notSaved,
+  ]);
 }
-
-// id: number,
-// name: string,
-// description: string,
-// link: string,
-// imageName: string,
-// bestCoupon?: CouponType,
