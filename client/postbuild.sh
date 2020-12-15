@@ -18,8 +18,8 @@ mv index.html $SERVERDIR
 echo '3/5 move `manifest.json`, `asset-manifest.json` and `robots.txt` to server public directory'
 mv manifest.json asset-manifest.json robots.txt $SERVERDIR/static
 
-echo '4/5 move images in sub-folders to server images directory'
-mv images/* $SERVERDIR/static/media
-
-echo '5/5 move favicon to server directory'
+echo '4/5 move favicon dir to server directory'
 mv favicon $SERVERDIR/static
+
+echo '5/5 move images dir to server directory'
+mv images $SERVERDIR

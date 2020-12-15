@@ -18,15 +18,19 @@ export default function Coupon({ courseLink, couponData }: CouponProps): ReactEl
   const expirationString = moment(couponData.utcExpirationISO).tz(tz).format('MMM DD ha z');
 
   return (
-    <Box display="flex">
+    <Box display="flex" alignItems="baseline">
       <Box p={1} flex="auto">
-        <Button target="_blank" href={couponLink} rel="noreferrer" color="secondary">
+        <Button target="_blank" href={couponLink} rel="noreferrer" color="inherit">
           <Typography
             variant="button"
             display="block"
             gutterBottom
           >
-            {`Coupon for $${couponData.price}`}
+            Coupon for
+            <span style={{ color: '#a00', fontSize: '125%' }}>
+              &nbsp;$
+              {couponData.price}
+            </span>
           </Typography>
         </Button>
       </Box>
