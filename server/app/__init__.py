@@ -1,3 +1,6 @@
+import logging
+
+from app.enums import FlaskEnv
 from app.resources.course_resource import Course
 from app.resources.courses_resource import Courses
 from app.resources.login_resource import Login
@@ -8,23 +11,17 @@ from flask import Flask
 from flask import send_file
 from flask_restful import Api
 
+logger = logging.getLogger(__name__)
 
-def create_app(flask_env):
-    """Create an app for the server to run.
-    flask_env should be one of the following:
-        production
-        development
-        test
-    """
+
+def create_app(flask_env: FlaskEnv):
+    """Create an app for the server to run."""
 
     # create app and Flask-RESTful Api instance
     app = Flask(__name__)
 
     # set up config based on flask_env
-    config = app_config.get(
-        flask_env,
-        app_config["production"],
-    )  # default to production
+    config = app_config.get(flask_env)  # default to production
     app.config.from_object(config)
 
     # for development server testing without having to rebuild react

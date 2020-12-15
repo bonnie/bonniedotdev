@@ -1,6 +1,8 @@
 """Flask settings for this app."""
 import os
 
+from enums import FlaskEnv
+
 user = os.getenv("PSQL_USERNAME")
 pw = os.getenv("PSQL_PASSWORD")
 host = os.getenv("PSQL_HOST")
@@ -45,7 +47,7 @@ class TestConfig(CommonConfig):
 
 # to make it easier to select which config to use without conditionals
 app_config = {
-    "production": ProductionConfig,
-    "development": DevConfig,
-    "test": TestConfig,
+    FlaskEnv.PRODUCTION: ProductionConfig,
+    FlaskEnv.DEVELOPMENT: DevConfig,
+    FlaskEnv.TEST: TestConfig,
 }
