@@ -18,5 +18,6 @@ app = create_app(flask_env)
 connect_to_db(app)
 
 if __name__ == "__main__":
+    print("FLASK_ENV", flask_env)
     log_setup(flask_env)
     app.run(port=os.getenv("FLASK_PORT", 5000))

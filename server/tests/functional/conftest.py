@@ -5,6 +5,7 @@ import pytest
 from app import create_app
 from app.db import connect_to_db
 from app.db import db
+from app.enums import FlaskEnv
 from app.models.course_model import Course
 from app.models.review_quote_model import ReviewQuote
 from app.models.user_model import User
@@ -61,7 +62,7 @@ def load_test_data():
 
 @pytest.fixture
 def app():
-    return create_app(flask_env="test")
+    return create_app(flask_env=FlaskEnv.TEST)
 
 
 @pytest.fixture

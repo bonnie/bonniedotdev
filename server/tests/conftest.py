@@ -3,6 +3,7 @@ from datetime import timedelta
 
 import pytest
 from app import create_app
+from app.enums import FlaskEnv
 from pytz import utc
 
 # test data
@@ -64,7 +65,7 @@ def users():
 
 @pytest.fixture
 def app():
-    return create_app(flask_env="test")
+    return create_app(flask_env=FlaskEnv.TEST)
 
 
 # TODO: move this to appropriate conftest

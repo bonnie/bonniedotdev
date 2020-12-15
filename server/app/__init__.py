@@ -3,6 +3,7 @@ import logging
 from app.enums import FlaskEnv
 from app.resources.course_resource import Course
 from app.resources.courses_resource import Courses
+from app.resources.log_resource import Log
 from app.resources.login_resource import Login
 from app.resources.review_quote_resource import ReviewQuote
 from app.resources.review_quotes_resource import ReviewQuotes
@@ -21,7 +22,7 @@ def create_app(flask_env: FlaskEnv):
     app = Flask(__name__)
 
     # set up config based on flask_env
-    config = app_config.get(flask_env)  # default to production
+    config = app_config.get(flask_env)
     app.config.from_object(config)
 
     # for development server testing without having to rebuild react
@@ -34,7 +35,7 @@ def create_app(flask_env: FlaskEnv):
     api = Api(app, prefix="/api", catch_all_404s=True)
 
     # add resources / routes
-    # api.add_resource(FooterLinks, "/api/footer_links")
+    api.add_resource(Log, "/log")
     api.add_resource(Login, "/login")
     api.add_resource(ReviewQuotes, "/review_quotes")
     api.add_resource(ReviewQuote, "/review_quote/<int:id>", "/review_quote")

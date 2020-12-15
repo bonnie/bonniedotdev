@@ -1,7 +1,7 @@
 """Flask settings for this app."""
 import os
 
-from enums import FlaskEnv
+from app.enums import FlaskEnv
 
 user = os.getenv("PSQL_USERNAME")
 pw = os.getenv("PSQL_PASSWORD")
