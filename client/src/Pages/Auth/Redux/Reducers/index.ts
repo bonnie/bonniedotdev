@@ -15,7 +15,7 @@ export default function setUserState(
 ): UserType | null {
   switch (action.type) {
     case actionIds.LOGIN_USER_RESPONSE:
-      if (action.payload) {
+      if (action.payload && action.payload.id) {
         // save in localstorage to persist login
         localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(action.payload));
         return action.payload;

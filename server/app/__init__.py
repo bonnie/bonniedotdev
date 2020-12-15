@@ -26,7 +26,7 @@ def create_app(flask_env: FlaskEnv):
     app.config.from_object(config)
 
     # for development server testing without having to rebuild react
-    if flask_env == "development":
+    if flask_env == FlaskEnv.DEVELOPMENT:
         from flask_cors import CORS
 
         CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
