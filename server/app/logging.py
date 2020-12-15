@@ -1,9 +1,12 @@
 import logging.handlers
+import os
 
 from app.enums import FlaskEnv
 
+log_file = os.environ["BONNIEDOTDEV_LOGDIR"] + "/" + os.environ["BONNIEDOTDEV_LOGNAME"]
+
 rotating_handler = logging.handlers.RotatingFileHandler(
-    "/var/log/bonniedotdev/app.log",
+    log_file,
     mode="a",
     maxBytes=102400,
     backupCount=10,
@@ -17,7 +20,7 @@ def log_setup(flask_env: FlaskEnv) -> None:
     else:
         log_level = logging.DEBUG
         format = """%(asctime)s %(levelname)s:%(name)s:%(message)s
-        %(module)s:%(funcName)%s:%(lineno)s"""
+        %(module)s:%(funcName)s:%(lineno)s"""
 
     log_handler = rotating_handler
     formatter = logging.Formatter(format)

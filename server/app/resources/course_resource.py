@@ -1,10 +1,12 @@
+import logging
+
 from app.models.course_model import Course as CourseModel
-from flask import request
-from flask_restful import abort
-from flask_restful import Resource
-from jsonpatch import JsonPatchException
+from app.resources.base_crud_resource import BaseCrudResource
 from marshmallow import fields
+from marshmallow import post_load
 from marshmallow import Schema
+
+logger = logging.getLogger(__name__)
 
 
 class CouponSchema(Schema):
@@ -21,52 +23,16 @@ class CoursePostDataSchema(Schema):
     imageName = fields.Str(required=True)  # defer to JS for camel case
     coupons = fields.Nested(CouponSchema, many=True)
 
+    @post_load
+    def make_course(self, data, **kwargs):
 
-class Course(Resource):
-    """Flask RESTful Resource for course data."""
+        return CourseModel(**data)
 
-    model = CourseModel
 
-    def _get_by_id(self, id: int) -> CourseModel:
-        """Return record object for specified ID."""
+class Course(BaseCrudResource):
+    """Flask RESTful Resource for individual course."""
 
-        record = CourseModel.query.get_or_404(id)
-
-        return record
-
-    def get(self, id):
-        """Return dict for course"""
-
-        course = self._get_by_id(id)
-        return course.to_dict(), 200
-
-    def patch(self, id):
-        patch = request.json
-        course = self._get_by_id(id)
-
-        # ignore empty patches
-        if len(patch) > 0:
-            try:
-                course.update_from_patch(patch)
-            except JsonPatchException as e:
-                # TODO: log this instead of printing
-                print(e)
-                abort(400)
-
-        return course.to_dict(), 200
-
-    def post(self):
-        """Create new course."""
-
-        args = CoursePostDataSchema().load(request.json)
-        new_course = CourseModel(**args)
-
-        return new_course.to_dict(), 201
-
-    def delete(self, id):
-        """Delete Udemy course."""
-
-        course = self._get_by_id(id)
-        course.delete()
-
-        return None, 204
+    def __init__(self):
+        self.schema = CoursePostDataSchema
+        self.model = CourseModel
+        self.logger = logging.getLogger(__name__)
