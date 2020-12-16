@@ -136,3 +136,6 @@ dmypy.json
 
 # logs
 logs/
+
+# built files on server
+static
