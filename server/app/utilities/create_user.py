@@ -1,8 +1,8 @@
 import argparse
-import os
 
 from app import create_app
 from app.db import connect_to_db
+from app.helpers import get_flask_env
 from app.models.user_model import User
 
 
@@ -12,7 +12,7 @@ parser.add_argument("-p", "--password", type=str, required=True)
 
 if __name__ == "__main__":
 
-    flask_env = os.getenv("FLASK_ENV")
+    flask_env = get_flask_env()
     app = create_app(flask_env)
     connect_to_db(app)
 

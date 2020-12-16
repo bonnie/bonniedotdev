@@ -3,17 +3,10 @@ import os
 
 from app import create_app
 from app.db import connect_to_db
-from app.enums import FlaskEnv
+from app.helpers import get_flask_env
 from app.logging import log_setup
 
-raw_env = os.getenv("FLASK_ENV")
-if raw_env == "test":
-    flask_env = FlaskEnv.TEST
-elif raw_env == "development":
-    flask_env = FlaskEnv.DEVELOPMENT
-else:
-    # default to production
-    flask_env = FlaskEnv.PRODUCTION
+flask_env = get_flask_env()
 
 app = create_app(flask_env)
 connect_to_db(app)

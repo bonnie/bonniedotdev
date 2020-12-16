@@ -7,3 +7,10 @@ export PSQL_USERNAME=
 export PSQL_PASSWORD=
 export PSQL_HOST='127.0.0.1'
 export PSQL_PORT='5432'
+
+export BONNIEDOTDEV_LOGDIR=logs
+export BONNIEDOTDEV_LOGNAME=app.log
+
+# for the log -- do not edit
+mkdir $BONNIEDOTDEV_LOGDIR >& /dev/null
+touch $BONNIEDOTDEV_LOGDIR/$BONNIEDOTDEV_LOGNAME

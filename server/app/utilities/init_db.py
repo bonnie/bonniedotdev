@@ -4,6 +4,8 @@ import psycopg2
 from app import create_app
 from app.db import connect_to_db
 from app.db import db
+from app.helpers import get_flask_env
+
 
 DEBUG = False
 
@@ -72,7 +74,7 @@ def create_db(app):
 
 def create_tables():
     """Create SQLAlchemy tables."""
-    flask_env = os.getenv("FLASK_ENV")
+    flask_env = get_flask_env()
     app = create_app(flask_env)
     connect_to_db(app)
 
