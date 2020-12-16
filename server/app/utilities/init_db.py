@@ -74,9 +74,6 @@ def create_db(app):
 
 def create_tables():
     """Create SQLAlchemy tables."""
-    flask_env = get_flask_env()
-    app = create_app(flask_env)
-    connect_to_db(app)
 
     print_debug(f"Creating tables in {db}")
     db.create_all()
@@ -85,8 +82,9 @@ def create_tables():
 if __name__ == "__main__":
     DEBUG = True
 
-    flask_env = os.getenv("FLASK_ENV")
+    flask_env = get_flask_env()
     app = create_app(flask_env)
+    connect_to_db(app)
 
     create_db(app)
     create_tables()

@@ -7,7 +7,6 @@ from app.helpers import get_flask_env
 from app.logging import log_setup
 
 flask_env = get_flask_env()
-
 app = create_app(flask_env)
 connect_to_db(app)
 
