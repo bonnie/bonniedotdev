@@ -26,6 +26,7 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { colors } from 'Theme';
+import _ from 'underscore';
 
 import EditCoupon from './EditCoupon';
 
@@ -79,8 +80,13 @@ export default function EditCourse(
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
 
-    // gather non-coupon data from the form
-    const newCourseData = getFormData(event);
+    // gather data from the form
+    const formData = getFormData(event);
+
+    // remove coupon data
+    // TODO: this is pretty hacky; refactor to be more elegant
+    const relevantKeys = ['name', 'description', 'link', 'imageName'];
+    const newCourseData = _.pick(formData, ...relevantKeys);
 
     // gather coupon data from state
     newCourseData.coupons = [];
@@ -114,6 +120,7 @@ export default function EditCourse(
     const newCoupon: CouponType = {
       id: newId,
       code: '',
+      link: '',
       price: 9.99,
       utcExpirationISO: moment(new Date()).toString(),
     };

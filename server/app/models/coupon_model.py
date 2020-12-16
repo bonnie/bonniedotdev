@@ -42,6 +42,7 @@ class Coupon(db.Model, Base):
             "id": self.id,
             "courseId": self.courseId,
             "code": self.code,
+            "link": self.link,
             "price": float(self.price),
             "utcExpirationISO": datetime.isoformat(self.utcExpirationISO),
         }

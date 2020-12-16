@@ -7,6 +7,7 @@ export type CouponType = {
   id?: number,
   price: number,
   code: string,
+  link: string,
   utcExpirationISO: string,
 };
 

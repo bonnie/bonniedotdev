@@ -53,9 +53,11 @@ class BaseCrudResource(Resource):
         try:
             item = self.schema().load(request.json)
         except ValidationError as e:
-            self.logger.error(
-                f"Failed to validate input for [{self.schema}], data [{request.json}]",
+            msg = (
+                f"Failed to validate input for [{self.schema}], data [{request.json}]: "
             )
+            msg += str(e)
+            self.logger.error(msg)
             return {"message", f"failed to validate input: {e}"}, 400
 
         return item.to_dict(), 201

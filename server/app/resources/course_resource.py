@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 class CouponSchema(Schema):
     code = fields.Str(required=True)
+    link = fields.Str(required=True)
     price = fields.Float(required=True)
     utcExpirationISO = fields.Str(required=True)
     id = fields.Int()

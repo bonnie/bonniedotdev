@@ -43,7 +43,6 @@ export function deleteCourse(courseId) {
 
 export function addCourse(newData) {
   // remove the id from data to be sent to the server
-  const { id } = newData;
   delete newData.id;
 
   return {
@@ -75,7 +74,7 @@ export function editCourse(newData, originalData) {
   return {
     type: sagaActionIds.SERVER_REQUEST,
     payload: {
-      url: `${urls.courseURL}/{id}`,
+      url: `${urls.courseURL}/${originalData.id}`,
       method: axiosMethodOptions.patch,
       updateStateAction: setCoursesFromServer(),
       data: patch,

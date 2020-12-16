@@ -46,6 +46,15 @@ export default function EditCoupon(
       />
       <TextField
         required
+        type="text"
+        name="link"
+        value={couponData.link}
+        label="Link"
+        aria-label={`${itemLabel} link`}
+        onChange={(event) => handleChange('link', event.target.value)}
+      />
+      <TextField
+        required
         type="number"
         name="price"
         value={couponData.price}
