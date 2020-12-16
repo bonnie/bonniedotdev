@@ -59,6 +59,10 @@ def create_app(flask_env: FlaskEnv):
     def serve_asset_manifest():
         return send_file("static/asset-manifest.txt")
 
+    @app.route("/favicon/<icon_file>")
+    def serve_favicon(icon_file):
+        return send_file(f"static/favicon/{icon_file}")
+
     # make sure react router urls route back to react, and not to the server
     @app.route("/", defaults={"input_path": ""})
     @app.route("/<path:input_path>")
