@@ -48,8 +48,8 @@ export const testReviewQuotesData = [
 export const couponWithDate = {
   id: 1,
   code: 'NOT_EXPIRED',
+  link: 'http://link',
   price: 12.99,
-  link: 'http://course.com?coupon',
   utcExpirationISO: moment(new Date('2020-11-17T20:01:03.182265+00:00')).toString(),
 };
 

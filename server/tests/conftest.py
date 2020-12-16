@@ -41,11 +41,13 @@ def coupons(iso_30_days_from_now, iso_30_days_ago):
             "code": "NOT_EXPIRED",
             "utcExpirationISO": iso_30_days_from_now,
             "course_id": 1,
+            "link": "http://link",
         },
         {
             "code": "EXPIRED",
             "utcExpirationISO": iso_30_days_ago,
             "course_id": 1,
+            "link": "http://link",
         },
     ]
 

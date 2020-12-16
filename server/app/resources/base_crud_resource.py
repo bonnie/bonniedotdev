@@ -58,7 +58,7 @@ class BaseCrudResource(Resource):
             )
             msg += str(e)
             self.logger.error(msg)
-            return {"message", f"failed to validate input: {e}"}, 400
+            return {"message": f"failed to validate input: {e}"}, 400
 
         return item.to_dict(), 201
 

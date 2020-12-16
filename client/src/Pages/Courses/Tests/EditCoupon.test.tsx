@@ -10,6 +10,7 @@ import EditCoupon from '../EditCoupon';
 const couponData = {
   id: 1,
   code: 'NOT_EXPIRED',
+  link: 'http://link',
   price: 12.99,
   utcExpirationISO: '2020-11-17T20:01:03.182265+00:00',
 };

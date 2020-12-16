@@ -15,12 +15,14 @@ class Coupon(db.Model, Base):
     id = db.Column(db.Integer, primary_key=True)
     courseId = db.Column(db.Integer, db.ForeignKey("courses.id"))
     code = db.Column(db.String, nullable=False)
+    link = db.Column(db.String, nullable=False)
     price = db.Column(db.Numeric(4, 2), nullable=False)
     utcExpirationISO = db.Column(db.DateTime(timezone=True), nullable=False)
 
     def __init__(
         self,
         code: str,
+        link: str,
         utcExpirationISO: str,
         price: float,
         courseId: int = None,
@@ -32,6 +34,7 @@ class Coupon(db.Model, Base):
         self.code = code
         self.utcExpirationISO = dateutil.parser.parse(utcExpirationISO)
         self.price = price
+        self.link = link
 
         if update_db:
             self.update_db()

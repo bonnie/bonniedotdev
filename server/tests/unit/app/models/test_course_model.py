@@ -45,10 +45,12 @@ def course_with_coupons(mock_update_db, iso_30_days_from_now):
             {
                 "code": "GOOD_COUPON",
                 "utcExpirationISO": iso_30_days_from_now,
+                "link": "http://link",
                 "price": 1.99,
             },
             {
                 "code": "BAD_COUPON",
+                "link": "http://link",
                 "utcExpirationISO": iso_30_days_from_now,
                 "price": 1111.99,
             },
@@ -112,6 +114,7 @@ def mock_coupon_update_db(mocker):
 def expired_coupon(mock_coupon_update_db, iso_30_days_ago):
     return Coupon(
         code="EXPIRED",
+        link="http://link",
         utcExpirationISO=iso_30_days_ago,
         price=9.99,
     )
@@ -121,6 +124,7 @@ def expired_coupon(mock_coupon_update_db, iso_30_days_ago):
 def good_coupon_30_days(mock_coupon_update_db, iso_30_days_from_now):
     return Coupon(
         code="GOOD_30",
+        link="http://link",
         utcExpirationISO=iso_30_days_from_now,
         price=9.99,
     )
@@ -130,6 +134,7 @@ def good_coupon_30_days(mock_coupon_update_db, iso_30_days_from_now):
 def good_coupon_4_days(mock_coupon_update_db):
     return Coupon(
         code="GOOD_4",
+        link="http://link",
         utcExpirationISO=datetime.isoformat(datetime.now(utc) + timedelta(days=4)),
         price=9.99,
     )
@@ -139,6 +144,7 @@ def good_coupon_4_days(mock_coupon_update_db):
 def bad_coupon(mock_coupon_update_db, iso_30_days_from_now):
     return Coupon(
         code="BAD",
+        link="http://link",
         utcExpirationISO=iso_30_days_from_now,
         price=12.99,
     )

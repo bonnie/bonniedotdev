@@ -36,7 +36,12 @@ def test_add_coupons_to_course(
     iso_30_days_from_now,
 ):
     coupons = [
-        {"code": "test", "utcExpirationISO": iso_30_days_from_now, "price": 9.99},
+        {
+            "code": "test",
+            "link": "http://link",
+            "utcExpirationISO": iso_30_days_from_now,
+            "price": 9.99,
+        },
     ]
     patch = [{"op": "add", "path": "/coupons", "value": coupons}]
 

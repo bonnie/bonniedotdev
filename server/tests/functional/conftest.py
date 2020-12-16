@@ -26,9 +26,15 @@ course_with_coupons_and_quotes = {
         {
             "code": "NOT_EXPIRED",
             "utcExpirationISO": future_iso_date,
+            "link": "http://link",
             "price": 12.99,
         },
-        {"code": "EXPIRED", "utcExpirationISO": past_iso_date, "price": 9.99},
+        {
+            "code": "EXPIRED",
+            "link": "http://link",
+            "utcExpirationISO": past_iso_date,
+            "price": 9.99,
+        },
     ],
 }
 
