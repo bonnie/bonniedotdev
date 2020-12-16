@@ -3,8 +3,8 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
+import theme from 'Theme';
 
-import theme from '../../Theme';
 import AlertBox from './Alert/AlertBox';
 import LoadingSpinner from './Loading/LoadingSpinner';
 import Nav from './Nav';

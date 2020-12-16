@@ -22,4 +22,4 @@ echo '4/5 move favicon dir to server directory'
 mv favicon $SERVERDIR/static
 
 echo '5/5 move images dir to server directory'
-mv images $SERVERDIR
+mv images $SERVERDIR/static

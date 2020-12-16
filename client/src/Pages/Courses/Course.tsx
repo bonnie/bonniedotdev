@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import udemyCourseImage from 'Images/course-images/udemy-course-image.jpg';
 import React, { ReactElement } from 'react';
 import { colors } from 'Theme';
 
@@ -41,7 +42,6 @@ type CourseProps = {
 };
 
 export default function Course({ courseData }: CourseProps): ReactElement {
-  const courseImgUrlStart = `${process.env.PUBLIC_URL}/images/course-images`;
   const classes = useStyles();
 
   return (
@@ -51,8 +51,8 @@ export default function Course({ courseData }: CourseProps): ReactElement {
         <CardActionArea href={courseData.link} target="_blank" rel="noreferrer">
           <CardMedia
             className={classes.media}
-          // eslint-disable-next-line import/no-dynamic-require
-            image={`${courseImgUrlStart}/${courseData.imageName}`}
+            // TODO: make image dependent on courseData instead of hard-coded
+            image={udemyCourseImage}
             title="Course Image"
           />
           <CardHeader className={classes.header} title={courseData.name} />

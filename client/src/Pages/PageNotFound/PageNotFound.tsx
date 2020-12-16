@@ -54,7 +54,7 @@ export default function PageNotFound(): ReactElement {
   const image = kittenImages[randNum];
   const caption = kittenCaptions[randNum];
   return (
-    <Grid container>
+    <Grid container style={{ backgroundImage: 'none' }}>
       <Grid item xs={12}>
         <Typography variant="h1" gutterBottom>Oops!</Typography>
         <Typography variant="subtitle1" gutterBottom>That page doesn&apos;t exist.</Typography>

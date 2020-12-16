@@ -18,7 +18,7 @@ export default function Coupon({ courseLink, couponData }: CouponProps): ReactEl
   const expirationString = moment(couponData.utcExpirationISO).tz(tz).format('MMM DD ha z');
 
   return (
-    <Box display="flex" alignItems="baseline">
+    <Box display="flex" alignItems="center">
       <Box p={1} flex="auto">
         <Button target="_blank" href={couponLink} rel="noreferrer" color="inherit">
           <Typography
