@@ -118,7 +118,7 @@ class Course(db.Model, Base):
             "link": self.link,
             "imageName": self.imageName,  # defer to JS for camel case
             "bestCoupon": self.bestCoupon,
-            "coupons": [c.to_dict() for c in self.coupons],
+            "coupons": [c.to_dict() for c in self.coupons if c.is_valid()],
         }
 
     def __repr__(self):

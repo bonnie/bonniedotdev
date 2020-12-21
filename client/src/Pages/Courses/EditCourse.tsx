@@ -85,8 +85,13 @@ export default function EditCourse(
 
     // remove coupon data
     // TODO: this is pretty hacky; refactor to be more elegant
-    const relevantKeys = ['name', 'description', 'link', 'imageName'];
+    const relevantKeys = ['name', 'description', 'courseLink', 'imageName'];
     const newCourseData = _.pick(formData, ...relevantKeys);
+
+    // had to name link "courseLink" so as not to get confused with coupon links
+    // rename back now
+    newCourseData.link = newCourseData.courseLink;
+    delete newCourseData.courseLink;
 
     // gather coupon data from state
     newCourseData.coupons = [];
@@ -180,7 +185,7 @@ export default function EditCourse(
           <Input type="hidden" name="id" value={courseData.id} />
           <TextField className={classes.formField} multiline required name="name" aria-label={`${itemLabel} name`} label="Course name" defaultValue={courseData.name} />
           <TextField className={classes.formField} multiline required name="description" aria-label={`${itemLabel} description`} label="Description" defaultValue={courseData.description} />
-          <TextField className={classes.formField} multiline required name="link" aria-label={`${itemLabel} link`} label="Full Link" defaultValue={courseData.link} />
+          <TextField className={classes.formField} multiline required name="courseLink" aria-label={`${itemLabel} link`} label="Full Link" defaultValue={courseData.link} />
           <FormControl required className={classes.formField}>
             <InputLabel id="course-image-label">Course Image Name</InputLabel>
             <Select
