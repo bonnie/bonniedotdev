@@ -45,7 +45,6 @@ export function* makeServerRequest({ payload }: makeServerRequestArgs) {
     // run the callback on the data on success
     if (callback) yield put(callback(responseData));
   } catch (e) {
-    console.error(e);
     yield put(setAlert(errorString, alertLevelOptions.error));
   } finally {
     yield put(clearLoading());

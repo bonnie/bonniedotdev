@@ -35,7 +35,8 @@ describe('Test form render details for read-only coupon', () => {
     // and doesn't present the form label in an accessible way :-/
     const couponTextFields = screen.getAllByRole('textbox');
     expect(couponTextFields[0]).toHaveValue('NOT_EXPIRED');
-    expect(couponTextFields[1]).toHaveValue('Nov 17 2020, 12:01');
+    expect(couponTextFields[1]).toHaveValue('http://link');
+    expect(couponTextFields[2]).toHaveValue('Nov 17 2020, 12:01');
   });
 
   test('renders coupon price field as number field', () => {

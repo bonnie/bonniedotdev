@@ -8,6 +8,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import concreteImage from 'Images/course-images/concrete.jpg';
+import stoneStairsImage from 'Images/course-images/stone-staircase.jpg';
 import udemyCourseImage from 'Images/course-images/udemy-course-image.jpg';
 import React, { ReactElement } from 'react';
 import { colors } from 'Theme';
@@ -15,9 +17,16 @@ import { colors } from 'Theme';
 import Coupon from './Coupon';
 import { CourseType } from './Types/index';
 
+/* TODO: this is hacky! Be able to upload image */
+const images = {
+  'udemy-course-image.jpg': udemyCourseImage,
+  'concrete.jpg': concreteImage,
+  'stone-staircase.jpg': stoneStairsImage,
+};
+
 const useStyles = makeStyles(() => ({
   root: {
-    // maxWidth: 345,
+    minWidth: 345,
     minHeight: 300,
     height: '100%',
   },
@@ -51,8 +60,7 @@ export default function Course({ courseData }: CourseProps): ReactElement {
         <CardActionArea href={courseData.link} target="_blank" rel="noreferrer">
           <CardMedia
             className={classes.media}
-            // TODO: make image dependent on courseData instead of hard-coded
-            image={udemyCourseImage}
+            image={images[courseData.imageName]}
             title="Course Image"
           />
           <CardHeader className={classes.header} title={courseData.name} />

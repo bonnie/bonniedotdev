@@ -3,11 +3,7 @@
 import DateFnsUtils from '@date-io/date-fns';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
-import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -59,9 +55,6 @@ export default function EditCourse(
   // negative id indicates not in the db. Just delete from state.
   const notSaved = courseData.id < 0;
 
-  // for the state-controlled select
-  const [courseImageName, setCourseImageName] = useState(courseData.imageName);
-
   // for coupon management. Store by id for easy access
   const couponsById: CouponsById = new Map();
   if (courseData.coupons) {
@@ -72,10 +65,6 @@ export default function EditCourse(
   }
 
   const [coupons, setCoupons] = useState<CouponsById>(couponsById);
-
-  // TODO: I'd rather read this from the filesystem but that would require
-  // server-side rendering, which I'm not ready to take on just yet
-  const courseImageOptions = useMemo(() => ['udemy-course-image.jpg'], []);
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
@@ -186,23 +175,9 @@ export default function EditCourse(
           <TextField className={classes.formField} multiline required name="name" aria-label={`${itemLabel} name`} label="Course name" defaultValue={courseData.name} />
           <TextField className={classes.formField} multiline required name="description" aria-label={`${itemLabel} description`} label="Description" defaultValue={courseData.description} />
           <TextField className={classes.formField} multiline required name="courseLink" aria-label={`${itemLabel} link`} label="Full Link" defaultValue={courseData.link} />
-          <FormControl required className={classes.formField}>
-            <InputLabel id="course-image-label">Course Image Name</InputLabel>
-            <Select
-              labelId="course-image-label"
-              name="imageName"
-              value={courseImageName || ''}
-              onChange={(event) => setCourseImageName(event.target.value as string)}
-            >
-              {courseImageOptions.map(
-                (imageOption) => (
-                  <MenuItem key={imageOption} value={imageOption}>
-                    {imageOption}
-                  </MenuItem>
-                ),
-              )}
-            </Select>
-          </FormControl>
+
+          {/* TODO: allow uploading of image */}
+          <TextField className={classes.formField} required name="imageName" aria-label={`${itemLabel} image`} label="Image name" defaultValue={courseData.imageName} />
           <Box style={{
             border: `2px ${colors.mediumTeal} solid`, marginTop: '10px', background: '#eeeeee',
           }}
@@ -222,9 +197,7 @@ export default function EditCourse(
     classes,
     courseData,
     couponElements,
-    courseImageName,
     handleDelete,
-    courseImageOptions,
     courseIndex,
     handleSubmit,
     itemLabel,
