@@ -7,6 +7,8 @@ from app.resources.log_resource import Log
 from app.resources.login_resource import Login
 from app.resources.review_quote_resource import ReviewQuote
 from app.resources.review_quotes_resource import ReviewQuotes
+from app.resources.talk_resource import Talk
+from app.resources.talks_resource import Talks
 from config import app_config
 from flask import Flask
 from flask import send_file
@@ -41,6 +43,8 @@ def create_app(flask_env: FlaskEnv):
     api.add_resource(ReviewQuote, "/review_quote/<int:id>", "/review_quote")
     api.add_resource(Courses, "/courses")
     api.add_resource(Course, "/course/<int:id>", "/course")
+    api.add_resource(Talks, "/talks")
+    api.add_resource(Talk, "/talk/<int:id>", "/talk")
 
     @app.route("/")
     def serve_react():

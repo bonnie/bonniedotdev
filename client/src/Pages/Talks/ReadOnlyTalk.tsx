@@ -19,7 +19,8 @@ export default function ReadOnlyTalks({ talkData, talkRange }: ReadOnlyTalkProps
       <TableCell>{talkData.utcDateStringISO}</TableCell>
       <TableCell>
         <Link href="talkData.conferenceLink">
-          <img src={`/images/conference/${talkData.conferenceImageName}`} alt={talkData.conferenceName} />
+          {/* <img src={`/images/conference/${talkData.conferenceImageName}`} alt={talkData.conferenceName} /> */}
+          {talkData.conferenceName}
         </Link>
       </TableCell>
       <TableCell>{talkData.title}</TableCell>

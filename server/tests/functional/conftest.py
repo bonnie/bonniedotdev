@@ -8,6 +8,7 @@ from app.db import db
 from app.enums import FlaskEnv
 from app.models.course_model import Course
 from app.models.review_quote_model import ReviewQuote
+from app.models.talk_model import Talk
 from app.models.user_model import User
 from app.utilities.init_db import create_db
 from pytz import utc
@@ -47,6 +48,29 @@ course_without_coupons_and_quotes = {
 
 admin_user = {"username": "admin", "password": "abc123"}
 
+talks = [
+    {
+        "title": "i am an older talk",
+        "utcDateStringISO": "2020-01-23",
+        "description": "this talks discusses stuff and it is good",
+        "slidesFilename": "http://link-to-slides",
+        "conferenceImageName": "bonnieCon.png",
+        "conferenceName": "bonnieCon",
+        "conferenceLink": "http://bonniecon.com",
+        "recordingLink": "http://youtube.com/bonnie",
+    },
+    {
+        "title": "i am further in the foooture",
+        "utcDateStringISO": "2099-01-28",
+        "description": "this talks discusses stuff and it is also good",
+        "slidesFilename": "http://link-to-slides",
+        "conferenceImageName": "bonnieCon.png",
+        "conferenceName": "bonnieCon",
+        "conferenceLink": "http://bonniecon.com",
+        "recordingLink": "http://youtube.com/bonnie",
+    },
+]
+
 
 def load_test_data():
     """Load test data into db."""
@@ -64,6 +88,9 @@ def load_test_data():
     course = Course.query.first()
     for review_quote in review_quotes:
         ReviewQuote(body=review_quote, courseId=course.id)
+
+    for talk in talks:
+        Talk(**talk)
 
 
 @pytest.fixture
