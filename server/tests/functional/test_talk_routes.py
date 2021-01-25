@@ -24,6 +24,7 @@ def test_get_existing_course(
 
     assert response.json.keys() == {
         "id",
+        "title",
         "utcDateStringISO",
         "description",
         "slidesFilename",

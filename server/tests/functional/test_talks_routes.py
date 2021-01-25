@@ -12,6 +12,7 @@ def test_talks_route(test_db, test_client):
     # check for proper keys
     expected_keys = {
         "id",
+        "title",
         "utcDateStringISO",
         "description",
         "slidesFilename",

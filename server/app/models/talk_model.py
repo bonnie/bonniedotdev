@@ -13,7 +13,6 @@ class Talk(db.Model, Base):
     __tablename__ = "talks"
 
     id = db.Column(db.Integer, primary_key=True)
-    courseId = db.Column(db.Integer, db.ForeignKey("courses.id"))
     title = db.Column(db.String, nullable=False)
     utcDateStringISO = db.Column(db.Date, nullable=False)
     description = db.Column(db.String, nullable=False)
@@ -66,6 +65,7 @@ class Talk(db.Model, Base):
         """Return the called upon resource to dictionary format."""
         return {
             "id": self.id,
+            "title": self.title,
             "utcDateStringISO": date.isoformat(self.utcDateStringISO),
             "description": self.description,
             "slidesFilename": self.slidesFilename,

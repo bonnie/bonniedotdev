@@ -35,18 +35,19 @@ export default function IconLink(
   };
 
   const open = Boolean(anchorEl);
+  console.log(link);
 
   return (link)
     ? (
-      <>
-        <IconButton
-          href={link}
-          aria-label={altText}
-          aria-owns={open ? 'mouse-over-popover' : undefined}
-          aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose}
-        />
+      <a
+        aria-label={altText}
+        aria-owns={open ? 'mouse-over-popover' : undefined}
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
+        target="_blank"
+        rel="noreferrer"
+        href={link}
+      >
         {iconComponent}
         <Popover
           id="mouse-over-popover"
@@ -69,7 +70,7 @@ export default function IconLink(
         >
           <Typography>{altText}</Typography>
         </Popover>
-      </>
+      </a>
     )
     : null;
 }

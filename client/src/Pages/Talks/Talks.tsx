@@ -22,7 +22,7 @@ const columnNames = [
   'Date',
   'Conference',
   'Title',
-  'Description',
+  // 'Description',
   'Links',
 ];
 
@@ -117,7 +117,9 @@ export default function Talks(): ReactElement {
         <TableBody>
           {createWholeRowCell(<Typography variant="h2">Upcoming</Typography>)}
           {addButton ? createWholeRowCell(<AddButton onClick={addTalk} itemString="Talk" />) : null }
-          {upcomingTalks.map((data, index) => mapTalkToElement('upcoming', data, index))}
+          { upcomingTalks.length > 0
+            ? upcomingTalks.map((data, index) => mapTalkToElement('upcoming', data, index))
+            : createWholeRowCell('No upcoming talks scheduled. Check back later!')}
           {createWholeRowCell(<Typography variant="h2">Past</Typography>)}
           {pastTalks.map((data, index) => mapTalkToElement('past', data, index))}
         </TableBody>

@@ -17,17 +17,20 @@ export default function ReadOnlyTalks({ talkData, talkRange }: ReadOnlyTalkProps
   return (
     <TableRow>
       <TableCell>{talkData.utcDateStringISO}</TableCell>
-      <TableCell>
-        <Link href="talkData.conferenceLink">
-          {/* <img src={`/images/conference/${talkData.conferenceImageName}`} alt={talkData.conferenceName} /> */}
+      <TableCell align="center">
+        <Link href={talkData.conferenceLink}>
+          {/* <img
+          src={`/images/conference/${talkData.conferenceImageName}`}
+          alt={talkData.conferenceName}
+          /> */}
           {talkData.conferenceName}
         </Link>
       </TableCell>
-      <TableCell>{talkData.title}</TableCell>
-      <TableCell>{talkData.description}</TableCell>
-      <TableCell>
+      <TableCell align="center">{talkData.title}</TableCell>
+      {/* <TableCell style={{ width: '40%' }}>{talkData.description}</TableCell> */}
+      <TableCell align="center">
         <IconLink link={`/images/slides/${talkData.slidesFilename}`} iconComponent={<SlideshowIcon />} altText="slides" />
-        <IconLink link={talkData.slidesFilename} iconComponent={<VideocamIcon />} altText="recording" />
+        <IconLink link={talkData.recordingLink} iconComponent={<VideocamIcon />} altText="recording" />
       </TableCell>
     </TableRow>
   );

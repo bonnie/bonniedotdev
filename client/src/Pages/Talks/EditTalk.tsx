@@ -51,43 +51,42 @@ export default function EditTalk(
 
   const fieldNames = [
     'title',
-    'date',
+    'utcDateStringISO',
     'description',
-    'slide-link',
-    'conference-image-name',
-    'conference-link',
-    'recording-link',
+    'slidesFilename',
+    'conferenceImageName',
+    'conferenceName',
+    'conferenceLink',
+    'recordingLink',
   ];
 
-  const fields = fieldNames.map((fieldName) => {
-    if (fieldName === 'date') {
-      return (
-        <DatePicker
-          key="date"
-          required
-          aria-label={`${itemLabel} date`}
-          value={talkDate}
-          onChange={(value) => (setTalkDate(moment(value).toString()))}
-          label="Talk date"
-          format="MMM dd Y, H:mm"
-          style={{ width: '100%' }}
-        />
-      );
-    }
-    return (
-      <TextField
-        key={fieldName}
-        required
-        multiline
-        name={fieldName}
-        id={`${itemId}-${fieldName}`}
-        aria-label={`${itemLabel} ${fieldName}`}
-        label={fieldName}
-        style={{ width: '100%' }}
-        defaultValue={talkData[fieldName] || ''}
-      />
-    );
-  });
+  // TODO: datepicker for utcstring
+  // if (fieldName === 'utcDateStringISO') {
+  //   return (
+  //     <DatePicker
+  //       key="date"
+  //       required
+  //       aria-label={`${itemLabel} date`}
+  //       value={talkDate}
+  //       onChange={(value) => (setTalkDate(moment(value).toString()))}
+  //       label="Talk date"
+  //       format="MMM dd Y, H:mm"
+  //       style={{ width: '100%' }}
+  //     />
+  //   );}
+
+  const fields = fieldNames.map((fieldName) => (
+    <TextField
+      key={fieldName}
+      multiline
+      name={fieldName}
+      id={`${itemId}-${fieldName}`}
+      aria-label={`${itemLabel} ${fieldName}`}
+      label={fieldName}
+      style={{ width: '100%' }}
+      defaultValue={talkData[fieldName] || ''}
+    />
+  ));
 
   const contents = useMemo(() => (
     <form aria-label={itemLabel} onSubmit={handleSubmit}>
