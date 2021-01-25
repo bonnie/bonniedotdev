@@ -8,18 +8,16 @@ import About from '../About/About';
 import Login from '../Auth/Login';
 import UserHome from '../Auth/UserHome';
 import Courses from '../Courses/Courses';
-import EditCourse from '../Courses/EditCourse';
 import Home from '../Home/Home';
 import PageNotFound from '../PageNotFound/PageNotFound';
-import PrivateRoute from './PrivateRoute';
+import Talks from '../Talks/Talks';
 
 export default function Routes(): ReactElement {
   return (
     <Container>
       <Switch>
         <Route exact path="/" component={Home} />
-        <PrivateRoute exact path="/courses/edit/:id" component={EditCourse} />
-        <PrivateRoute exact path="/courses/new" component={EditCourse} />
+        <Route exact path="/talks" component={Talks} />
         <Route exact path="/courses" component={Courses} />
         <Route exact path="/about" component={About} />
         <Route exact path="/user" component={UserHome} />

@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { UserType } from 'Pages/Auth/Types';
 import { CourseType } from 'Pages/Courses/Types';
+import { TalkType } from 'Pages/Talks/Types';
 
 export const testSuccessLoginReponse: UserType = {
   id: 1,
@@ -103,5 +104,52 @@ export const newReviewQuoteJSONResponse = {
   id: 12,
   body: 'What a great course!',
 };
+
+export const testTalksJSONResponse: TalkType[] = [
+  {
+    id: 5,
+    title: 'i am a talk',
+    utcDateStringISO: '2021-01-25',
+    description: 'this talks discusses stuff and it is good',
+    slidesFilename: 'http://link-to-slides',
+    conferenceImageName: 'bonnieCon.png',
+    conferenceName: 'bonnieCon',
+    conferenceLink: 'http://bonniecon.com',
+    recordingLink: 'http://youtube.com/bonnie',
+  },
+  {
+    id: 3,
+    title: 'i am an older talk',
+    utcDateStringISO: '2020-01-23',
+    description: 'this talks discusses stuff and it is good',
+    slidesFilename: 'http://link-to-slides',
+    conferenceImageName: 'bonnieCon.png',
+    conferenceName: 'bonnieCon',
+    conferenceLink: 'http://bonniecon.com',
+    recordingLink: 'http://youtube.com/bonnie',
+  },
+  {
+    id: 8,
+    title: 'i am further in the foooture',
+    utcDateStringISO: '2099-01-28',
+    description: 'this talks discusses stuff and it is also good',
+    slidesFilename: 'http://link-to-slides',
+    conferenceImageName: 'bonnieCon.png',
+    conferenceName: 'bonnieCon',
+    conferenceLink: 'http://bonniecon.com',
+    recordingLink: 'http://youtube.com/bonnie',
+  },
+  {
+    id: 7,
+    title: 'i am a talk in the foooture',
+    utcDateStringISO: '2099-01-25',
+    description: 'this talks discusses stuff and it is also good',
+    slidesFilename: 'http://link-to-slides',
+    conferenceImageName: 'bonnieCon.png',
+    conferenceName: 'bonnieCon',
+    conferenceLink: 'http://bonniecon.com',
+    recordingLink: 'http://youtube.com/bonnie',
+  },
+];
 
 /** END: JSON */

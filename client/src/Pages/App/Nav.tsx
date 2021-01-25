@@ -65,6 +65,7 @@ export default function Nav(): ReactElement {
           { /* TODO: make hamburger on xs */ }
           <Tab className={classes.tab} label={homeButton} value="/" component={Link} to="/" />
           <Tab className={classes.tab} label="courses" value="/courses" component={Link} to="/courses" />
+          <Tab className={classes.tab} label="talks" value="/talks" component={Link} to="/talks" />
           <Tab className={classes.tab} label="about" value="/about" component={Link} to="/about" />
           <LogoutIconButton />
         </Tabs>

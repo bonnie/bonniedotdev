@@ -3,6 +3,7 @@ import alert from 'Pages/App/Alert/Redux/Reducers';
 import loading from 'Pages/App/Loading/Redux/Reducers';
 import user from 'Pages/Auth/Redux/Reducers';
 import courses from 'Pages/Courses/Redux/Reducers';
+import talks from 'Pages/Talks/Redux/Reducers';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
@@ -11,4 +12,5 @@ export default combineReducers({
   alert,
   loading,
   reviewQuotes,
+  talks,
 });
