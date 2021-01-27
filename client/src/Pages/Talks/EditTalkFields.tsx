@@ -1,7 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import TextField from '@material-ui/core/TextField';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import moment from 'moment';
 import React, { ReactElement, useState } from 'react';
 
 import { TalkType } from './Types';
@@ -46,6 +45,8 @@ export default function EditTalkFields({ talkData = newTalk }: EditTalkFieldsTyp
     'recordingLink',
   ];
 
+  // TODO: add server endpoint for available slide files / conference images
+
   const fields = fieldNames.map((fieldName) => {
     if (fieldName === 'utcDateStringISO') {
       // fancy date picker for date
@@ -58,7 +59,7 @@ export default function EditTalkFields({ talkData = newTalk }: EditTalkFieldsTyp
           margin="normal"
           id="date-picker-inline"
           value={talkDate}
-          onChange={setTalkDate}
+          onChange={(value) => { if (value) setTalkDate(value.toString()); }}
           KeyboardButtonProps={{ 'aria-label': 'change date' }}
         />
       );

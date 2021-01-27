@@ -2,6 +2,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { getFormData } from 'Helpers';
@@ -21,14 +22,7 @@ ItemModal.defaultProps = {
   buttonSize: 'small',
 };
 
-// export function getFormData(event) {
-//   const rawData = [...event.target.elements];
-//   return rawData.reduce((acc, element) => {
-//     if (element.name) acc[element.name] = element.value;
-//     return acc;
-//   }, {});
-// }
-
+// eslint-disable-next-line max-lines-per-function
 export default function ItemModal(
   {
     ButtonIcon, handleSave, dialogTitle, ItemFields, buttonSize,
@@ -49,7 +43,13 @@ export default function ItemModal(
 
   return (
     <>
-      <ButtonIcon fontSize={buttonSize} onClick={() => setModalOpen(true)} />
+      <IconButton
+        color="primary"
+        aria-label={dialogTitle}
+        onClick={() => setModalOpen(true)}
+      >
+        <ButtonIcon fontSize={buttonSize} />
+      </IconButton>
       <Dialog onClose={handleClose} aria-labelledby="confirm-action" open={modalOpen}>
         <Box m={2}>
           <Typography variant="h3" align="center" id="confirm-dialog-title">{dialogTitle}</Typography>
@@ -57,7 +57,7 @@ export default function ItemModal(
             {ItemFields}
             <ButtonGroup
               variant="text"
-              style={{ float: 'right', marginTop: 10 }}
+              style={{ float: 'right', marginTop: 10, marginBottom: 10 }}
             >
               <Button onClick={() => handleClose()}>Cancel</Button>
               <Button color="secondary" type="submit">Save</Button>

@@ -14,6 +14,14 @@ interface TalkProps {
 }
 
 export default function Talk({ talkData, editButtons }: TalkProps): ReactElement {
+  const slideLink = talkData.slidesFilename
+    ? <IconLink link={`/images/slides/${talkData.slidesFilename}`} iconComponent={<SlideshowIcon />} altText="slides" />
+    : null;
+
+  const recordingLink = talkData.recordingLink
+    ? <IconLink link={talkData.recordingLink} iconComponent={<VideocamIcon />} altText="recording" />
+    : null;
+
   return (
     <TableRow>
       <TableCell>
@@ -23,16 +31,17 @@ export default function Talk({ talkData, editButtons }: TalkProps): ReactElement
       <TableCell align="center">
         <Link href={talkData.conferenceLink}>
           <img
-            src={`/images/conference/${talkData.conferenceImageName}`}
+            src={`/images/conference-logos/${talkData.conferenceImageName}`}
             alt={talkData.conferenceName}
+            style={{ maxWidth: '150px', maxHeight: '50px' }}
           />
         </Link>
       </TableCell>
       <TableCell align="center">{talkData.title}</TableCell>
       <TableCell style={{ width: '40%' }}>{talkData.description}</TableCell>
       <TableCell align="center">
-        <IconLink link={`/images/slides/${talkData.slidesFilename}`} iconComponent={<SlideshowIcon />} altText="slides" />
-        <IconLink link={talkData.recordingLink} iconComponent={<VideocamIcon />} altText="recording" />
+        { slideLink }
+        {recordingLink}
       </TableCell>
     </TableRow>
   );
