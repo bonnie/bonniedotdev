@@ -4,7 +4,7 @@ import { TalkActionType, TalkStateType, TalkType } from '../../Types';
 import { actionIds } from '../Actions';
 
 // eslint-disable-next-line radix
-const getUnixTimeInt = (dateString) => parseInt(moment(dateString, 'X').toString());
+const getUnixTimeInt = (dateString) => moment(dateString).valueOf();
 function sortByTimestamp(talkA: TalkType, talkB: TalkType): number {
   return getUnixTimeInt(talkB.utcDateStringISO) - getUnixTimeInt(talkA.utcDateStringISO);
 }

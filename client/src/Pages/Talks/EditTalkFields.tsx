@@ -25,9 +25,8 @@ interface EditTalkFieldsType {
 EditTalkFields.defaultProps = { talkData: newTalk };
 
 export default function EditTalkFields({ talkData = newTalk }: EditTalkFieldsType): ReactElement {
-  // need to account for time zone or we can lose a day :roll-eyes:
-  console.log('da string', talkData.utcDateStringISO);
-  const [talkDate, setTalkDate] = useState(talkData.utcDateStringISO);
+  // adding time is necessary, otherwise it gets translated funny and shows up as the day before
+  const [talkDate, setTalkDate] = useState(`${talkData.utcDateStringISO} 00:00:00`);
 
   // const setTalkDateOnly = (dateValue) => setTalkDate(moment(dateValue, 'YYYY-MM-DD').toString());
 
