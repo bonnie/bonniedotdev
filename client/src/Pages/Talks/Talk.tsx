@@ -1,7 +1,7 @@
 import Link from '@material-ui/core/Link';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import SlideshowIcon from '@material-ui/icons/Slideshow';
+import DvrIcon from '@material-ui/icons/Dvr';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import IconLink from 'Pages/Common/IconLink';
 import React, { ReactElement } from 'react';
@@ -15,11 +15,23 @@ interface TalkProps {
 
 export default function Talk({ talkData, editButtons }: TalkProps): ReactElement {
   const slideLink = talkData.slidesFilename
-    ? <IconLink link={`/images/slides/${talkData.slidesFilename}`} iconComponent={<SlideshowIcon />} altText="slides" />
+    ? (
+      <IconLink
+        link={`/static/images/slides/${talkData.slidesFilename}`}
+        iconComponent={<DvrIcon />}
+        altText="slides"
+      />
+    )
     : null;
 
   const recordingLink = talkData.recordingLink
-    ? <IconLink link={talkData.recordingLink} iconComponent={<VideocamIcon />} altText="recording" />
+    ? (
+      <IconLink
+        link={talkData.recordingLink}
+        iconComponent={<VideocamIcon />}
+        altText="recording"
+      />
+    )
     : null;
 
   return (
@@ -31,7 +43,7 @@ export default function Talk({ talkData, editButtons }: TalkProps): ReactElement
       <TableCell align="center">
         <Link href={talkData.conferenceLink}>
           <img
-            src={`/images/conference-logos/${talkData.conferenceImageName}`}
+            src={`/static/images/conference-logos/${talkData.conferenceImageName}`}
             alt={talkData.conferenceName}
             style={{ maxWidth: '150px', maxHeight: '50px' }}
           />
