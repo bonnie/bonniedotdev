@@ -1,7 +1,8 @@
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { getFormData } from 'Helpers';
 import React, { ReactElement, useState } from 'react';
@@ -19,6 +20,14 @@ interface ItemModalProps {
 ItemModal.defaultProps = {
   buttonSize: 'small',
 };
+
+// export function getFormData(event) {
+//   const rawData = [...event.target.elements];
+//   return rawData.reduce((acc, element) => {
+//     if (element.name) acc[element.name] = element.value;
+//     return acc;
+//   }, {});
+// }
 
 export default function ItemModal(
   {
@@ -42,17 +51,19 @@ export default function ItemModal(
     <>
       <ButtonIcon fontSize={buttonSize} onClick={() => setModalOpen(true)} />
       <Dialog onClose={handleClose} aria-labelledby="confirm-action" open={modalOpen}>
-        <DialogTitle id="confirm-dialog-title">{dialogTitle}</DialogTitle>
-        <form onSubmit={handleSubmit}>
-          {ItemFields}
-          <ButtonGroup
-            variant="text"
-            style={{ float: 'right' }}
-          >
-            <Button onClick={() => handleClose()}>Cancel</Button>
-            <Button color="secondary" type="submit" onClick={handleSubmit}>Save</Button>
-          </ButtonGroup>
-        </form>
+        <Box m={2}>
+          <Typography variant="h3" align="center" id="confirm-dialog-title">{dialogTitle}</Typography>
+          <form onSubmit={handleSubmit}>
+            {ItemFields}
+            <ButtonGroup
+              variant="text"
+              style={{ float: 'right', marginTop: 10 }}
+            >
+              <Button onClick={() => handleClose()}>Cancel</Button>
+              <Button color="secondary" type="submit">Save</Button>
+            </ButtonGroup>
+          </form>
+        </Box>
       </Dialog>
     </>
   );

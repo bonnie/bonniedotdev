@@ -35,7 +35,6 @@ export default function IconLink(
   };
 
   const open = Boolean(anchorEl);
-  console.log(link);
 
   return (link)
     ? (

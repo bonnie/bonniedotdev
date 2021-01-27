@@ -2,10 +2,10 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, { ReactElement } from 'react';
 
 import ItemModal from './ItemModal';
-import { Size } from './Types';
+import { ItemType, Size } from './Types';
 
 interface AddItemModalProps {
-  handleSave: (TalkType) => void,
+  handleSave: (item: ItemType) => void,
   itemString: string,
   ItemFields: ReactElement, // TODO: can we make this more specific as an input field?
   buttonSize?: Size,
@@ -14,6 +14,7 @@ interface AddItemModalProps {
 AddItemModal.defaultProps = {
   buttonSize: 'small',
 };
+
 export default function AddItemModal({
   handleSave, itemString, ItemFields, buttonSize,
 }: AddItemModalProps): ReactElement {

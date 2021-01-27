@@ -25,7 +25,11 @@ interface EditTalkFieldsType {
 EditTalkFields.defaultProps = { talkData: newTalk };
 
 export default function EditTalkFields({ talkData = newTalk }: EditTalkFieldsType): ReactElement {
+  // need to account for time zone or we can lose a day :roll-eyes:
+  console.log('da string', talkData.utcDateStringISO);
   const [talkDate, setTalkDate] = useState(talkData.utcDateStringISO);
+
+  // const setTalkDateOnly = (dateValue) => setTalkDate(moment(dateValue, 'YYYY-MM-DD').toString());
 
   const fieldNames = [
     'title',
@@ -38,6 +42,11 @@ export default function EditTalkFields({ talkData = newTalk }: EditTalkFieldsTyp
     'recordingLink',
   ];
 
+  const optionalFields = [
+    'slidesFilename',
+    'recordingLink',
+  ];
+
   const fields = fieldNames.map((fieldName) => {
     if (fieldName === 'utcDateStringISO') {
       // fancy date picker for date
@@ -45,14 +54,12 @@ export default function EditTalkFields({ talkData = newTalk }: EditTalkFieldsTyp
         <KeyboardDatePicker
           key={fieldName}
           name={fieldName}
-          disableToolbar
           variant="inline"
-          format="MM/dd/yyyy"
+          format="yyyy-MM-dd"
           margin="normal"
           id="date-picker-inline"
-          label="Date picker inline"
           value={talkDate}
-          onChange={(value) => setTalkDate(moment(value).toISOString())}
+          onChange={setTalkDate}
           KeyboardButtonProps={{ 'aria-label': 'change date' }}
         />
       );
@@ -60,6 +67,7 @@ export default function EditTalkFields({ talkData = newTalk }: EditTalkFieldsTyp
     // otherwise just a text box
     return (
       <TextField
+        required={!optionalFields.includes(fieldName)}
         key={fieldName}
         multiline
         name={fieldName}
@@ -67,7 +75,7 @@ export default function EditTalkFields({ talkData = newTalk }: EditTalkFieldsTyp
         aria-label={fieldName}
         label={fieldName}
         style={{ width: '100%' }}
-        defaultValue={talkData[fieldName] ?? ''}
+        defaultValue={talkData[fieldName] || ''}
       />
     );
   });

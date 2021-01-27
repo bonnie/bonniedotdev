@@ -35,7 +35,7 @@ export default function DeleteItemModal(
     if (confirmed) handleDelete();
   };
 
-  const dialogMessage = `Are you sure you want to delete this ${itemLabel}?`;
+  const dialogMessage = `Are you sure you want to delete ${itemLabel}?`;
 
   return (
     <>
