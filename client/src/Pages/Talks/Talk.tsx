@@ -13,6 +13,7 @@ interface TalkProps {
   editButtons: ReactElement | null,
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default function Talk({ talkData, editButtons }: TalkProps): ReactElement {
   const slideLink = talkData.slidesFilename
     ? (
