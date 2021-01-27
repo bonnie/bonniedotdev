@@ -41,9 +41,6 @@ export function deleteTalk(TalkId) {
 }
 
 export function addTalk(newData) {
-  // remove the id from data to be sent to the server
-  delete newData.id;
-
   return {
     type: sagaActionIds.SERVER_REQUEST,
     payload: {

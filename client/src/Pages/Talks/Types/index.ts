@@ -1,5 +1,5 @@
 export type TalkType = {
-    id: number,
+    id: number | null,
     title: string,
     utcDateStringISO: string,
     description: string,
@@ -10,12 +10,12 @@ export type TalkType = {
     recordingLink: string,
   };
 
+export interface TalkStateType {
+  past: TalkType[]
+  upcoming: TalkType[]
+}
+
 export type TalkActionType = {
     type: string,
     payload: TalkType[],
-  }
-
-export enum TalkRangeType {
-    past='past',
-    upcoming='upcoming',
   }

@@ -5,18 +5,14 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
-import { hasNewItem } from 'Helpers';
-import moment from 'moment';
-import AddButton from 'Pages/Common/AddButton';
-import React, {
-  ReactElement, useCallback, useEffect, useMemo, useState,
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { ReactElement, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
-import EditTalk from './EditTalk';
-import ReadOnlyTalk from './ReadOnlyTalk';
-import { setTalks, setTalksFromServer } from './Redux/Actions';
-import { TalkRangeType, TalkType } from './Types';
+import AddTalkButton from './AddTalkButton';
+import DeleteTalkButton from './DeleteTalkButton';
+import EditTalkButton from './EditTalkButton';
+import Talk from './Talk';
+import { TalkType } from './Types';
 
 const columnNames = [
   'Date',
@@ -26,63 +22,29 @@ const columnNames = [
   'Links',
 ];
 
-// eslint-disable-next-line max-lines-per-function
-export default function Talks(): ReactElement {
-  const dispatch = useDispatch();
-  const talks = useSelector((state) => state.talks);
-  const user = useSelector((state) => state.user);
+const mapTalkToElement = (talkData: TalkType) => {
+  if (!talkData.id) return null;
 
-  // TODO: unify this code so it's shared with Courses.tsx etc rather than repeated
-  // only allow one new quote at a time, since submitting a new quote will obliterate
-  // any other quotes-in-progress
-  const [addButton, setAddButton] = useState(user !== null);
-  useEffect(
-    () => { if (user) setAddButton(!hasNewItem(talks)); },
-    [user, talks],
+  const editButtons = (
+    <>
+      <EditTalkButton id={talkData.id} />
+      <DeleteTalkButton id={talkData.id} name={talkData.title} />
+    </>
   );
 
-  // populate review quotes data from the server
-  useEffect(() => { dispatch(setTalksFromServer()); }, [dispatch]);
+  return (
+    <Talk
+      key={talkData.id}
+      talkData={talkData}
+      editButtons={editButtons}
+    />
+  );
+};
 
-  // wrap in useCallback to keep from regenerating needlessly
-  const addTalk = useCallback(() => {
-    const newTalk: TalkType = {
-      title: '',
-      utcDateStringISO: '',
-      description: '',
-      slidesFilename: '',
-      conferenceImageName: '',
-      conferenceName: '',
-      conferenceLink: '',
-      recordingLink: '',
-      id: 0 - (talks.length + 1),
-    };
-    dispatch(setTalks([...talks, newTalk]));
-  }, [talks, dispatch]);
-
-  const deleteTalk = useCallback((id) => {
-    const newTalks = talks.filter((talk) => talk.id !== id);
-    dispatch(setTalks(newTalks));
-  }, [talks, dispatch]);
-
-  const mapTalkToElement = useMemo(() => (user
-    ? (talkRange, talk, index) => (
-      <EditTalk
-        key={talk.id}
-        talkData={talk}
-        deleteTalkFromState={deleteTalk}
-        createWholeRowCell={createWholeRowCell}
-        talkIndex={index}
-        talkRange={talkRange}
-      />
-    )
-    : (talkRange, talk) => (
-      <ReadOnlyTalk
-        key={talk.id}
-        talkData={talk}
-        talkRange={talkRange}
-      />
-    )), [user, deleteTalk]);
+// eslint-disable-next-line max-lines-per-function
+export default function Talks(): ReactElement {
+  const { past, upcoming } = useSelector((state) => state.talks);
+  const user = useSelector((state) => state.user);
 
   function createWholeRowCell(content) {
     return (
@@ -93,15 +55,6 @@ export default function Talks(): ReactElement {
       </TableRow>
     );
   }
-
-  // separate talks into past and future, and sort
-  const today = moment(new Date()).toISOString();
-  const upcomingTalks = talks
-    .filter((talk) => talk.utcDateStringISO >= today)
-    .sort((a, b) => b.utcDateStringISO - a.utcDateStringISO);
-  const pastTalks = talks
-    .filter((talk) => talk.utcDateStringISO < today)
-    .sort((a, b) => b.utcDateStringISO - a.utcDateStringISO);
 
   return useMemo(() => (
     <>
@@ -116,14 +69,14 @@ export default function Talks(): ReactElement {
         </TableHead>
         <TableBody>
           {createWholeRowCell(<Typography variant="h2">Upcoming</Typography>)}
-          {addButton ? createWholeRowCell(<AddButton onClick={addTalk} itemString="Talk" />) : null }
-          { upcomingTalks.length > 0
-            ? upcomingTalks.map((data, index) => mapTalkToElement('upcoming', data, index))
+          { user ? createWholeRowCell(<AddTalkButton />) : null }
+          { upcoming.length > 0
+            ? upcoming.map(mapTalkToElement)
             : createWholeRowCell('No upcoming talks scheduled. Check back later!')}
           {createWholeRowCell(<Typography variant="h2">Past</Typography>)}
-          {pastTalks.map((data, index) => mapTalkToElement('past', data, index))}
+          {past.map(mapTalkToElement)}
         </TableBody>
       </Table>
     </>
-  ), [addButton, addTalk, mapTalkToElement, pastTalks, upcomingTalks]);
+  ), [past, upcoming, user]);
 }

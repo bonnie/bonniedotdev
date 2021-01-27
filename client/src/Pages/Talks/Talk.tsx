@@ -6,28 +6,30 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import IconLink from 'Pages/Common/IconLink';
 import React, { ReactElement } from 'react';
 
-import { TalkRangeType, TalkType } from './Types';
+import { TalkType } from './Types';
 
-interface ReadOnlyTalkProps {
+interface TalkProps {
   talkData: TalkType,
-  talkRange: TalkRangeType
+  editButtons: ReactElement | null,
 }
 
-export default function ReadOnlyTalks({ talkData, talkRange }: ReadOnlyTalkProps): ReactElement {
+export default function Talk({ talkData, editButtons }: TalkProps): ReactElement {
   return (
     <TableRow>
-      <TableCell>{talkData.utcDateStringISO}</TableCell>
+      <TableCell>
+        {editButtons}
+        {talkData.utcDateStringISO}
+      </TableCell>
       <TableCell align="center">
         <Link href={talkData.conferenceLink}>
-          {/* <img
-          src={`/images/conference/${talkData.conferenceImageName}`}
-          alt={talkData.conferenceName}
-          /> */}
-          {talkData.conferenceName}
+          <img
+            src={`/images/conference/${talkData.conferenceImageName}`}
+            alt={talkData.conferenceName}
+          />
         </Link>
       </TableCell>
       <TableCell align="center">{talkData.title}</TableCell>
-      {/* <TableCell style={{ width: '40%' }}>{talkData.description}</TableCell> */}
+      <TableCell style={{ width: '40%' }}>{talkData.description}</TableCell>
       <TableCell align="center">
         <IconLink link={`/images/slides/${talkData.slidesFilename}`} iconComponent={<SlideshowIcon />} altText="slides" />
         <IconLink link={talkData.recordingLink} iconComponent={<VideocamIcon />} altText="recording" />
