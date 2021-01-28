@@ -1,8 +1,8 @@
 import EditIcon from '@material-ui/icons/Edit';
 import React, { ReactElement } from 'react';
 
+import { Size } from '../Types';
 import ItemModal from './ItemModal';
-import { Size } from './Types';
 
 interface EditItemModalProps {
   handleSave: (TalkType) => void,

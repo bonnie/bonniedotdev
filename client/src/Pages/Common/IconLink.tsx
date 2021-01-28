@@ -1,4 +1,3 @@
-import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';

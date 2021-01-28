@@ -1,8 +1,8 @@
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, { ReactElement } from 'react';
 
+import { ItemType, Size } from '../Types';
 import ItemModal from './ItemModal';
-import { ItemType, Size } from './Types';
 
 interface AddItemModalProps {
   handleSave: (item: ItemType) => void,
