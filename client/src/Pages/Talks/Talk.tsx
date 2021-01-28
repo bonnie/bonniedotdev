@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => createStyles({
     marginRight: 5,
   },
   title: {
-    color: colors.darkTeal,
+    color: colors.darkGrey,
     marginTop: 8,
     marginBottom: 8,
     marginRight: 8,
@@ -54,7 +54,7 @@ export default function Talk({ talkData, editButtons }: TalkProps): ReactElement
           <Typography variant="body1" gutterBottom style={{ display: 'inline', marginRight: 10 }}>
             {moment(talkData.utcDateStringISO).format('MMMM DD YYYY')}
           </Typography>
-          <Link className={classes.confLink} href={talkData.conferenceLink}>
+          <Link color="secondary" className={classes.confLink} href={talkData.conferenceLink} target="_blank" rel="noreferrer">
             {talkData.conferenceName}
           </Link>
         </Box>
