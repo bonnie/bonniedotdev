@@ -68,12 +68,24 @@ test('Renders error alert for error server response', async () => {
   expect(notLoadingSpinner).not.toBeInTheDocument();
 });
 
-test('All forms render for multiple talks', async () => {
+test('Renders add button', async () => {
   // render with pre-defined state for user
   const initialState = { user: { id: 1, username: 'sheila' } };
-  const allFormsScreen = renderWithProvider(<Talks />, initialState);
+  const talksScreen = renderWithProvider(<Talks />, initialState);
 
-  // wait until talk forms appear
-  const talkForms = await allFormsScreen.findAllByRole('form', { name: /talk \d+/i });
-  expect(talkForms.length).toBe(4);
+  const addButton = talksScreen.getByRole('button', { name: /add talk/i });
+  expect(addButton).toBeInTheDocument();
+});
+
+test('Renders edit and delete buttons', async () => {
+  // render with pre-defined state for user
+  const initialState = { user: { id: 1, username: 'sheila' } };
+  const talksScreen = renderWithProvider(<Talks />, initialState);
+
+  // there should be four talks, so four edit buttons and four delete buttons
+  const editButtons = await talksScreen.findAllByRole('button', { name: /edit talk/i });
+  expect(editButtons).toHaveLength(4);
+
+  const deleteButtons = await talksScreen.findAllByRole('button', { name: /delete talk/i });
+  expect(deleteButtons).toHaveLength(4);
 });

@@ -15,6 +15,7 @@ export default function DeleteTalkButtons({ id, name }: DeleteTalkButtonsProps):
     <DeleteItemModal
       handleDelete={() => dispatch(deleteTalk(id))}
       itemLabel={name}
+      itemTypeString="Talk"
     />
   );
 }

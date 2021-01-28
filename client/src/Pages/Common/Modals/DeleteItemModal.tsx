@@ -12,6 +12,7 @@ import { Size } from '../Types';
 interface DeleteItemModalProps {
   handleDelete: () => void,
   itemLabel: string, // the name of the individual item being deleted
+  itemTypeString: string, // the name of the type of item being deleted
   buttonSize?: Size,
 }
 
@@ -22,7 +23,7 @@ DeleteItemModal.defaultProps = {
 // eslint-disable-next-line max-lines-per-function
 export default function DeleteItemModal(
   {
-    handleDelete, itemLabel, buttonSize,
+    handleDelete, itemLabel, itemTypeString, buttonSize,
   }: DeleteItemModalProps,
 ): ReactElement {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
@@ -40,7 +41,7 @@ export default function DeleteItemModal(
   return (
     <>
       <LoggedInIconButton
-        label={`Delete ${itemLabel}`}
+        label={`Delete ${itemTypeString}`}
         onClick={() => setConfirmationOpen(true)}
         ButtonIcon={DeleteForeverIcon}
         buttonSize={buttonSize}
