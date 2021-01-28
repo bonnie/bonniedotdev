@@ -58,11 +58,13 @@ export default function Talks(): ReactElement {
       <PageTitleWithAdd title="Conference Talks and Workshops" variant="h1" AddButton={AddTalkButton} />
       <Grid style={{ marginTop: 10 }} aria-label="talks">
         <Typography className={classes.header} variant="h2" gutterBottom>Upcoming</Typography>
-        { upcoming.length > 0
-          ? upcoming.map(mapTalkToElement)
-          : <Typography variant="body1" style={{ marginBottom: 10 }}>No upcoming talks scheduled. Check back later!</Typography>}
+        <section role="list" title="upcoming-talks-list">
+          { upcoming.length > 0
+            ? upcoming.map(mapTalkToElement)
+            : <Typography variant="body1" style={{ marginBottom: 10 }}>No upcoming talks scheduled. Check back later!</Typography>}
+        </section>
         <Typography className={classes.header} variant="h2" gutterBottom>Past</Typography>
-        {past.map(mapTalkToElement)}
+        <section role="list" title="past-talks-list">{past.map(mapTalkToElement)}</section>
       </Grid>
     </>
   ), [past, upcoming, mapTalkToElement, classes.header]);

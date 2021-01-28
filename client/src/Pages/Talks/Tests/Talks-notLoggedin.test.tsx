@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import { findAllByRole, fireEvent } from '@testing-library/react';
+import { findAllByText, fireEvent } from '@testing-library/react';
 import urls from 'Constants/urls';
 import { rest } from 'msw';
 import App from 'Pages/App/App';
@@ -9,7 +9,7 @@ import { renderWithProvider, renderWithRouterAndProvider } from 'TestUtils/rende
 
 import Talks from '../Talks';
 
-test('Renders five talks for non-error server response', async () => {
+test('Renders four talks for non-error server response', async () => {
   // Note: mocked server response is handled by msw, in the src/mocks folder
   // and src/setupTests.js. The handler is set to return
   // TestUtils/Data/testTalksData (see above) for /api/talks
@@ -27,7 +27,7 @@ test('Renders five talks for non-error server response', async () => {
   expect(loadingSpinner).toBeVisible();
 
   // check titles (all fake titles start with "i am")
-  const titles = await screen.findAllByText(/i am/i);
+  const titles = await screen.findAllByRole('heading', { name: /i am/i });
   expect(titles.length).toBe(4);
 
   // confirm loading spinner has disappeared
@@ -39,7 +39,7 @@ test('Renders five talks for non-error server response', async () => {
   expect(errorAlert).not.toBeInTheDocument();
 });
 
-describe.skip('separates upcoming / future and sorts by date', () => {
+describe('separates upcoming / future and sorts by date', () => {
   // Note: mocked server response is handled by msw, in the src/mocks folder
   // and src/setupTests.js. The handler is set to return
   // TestUtils/Data/testTalksData (see above) for /api/talks
@@ -47,28 +47,50 @@ describe.skip('separates upcoming / future and sorts by date', () => {
   test('upcoming talks sorted by date', async () => {
     const allTalksScreen = renderWithProvider(<Talks />);
 
-    const upcomingTalks = allTalksScreen.getByRole('rowgroup', { name: 'upcoming' });
+    const upcomingTalks = await allTalksScreen.findByRole('list', { name: 'upcoming-talks-list' });
 
     // wait until dates appear
-    const dates = await findAllByRole(upcomingTalks, /date \d+/i);
+    const upcomingDates = await findAllByText(upcomingTalks, /^january \d\d \d\d\d\d/i);
 
     // check that they're in the expected order
-    const dateOrder = dates.map((date) => date.textContent);
-    expect(dateOrder).toEqual(['2021-1-25', '2021-01-28']);
+    const dateOrder = upcomingDates.map((date) => date.textContent);
+    expect(dateOrder).toEqual(['January 25 2099', 'January 28 2099']);
   });
 
   test('past talks sorted by reverse date', async () => {
     const allTalksScreen = renderWithProvider(<Talks />);
 
-    const upcomingTalks = allTalksScreen.getByRole('rowgroup', { name: 'past' });
+    const upcomingTalks = await allTalksScreen.findByRole('list', { name: 'past-talks-list' });
 
     // wait until dates appear
-    const dates = await findAllByRole(upcomingTalks, /date \d+/i);
+    const upcomingDates = await findAllByText(upcomingTalks, /^january \d\d \d\d\d\d/i);
 
     // check that they're in the expected order
-    const dateOrder = dates.map((date) => date.textContent);
-    expect(dateOrder).toEqual(['2020-1-25', '2020-01-23']);
+    const dateOrder = upcomingDates.map((date) => date.textContent);
+    expect(dateOrder).toEqual(['January 25 2021', 'January 23 2020']);
   });
+});
+
+test('Renders note for no upcoming talks', async () => {
+  // render only a past talk
+  const pastTalk = {
+    id: 5,
+    title: 'i am a talk',
+    utcDateStringISO: '2021-01-25',
+    description: 'this talks discusses stuff and it is good',
+    slidesFilename: 'http://link-to-slides',
+    conferenceName: 'bonnieCon',
+    conferenceLink: 'http://bonniecon.com',
+    recordingLink: 'http://youtube.com/bonnie',
+  };
+  server.resetHandlers(
+    rest.get(urls.talksURL, (req, res, ctx) => res(ctx.json([pastTalk]))),
+  );
+
+  const allTalksScreen = renderWithProvider(<Talks />);
+
+  const upcomingTalks = await allTalksScreen.findByRole('list', { name: 'upcoming-talks-list' });
+  expect(upcomingTalks).toHaveTextContent('No upcoming talks scheduled.');
 });
 
 test('Renders error alert for error server response', async () => {

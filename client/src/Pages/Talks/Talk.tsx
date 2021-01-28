@@ -48,7 +48,7 @@ export default function Talk({ talkData, editButtons }: TalkProps): ReactElement
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card role="listitem" className={classes.root}>
       <CardContent>
         <Box>
           <Typography variant="body1" gutterBottom style={{ display: 'inline', marginRight: 10 }}>

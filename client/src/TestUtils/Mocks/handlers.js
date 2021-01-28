@@ -34,16 +34,6 @@ const handlers = [
     res(ctx.status(204)),
   ),
 
-  // update a talk
-  rest.patch(`${urls.talkURL}/:talkId`, (req, res, ctx) =>
-    res(ctx.status(200)),
-  ),
-
-  // delete a talk
-  rest.delete(`${urls.talkURL}/:talkId`, (req, res, ctx) =>
-    res(ctx.status(204)),
-  ),
-
   // ////////////// courses /////////// //
   // get all courses
   rest.get(urls.coursesURL, (req, res, ctx) =>
@@ -54,6 +44,16 @@ const handlers = [
   // get all talks
   rest.get(urls.talksURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testTalksJSONResponse)),
+  ),
+
+  // update a talk
+  rest.patch(`${urls.talkURL}/:talkId`, (req, res, ctx) =>
+    res(ctx.status(200)),
+  ),
+
+  // delete a talk
+  rest.delete(`${urls.talkURL}/:talkId`, (req, res, ctx) =>
+    res(ctx.status(204)),
   ),
 
   // ////////////// log in /////////// //
