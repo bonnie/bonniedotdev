@@ -6,8 +6,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import React, { ReactElement, useState } from 'react';
 
-import LoggedInIconButton from './LoggedInIconButton';
-import { Size } from './Types';
+import LoggedInIconButton from '../LoggedInIconButton';
+import { Size } from '../Types';
 
 interface DeleteItemModalProps {
   handleDelete: () => void,

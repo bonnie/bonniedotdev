@@ -1,4 +1,4 @@
-import DeleteItemModal from 'Pages/Common/DeleteItemModal';
+import DeleteItemModal from 'Pages/Common/Modals/DeleteItemModal';
 import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 

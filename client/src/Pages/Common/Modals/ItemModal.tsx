@@ -7,8 +7,8 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { getFormData } from 'Helpers';
 import React, { ReactElement, useState } from 'react';
 
-import LoggedInIconButton from './LoggedInIconButton';
-import { Size } from './Types';
+import LoggedInIconButton from '../LoggedInIconButton';
+import { Size } from '../Types';
 
 interface ItemModalProps {
   ButtonIcon: typeof AddCircleIcon,

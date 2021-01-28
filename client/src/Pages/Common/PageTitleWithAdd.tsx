@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 interface PageTitleWithAddProps {
   title: string,
   variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5',
-  AddButton: typeof AddTalkButton,
+  AddButton: typeof AddTalkButton | null,
 }
 
 const useStyles = makeStyles(() => createStyles({
@@ -37,7 +37,7 @@ export default function PageTitleWithAdd(
         <Typography className={classes.header} variant={variant} gutterBottom>
           { title }
         </Typography>
-        { user ? <AddButton /> : null }
+        { user && AddButton ? <AddButton /> : null }
       </span>
       <Divider variant="fullWidth" className={classes.divider} />
     </>
