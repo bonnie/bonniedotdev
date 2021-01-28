@@ -12,7 +12,6 @@ class TalkSchema(Schema):
     utcDateStringISO = fields.Str(required=True)
     description = fields.Str(required=True)
     slidesFilename = fields.Str(required=True)
-    conferenceImageName = fields.Str(required=True)
     conferenceName = fields.Str(required=True)
     conferenceLink = fields.Str(required=True)
     recordingLink = fields.Str(required=True)

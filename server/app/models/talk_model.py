@@ -17,7 +17,6 @@ class Talk(db.Model, Base):
     utcDateStringISO = db.Column(db.Date, nullable=False)
     description = db.Column(db.String, nullable=False)
     slidesFilename = db.Column(db.String, nullable=False)
-    conferenceImageName = db.Column(db.String, nullable=False)
     conferenceName = db.Column(db.String, nullable=False)
     conferenceLink = db.Column(db.String, nullable=False)
     recordingLink = db.Column(db.String, nullable=False)
@@ -28,7 +27,6 @@ class Talk(db.Model, Base):
         utcDateStringISO: str,
         description: str,
         slidesFilename: str,
-        conferenceImageName: str,
         conferenceName: str,
         conferenceLink: str,
         recordingLink: str,
@@ -39,7 +37,6 @@ class Talk(db.Model, Base):
         self.utcDateStringISO = date.fromisoformat(utcDateStringISO)
         self.description = description
         self.slidesFilename = slidesFilename
-        self.conferenceImageName = conferenceImageName
         self.conferenceName = conferenceName
         self.conferenceLink = conferenceLink
         self.recordingLink = recordingLink
@@ -69,7 +66,6 @@ class Talk(db.Model, Base):
             "utcDateStringISO": date.isoformat(self.utcDateStringISO),
             "description": self.description,
             "slidesFilename": self.slidesFilename,
-            "conferenceImageName": self.conferenceImageName,
             "conferenceName": self.conferenceName,
             "conferenceLink": self.conferenceLink,
             "recordingLink": self.recordingLink,

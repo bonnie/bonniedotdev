@@ -16,7 +16,6 @@ def test_talks_route(test_db, test_client):
         "utcDateStringISO",
         "description",
         "slidesFilename",
-        "conferenceImageName",
         "conferenceName",
         "conferenceLink",
         "recordingLink",

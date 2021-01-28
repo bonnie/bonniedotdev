@@ -4,7 +4,6 @@ export type TalkType = {
     utcDateStringISO: string,
     description: string,
     slidesFilename: string,
-    conferenceImageName: string,
     conferenceName: string,
     conferenceLink: string,
     recordingLink: string,

@@ -60,7 +60,7 @@ export default function Talks(): ReactElement {
         <Typography className={classes.header} variant="h2" gutterBottom>Upcoming</Typography>
         { upcoming.length > 0
           ? upcoming.map(mapTalkToElement)
-          : <Typography variant="body1">No upcoming talks scheduled. Check back later!</Typography>}
+          : <Typography variant="body1" style={{ marginBottom: 10 }}>No upcoming talks scheduled. Check back later!</Typography>}
         <Typography className={classes.header} variant="h2" gutterBottom>Past</Typography>
         {past.map(mapTalkToElement)}
       </Grid>
