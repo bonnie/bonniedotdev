@@ -70,7 +70,7 @@ export default function ReviewQuotes(): ReactElement {
     )), [user, courses, deleteQuote]);
 
   return useMemo(() => (
-    <Box component="section" mt={4} mb={4} p={2} pt={2}>
+    <Box component="section" mt={4} mb={4}>
       <Typography variant="h2" gutterBottom>
         Students say...
       </Typography>
