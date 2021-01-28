@@ -1,10 +1,16 @@
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import DvrIcon from '@material-ui/icons/Dvr';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import IconLink from 'Pages/Common/IconLink';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import moment from 'moment';
 import React, { ReactElement } from 'react';
+import { colors } from 'Theme';
 
 import { TalkType } from './Types';
 
@@ -13,49 +19,60 @@ interface TalkProps {
   editButtons: ReactElement | null,
 }
 
+const useStyles = makeStyles(() => createStyles({
+  root: {
+    maxWidth: 1000,
+    margin: 20,
+  },
+  confLink: {
+    marginRight: 5,
+  },
+  title: {
+    color: colors.darkTeal,
+    marginTop: 8,
+    marginBottom: 8,
+    marginRight: 8,
+  },
+}));
+
+const ConditionalDisplayLink = ({ text, link }) => (link
+  ? (
+    <Button variant="text">
+      <Link style={{ color: colors.mediumTeal }} href={link}>{text}</Link>
+    </Button>
+  )
+  : null);
+
 // eslint-disable-next-line max-lines-per-function
 export default function Talk({ talkData, editButtons }: TalkProps): ReactElement {
-  const slideLink = talkData.slidesFilename
-    ? (
-      <IconLink
-        link={`/static/images/slides/${talkData.slidesFilename}`}
-        iconComponent={<DvrIcon />}
-        altText="slides"
-      />
-    )
-    : null;
-
-  const recordingLink = talkData.recordingLink
-    ? (
-      <IconLink
-        link={talkData.recordingLink}
-        iconComponent={<VideocamIcon />}
-        altText="recording"
-      />
-    )
-    : null;
+  const classes = useStyles();
 
   return (
-    <TableRow>
-      <TableCell>
-        {editButtons}
-        {talkData.utcDateStringISO}
-      </TableCell>
-      <TableCell align="center">
-        <Link href={talkData.conferenceLink}>
-          <img
-            src={`/static/images/conference-logos/${talkData.conferenceImageName}`}
-            alt={talkData.conferenceName}
-            style={{ maxWidth: '150px', maxHeight: '50px' }}
-          />
-        </Link>
-      </TableCell>
-      <TableCell align="center">{talkData.title}</TableCell>
-      <TableCell style={{ width: '40%' }}>{talkData.description}</TableCell>
-      <TableCell align="center">
-        { slideLink }
-        {recordingLink}
-      </TableCell>
-    </TableRow>
+    <Card className={classes.root}>
+      <CardContent>
+        <Box>
+          <Typography variant="body1" gutterBottom style={{ display: 'inline', marginRight: 10 }}>
+            {moment(talkData.utcDateStringISO).format('MMMM DD YYYY')}
+          </Typography>
+          <Link className={classes.confLink} href={talkData.conferenceLink}>
+            {talkData.conferenceName}
+          </Link>
+        </Box>
+        <Box style={{ display: 'flex', alignItems: 'center' }}>
+          <Typography variant="h3" className={classes.title} style={{ display: 'inline' }}>
+            {talkData.title}
+          </Typography>
+          {editButtons}
+        </Box>
+        <Divider variant="middle" />
+        <Typography variant="body1">{talkData.description}</Typography>
+      </CardContent>
+      <CardActions>
+        <ButtonGroup>
+          <ConditionalDisplayLink text="Slides" link={`/static/images/slides/${talkData.slidesFilename}`} />
+          <ConditionalDisplayLink text="Recording" link={talkData.recordingLink} />
+        </ButtonGroup>
+      </CardActions>
+    </Card>
   );
 }

@@ -3,10 +3,10 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import React, { ReactElement, useState } from 'react';
 
+import LoggedInIconButton from './LoggedInIconButton';
 import { Size } from './Types';
 
 interface DeleteItemModalProps {
@@ -39,14 +39,12 @@ export default function DeleteItemModal(
 
   return (
     <>
-      <IconButton
-        color="primary"
-        aria-label={`Delete ${itemLabel}`}
+      <LoggedInIconButton
+        label={`Delete ${itemLabel}`}
         onClick={() => setConfirmationOpen(true)}
-      >
-        <DeleteForeverIcon fontSize={buttonSize} />
-      </IconButton>
-
+        ButtonIcon={DeleteForeverIcon}
+        buttonSize={buttonSize}
+      />
       <Dialog
         onClose={handleClose}
         aria-labelledby="confirm-action"

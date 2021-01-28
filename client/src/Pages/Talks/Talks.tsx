@@ -1,12 +1,10 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import DateFnsUtils from '@date-io/date-fns';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import Grid from '@material-ui/core/Grid';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
 import React, {
   ReactElement, useCallback, useEffect, useMemo,
 } from 'react';
@@ -19,32 +17,22 @@ import { setTalksFromServer } from './Redux/Actions';
 import Talk from './Talk';
 import { TalkType } from './Types';
 
-const columnNames = [
-  'Date',
-  'Conference',
-  'Title',
-  'Description',
-  'Links',
-];
+const useStyles = makeStyles(() => createStyles({
+  header: {
+    display: 'inline',
+    marginRight: 10,
+  },
+}));
 
 // eslint-disable-next-line max-lines-per-function
 export default function Talks(): ReactElement {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { past, upcoming } = useSelector((state) => state.talks);
 
   // load talks from server on component mount
   useEffect(() => { dispatch(setTalksFromServer()); }, [dispatch]);
-
-  function createWholeRowCell(content) {
-    return (
-      <TableRow>
-        <TableCell colSpan={columnNames.length} align="left">
-          {content}
-        </TableCell>
-      </TableRow>
-    );
-  }
 
   const mapTalkToElement = useCallback((talkData: TalkType) => {
     if (!talkData.id) return null;
@@ -67,29 +55,17 @@ export default function Talks(): ReactElement {
 
   const contents = useMemo(() => (
     <>
-      <span>
-        <Typography style={{ display: 'inline', marginRight: 10 }} variant="h1" gutterBottom>
-          Talks
-        </Typography>
-        { user ? <AddTalkButton /> : null }
-      </span>
-      <Table aria-label="talks">
-        <TableHead>
-          <TableRow>
-            {columnNames.map((columnName) => <TableCell key={columnName} align="center">{columnName}</TableCell>)}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {createWholeRowCell(<Typography variant="h2">Upcoming</Typography>)}
-          { upcoming.length > 0
-            ? upcoming.map(mapTalkToElement)
-            : createWholeRowCell('No upcoming talks scheduled. Check back later!')}
-          {createWholeRowCell(<Typography variant="h2">Past</Typography>)}
-          {past.map(mapTalkToElement)}
-        </TableBody>
-      </Table>
+      <PageTitleWithAdd title="Conference Talks and Workshops" variant="h1" AddButton={AddTalkButton} />
+      <Grid style={{ marginTop: 10 }} aria-label="talks">
+        <Typography className={classes.header} variant="h2" gutterBottom>Upcoming</Typography>
+        { upcoming.length > 0
+          ? upcoming.map(mapTalkToElement)
+          : <Typography variant="body1">No upcoming talks scheduled. Check back later!</Typography>}
+        <Typography className={classes.header} variant="h2" gutterBottom>Past</Typography>
+        {past.map(mapTalkToElement)}
+      </Grid>
     </>
-  ), [past, upcoming, user, mapTalkToElement]);
+  ), [past, upcoming, mapTalkToElement, classes.header]);
 
   return user
     ? <MuiPickersUtilsProvider utils={DateFnsUtils}>{contents}</MuiPickersUtilsProvider>

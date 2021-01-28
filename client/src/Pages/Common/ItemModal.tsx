@@ -2,12 +2,12 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { getFormData } from 'Helpers';
 import React, { ReactElement, useState } from 'react';
 
+import LoggedInIconButton from './LoggedInIconButton';
 import { Size } from './Types';
 
 interface ItemModalProps {
@@ -43,13 +43,12 @@ export default function ItemModal(
 
   return (
     <>
-      <IconButton
-        color="primary"
-        aria-label={dialogTitle}
+      <LoggedInIconButton
+        label={dialogTitle}
         onClick={() => setModalOpen(true)}
-      >
-        <ButtonIcon fontSize={buttonSize} />
-      </IconButton>
+        ButtonIcon={ButtonIcon}
+        buttonSize={buttonSize}
+      />
       <Dialog onClose={handleClose} aria-labelledby="confirm-action" open={modalOpen}>
         <Box m={2}>
           <Typography variant="h3" align="center" id="confirm-dialog-title">{dialogTitle}</Typography>
