@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => createStyles({
   },
 }));
 
-const ConditionalDisplayLink = ({ text, link }) => (link
+const ConditionalDisplayLink = ({ text, link, condition }) => (condition
   ? (
     <Button variant="text">
       <Link style={{ color: colors.mediumTeal }} href={link}>{text}</Link>
@@ -69,8 +69,8 @@ export default function Talk({ talkData, editButtons }: TalkProps): ReactElement
       </CardContent>
       <CardActions>
         <ButtonGroup>
-          <ConditionalDisplayLink text="Slides" link={`/static/images/slides/${talkData.slidesFilename}`} />
-          <ConditionalDisplayLink text="Recording" link={talkData.recordingLink} />
+          <ConditionalDisplayLink text="Slides" link={`/static/images/slides/${talkData.slidesFilename}`} condition={talkData.slidesFilename} />
+          <ConditionalDisplayLink text="Recording" link={talkData.recordingLink} condition={talkData.recordingLink} />
         </ButtonGroup>
       </CardActions>
     </Card>

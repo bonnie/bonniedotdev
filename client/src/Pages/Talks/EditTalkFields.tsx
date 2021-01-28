@@ -1,6 +1,8 @@
 /* eslint-disable max-lines-per-function */
-import TextField from '@material-ui/core/TextField';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import DateInput from 'Pages/Common/Inputs/DateInput';
+import ImageNameInput from 'Pages/Common/Inputs/ImageNameInput';
+import LinkInput from 'Pages/Common/Inputs/LinkInput';
+import TextInput from 'Pages/Common/Inputs/TextInput';
 import React, { ReactElement, useState } from 'react';
 
 import { TalkType } from './Types';
@@ -26,56 +28,16 @@ export default function EditTalkFields({ talkData = newTalk }: EditTalkFieldsTyp
   // adding time is necessary, otherwise it gets translated funny and shows up as the day before
   const [talkDate, setTalkDate] = useState(`${talkData.utcDateStringISO} 00:00:00`);
 
-  // const setTalkDateOnly = (dateValue) => setTalkDate(moment(dateValue, 'YYYY-MM-DD').toString());
-
-  const fieldNames = [
-    'title',
-    'utcDateStringISO',
-    'description',
-    'slidesFilename',
-    'conferenceName',
-    'conferenceLink',
-    'recordingLink',
-  ];
-
-  const optionalFields = [
-    'slidesFilename',
-    'recordingLink',
-  ];
-
   // TODO: add server endpoint for available slide files / conference images
-
-  const fields = fieldNames.map((fieldName) => {
-    if (fieldName === 'utcDateStringISO') {
-      // fancy date picker for date
-      return (
-        <KeyboardDatePicker
-          key={fieldName}
-          name={fieldName}
-          variant="inline"
-          format="yyyy-MM-dd"
-          margin="normal"
-          id="date-picker-inline"
-          value={talkDate}
-          onChange={(value) => { if (value) setTalkDate(value.toString()); }}
-          KeyboardButtonProps={{ 'aria-label': 'change date' }}
-        />
-      );
-    }
-    // otherwise just a text box
-    return (
-      <TextField
-        required={!optionalFields.includes(fieldName)}
-        key={fieldName}
-        multiline
-        name={fieldName}
-        id={fieldName}
-        aria-label={fieldName}
-        label={fieldName}
-        style={{ width: '100%' }}
-        defaultValue={talkData[fieldName] || ''}
-      />
-    );
-  });
-  return <>{fields}</>;
+  return (
+    <>
+      <TextInput required fieldName="title" defaultValue={talkData.title} />
+      <DateInput fieldName="utcDateStringISO" value={talkDate} label="change date" dateSetter={setTalkDate} />
+      <TextInput required fieldName="description" defaultValue={talkData.description} />
+      <ImageNameInput required={false} fieldName="slidesFilename" defaultValue={talkData.slidesFilename} />
+      <TextInput required fieldName="conferenceName" defaultValue={talkData.conferenceName} />
+      <LinkInput required fieldName="conferenceLink" defaultValue={talkData.conferenceLink} />
+      <LinkInput required={false} fieldName="recordingLink" defaultValue={talkData.recordingLink} />
+    </>
+  );
 }
