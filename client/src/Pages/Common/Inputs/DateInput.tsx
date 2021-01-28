@@ -22,7 +22,7 @@ export default function DateInput(
       margin="normal"
       id="date-picker-inline"
       value={value}
-      onChange={(val) => { if (val) (dateSetter(value.toString())); }}
+      onChange={(val) => { if (val) (dateSetter(val.toString())); }}
       KeyboardButtonProps={{ 'aria-label': label }}
     />
   );
