@@ -1,79 +1,83 @@
 import { fireEvent } from '@testing-library/react';
-import urls from 'Constants/urls';
-import { rest } from 'msw';
-import ReviewQuotes from 'Pages/About/ReviewQuotes/ReviewQuotes';
-import App from 'Pages/App/App';
-import React from 'react';
-import server from 'TestUtils/Mocks/server';
-import { renderWithProvider, renderWithRouterProviderAndUser } from 'TestUtils/renderWith';
 
-test('On server success, renders spinner, then quotes, then spinner disappears', async () => {
-  // Note: mocked server response is handled by msw, in the src/mocks folder
-  // and src/setupTests.js. The handler is set to return
-  // TestUtils/Data/testReviewQuotesData (see above) for /api/review_quotes
+test.todo('do a test');
 
-  // render entire App so that we can check Loading and Error
-  const loadingScreen = await renderWithRouterProviderAndUser(<App />);
+// import urls from 'Constants/urls';
+// import { rest } from 'msw';
+// import ReviewQuotes from 'Pages/About/ReviewQuotes/_old_ReviewQuotes';
+// import App from 'Pages/App/App';
+// import React from 'react';
+// import server from 'TestUtils/Mocks/server';
+// import { renderWithProvider, renderWithRouterProviderAndUser } from 'TestUtils/renderWith';
 
-  // click the 'about' tab to trigger the review quotes retrieval
-  const aboutNavLink = loadingScreen.getByRole('tab', { name: /about/ });
-  fireEvent.click(aboutNavLink);
-  // END: setup /////////////////////////////////////////
+// test('On server success, renders spinner, then quotes, then spinner disappears', async () => {
+//   // Note: mocked server response is handled by msw, in the src/mocks folder
+//   // and src/setupTests.js. The handler is set to return
+//   // TestUtils/Data/testReviewQuotesData (see above) for /api/review_quotes
 
-  // check loading spinner
-  const loadingSpinner = await loadingScreen.findByRole('progressbar');
-  expect(loadingSpinner).toBeVisible();
+//   // render entire App so that we can check Loading and Error
+//   const loadingScreen = await renderWithRouterProviderAndUser(<App />);
 
-  // confirm alert
-  const errorAlert = await loadingScreen.findByRole('alert');
-  expect(errorAlert).toHaveTextContent('Log in succeeded');
+//   // click the 'about' tab to trigger the review quotes retrieval
+//   const aboutNavLink = loadingScreen.getByRole('tab', { name: /about/ });
+//   fireEvent.click(aboutNavLink);
+//   // END: setup /////////////////////////////////////////
 
-  // confirm loading spinner disappears
-  const notLoadingSpinner = loadingScreen.queryByRole('progressbar');
-  expect(notLoadingSpinner).not.toBeInTheDocument();
-});
+//   // check loading spinner
+//   const loadingSpinner = await loadingScreen.findByRole('progressbar');
+//   expect(loadingSpinner).toBeVisible();
 
-test('Renders error alert for error server response', async () => {
-  // TODO: why does this cause "Error: Error: connect ECONNREFUSED 127.0.0.1:80" when
-  // run in parallel with the other tests, even though all tests pass?
-  // Commenting this '.skip' or '.only' makes the warning go away T.T
-  // AND: why does this error not appear with the notLoggedIn test file??
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  jest.spyOn(console, 'error').mockImplementation(() => {});
-  // END: todo
+//   // confirm alert
+//   const errorAlert = await loadingScreen.findByRole('alert');
+//   expect(errorAlert).toHaveTextContent('Log in succeeded');
 
-  server.resetHandlers(
-    rest.get(urls.reviewQuotesURL, (req, res, ctx) => res(ctx.status(500), ctx.json({ message: 'oops' }))),
-  );
-  // render entire App so that we can check Loading and Error
-  const errorScreen = await renderWithRouterProviderAndUser(<App />);
+//   // confirm loading spinner disappears
+//   const notLoadingSpinner = loadingScreen.queryByRole('progressbar');
+//   expect(notLoadingSpinner).not.toBeInTheDocument();
+// });
 
-  // click the 'about' tab to trigger the review quotes retrieval
-  const aboutNavLink = errorScreen.getByRole('tab', { name: /about/ });
-  fireEvent.click(aboutNavLink);
-  // END: setup ///////////////////////////////////////
+// test('Renders error alert for error server response', async () => {
+//   // TODO: why does this cause "Error: Error: connect ECONNREFUSED 127.0.0.1:80" when
+//   // run in parallel with the other tests, even though all tests pass?
+//   // Commenting this '.skip' or '.only' makes the warning go away T.T
+//   // AND: why does this error not appear with the notLoggedIn test file??
+//   // eslint-disable-next-line @typescript-eslint/no-empty-function
+//   jest.spyOn(console, 'error').mockImplementation(() => {});
+//   // END: todo
 
-  // check loading spinner
-  const loadingSpinner = await errorScreen.findByRole('progressbar');
-  expect(loadingSpinner).toBeVisible();
+//   server.resetHandlers(
+//     rest.get(urls.reviewQuotesURL, (req, res, ctx) =>
+// res(ctx.status(500), ctx.json({ message: 'oops' }))),
+//   );
+//   // render entire App so that we can check Loading and Error
+//   const errorScreen = await renderWithRouterProviderAndUser(<App />);
 
-  // confirm alert
-  const errorAlert = await errorScreen.findByRole('alert');
-  expect(errorAlert).toHaveTextContent(
-    'There was a problem connecting to the server',
-  );
+//   // click the 'about' tab to trigger the review quotes retrieval
+//   const aboutNavLink = errorScreen.getByRole('tab', { name: /about/ });
+//   fireEvent.click(aboutNavLink);
+//   // END: setup ///////////////////////////////////////
 
-  // confirm loading spinner disappears
-  const notLoadingSpinner = errorScreen.queryByRole('progressbar');
-  expect(notLoadingSpinner).not.toBeInTheDocument();
-});
+//   // check loading spinner
+//   const loadingSpinner = await errorScreen.findByRole('progressbar');
+//   expect(loadingSpinner).toBeVisible();
 
-test('All forms render for multiple quotes', async () => {
-  // render with pre-defined state for user
-  const initialState = { user: { id: 1, username: 'sheila' } };
-  const allFormsScreen = renderWithProvider(<ReviewQuotes />, initialState);
+//   // confirm alert
+//   const errorAlert = await errorScreen.findByRole('alert');
+//   expect(errorAlert).toHaveTextContent(
+//     'There was a problem connecting to the server',
+//   );
 
-  // wait until quote forms appear
-  const quoteForms = await allFormsScreen.findAllByRole('form', { name: /review quote \d+/i });
-  expect(quoteForms.length).toBe(5);
-});
+//   // confirm loading spinner disappears
+//   const notLoadingSpinner = errorScreen.queryByRole('progressbar');
+//   expect(notLoadingSpinner).not.toBeInTheDocument();
+// });
+
+// test('All forms render for multiple quotes', async () => {
+//   // render with pre-defined state for user
+//   const initialState = { user: { id: 1, username: 'sheila' } };
+//   const allFormsScreen = renderWithProvider(<ReviewQuotes />, initialState);
+
+//   // wait until quote forms appear
+//   const quoteForms = await allFormsScreen.findAllByRole('form', { name: /review quote \d+/i });
+//   expect(quoteForms.length).toBe(5);
+// });

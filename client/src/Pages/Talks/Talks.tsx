@@ -55,7 +55,7 @@ export default function Talks(): ReactElement {
 
   const contents = useMemo(() => (
     <>
-      <PageTitleWithAdd title="Conference Talks and Workshops" variant="h1" AddButton={AddTalkButton} />
+      <PageTitleWithAdd title="Conference Talks and Workshops" variant="h1" AddButton={<AddTalkButton />} />
       <Grid style={{ marginTop: 10 }} aria-label="talks">
         <Typography className={classes.header} variant="h2" gutterBottom>Upcoming</Typography>
         <section role="list" title="upcoming-talks-list">

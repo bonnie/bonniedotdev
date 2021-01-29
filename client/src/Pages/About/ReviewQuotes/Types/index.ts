@@ -1,5 +1,5 @@
 export type ReviewQuoteType = {
-  id: number,
+  id: number | null,
   body: string,
   courseName?: string,
   courseLink?: string,
