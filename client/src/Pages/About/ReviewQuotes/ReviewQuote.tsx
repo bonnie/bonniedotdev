@@ -65,9 +65,10 @@ export default function ReviewQuote(
           <Box className={classes.courseLinkBox} color="secondary.main" fontSize={12} mt={2}>
             <Typography>{reviewQuoteData.courseName}</Typography>
           </Box>
+          { editButtons ? <div className={classes.editButtons}>{editButtons}</div> : null }
         </Link>
-        <div className={classes.editButtons}>{editButtons}</div>
       </Box>
+
     </Grid>
   );
 }
