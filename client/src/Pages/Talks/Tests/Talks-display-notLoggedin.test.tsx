@@ -8,6 +8,21 @@ import server from 'TestUtils/Mocks/server';
 import { renderWithProvider, renderWithRouterAndProvider } from 'TestUtils/renderWith';
 
 import Talks from '../Talks';
+import { TalkType } from '../Types';
+
+const pastTalk: TalkType = {
+  id: 5,
+  title: 'i am a talk',
+  utcDateStringISO: '2021-01-25',
+  description: 'this talks discusses stuff and it is good',
+  slidesFilename: 'http://link-to-slides',
+  conferenceName: 'bonnieCon',
+  conferenceLink: 'http://bonniecon.com',
+  recordingLink: 'http://youtube.com/bonnie',
+};
+
+const pastTalkWithoutSlides = { ...pastTalk };
+delete pastTalkWithoutSlides.slidesFilename;
 
 test('Renders four talks for non-error server response', async () => {
   // Note: mocked server response is handled by msw, in the src/mocks folder
@@ -72,17 +87,6 @@ describe('separates upcoming / future and sorts by date', () => {
 });
 
 test('Renders note for no upcoming talks', async () => {
-  // render only a past talk
-  const pastTalk = {
-    id: 5,
-    title: 'i am a talk',
-    utcDateStringISO: '2021-01-25',
-    description: 'this talks discusses stuff and it is good',
-    slidesFilename: 'http://link-to-slides',
-    conferenceName: 'bonnieCon',
-    conferenceLink: 'http://bonniecon.com',
-    recordingLink: 'http://youtube.com/bonnie',
-  };
   server.resetHandlers(
     rest.get(urls.talksURL, (req, res, ctx) => res(ctx.json([pastTalk]))),
   );
@@ -120,4 +124,10 @@ test('Renders error alert for error server response', async () => {
   // confirm loading spinner disappears
   const notLoadingSpinner = errorScreen.queryByRole('progressbar');
   expect(notLoadingSpinner).not.toBeInTheDocument();
+});
+
+test('Does not render slide link if data is not present', () => {
+  server.resetHandlers(
+    rest.get(urls.talksURL, (req, res, ctx) => res(ctx.status(500), ctx.json({ message: 'oops' }))),
+  );
 });

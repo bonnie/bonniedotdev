@@ -14,7 +14,10 @@ function sortByTimestampAscending(talkA: TalkType, talkB: TalkType): number {
 
 // separate talks into past and future, and sort
 function separateTalks(talks: TalkType[]): TalkStateType {
-  const today = moment(new Date()).toISOString();
+  // need to fix at midnight or things get wonky with timezones
+  const todayDateOnly = moment(new Date()).format('YYYY-MM-DD');
+  const today = `${todayDateOnly} 00:00:00`;
+
   const upcoming = talks
     .filter((talk) => talk.utcDateStringISO >= today)
     .sort(sortByTimestampAscending);

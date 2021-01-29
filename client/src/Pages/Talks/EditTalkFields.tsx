@@ -34,10 +34,10 @@ export default function EditTalkFields({ talkData = newTalk }: EditTalkFieldsTyp
       <TextInput required fieldName="title" defaultValue={talkData.title} />
       <DateInput fieldName="utcDateStringISO" value={talkDate} label="change date" dateSetter={setTalkDate} />
       <TextInput required fieldName="description" defaultValue={talkData.description} />
-      <ImageNameInput required={false} fieldName="slidesFilename" defaultValue={talkData.slidesFilename} />
+      <ImageNameInput required={false} fieldName="slidesFilename" defaultValue={talkData.slidesFilename || ''} />
       <TextInput required fieldName="conferenceName" defaultValue={talkData.conferenceName} />
       <LinkInput required fieldName="conferenceLink" defaultValue={talkData.conferenceLink} />
-      <LinkInput required={false} fieldName="recordingLink" defaultValue={talkData.recordingLink} />
+      <LinkInput required={false} fieldName="recordingLink" defaultValue={talkData.recordingLink || ''} />
     </>
   );
 }

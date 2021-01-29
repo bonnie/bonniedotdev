@@ -3,10 +3,10 @@ export type TalkType = {
     title: string,
     utcDateStringISO: string,
     description: string,
-    slidesFilename: string,
+    slidesFilename?: string,
     conferenceName: string,
     conferenceLink: string,
-    recordingLink: string,
+    recordingLink?: string,
   };
 
 export interface TalkStateType {
