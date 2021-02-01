@@ -51,7 +51,7 @@ describe('navigate to routes', () => {
     const screen = renderAndClickRoute('talks');
 
     // check correct page showed up
-    const headline = screen.getByRole('heading', { name: 'Talks' });
+    const headline = screen.getByRole('heading', { name: 'Conference Talks and Workshops' });
     expect(headline).toBeInTheDocument();
   });
   test('displays "not found" page for unknown route', () => {

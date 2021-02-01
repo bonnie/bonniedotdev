@@ -21,7 +21,7 @@ export default function EditReviewQuoteButtons(
   return (
     <EditItemModal
       handleSave={(data) => dispatch(editReviewQuote(data, reviewQuoteData))}
-      itemString="ReviewQuote"
+      itemString="Review Quote"
       ItemFields={<EditReviewQuoteFields reviewQuoteData={reviewQuoteData} courses={courses} />}
       id={id}
     />

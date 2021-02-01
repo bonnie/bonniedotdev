@@ -30,8 +30,9 @@ export default function EditReviewQuoteFields(
       <SelectInput
         required
         options={courses.map((course) => ({ value: course.id, display: course.name }))}
-        defaultValue={reviewQuoteData.courseId || -1}
+        defaultValue={reviewQuoteData.courseId || null}
         fieldName="courseId"
+        displayName="course"
       />
     </>
   );
