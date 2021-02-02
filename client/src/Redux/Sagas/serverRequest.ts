@@ -16,8 +16,8 @@ export const getAxiosResponseData = async (axiosConfig) => {
 };
 
 interface makeServerRequestArgs {
-  type: string
-  payload: axiosArgsType
+  type: string;
+  payload: axiosArgsType;
 }
 
 export function* makeServerRequest({ payload }: makeServerRequestArgs) {

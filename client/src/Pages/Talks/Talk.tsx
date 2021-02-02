@@ -15,51 +15,71 @@ import { colors } from 'Theme';
 import { TalkType } from './Types';
 
 interface TalkProps {
-  talkData: TalkType,
-  editButtons: ReactElement | null,
+  talkData: TalkType;
+  editButtons: ReactElement | null;
 }
 
-const useStyles = makeStyles(() => createStyles({
-  root: {
-    maxWidth: 1000,
-    margin: 20,
-  },
-  confLink: {
-    marginRight: 5,
-  },
-  title: {
-    color: colors.darkGrey,
-    marginTop: 8,
-    marginBottom: 8,
-    marginRight: 8,
-  },
-}));
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      maxWidth: 1000,
+      margin: 20,
+    },
+    confLink: {
+      marginRight: 5,
+    },
+    title: {
+      color: colors.darkGrey,
+      marginTop: 8,
+      marginBottom: 8,
+      marginRight: 8,
+    },
+  }),
+);
 
-const ConditionalDisplayLink = ({ text, link, condition }) => (condition
-  ? (
+const ConditionalDisplayLink = ({ text, link, condition }) =>
+  condition ? (
     <Button variant="text">
-      <Link style={{ color: colors.mediumTeal }} href={link}>{text}</Link>
+      <Link style={{ color: colors.mediumTeal }} href={link}>
+        {text}
+      </Link>
     </Button>
-  )
-  : null);
+  ) : null;
 
 // eslint-disable-next-line max-lines-per-function
-export default function Talk({ talkData, editButtons }: TalkProps): ReactElement {
+export default function Talk({
+  talkData,
+  editButtons,
+}: TalkProps): ReactElement {
   const classes = useStyles();
 
   return (
     <Card role="listitem" className={classes.root}>
       <CardContent>
         <Box>
-          <Typography variant="body1" gutterBottom style={{ display: 'inline', marginRight: 10 }}>
+          <Typography
+            variant="body1"
+            gutterBottom
+            style={{ display: 'inline', marginRight: 10 }}
+          >
             {moment(talkData.utcDateStringISO).format('MMMM DD YYYY')}
           </Typography>
-          <Link color="secondary" className={classes.confLink} href={talkData.conferenceLink} target="_blank" rel="noreferrer">
+          <Link
+            color="secondary"
+            className={classes.confLink}
+            href={talkData.conferenceLink}
+            target="_blank"
+            rel="noreferrer"
+          >
             {talkData.conferenceName}
           </Link>
         </Box>
         <Box style={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="h3" className={classes.title} style={{ display: 'inline' }}>
+          <Typography
+            variant="h3"
+            className={classes.title}
+            style={{ display: 'inline' }}
+          >
             {talkData.title}
           </Typography>
           {editButtons}
@@ -69,8 +89,16 @@ export default function Talk({ talkData, editButtons }: TalkProps): ReactElement
       </CardContent>
       <CardActions>
         <ButtonGroup>
-          <ConditionalDisplayLink text="Slides" link={`/static/images/slides/${talkData.slidesFilename}`} condition={talkData.slidesFilename} />
-          <ConditionalDisplayLink text="Recording" link={talkData.recordingLink} condition={talkData.recordingLink} />
+          <ConditionalDisplayLink
+            text="Slides"
+            link={`/static/images/slides/${talkData.slidesFilename}`}
+            condition={talkData.slidesFilename}
+          />
+          <ConditionalDisplayLink
+            text="Recording"
+            link={talkData.recordingLink}
+            condition={talkData.recordingLink}
+          />
         </ButtonGroup>
       </CardActions>
     </Card>

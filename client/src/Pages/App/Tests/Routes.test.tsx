@@ -51,15 +51,16 @@ describe('navigate to routes', () => {
     const screen = renderAndClickRoute('talks');
 
     // check correct page showed up
-    const headline = screen.getByRole('heading', { name: 'Conference Talks and Workshops' });
+    const headline = screen.getByRole('heading', {
+      name: 'Conference Talks and Workshops',
+    });
     expect(headline).toBeInTheDocument();
   });
   test('displays "not found" page for unknown route', () => {
     // render and update location to unknown route
-    const screen = renderWithRouterAndProvider(
-      NavAndRoutes,
-      { initialRouterEntries: ['this_aint_no_route'] },
-    );
+    const screen = renderWithRouterAndProvider(NavAndRoutes, {
+      initialRouterEntries: ['this_aint_no_route'],
+    });
 
     const headline = screen.getByRole('heading', { name: /oops/i });
     expect(headline).toBeInTheDocument();

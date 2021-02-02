@@ -7,14 +7,18 @@ import EditReviewQuoteFields from './EditReviewQuoteFields';
 import { addReviewQuote } from './Redux/Actions';
 
 interface AddReviewQuoteButtonProps {
-  courses: CourseType[]
+  courses: CourseType[];
 }
 
-export default function AddReviewQuoteButton({ courses }: AddReviewQuoteButtonProps): ReactElement {
+export default function AddReviewQuoteButton({
+  courses,
+}: AddReviewQuoteButtonProps): ReactElement {
   const dispatch = useDispatch();
   return (
     <AddItemModal
-      handleSave={(reviewQuoteData) => dispatch(addReviewQuote(reviewQuoteData))}
+      handleSave={(reviewQuoteData) =>
+        dispatch(addReviewQuote(reviewQuoteData))
+      }
       itemString="Review Quote"
       ItemFields={<EditReviewQuoteFields courses={courses} />}
     />

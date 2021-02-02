@@ -6,11 +6,15 @@ import EditCourseFields from './EditCourseFields';
 import { editCourse } from './Redux/Actions';
 import { CourseType } from './Types';
 
-interface editCourseButtonsProps {id: number, courseData: CourseType}
+interface editCourseButtonsProps {
+  id: number;
+  courseData: CourseType;
+}
 
-export default function EditCourseButtons(
-  { id, courseData }: editCourseButtonsProps,
-): ReactElement {
+export default function EditCourseButtons({
+  id,
+  courseData,
+}: editCourseButtonsProps): ReactElement {
   const dispatch = useDispatch();
 
   return (

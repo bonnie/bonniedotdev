@@ -51,14 +51,17 @@ export const couponWithDate = {
   code: 'NOT_EXPIRED',
   link: 'http://link',
   price: 12.99,
-  utcExpirationISO: moment(new Date('2020-11-17T20:01:03.182265+00:00')).toString(),
+  utcExpirationISO: moment(
+    new Date('2020-11-17T20:01:03.182265+00:00'),
+  ).toString(),
 };
 
 export const courseWithCoupons: CourseType = {
   id: 1,
   name: 'Course 1',
   link: 'https://udemy.com/awesomecourse',
-  description: 'Purr get my claw stuck in the dog\'s ear. Toilet paper attack claws fluff everywhere meow miao french ciao litterbox. Making bread on the bathrobe suddenly go on wild-eyed crazy rampage. ',
+  description:
+    "Purr get my claw stuck in the dog's ear. Toilet paper attack claws fluff everywhere meow miao french ciao litterbox. Making bread on the bathrobe suddenly go on wild-eyed crazy rampage. ",
   bestCoupon: couponWithDate,
   imageName: 'udemy-course-image.jpg',
   coupons: [],
@@ -68,7 +71,8 @@ export const courseWithoutCoupons: CourseType = {
   id: 2,
   name: 'Course 2',
   link: 'https://udemy.com/simplecourse',
-  description: 'Find empty spot in cupboard and sleep all day human give me attention meow and please stop looking at your phone and pet me find empty spot in cupboard and sleep all day for attack the dog then pretend like nothing happened. ',
+  description:
+    'Find empty spot in cupboard and sleep all day human give me attention meow and please stop looking at your phone and pet me find empty spot in cupboard and sleep all day for attack the dog then pretend like nothing happened. ',
   imageName: 'udemy-course-image.jpg',
 };
 

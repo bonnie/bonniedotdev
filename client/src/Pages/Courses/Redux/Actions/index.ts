@@ -58,7 +58,13 @@ export function addCourse(newData) {
 
 export function editCourse(newData, originalData) {
   // only deal with keys expected on the server
-  const patchRelevantKeys = ['name', 'description', 'link', 'imageName', 'coupons'];
+  const patchRelevantKeys = [
+    'name',
+    'description',
+    'link',
+    'imageName',
+    'coupons',
+  ];
   const originalPatchData = _.pick(originalData, ...patchRelevantKeys);
   const newPatchData = _.pick(newData, ...patchRelevantKeys);
 

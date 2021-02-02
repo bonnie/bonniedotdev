@@ -11,7 +11,9 @@ export const actionIds = {
   SET_REVIEW_QUOTES: 'SET_REVIEW_QUOTES',
 };
 
-export function setReviewQuotes(payload: ReviewQuoteType[]): ReviewQuotesActionType {
+export function setReviewQuotes(
+  payload: ReviewQuoteType[],
+): ReviewQuotesActionType {
   return {
     type: actionIds.SET_REVIEW_QUOTES,
     payload,

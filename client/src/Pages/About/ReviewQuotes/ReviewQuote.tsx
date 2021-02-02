@@ -41,17 +41,25 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface ReadOnlyQuoteProps {
-  reviewQuoteData: ReviewQuoteType,
-  editButtons: ReactElement | null,
+  reviewQuoteData: ReviewQuoteType;
+  editButtons: ReactElement | null;
 }
 
-export default function ReviewQuote(
-  { reviewQuoteData, editButtons }: ReadOnlyQuoteProps,
-): ReactElement {
+export default function ReviewQuote({
+  reviewQuoteData,
+  editButtons,
+}: ReadOnlyQuoteProps): ReactElement {
   const classes = useStyles();
   return (
     <Grid item className={classes.quoteGrid} xs={12} sm={6} md={4}>
-      <Box className={classes.quoteBox} p={3} pt={3} pb={3} color="primary.main" bgcolor="background.main">
+      <Box
+        className={classes.quoteBox}
+        p={3}
+        pt={3}
+        pb={3}
+        color="primary.main"
+        bgcolor="background.main"
+      >
         <Box fontStyle="italic">
           <Typography component="p">{reviewQuoteData.body}</Typography>
         </Box>
@@ -62,13 +70,19 @@ export default function ReviewQuote(
           target="_blank"
           rel="noreferrer"
         >
-          <Box className={classes.courseLinkBox} color="secondary.main" fontSize={12} mt={2}>
+          <Box
+            className={classes.courseLinkBox}
+            color="secondary.main"
+            fontSize={12}
+            mt={2}
+          >
             <Typography>{reviewQuoteData.courseName}</Typography>
           </Box>
         </Link>
-        { editButtons ? <div className={classes.editButtons}>{editButtons}</div> : null }
+        {editButtons ? (
+          <div className={classes.editButtons}>{editButtons}</div>
+        ) : null}
       </Box>
-
     </Grid>
   );
 }

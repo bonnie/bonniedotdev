@@ -30,7 +30,9 @@ test('All data displays for complete talk data', () => {
   const date = screen.getByText('January 25 2021');
   expect(date).toBeInTheDocument();
 
-  const description = screen.getByText('this talks discusses stuff and it is good');
+  const description = screen.getByText(
+    'this talks discusses stuff and it is good',
+  );
   expect(description).toBeInTheDocument();
 
   const conferenceLink = screen.getByRole('link', { name: 'bonnieCon' });
@@ -39,7 +41,10 @@ test('All data displays for complete talk data', () => {
 
   const slidesLink = screen.getByRole('link', { name: /slides/i });
   expect(slidesLink).toBeInTheDocument();
-  expect(slidesLink).toHaveAttribute('href', '/static/images/slides/slides.pdf');
+  expect(slidesLink).toHaveAttribute(
+    'href',
+    '/static/images/slides/slides.pdf',
+  );
 
   const recordingLink = screen.getByRole('link', { name: /recording/i });
   expect(recordingLink).toBeInTheDocument();

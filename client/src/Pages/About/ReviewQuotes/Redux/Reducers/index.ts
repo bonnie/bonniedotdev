@@ -1,7 +1,12 @@
 import { actionIds } from 'Pages/About/ReviewQuotes/Redux/Actions';
-import { ReviewQuotesActionType, ReviewQuoteType } from 'Pages/About/ReviewQuotes/Types';
+import {
+  ReviewQuotesActionType,
+  ReviewQuoteType,
+} from 'Pages/About/ReviewQuotes/Types';
 
-function sortByPositiveIdThenLength(reviewQuotes: ReviewQuoteType[]): ReviewQuoteType[] {
+function sortByPositiveIdThenLength(
+  reviewQuotes: ReviewQuoteType[],
+): ReviewQuoteType[] {
   // sort by length so that the rows have cells of similar height
   // But put any new quotes not on server (negative ID) at the end
   return reviewQuotes.sort((a, b) => {
@@ -18,9 +23,7 @@ export default function setReviewQuotes(
 ): ReviewQuoteType[] {
   switch (action.type) {
     case actionIds.SET_REVIEW_QUOTES: {
-      return (action.payload)
-        ? sortByPositiveIdThenLength(action.payload)
-        : [];
+      return action.payload ? sortByPositiveIdThenLength(action.payload) : [];
     }
     default:
       return state;

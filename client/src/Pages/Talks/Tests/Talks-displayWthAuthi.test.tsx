@@ -5,7 +5,10 @@ import App from 'Pages/App/App';
 import Talks from 'Pages/Talks/Talks';
 import React from 'react';
 import server from 'TestUtils/Mocks/server';
-import { renderWithProvider, renderWithRouterProviderAndUser } from 'TestUtils/renderWith';
+import {
+  renderWithProvider,
+  renderWithRouterProviderAndUser,
+} from 'TestUtils/renderWith';
 
 test('On server success, renders spinner, then talks, then spinner disappears', async () => {
   // Note: mocked server response is handled by msw, in the src/mocks folder
@@ -43,7 +46,9 @@ test('Renders error alert for error server response', async () => {
   // END: todo
 
   server.resetHandlers(
-    rest.get(urls.talksURL, (req, res, ctx) => res(ctx.status(500), ctx.json({ message: 'oops' }))),
+    rest.get(urls.talksURL, (req, res, ctx) =>
+      res(ctx.status(500), ctx.json({ message: 'oops' })),
+    ),
   );
   // render entire App so that we can check Loading and Error
   const errorScreen = await renderWithRouterProviderAndUser(<App />);
@@ -83,9 +88,13 @@ test('Renders edit and delete buttons', async () => {
   const talksScreen = renderWithProvider(<Talks />, initialState);
 
   // there should be four talks, so four edit buttons and four delete buttons
-  const editButtons = await talksScreen.findAllByRole('button', { name: /edit talk/i });
+  const editButtons = await talksScreen.findAllByRole('button', {
+    name: /edit talk/i,
+  });
   expect(editButtons).toHaveLength(4);
 
-  const deleteButtons = await talksScreen.findAllByRole('button', { name: /delete talk/i });
+  const deleteButtons = await talksScreen.findAllByRole('button', {
+    name: /delete talk/i,
+  });
   expect(deleteButtons).toHaveLength(4);
 });

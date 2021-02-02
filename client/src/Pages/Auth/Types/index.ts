@@ -1,9 +1,9 @@
 export type UserType = {
-  id: number,
-  username: string,
+  id: number;
+  username: string;
 };
 
 export type UserActionType = {
-  type: string,
-  payload: UserType
-}
+  type: string;
+  payload: UserType;
+};

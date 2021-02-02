@@ -39,56 +39,80 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface CourseProps {
-  courseData: CourseType,
-  editButtons: ReactElement | null,
+  courseData: CourseType;
+  editButtons: ReactElement | null;
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default function Course({ courseData, editButtons }: CourseProps): ReactElement {
+export default function Course({
+  courseData,
+  editButtons,
+}: CourseProps): ReactElement {
   const classes = useStyles();
 
   const couponsHeader = useMemo(() => {
     if (!courseData.id) {
       return null;
     }
-    return editButtons
-      ? <PageTitleWithAdd variant="h4" title="Coupons" AddButton={<AddCouponButton courseId={courseData.id || -1} />} />
-      : null;
+    return editButtons ? (
+      <PageTitleWithAdd
+        variant="h4"
+        title="Coupons"
+        AddButton={<AddCouponButton courseId={courseData.id || -1} />}
+      />
+    ) : null;
   }, [editButtons, courseData.id]);
 
-  const bestCoupon = useMemo(() => (
-    courseData.bestCoupon
-      ? <Coupon couponData={courseData.bestCoupon} />
-      : null
-  ), [courseData.bestCoupon]);
+  const bestCoupon = useMemo(
+    () =>
+      courseData.bestCoupon ? (
+        <Coupon couponData={courseData.bestCoupon} />
+      ) : null,
+    [courseData.bestCoupon],
+  );
 
-  return useMemo(() => (
-    <Grid style={{ display: 'flex', alignItems: 'stretch' }} item xs={12} sm={6} md={4}>
-      <Box display="flex" flexDirection="column" justifyContent="space-between">
-        <Card className={classes.root} square>
-          <CardActionArea href={courseData.link} target="_blank" rel="noreferrer">
-            <CardMedia
-              className={classes.media}
-              image={`/images/courses/${courseData.imageName}`}
-              title="Course Image"
-            />
-            <CardHeader className={classes.header} title={courseData.name} />
-            <CardContent>
-              <Typography component="p">
-                {courseData.description}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <Box className={classes.coupons}>
-          <Divider variant="middle" />
-          {couponsHeader}
-          {bestCoupon}
+  return useMemo(
+    () => (
+      <Grid
+        style={{ display: 'flex', alignItems: 'stretch' }}
+        item
+        xs={12}
+        sm={6}
+        md={4}
+      >
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-between"
+        >
+          <Card className={classes.root} square>
+            <CardActionArea
+              href={courseData.link}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <CardMedia
+                className={classes.media}
+                image={`/images/courses/${courseData.imageName}`}
+                title="Course Image"
+              />
+              <CardHeader className={classes.header} title={courseData.name} />
+              <CardContent>
+                <Typography component="p">{courseData.description}</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Box className={classes.coupons}>
+            <Divider variant="middle" />
+            {couponsHeader}
+            {bestCoupon}
+          </Box>
+          {editButtons}
         </Box>
-        {editButtons}
-      </Box>
-    </Grid>
-  ), [classes, courseData, couponsHeader, editButtons, bestCoupon]);
+      </Grid>
+    ),
+    [classes, courseData, couponsHeader, editButtons, bestCoupon],
+  );
 }
 
 // /* eslint-disable global-require */

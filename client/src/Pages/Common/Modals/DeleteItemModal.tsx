@@ -10,10 +10,10 @@ import LoggedInIconButton from '../LoggedInIconButton';
 import { Size } from '../Types';
 
 interface DeleteItemModalProps {
-  handleDelete: () => void,
-  itemLabel: string, // the name of the individual item being deleted
-  itemTypeString: string, // the name of the type of item being deleted
-  buttonSize?: Size,
+  handleDelete: () => void;
+  itemLabel: string; // the name of the individual item being deleted
+  itemTypeString: string; // the name of the type of item being deleted
+  buttonSize?: Size;
 }
 
 DeleteItemModal.defaultProps = {
@@ -21,11 +21,12 @@ DeleteItemModal.defaultProps = {
 };
 
 // eslint-disable-next-line max-lines-per-function
-export default function DeleteItemModal(
-  {
-    handleDelete, itemLabel, itemTypeString, buttonSize,
-  }: DeleteItemModalProps,
-): ReactElement {
+export default function DeleteItemModal({
+  handleDelete,
+  itemLabel,
+  itemTypeString,
+  buttonSize,
+}: DeleteItemModalProps): ReactElement {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
 
   const handleClose = (confirmed: boolean): void => {
@@ -53,12 +54,11 @@ export default function DeleteItemModal(
       >
         <Box m={2}>
           <DialogTitle id="confirm-dialog-title">{dialogMessage}</DialogTitle>
-          <ButtonGroup
-            variant="text"
-            style={{ float: 'right' }}
-          >
+          <ButtonGroup variant="text" style={{ float: 'right' }}>
             <Button onClick={() => handleClose(false)}>Cancel</Button>
-            <Button color="secondary" onClick={() => handleClose(true)}>Confirm</Button>
+            <Button color="secondary" onClick={() => handleClose(true)}>
+              Confirm
+            </Button>
           </ButtonGroup>
         </Box>
       </Dialog>

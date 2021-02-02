@@ -1,6 +1,4 @@
-import {
-  fireEvent, render, Screen, screen,
-} from '@testing-library/react';
+import { fireEvent, render, Screen, screen } from '@testing-library/react';
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -15,7 +13,11 @@ import rootReducer from '../Redux/reducers';
 function storeFactory(initialState = {}): Store {
   // necessary to have separate saga middleware instance for each test, since they run concurrently
   const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(rootReducer, initialState, applyMiddleware(sagaMiddleware));
+  const store = createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(sagaMiddleware),
+  );
   sagaMiddleware.run(rootSaga);
 
   return store;
@@ -23,23 +25,23 @@ function storeFactory(initialState = {}): Store {
 
 // TODO: does this help reduce repetitive code? https://redux.js.org/recipes/writing-tests
 
-export function renderWithRouter(ui: ReactElement, initialRouterEntries = []): Screen {
+export function renderWithRouter(
+  ui: ReactElement,
+  initialRouterEntries = [],
+): Screen {
   render(
-    <MemoryRouter initialEntries={initialRouterEntries}>
-      {ui}
-    </MemoryRouter>,
+    <MemoryRouter initialEntries={initialRouterEntries}>{ui}</MemoryRouter>,
   );
   return screen;
 }
 
-export function renderWithProvider(ui: ReactElement, initialState = {}): Screen {
+export function renderWithProvider(
+  ui: ReactElement,
+  initialState = {},
+): Screen {
   const store = storeFactory(initialState);
 
-  render(
-    <Provider store={store}>
-      {ui}
-    </Provider>,
-  );
+  render(<Provider store={store}>{ui}</Provider>);
   return screen;
 }
 
@@ -51,9 +53,7 @@ export function renderWithRouterAndProvider(
 
   render(
     <Provider store={store}>
-      <MemoryRouter initialEntries={initialRouterEntries}>
-        {ui}
-      </MemoryRouter>
+      <MemoryRouter initialEntries={initialRouterEntries}>{ui}</MemoryRouter>
     </Provider>,
   );
   return screen;
@@ -71,9 +71,7 @@ export async function renderWithRouterProviderAndUser(
   // route to '/login' first
   render(
     <Provider store={store}>
-      <MemoryRouter initialEntries={['/login']}>
-        {ui}
-      </MemoryRouter>
+      <MemoryRouter initialEntries={['/login']}>{ui}</MemoryRouter>
     </Provider>,
   );
 

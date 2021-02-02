@@ -30,7 +30,9 @@ describe('course with coupon', () => {
 
     // check that correct image is showing
     const courseImage = screen.getByTitle('Course Image');
-    expect(courseImage).toHaveStyle({ backgroundImage: url('/images/course-images/img.png') });
+    expect(courseImage).toHaveStyle({
+      backgroundImage: url('/images/course-images/img.png'),
+    });
   });
   test('renders course title with link', () => {
     render(<Course courseData={courseWithCoupon} />);
@@ -43,7 +45,10 @@ describe('course with coupon', () => {
     render(<Course courseData={courseWithCoupon} />);
 
     const couponText = screen.getByRole('link', { name: /12.99/ });
-    expect(couponText).toHaveAttribute('href', 'http://test-link?couponCode=COUPON_CODE');
+    expect(couponText).toHaveAttribute(
+      'href',
+      'http://test-link?couponCode=COUPON_CODE',
+    );
   });
 
   test('renders coupon expiration text', () => {
@@ -60,7 +65,9 @@ describe('course without coupon', () => {
 
     // check that correct image is showing
     const courseImage = screen.getByTitle('Course Image');
-    expect(courseImage).toHaveStyle({ backgroundImage: url('/images/course-images/img.png') });
+    expect(courseImage).toHaveStyle({
+      backgroundImage: url('/images/course-images/img.png'),
+    });
   });
   test('renders course title with link', () => {
     render(<Course courseData={courseWithCoupon} />);

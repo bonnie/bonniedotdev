@@ -10,7 +10,9 @@ test('create new talk and save', async () => {
   const newTalkScreen = renderWithProvider(<Talks />, initialState);
 
   // wait until talk edit buttons appear so we know data is loaded
-  const editButtons = await newTalkScreen.findAllByRole('button', { name: /edit talk/i });
+  const editButtons = await newTalkScreen.findAllByRole('button', {
+    name: /edit talk/i,
+  });
   expect(editButtons.length).toBe(4);
 
   // find and click add button
@@ -18,7 +20,9 @@ test('create new talk and save', async () => {
   userEvent.click(addButton);
 
   // wait for new talk modal to show
-  const talkModalTitle = await newTalkScreen.findByRole('heading', { name: /add talk/i });
+  const talkModalTitle = await newTalkScreen.findByRole('heading', {
+    name: /add talk/i,
+  });
   expect(talkModalTitle).toBeVisible();
 
   // add (somewhat bogus) text data
@@ -29,13 +33,14 @@ test('create new talk and save', async () => {
     'slidesFilename',
     'conferenceName',
     'conferenceLink',
-    'recordingLink']
+    'recordingLink',
+  ]
     // eslint-disable-next-line array-callback-return
-    .map(((fieldName) => {
+    .map((fieldName) => {
       fieldElement = newTalkScreen.getByRole('textbox', { name: fieldName });
       userEvent.type(fieldElement, fieldName);
       expect(fieldElement).toHaveValue(fieldName);
-    }));
+    });
 
   // add date data
   // Unfortunately, the date picker I'm using is difficult to find bc its name is ''
@@ -61,7 +66,9 @@ test('update a talk', async () => {
   const editTalkScreen = renderWithProvider(<Talks />, initialState);
 
   // wait until talk edit buttons appear so we know data is loaded
-  const editButtons = await editTalkScreen.findAllByRole('button', { name: /edit talk/i });
+  const editButtons = await editTalkScreen.findAllByRole('button', {
+    name: /edit talk/i,
+  });
   expect(editButtons.length).toBe(4);
 
   // click the first edit button, which should be associated with the talk
@@ -69,11 +76,15 @@ test('update a talk', async () => {
   userEvent.click(firstEditButton);
 
   // check that we have the modal with the expected title
-  const modalTitle = editTalkScreen.getByRole('heading', { name: /edit talk/i });
+  const modalTitle = editTalkScreen.getByRole('heading', {
+    name: /edit talk/i,
+  });
   expect(modalTitle).toBeVisible();
 
   // update content and confirm update
-  const descriptionField = editTalkScreen.getByRole('textbox', { name: 'description' });
+  const descriptionField = editTalkScreen.getByRole('textbox', {
+    name: 'description',
+  });
   userEvent.clear(descriptionField);
   userEvent.type(descriptionField, 'thank you for coming to my ted talk');
 
@@ -100,7 +111,9 @@ test('delete a talk', async () => {
   const deleteTalkScreen = renderWithProvider(<Talks />, initialState);
 
   // wait until talk delete buttons appear so we know data is loaded
-  const deleteButtons = await deleteTalkScreen.findAllByRole('button', { name: /delete talk/i });
+  const deleteButtons = await deleteTalkScreen.findAllByRole('button', {
+    name: /delete talk/i,
+  });
   expect(deleteButtons.length).toBe(4);
 
   // click the first delete button, which should be associated with the talk
@@ -108,11 +121,15 @@ test('delete a talk', async () => {
   userEvent.click(firstDeleteButton);
 
   // check that we have the modal with the expected title
-  const modalTitle = deleteTalkScreen.getByRole('heading', { name: /^Are you sure you want to delete/i });
+  const modalTitle = deleteTalkScreen.getByRole('heading', {
+    name: /^Are you sure you want to delete/i,
+  });
   expect(modalTitle).toBeVisible();
 
   // click confirm on modal
-  const confirmButton = deleteTalkScreen.getByRole('button', { name: 'Confirm' });
+  const confirmButton = deleteTalkScreen.getByRole('button', {
+    name: 'Confirm',
+  });
   userEvent.click(confirmButton);
 
   // confirm modal has disappeared (note, talk will not be deleted

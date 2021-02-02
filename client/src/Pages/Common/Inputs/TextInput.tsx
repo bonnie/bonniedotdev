@@ -4,9 +4,9 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, { ReactElement } from 'react';
 
 interface TextInputProps {
-  required: boolean,
-  fieldName: string,
-  defaultValue: string,
+  required: boolean;
+  fieldName: string;
+  defaultValue: string;
   AdornmentIcon?: typeof AddCircleIcon | null;
 }
 
@@ -14,17 +14,17 @@ TextInput.defaultProps = {
   AdornmentIcon: null,
 };
 
-export default function TextInput(
-  {
-    required, fieldName, defaultValue, AdornmentIcon = null,
-  }: TextInputProps,
-): ReactElement {
+export default function TextInput({
+  required,
+  fieldName,
+  defaultValue,
+  AdornmentIcon = null,
+}: TextInputProps): ReactElement {
   const startAdornment = AdornmentIcon ? (
     <InputAdornment position="start">
       <AdornmentIcon />
     </InputAdornment>
-  )
-    : null;
+  ) : null;
 
   return (
     <TextField

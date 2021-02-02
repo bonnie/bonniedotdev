@@ -5,7 +5,10 @@ import { rest } from 'msw';
 import App from 'Pages/App/App';
 import React from 'react';
 import server from 'TestUtils/Mocks/server';
-import { renderWithProvider, renderWithRouterAndProvider } from 'TestUtils/renderWith';
+import {
+  renderWithProvider,
+  renderWithRouterAndProvider,
+} from 'TestUtils/renderWith';
 
 import Talks from '../Talks';
 import { TalkType } from '../Types';
@@ -62,10 +65,15 @@ describe('separates upcoming / future and sorts by date', () => {
   test('upcoming talks sorted by date', async () => {
     const allTalksScreen = renderWithProvider(<Talks />);
 
-    const upcomingTalks = await allTalksScreen.findByRole('list', { name: 'upcoming-talks-list' });
+    const upcomingTalks = await allTalksScreen.findByRole('list', {
+      name: 'upcoming-talks-list',
+    });
 
     // wait until dates appear
-    const upcomingDates = await findAllByText(upcomingTalks, /^january \d\d \d\d\d\d/i);
+    const upcomingDates = await findAllByText(
+      upcomingTalks,
+      /^january \d\d \d\d\d\d/i,
+    );
 
     // check that they're in the expected order
     const dateOrder = upcomingDates.map((date) => date.textContent);
@@ -75,10 +83,15 @@ describe('separates upcoming / future and sorts by date', () => {
   test('past talks sorted by reverse date', async () => {
     const allTalksScreen = renderWithProvider(<Talks />);
 
-    const upcomingTalks = await allTalksScreen.findByRole('list', { name: 'past-talks-list' });
+    const upcomingTalks = await allTalksScreen.findByRole('list', {
+      name: 'past-talks-list',
+    });
 
     // wait until dates appear
-    const upcomingDates = await findAllByText(upcomingTalks, /^january \d\d \d\d\d\d/i);
+    const upcomingDates = await findAllByText(
+      upcomingTalks,
+      /^january \d\d \d\d\d\d/i,
+    );
 
     // check that they're in the expected order
     const dateOrder = upcomingDates.map((date) => date.textContent);
@@ -93,14 +106,18 @@ test('Renders note for no upcoming talks', async () => {
 
   const allTalksScreen = renderWithProvider(<Talks />);
 
-  const upcomingTalks = await allTalksScreen.findByRole('list', { name: 'upcoming-talks-list' });
+  const upcomingTalks = await allTalksScreen.findByRole('list', {
+    name: 'upcoming-talks-list',
+  });
   expect(upcomingTalks).toHaveTextContent('No upcoming talks scheduled.');
 });
 
 test('Renders error alert for error server response', async () => {
   // override default msw response for talks endpoint with error response
   server.resetHandlers(
-    rest.get(urls.talksURL, (req, res, ctx) => res(ctx.status(500), ctx.json({ message: 'oops' }))),
+    rest.get(urls.talksURL, (req, res, ctx) =>
+      res(ctx.status(500), ctx.json({ message: 'oops' })),
+    ),
   );
 
   // render entire App so that we can check Loading and Error
@@ -128,6 +145,8 @@ test('Renders error alert for error server response', async () => {
 
 test('Does not render slide link if data is not present', () => {
   server.resetHandlers(
-    rest.get(urls.talksURL, (req, res, ctx) => res(ctx.status(500), ctx.json({ message: 'oops' }))),
+    rest.get(urls.talksURL, (req, res, ctx) =>
+      res(ctx.status(500), ctx.json({ message: 'oops' })),
+    ),
   );
 });

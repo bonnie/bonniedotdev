@@ -11,15 +11,16 @@ const newReviewQuote: ReviewQuoteType = {
 };
 
 interface EditReviewQuoteFieldsType {
-  reviewQuoteData?: ReviewQuoteType,
-  courses: CourseType[],
+  reviewQuoteData?: ReviewQuoteType;
+  courses: CourseType[];
 }
 
 EditReviewQuoteFields.defaultProps = { reviewQuoteData: newReviewQuote };
 
-export default function EditReviewQuoteFields(
-  { reviewQuoteData = newReviewQuote, courses }: EditReviewQuoteFieldsType,
-): ReactElement {
+export default function EditReviewQuoteFields({
+  reviewQuoteData = newReviewQuote,
+  courses,
+}: EditReviewQuoteFieldsType): ReactElement {
   return (
     <>
       <TextInput
@@ -29,7 +30,10 @@ export default function EditReviewQuoteFields(
       />
       <SelectInput
         required
-        options={courses.map((course) => ({ value: course.id, display: course.name }))}
+        options={courses.map((course) => ({
+          value: course.id,
+          display: course.name,
+        }))}
         defaultValue={reviewQuoteData.courseId || null}
         fieldName="courseId"
         displayName="course"

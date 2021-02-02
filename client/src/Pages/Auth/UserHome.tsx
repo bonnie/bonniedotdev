@@ -24,12 +24,12 @@ export default function UserHome(): ReactElement {
   return (
     <Box>
       <Typography variant="h1" gutterBottom>
-        Welcome
-        {' '}
-        {user.username}
+        Welcome {user.username}
       </Typography>
       <Box m={2}>
-        <Button variant="contained" color="secondary" onClick={handleLogout}>Log out</Button>
+        <Button variant="contained" color="secondary" onClick={handleLogout}>
+          Log out
+        </Button>
       </Box>
     </Box>
   );

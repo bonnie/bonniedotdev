@@ -6,10 +6,12 @@ import EditCouponFields from './EditCouponFields';
 import { addCoupon } from './Redux/Actions';
 
 interface AddCouponButtonProps {
-  courseId: number
+  courseId: number;
 }
 
-export default function AddCouponButton({ courseId }: AddCouponButtonProps): ReactElement {
+export default function AddCouponButton({
+  courseId,
+}: AddCouponButtonProps): ReactElement {
   const dispatch = useDispatch();
   return (
     <AddItemModal

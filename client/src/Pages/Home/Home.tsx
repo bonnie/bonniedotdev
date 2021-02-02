@@ -29,10 +29,14 @@ export default function Home(): ReactElement {
   return (
     <Box pt={10} textAlign="center">
       <Box m={3}>
-        <Typography variant="h1" gutterBottom>Bonnie Schulkin</Typography>
+        <Typography variant="h1" gutterBottom>
+          Bonnie Schulkin
+        </Typography>
       </Box>
       <Box m={3}>
-        <Typography className={classes.subtitle} gutterBottom>teacher | coder</Typography>
+        <Typography className={classes.subtitle} gutterBottom>
+          teacher | coder
+        </Typography>
       </Box>
       <SocialLinks />
     </Box>

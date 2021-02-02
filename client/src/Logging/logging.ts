@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { logURL } from 'Constants/urls';
 
-type logLevel = 'critical' | 'error' | 'warning' | 'info' | 'debug'
+type logLevel = 'critical' | 'error' | 'warning' | 'info' | 'debug';
 
 export default function logToServer(logLevel: logLevel, message: string): void {
-  const url = process.env.NODE_ENV === 'development'
-    ? `http://localhost:5050${logURL}`
-    : logURL;
+  const url =
+    process.env.NODE_ENV === 'development'
+      ? `http://localhost:5050${logURL}`
+      : logURL;
   const headers = { 'Content-Type': 'application/json' };
 
   try {

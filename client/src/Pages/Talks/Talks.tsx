@@ -5,9 +5,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
-import React, {
-  ReactElement, useCallback, useEffect, useMemo,
-} from 'react';
+import React, { ReactElement, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AddTalkButton from './AddTalkButton';
@@ -17,12 +15,14 @@ import { setTalksFromServer } from './Redux/Actions';
 import Talk from './Talk';
 import { TalkType } from './Types';
 
-const useStyles = makeStyles(() => createStyles({
-  header: {
-    display: 'inline',
-    marginRight: 10,
-  },
-}));
+const useStyles = makeStyles(() =>
+  createStyles({
+    header: {
+      display: 'inline',
+      marginRight: 10,
+    },
+  }),
+);
 
 // eslint-disable-next-line max-lines-per-function
 export default function Talks(): ReactElement {
@@ -32,44 +32,70 @@ export default function Talks(): ReactElement {
   const { past, upcoming } = useSelector((state) => state.talks);
 
   // load talks from server on component mount
-  useEffect(() => { dispatch(setTalksFromServer()); }, [dispatch]);
+  useEffect(() => {
+    dispatch(setTalksFromServer());
+  }, [dispatch]);
 
-  const mapTalkToElement = useCallback((talkData: TalkType) => {
-    if (!talkData.id) return null;
+  const mapTalkToElement = useCallback(
+    (talkData: TalkType) => {
+      if (!talkData.id) return null;
 
-    const editButtons = (
+      const editButtons = (
+        <>
+          <EditTalkButton id={talkData.id} talkData={talkData} />
+          <DeleteTalkButton id={talkData.id} name={talkData.title} />
+        </>
+      );
+
+      return (
+        <Talk
+          key={talkData.id}
+          talkData={talkData}
+          editButtons={user ? editButtons : null}
+        />
+      );
+    },
+    [user],
+  );
+
+  const contents = useMemo(
+    () => (
       <>
-        <EditTalkButton id={talkData.id} talkData={talkData} />
-        <DeleteTalkButton id={talkData.id} name={talkData.title} />
+        <PageTitleWithAdd
+          title="Conference Talks and Workshops"
+          variant="h1"
+          AddButton={<AddTalkButton />}
+        />
+        <Grid style={{ marginTop: 10 }} aria-label="talks">
+          <Typography className={classes.header} variant="h2" gutterBottom>
+            Upcoming
+          </Typography>
+          <section role="list" title="upcoming-talks-list">
+            {upcoming.length > 0 ? (
+              upcoming.map(mapTalkToElement)
+            ) : (
+              <Typography variant="body1" style={{ marginBottom: 10 }}>
+                No upcoming talks scheduled. Check back later!
+              </Typography>
+            )}
+          </section>
+          <Typography className={classes.header} variant="h2" gutterBottom>
+            Past
+          </Typography>
+          <section role="list" title="past-talks-list">
+            {past.map(mapTalkToElement)}
+          </section>
+        </Grid>
       </>
-    );
+    ),
+    [past, upcoming, mapTalkToElement, classes.header],
+  );
 
-    return (
-      <Talk
-        key={talkData.id}
-        talkData={talkData}
-        editButtons={user ? editButtons : null}
-      />
-    );
-  }, [user]);
-
-  const contents = useMemo(() => (
-    <>
-      <PageTitleWithAdd title="Conference Talks and Workshops" variant="h1" AddButton={<AddTalkButton />} />
-      <Grid style={{ marginTop: 10 }} aria-label="talks">
-        <Typography className={classes.header} variant="h2" gutterBottom>Upcoming</Typography>
-        <section role="list" title="upcoming-talks-list">
-          { upcoming.length > 0
-            ? upcoming.map(mapTalkToElement)
-            : <Typography variant="body1" style={{ marginBottom: 10 }}>No upcoming talks scheduled. Check back later!</Typography>}
-        </section>
-        <Typography className={classes.header} variant="h2" gutterBottom>Past</Typography>
-        <section role="list" title="past-talks-list">{past.map(mapTalkToElement)}</section>
-      </Grid>
-    </>
-  ), [past, upcoming, mapTalkToElement, classes.header]);
-
-  return user
-    ? <MuiPickersUtilsProvider utils={DateFnsUtils}>{contents}</MuiPickersUtilsProvider>
-    : contents;
+  return user ? (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      {contents}
+    </MuiPickersUtilsProvider>
+  ) : (
+    contents
+  );
 }

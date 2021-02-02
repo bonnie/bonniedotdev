@@ -26,7 +26,10 @@ const mapReviewQuoteToElement = (
         reviewQuoteData={reviewQuoteData}
         courses={courses}
       />
-      <DeleteReviewQuoteButton id={reviewQuoteData.id} name="this review quote" />
+      <DeleteReviewQuoteButton
+        id={reviewQuoteData.id}
+        name="this review quote"
+      />
     </>
   );
   return (
@@ -45,17 +48,30 @@ export default function ReviewQuotes(): ReactElement {
   const user = useSelector((state) => state.user);
 
   // populate review quotes data from the server
-  useEffect(() => { dispatch(setReviewQuotesFromServer()); }, [dispatch]);
+  useEffect(() => {
+    dispatch(setReviewQuotesFromServer());
+  }, [dispatch]);
 
   // Do this here, so it doesn't have to be done individually on each editable quote
-  useEffect(() => { if (user) dispatch(setCoursesFromServer()); }, [dispatch, user]);
+  useEffect(() => {
+    if (user) dispatch(setCoursesFromServer());
+  }, [dispatch, user]);
 
-  return useMemo(() => (
-    <Box component="section" mt={4} mb={4}>
-      <PageTitleWithAdd title="Students say..." variant="h2" AddButton={<AddReviewQuoteButton courses={courses} />} />
-      <Grid container spacing={3}>
-        {reviewQuotes.map((data) => mapReviewQuoteToElement(data, !!user, courses))}
-      </Grid>
-    </Box>
-  ), [reviewQuotes, courses, user]);
+  return useMemo(
+    () => (
+      <Box component="section" mt={4} mb={4}>
+        <PageTitleWithAdd
+          title="Students say..."
+          variant="h2"
+          AddButton={<AddReviewQuoteButton courses={courses} />}
+        />
+        <Grid container spacing={3}>
+          {reviewQuotes.map((data) =>
+            mapReviewQuoteToElement(data, !!user, courses),
+          )}
+        </Grid>
+      </Box>
+    ),
+    [reviewQuotes, courses, user],
+  );
 }

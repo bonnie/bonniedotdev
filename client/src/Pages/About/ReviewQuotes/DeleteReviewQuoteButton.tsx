@@ -5,13 +5,14 @@ import { useDispatch } from 'react-redux';
 import { deleteReviewQuote } from './Redux/Actions';
 
 interface DeleteReviewQuoteButtonsProps {
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }
 
-export default function DeleteReviewQuoteButtons(
-  { id, name }: DeleteReviewQuoteButtonsProps,
-): ReactElement {
+export default function DeleteReviewQuoteButtons({
+  id,
+  name,
+}: DeleteReviewQuoteButtonsProps): ReactElement {
   const dispatch = useDispatch();
   return (
     <DeleteItemModal

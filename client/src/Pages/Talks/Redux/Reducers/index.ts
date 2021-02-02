@@ -6,10 +6,16 @@ import { actionIds } from '../Actions';
 // eslint-disable-next-line radix
 const getUnixTimeInt = (dateString) => moment(dateString).valueOf();
 function sortByTimestampDescending(talkA: TalkType, talkB: TalkType): number {
-  return getUnixTimeInt(talkB.utcDateStringISO) - getUnixTimeInt(talkA.utcDateStringISO);
+  return (
+    getUnixTimeInt(talkB.utcDateStringISO) -
+    getUnixTimeInt(talkA.utcDateStringISO)
+  );
 }
 function sortByTimestampAscending(talkA: TalkType, talkB: TalkType): number {
-  return getUnixTimeInt(talkA.utcDateStringISO) - getUnixTimeInt(talkB.utcDateStringISO);
+  return (
+    getUnixTimeInt(talkA.utcDateStringISO) -
+    getUnixTimeInt(talkB.utcDateStringISO)
+  );
 }
 
 // separate talks into past and future, and sort

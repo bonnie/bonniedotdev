@@ -22,7 +22,9 @@ test('Renders two courses for non-error server response', async () => {
 
   // check loading spinner
   // note: the loading spinner has aria-hidden true whether or not it's visible >_<
-  const loadingSpinner = await screen.findByRole('progressbar', { hidden: true });
+  const loadingSpinner = await screen.findByRole('progressbar', {
+    hidden: true,
+  });
   expect(loadingSpinner).toBeVisible();
 
   // check courses by looking for field to enter/edit course name
@@ -50,8 +52,9 @@ test('Renders error alert for error server response', async () => {
 
   // override default msw response for review_quotes endpoint with error response
   server.resetHandlers(
-    rest.get(urls.coursesURL,
-      (req, res, ctx) => res(ctx.status(500), ctx.json({ message: 'oops' }))),
+    rest.get(urls.coursesURL, (req, res, ctx) =>
+      res(ctx.status(500), ctx.json({ message: 'oops' })),
+    ),
   );
 
   // render entire App so that we can check Loading and Error
@@ -64,7 +67,9 @@ test('Renders error alert for error server response', async () => {
 
   // check loading spinner
   // note: the loading spinner has aria-hidden true whether or not it's visible >_<
-  const loadingSpinner = await screen.findByRole('progressbar', { hidden: true });
+  const loadingSpinner = await screen.findByRole('progressbar', {
+    hidden: true,
+  });
   expect(loadingSpinner).toBeVisible();
 
   // confirm error

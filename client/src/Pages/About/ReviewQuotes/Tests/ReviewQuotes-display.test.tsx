@@ -45,7 +45,9 @@ test('Renders four ReviewQuotes for non-error server response', async () => {
 test('Renders error alert for error server response', async () => {
   // override default msw response for ReviewQuotes endpoint with error response
   server.resetHandlers(
-    rest.get(urls.reviewQuotesURL, (req, res, ctx) => res(ctx.status(500), ctx.json({ message: 'oops' }))),
+    rest.get(urls.reviewQuotesURL, (req, res, ctx) =>
+      res(ctx.status(500), ctx.json({ message: 'oops' })),
+    ),
   );
 
   // render entire App so that we can check Loading and Error

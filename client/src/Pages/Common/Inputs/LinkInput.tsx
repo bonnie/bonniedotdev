@@ -4,14 +4,16 @@ import React, { ReactElement } from 'react';
 import TextInput from './TextInput';
 
 interface LinkInputProps {
-  required: boolean,
-  fieldName: string,
-  defaultValue: string,
+  required: boolean;
+  fieldName: string;
+  defaultValue: string;
 }
 
-export default function LinkInput(
-  { required, fieldName, defaultValue }: LinkInputProps,
-): ReactElement {
+export default function LinkInput({
+  required,
+  fieldName,
+  defaultValue,
+}: LinkInputProps): ReactElement {
   return (
     <TextInput
       required={required}

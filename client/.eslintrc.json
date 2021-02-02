@@ -50,7 +50,7 @@
     "jest-dom/prefer-to-have-attribute": "error",
     "react/prop-types": ["off"],
     "sonarjs/cognitive-complexity": ["error", 5],
-    "max-lines-per-function": ["error", 40],
+    "max-lines-per-function": ["warn", 50],
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
     "import/extensions": ["error", "never"],
     "import/no-unresolved": 2,
@@ -63,6 +63,8 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/react-in-jsx-scope": "off",
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-curly-newline": "off"
   }
 }

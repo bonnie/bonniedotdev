@@ -1,5 +1,5 @@
 // literal types need to be really literal -- no variable / template literals allowed
-export type CourseEndpointType = '/api/course'
+export type CourseEndpointType = '/api/course';
 export type CoursesEndpointType = '/api/courses';
 export type LoginEndpointType = '/api/login';
 export type LogEndpointType = '/api/log';

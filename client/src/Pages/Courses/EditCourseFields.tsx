@@ -14,31 +14,23 @@ const newCourse: CourseType = {
 };
 
 interface EditCourseFieldsType {
-  courseData?: CourseType,
+  courseData?: CourseType;
 }
 
 EditCourseFields.defaultProps = { courseData: newCourse };
 
-export default function EditCourseFields(
-  { courseData = newCourse }: EditCourseFieldsType,
-): ReactElement {
+export default function EditCourseFields({
+  courseData = newCourse,
+}: EditCourseFieldsType): ReactElement {
   return (
     <>
-      <TextInput
-        required
-        fieldName="name"
-        defaultValue={courseData.name}
-      />
+      <TextInput required fieldName="name" defaultValue={courseData.name} />
       <TextInput
         required
         fieldName="description"
         defaultValue={courseData.description}
       />
-      <LinkInput
-        required
-        fieldName="link"
-        defaultValue={courseData.link}
-      />
+      <LinkInput required fieldName="link" defaultValue={courseData.link} />
       <ImageNameInput
         required
         fieldName="imageName"

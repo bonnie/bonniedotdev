@@ -1,4 +1,4 @@
 export type LoadingActionType = {
-  type: string,
-  payload: boolean,
-}
+  type: string;
+  payload: boolean;
+};

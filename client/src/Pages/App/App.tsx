@@ -19,7 +19,7 @@ export default function App(): ReactElement {
         <Nav />
       </Toolbar>
       <Box m={5}>
-        { loading ? <LoadingSpinner /> : null }
+        {loading ? <LoadingSpinner /> : null}
         <Routes />
       </Box>
     </ThemeProvider>

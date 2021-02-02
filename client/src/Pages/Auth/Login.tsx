@@ -10,21 +10,25 @@ import { Redirect } from 'react-router';
 
 import { loginUser } from './Redux/Actions';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(3),
-      width: '25ch',
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(3),
+        width: '25ch',
+      },
     },
-  },
-}));
+  }),
+);
 
 interface LoginPropsType {
-  referrer: string | null,
+  referrer: string | null;
 }
 
 // eslint-disable-next-line max-lines-per-function
-export default function Login({ referrer = null }: LoginPropsType): ReactElement {
+export default function Login({
+  referrer = null,
+}: LoginPropsType): ReactElement {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -40,17 +44,23 @@ export default function Login({ referrer = null }: LoginPropsType): ReactElement
     const formData = getFormData(event);
 
     // submit the login
-    dispatch(loginUser({
-      username: formData.username,
-      password: formData.password,
-    }));
+    dispatch(
+      loginUser({
+        username: formData.username,
+        password: formData.password,
+      }),
+    );
   };
 
   return (
     <>
       <Typography variant="h1">Log In</Typography>
-      <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-
+      <form
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
         <TextField required name="username" label="Username" id="username" />
 
         <TextField

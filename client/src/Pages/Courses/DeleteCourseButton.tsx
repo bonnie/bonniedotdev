@@ -5,13 +5,14 @@ import { useDispatch } from 'react-redux';
 import { deleteCourse } from './Redux/Actions';
 
 interface DeleteCourseButtonsProps {
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }
 
-export default function DeleteCourseButtons(
-  { id, name }: DeleteCourseButtonsProps,
-): ReactElement {
+export default function DeleteCourseButtons({
+  id,
+  name,
+}: DeleteCourseButtonsProps): ReactElement {
   const dispatch = useDispatch();
   return (
     <DeleteItemModal

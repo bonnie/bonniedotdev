@@ -6,7 +6,9 @@ import App from '../App';
 describe('App rendering tests', () => {
   test('it starts at the home page', () => {
     const screen = renderWithRouterAndProvider(<App />);
-    const nameHeading = screen.getByRole('heading', { name: 'Bonnie Schulkin' });
+    const nameHeading = screen.getByRole('heading', {
+      name: 'Bonnie Schulkin',
+    });
     expect(nameHeading).toBeInTheDocument();
   });
 
@@ -18,7 +20,9 @@ describe('App rendering tests', () => {
 
   test('loading overlay is not visible', () => {
     const screen = renderWithRouterAndProvider(<App />);
-    const notLoadingSpinner = screen.queryByRole('progressbar', { hidden: true });
+    const notLoadingSpinner = screen.queryByRole('progressbar', {
+      hidden: true,
+    });
     expect(notLoadingSpinner).toBe(null);
   });
 

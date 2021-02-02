@@ -15,5 +15,8 @@ export function hasNewItem(collection: CourseType[]): boolean;
 export function hasNewItem(collection: ReviewQuoteType[]): boolean;
 export function hasNewItem(collection) {
   // in this case, a new item is one with a negative id
-  return collection.reduce((hasNew, item) => ((item.id < 0) ? true : hasNew), false);
+  return collection.reduce(
+    (hasNew, item) => (item.id < 0 ? true : hasNew),
+    false,
+  );
 }

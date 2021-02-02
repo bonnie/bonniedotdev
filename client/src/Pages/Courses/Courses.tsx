@@ -3,9 +3,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
-import React, {
-  ReactElement, useCallback, useEffect, useMemo,
-} from 'react';
+import React, { ReactElement, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AddCourseButton from './AddCourseButton';
@@ -22,39 +20,55 @@ export default function Courses(): ReactElement {
   const courses = useSelector((state) => state.courses);
 
   // load Courses from server on component mount
-  useEffect(() => { dispatch(setCoursesFromServer()); }, [dispatch]);
+  useEffect(() => {
+    dispatch(setCoursesFromServer());
+  }, [dispatch]);
 
-  const mapCourseToElement = useCallback((courseData: CourseType) => {
-    if (!courseData.id) return null;
+  const mapCourseToElement = useCallback(
+    (courseData: CourseType) => {
+      if (!courseData.id) return null;
 
-    const editButtons = (
+      const editButtons = (
+        <>
+          <EditCourseButton id={courseData.id} courseData={courseData} />
+          <DeleteCourseButton id={courseData.id} name={courseData.name} />
+        </>
+      );
+
+      return (
+        <Course
+          key={courseData.id}
+          courseData={courseData}
+          editButtons={user ? editButtons : null}
+        />
+      );
+    },
+    [user],
+  );
+
+  const coursePage = useMemo(
+    () => (
       <>
-        <EditCourseButton id={courseData.id} courseData={courseData} />
-        <DeleteCourseButton id={courseData.id} name={courseData.name} />
+        <PageTitleWithAdd
+          title="Courses"
+          variant="h1"
+          AddButton={<AddCourseButton />}
+        />
+        <Grid container spacing={3}>
+          {courses.map(mapCourseToElement)}
+        </Grid>
       </>
-    );
+    ),
+    [courses, mapCourseToElement],
+  );
 
-    return (
-      <Course
-        key={courseData.id}
-        courseData={courseData}
-        editButtons={user ? editButtons : null}
-      />
-    );
-  }, [user]);
-
-  const coursePage = useMemo(() => (
-    <>
-      <PageTitleWithAdd title="Courses" variant="h1" AddButton={<AddCourseButton />} />
-      <Grid container spacing={3}>
-        { courses.map(mapCourseToElement) }
-      </Grid>
-    </>
-  ), [courses, mapCourseToElement]);
-
-  return user
-    ? <MuiPickersUtilsProvider utils={DateFnsUtils}>{coursePage}</MuiPickersUtilsProvider>
-    : coursePage;
+  return user ? (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      {coursePage}
+    </MuiPickersUtilsProvider>
+  ) : (
+    coursePage
+  );
 }
 
 /* eslint-disable sonarjs/cognitive-complexity */

@@ -10,8 +10,15 @@ export default function SocialLinks(): ReactElement {
   const githubTarget = 'http://github.com/bonnie';
 
   return (
-    <ButtonGroup variant="text" aria-label="text primary button group social-media">
-      <SocialLink icon={<LinkedIn />} target={linkedInTarget} label="linked-in" />
+    <ButtonGroup
+      variant="text"
+      aria-label="text primary button group social-media"
+    >
+      <SocialLink
+        icon={<LinkedIn />}
+        target={linkedInTarget}
+        label="linked-in"
+      />
       <SocialLink icon={<Twitter />} target={twitterTarget} label="twitter" />
       <SocialLink icon={<GitHub />} target={githubTarget} label="github" />
     </ButtonGroup>

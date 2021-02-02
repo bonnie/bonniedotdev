@@ -6,7 +6,4 @@ import rootReducer from './reducers';
 export const sagaMiddleware = createSagaMiddleware();
 export const middlewares = [sagaMiddleware];
 
-export default createStore(
-  rootReducer,
-  applyMiddleware(...middlewares),
-);
+export default createStore(rootReducer, applyMiddleware(...middlewares));

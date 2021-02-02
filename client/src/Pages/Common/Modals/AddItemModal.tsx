@@ -5,10 +5,10 @@ import { ItemType, Size } from '../Types';
 import ItemModal from './ItemModal';
 
 interface AddItemModalProps {
-  handleSave: (item: ItemType) => void,
-  itemString: string,
-  ItemFields: ReactElement, // TODO: can we make this more specific as an input field?
-  buttonSize?: Size,
+  handleSave: (item: ItemType) => void;
+  itemString: string;
+  ItemFields: ReactElement; // TODO: can we make this more specific as an input field?
+  buttonSize?: Size;
 }
 
 AddItemModal.defaultProps = {
@@ -16,7 +16,10 @@ AddItemModal.defaultProps = {
 };
 
 export default function AddItemModal({
-  handleSave, itemString, ItemFields, buttonSize,
+  handleSave,
+  itemString,
+  ItemFields,
+  buttonSize,
 }: AddItemModalProps): ReactElement {
   return (
     <ItemModal

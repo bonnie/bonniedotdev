@@ -18,7 +18,8 @@ const useStyles = makeStyles(() => ({
   kittenImage: {
     width: '100%',
     maxWidth: '512px',
-    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+    boxShadow:
+      '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
   },
 }));
 
@@ -43,26 +44,32 @@ export default function PageNotFound(): ReactElement {
     'Gus is ashamed.',
     'Gus is distraught.',
     'Moxie is very concerned.',
-    'Gus won\'t let the feather get away with this.',
-    'Gus swears it wasn\'t him.',
+    "Gus won't let the feather get away with this.",
+    "Gus swears it wasn't him.",
     'Moxie is not amused.',
-    'Gus can\'t let Moxie see this.',
+    "Gus can't let Moxie see this.",
   ];
 
   // pick a kitten pic / caption at random
-  const randNum = Math.floor((Math.random() * kittenCaptions.length));
+  const randNum = Math.floor(Math.random() * kittenCaptions.length);
   const image = kittenImages[randNum];
   const caption = kittenCaptions[randNum];
   return (
     <Grid container style={{ backgroundImage: 'none' }}>
       <Grid item xs={12}>
-        <Typography variant="h1" gutterBottom>Oops!</Typography>
-        <Typography variant="subtitle1" gutterBottom>That page doesn&apos;t exist.</Typography>
+        <Typography variant="h1" gutterBottom>
+          Oops!
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          That page doesn&apos;t exist.
+        </Typography>
       </Grid>
       <Divider />
       <Grid item xs={12}>
         <Box pt={5} textAlign="center">
-          <Typography variant="h3" gutterBottom>{caption}</Typography>
+          <Typography variant="h3" gutterBottom>
+            {caption}
+          </Typography>
           <img className={classes.kittenImage} src={image} alt="silly kitten" />
         </Box>
       </Grid>

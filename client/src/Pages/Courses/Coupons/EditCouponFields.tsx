@@ -13,8 +13,8 @@ const newCoupon: CouponType = {
 };
 
 interface EditCouponFieldsType {
-  couponData?: CouponType,
-  courseId: number,
+  couponData?: CouponType;
+  courseId: number;
 }
 
 EditCouponFields.defaultProps = { couponData: newCoupon };
@@ -24,12 +24,23 @@ export default function EditCouponFields(
   // independent of a course
   { couponData = newCoupon, courseId }: EditCouponFieldsType,
 ): ReactElement {
-  const [expirationDate, setExpirationDate] = useState(`${couponData.utcExpirationISO} 00:00:00`);
+  const [expirationDate, setExpirationDate] = useState(
+    `${couponData.utcExpirationISO} 00:00:00`,
+  );
 
   return (
     <>
-      <TextInput required fieldName="price" defaultValue={couponData.price.toString()} />
-      <DateInput fieldName="utcDateStringISO" value={expirationDate} label="expiration date" dateSetter={setExpirationDate} />
+      <TextInput
+        required
+        fieldName="price"
+        defaultValue={couponData.price.toString()}
+      />
+      <DateInput
+        fieldName="utcDateStringISO"
+        value={expirationDate}
+        label="expiration date"
+        dateSetter={setExpirationDate}
+      />
       <LinkInput required fieldName="link" defaultValue={couponData.link} />
       <input type="hidden" name="courseId" value={courseId} />
     </>

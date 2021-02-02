@@ -11,11 +11,11 @@ import LoggedInIconButton from '../LoggedInIconButton';
 import { Size } from '../Types';
 
 interface ItemModalProps {
-  ButtonIcon: typeof AddCircleIcon,
-  handleSave: (TalkType) => void,
-  dialogTitle: string,
-  ItemFields: ReactElement, // TODO: can we make this more specific as an input field?
-  buttonSize?: Size,
+  ButtonIcon: typeof AddCircleIcon;
+  handleSave: (TalkType) => void;
+  dialogTitle: string;
+  ItemFields: ReactElement; // TODO: can we make this more specific as an input field?
+  buttonSize?: Size;
 }
 
 ItemModal.defaultProps = {
@@ -23,11 +23,13 @@ ItemModal.defaultProps = {
 };
 
 // eslint-disable-next-line max-lines-per-function
-export default function ItemModal(
-  {
-    ButtonIcon, handleSave, dialogTitle, ItemFields, buttonSize,
-  }: ItemModalProps,
-): ReactElement {
+export default function ItemModal({
+  ButtonIcon,
+  handleSave,
+  dialogTitle,
+  ItemFields,
+  buttonSize,
+}: ItemModalProps): ReactElement {
   const [modalOpen, setModalOpen] = useState(false);
   const handleClose = (): void => setModalOpen(false);
 
@@ -49,9 +51,15 @@ export default function ItemModal(
         ButtonIcon={ButtonIcon}
         buttonSize={buttonSize}
       />
-      <Dialog onClose={handleClose} aria-labelledby="confirm-action" open={modalOpen}>
+      <Dialog
+        onClose={handleClose}
+        aria-labelledby="confirm-action"
+        open={modalOpen}
+      >
         <Box m={2}>
-          <Typography variant="h3" align="center" id="confirm-dialog-title">{dialogTitle}</Typography>
+          <Typography variant="h3" align="center" id="confirm-dialog-title">
+            {dialogTitle}
+          </Typography>
           <form onSubmit={handleSubmit}>
             {ItemFields}
             <ButtonGroup
@@ -59,7 +67,9 @@ export default function ItemModal(
               style={{ float: 'right', marginTop: 10, marginBottom: 10 }}
             >
               <Button onClick={() => handleClose()}>Cancel</Button>
-              <Button color="secondary" type="submit">Save</Button>
+              <Button color="secondary" type="submit">
+                Save
+              </Button>
             </ButtonGroup>
           </form>
         </Box>

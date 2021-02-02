@@ -5,11 +5,14 @@ import { useDispatch } from 'react-redux';
 import { deleteTalk } from './Redux/Actions';
 
 interface DeleteTalkButtonsProps {
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }
 
-export default function DeleteTalkButtons({ id, name }: DeleteTalkButtonsProps): ReactElement {
+export default function DeleteTalkButtons({
+  id,
+  name,
+}: DeleteTalkButtonsProps): ReactElement {
   const dispatch = useDispatch();
   return (
     <DeleteItemModal
