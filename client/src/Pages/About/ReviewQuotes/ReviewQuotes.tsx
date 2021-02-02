@@ -18,7 +18,6 @@ const mapReviewQuoteToElement = (
   user: boolean,
   courses: CourseType[],
 ) => {
-  if (!reviewQuoteData.id) return null;
   const editButtons = (
     <>
       <EditReviewQuoteButton

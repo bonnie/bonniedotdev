@@ -38,8 +38,6 @@ export default function Talks(): ReactElement {
 
   const mapTalkToElement = useCallback(
     (talkData: TalkType) => {
-      if (!talkData.id) return null;
-
       const editButtons = (
         <>
           <EditTalkButton id={talkData.id} talkData={talkData} />

@@ -52,9 +52,6 @@ export default function Course({
   const classes = useStyles();
 
   const couponsHeader = useMemo(() => {
-    if (!courseData.id) {
-      return null;
-    }
     return editButtons ? (
       <PageTitleWithAdd
         variant="h4"

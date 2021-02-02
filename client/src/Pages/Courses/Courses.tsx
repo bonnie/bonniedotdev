@@ -26,8 +26,6 @@ export default function Courses(): ReactElement {
 
   const mapCourseToElement = useCallback(
     (courseData: CourseType) => {
-      if (!courseData.id) return null;
-
       const editButtons = (
         <>
           <EditCourseButton id={courseData.id} courseData={courseData} />
