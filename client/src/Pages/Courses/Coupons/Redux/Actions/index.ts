@@ -33,7 +33,7 @@ export function addCoupon(newData) {
 }
 
 export function editCoupon(couponData: CouponType) {
-  // only deal with keys expected on the server
+  // TODO: only deal with keys expected on the server
   return {
     type: sagaActionIds.SERVER_REQUEST,
     payload: {

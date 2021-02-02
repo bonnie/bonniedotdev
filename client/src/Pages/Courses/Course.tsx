@@ -6,6 +6,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
@@ -96,18 +97,25 @@ export default function Course({
                 image={`/images/courses/${courseData.imageName}`}
                 title="Course Image"
               />
-              <CardHeader className={classes.header} title={courseData.name} />
-              <CardContent>
-                <Typography component="p">{courseData.description}</Typography>
-              </CardContent>
             </CardActionArea>
+            <Box style={{ display: 'flex', alignItems: 'center' }}>
+              <Link href={courseData.link} target="_blank" rel="noreferrer">
+                <CardHeader
+                  className={classes.header}
+                  title={courseData.name}
+                />
+              </Link>
+              {editButtons}
+            </Box>
+            <CardContent>
+              <Typography component="p">{courseData.description}</Typography>
+            </CardContent>
           </Card>
           <Box className={classes.coupons}>
             <Divider variant="middle" />
             {couponsHeader}
             {bestCoupon}
           </Box>
-          {editButtons}
         </Box>
       </Grid>
     ),
