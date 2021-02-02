@@ -1,6 +1,7 @@
 import logging
 
 from app.enums import FlaskEnv
+from app.resources.coupon_resource import Coupon
 from app.resources.course_resource import Course
 from app.resources.courses_resource import Courses
 from app.resources.log_resource import Log
@@ -41,6 +42,7 @@ def create_app(flask_env: FlaskEnv):
     api.add_resource(Login, "/login")
     api.add_resource(ReviewQuotes, "/review_quotes")
     api.add_resource(ReviewQuote, "/review_quote/<int:id>", "/review_quote")
+    api.add_resource(Coupon, "/coupon/<int:id>", "/coupon")
     api.add_resource(Courses, "/courses")
     api.add_resource(Course, "/course/<int:id>", "/course")
     api.add_resource(Talks, "/talks")

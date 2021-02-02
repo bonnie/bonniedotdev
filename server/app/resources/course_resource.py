@@ -9,20 +9,11 @@ from marshmallow import Schema
 logger = logging.getLogger(__name__)
 
 
-class CouponSchema(Schema):
-    code = fields.Str(required=True)
-    link = fields.Str(required=True)
-    price = fields.Float(required=True)
-    utcExpirationISO = fields.Str(required=True)
-    id = fields.Int()
-
-
 class CoursePostDataSchema(Schema):
     name = fields.Str(required=True)
     link = fields.Str(required=True)
     description = fields.Str(required=True)
     imageName = fields.Str(required=True)  # defer to JS for camel case
-    coupons = fields.Nested(CouponSchema, many=True)
 
     @post_load
     def make_course(self, data, **kwargs):

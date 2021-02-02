@@ -6,12 +6,17 @@ from app import create_app
 from app.db import connect_to_db
 from app.db import db
 from app.enums import FlaskEnv
+from app.models.coupon_model import Coupon
 from app.models.course_model import Course
 from app.models.review_quote_model import ReviewQuote
 from app.models.talk_model import Talk
 from app.models.user_model import User
 from app.utilities.init_db import create_db
+from psycopg2.errors import UniqueViolation
 from pytz import utc
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.exc import SQLAlchemyError
 
 # from app.utilities.init_db import drop_db
 
@@ -23,21 +28,20 @@ course_with_coupons_and_quotes = {
     "link": "https://udemy.com/awesomecourse",
     "description": "Whatta course!",
     "imageName": "course_image.png",
-    "coupons": [
-        {
-            "code": "NOT_EXPIRED",
-            "utcExpirationISO": future_iso_date,
-            "link": "http://link",
-            "price": 12.99,
-        },
-        {
-            "code": "EXPIRED",
-            "link": "http://link",
-            "utcExpirationISO": past_iso_date,
-            "price": 9.99,
-        },
-    ],
 }
+
+coupons = [
+    {
+        "utcExpirationISO": future_iso_date,
+        "link": "http://link?NOT_EXPIRED",
+        "price": 12.99,
+    },
+    {
+        "link": "http://link?EXPIRED",
+        "utcExpirationISO": past_iso_date,
+        "price": 9.99,
+    },
+]
 
 course_without_coupons_and_quotes = {
     "name": "Simple Course",
@@ -77,18 +81,26 @@ def load_test_data():
     users = [admin_user]
     review_quotes = ["Wowza", "Stinks"]
 
-    for course in courses:
-        Course(**course)
+    try:
+        for course in courses:
+            Course(**course)
 
-    for user in users:
-        User(**user)
+        for user in users:
+            User(**user)
 
-    course = Course.query.first()
-    for review_quote in review_quotes:
-        ReviewQuote(body=review_quote, courseId=course.id)
+        course = Course.query.first()
+        for review_quote in review_quotes:
+            ReviewQuote(body=review_quote, courseId=course.id)
+        for coupon in coupons:
+            Coupon(**coupon, courseId=course.id)
 
-    for talk in talks:
-        Talk(**talk)
+        for talk in talks:
+            Talk(**talk)
+    except (IntegrityError, UniqueViolation, SQLAlchemyError, InvalidRequestError) as e:
+        # Keep from printing hundreds of lines simply for a db issue
+        red = "\033[91m"
+        print(f"{red}>>>>>>>>CORRUPT DATABASE<<<<<<<<<")
+        print(f"{red}{e}")
 
 
 @pytest.fixture

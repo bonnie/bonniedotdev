@@ -43,14 +43,12 @@ def course_with_coupons(mock_update_db, iso_30_days_from_now):
         imageName="image.png",
         coupons=[
             {
-                "code": "GOOD_COUPON",
                 "utcExpirationISO": iso_30_days_from_now,
-                "link": "http://link",
+                "link": "http://link?GOOD_COUPON",
                 "price": 1.99,
             },
             {
-                "code": "BAD_COUPON",
-                "link": "http://link",
+                "link": "http://link?BAD_COUPON",
                 "utcExpirationISO": iso_30_days_from_now,
                 "price": 1111.99,
             },
@@ -113,8 +111,7 @@ def mock_coupon_update_db(mocker):
 @pytest.fixture
 def expired_coupon(mock_coupon_update_db, iso_30_days_ago):
     return Coupon(
-        code="EXPIRED",
-        link="http://link",
+        link="http://link?EXPIRED",
         utcExpirationISO=iso_30_days_ago,
         price=9.99,
     )
@@ -123,8 +120,7 @@ def expired_coupon(mock_coupon_update_db, iso_30_days_ago):
 @pytest.fixture
 def good_coupon_30_days(mock_coupon_update_db, iso_30_days_from_now):
     return Coupon(
-        code="GOOD_30",
-        link="http://link",
+        link="http://link?GOOD_30",
         utcExpirationISO=iso_30_days_from_now,
         price=9.99,
     )
@@ -133,8 +129,7 @@ def good_coupon_30_days(mock_coupon_update_db, iso_30_days_from_now):
 @pytest.fixture
 def good_coupon_4_days(mock_coupon_update_db):
     return Coupon(
-        code="GOOD_4",
-        link="http://link",
+        link="http://link?GOOD_4",
         utcExpirationISO=datetime.isoformat(datetime.now(utc) + timedelta(days=4)),
         price=9.99,
     )
@@ -143,8 +138,7 @@ def good_coupon_4_days(mock_coupon_update_db):
 @pytest.fixture
 def bad_coupon(mock_coupon_update_db, iso_30_days_from_now):
     return Coupon(
-        code="BAD",
-        link="http://link",
+        link="http://link?BAD",
         utcExpirationISO=iso_30_days_from_now,
         price=12.99,
     )
@@ -162,7 +156,7 @@ def test_bestCoupon_one_expired(unmocked_course, expired_coupon):
 
 def test_bestCoupon_one_good_coupon(unmocked_course, good_coupon_30_days):
     unmocked_course.coupons.append(good_coupon_30_days)
-    assert unmocked_course.bestCoupon["code"] == "GOOD_30"
+    assert unmocked_course.bestCoupon["link"] == "http://link?GOOD_30"
 
 
 def test_bestCoupon_three_coupons(
@@ -172,7 +166,7 @@ def test_bestCoupon_three_coupons(
     expired_coupon,
 ):
     unmocked_course.coupons.extend([good_coupon_30_days, bad_coupon, expired_coupon])
-    assert unmocked_course.bestCoupon["code"] == "GOOD_30"
+    assert unmocked_course.bestCoupon["link"] == "http://link?GOOD_30"
 
 
 def test_bestCoupon_three_coupons_price_tie(
@@ -184,7 +178,7 @@ def test_bestCoupon_three_coupons_price_tie(
     unmocked_course.coupons.extend(
         [good_coupon_30_days, good_coupon_4_days, expired_coupon],
     )
-    assert unmocked_course.bestCoupon["code"] == "GOOD_30"
+    assert unmocked_course.bestCoupon["link"] == "http://link?GOOD_30"
 
 
 ###########################################################

@@ -1,11 +1,11 @@
 """SQLAlchemy database model for Udemy Course."""
 from typing import Dict
 from typing import List
+from typing import Union
 
 import jsonpatch
 from app.db import db
 from app.models.base_model import Base
-from app.models.coupon_model import Coupon
 from app.typed_dicts import CouponDict
 
 
@@ -35,30 +35,12 @@ class Course(db.Model, Base):
         self.link = link
         self.description = description
         self.imageName = imageName
-        if len(coupons) > 0:
-            self.set_coupons(coupons)
 
         self.update_db()
 
-    def set_coupons(self, newCoupons: List[CouponDict]) -> None:
-        """Set coupon property."""
-        self.coupons = []
-
-        for coupon in newCoupons:
-            if "id" in coupon:
-                # this is already in the db, no need to make a new one
-                coupon_obj = Coupon.query.get(coupon["id"])
-                coupon_obj.update(coupon)
-                self.coupons.append(coupon_obj)
-            else:
-                # not in db, need to make a new one
-                # don't update the database yet, otherwise SQAlchemy gets confused
-                newCoupon = Coupon(**coupon, update_db=False)
-                self.coupons.append(newCoupon)
-
     @property
-    def bestCoupon(self) -> CouponDict:
-        """Return dicts for all valid coupon codes for course."""
+    def bestCoupon(self) -> Union[CouponDict, None]:
+        """Return dicts for best coupon (best price, then latest date)."""
 
         bestCoupon = None
         for coupon in self.coupons:
@@ -85,26 +67,20 @@ class Course(db.Model, Base):
     def update_from_patch(self, json_patch: Dict):
         """Update based on JsonPatch."""
 
-        # update to_dict output to have all coupons rather than just the "best"
         current_data = self.to_dict()
 
-        if self.coupons is not None:
-            current_data["coupons"] = [c.to_dict() for c in self.coupons]
-
-        # remove bestCoupon
-        if "bestCoupon" in current_data:
-            del current_data["bestCoupon"]
+        # remove coupon data; this will not be updated via course patch
+        del current_data["bestCoupon"]
+        del current_data["coupons"]
 
         # Apply patch to existing dict
         updated_data = jsonpatch.apply_patch(current_data, json_patch)
-
-        # handle coupons separately
-        if "coupons" in updated_data:
-            self.set_coupons(updated_data["coupons"])
-            del updated_data["coupons"]
+        print("(" * 20, "updated_data", updated_data)
 
         # Apply the patched dictionary back to the model
         for key, value in updated_data.items():
+            print("****key", key)
+            print("****value", value)
             setattr(self, key, value)
 
         self.update_db()

@@ -11,7 +11,6 @@ def mock_update_db(mocker):
 @pytest.fixture
 def valid_coupon(mock_update_db, iso_30_days_from_now):
     return Coupon(
-        code="NOT_EXPIRED",
         link="http://link",
         utcExpirationISO=iso_30_days_from_now,
         price=12.99,
@@ -22,7 +21,6 @@ def valid_coupon(mock_update_db, iso_30_days_from_now):
 @pytest.fixture
 def invalid_coupon(mock_update_db, iso_30_days_ago):
     return Coupon(
-        code="EXPIRED",
         link="http://link",
         utcExpirationISO=iso_30_days_ago,
         price=9.99,
@@ -34,7 +32,6 @@ def test_to_dict(valid_coupon):
     out_dict = valid_coupon.to_dict()
     assert set(out_dict.keys()) == {
         "id",
-        "code",
         "link",
         "utcExpirationISO",
         "courseId",

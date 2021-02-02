@@ -38,16 +38,14 @@ def courses():
 def coupons(iso_30_days_from_now, iso_30_days_ago):
     return [
         {
-            "code": "NOT_EXPIRED",
             "utcExpirationISO": iso_30_days_from_now,
             "course_id": 1,
-            "link": "http://link",
+            "link": "http://link?NOT_EXPIRED",
         },
         {
-            "code": "EXPIRED",
             "utcExpirationISO": iso_30_days_ago,
             "course_id": 1,
-            "link": "http://link",
+            "link": "http://link?EXPIRED",
         },
     ]
 
