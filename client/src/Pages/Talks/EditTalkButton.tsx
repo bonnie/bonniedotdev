@@ -13,7 +13,7 @@ export default function EditTalkButtons({ id, talkData }: editTalkButtonsProps):
 
   return (
     <EditItemModal
-      handleSave={(data) => dispatch(editTalk(data))}
+      handleSave={(data) => dispatch(editTalk(data, talkData))}
       itemString="Talk"
       ItemFields={<EditTalkFields talkData={talkData} />}
       id={id}

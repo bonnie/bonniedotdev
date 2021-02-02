@@ -6,7 +6,8 @@
     "plugin:@typescript-eslint/recommended",
     "react-app",
     "react-app/jest",
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended"
   ],
   "settings": {
     "import/resolver": {
@@ -29,7 +30,8 @@
     "sonarjs",
     "jsx-a11y",
     "@typescript-eslint",
-    "simple-import-sort"
+    "simple-import-sort",
+    "prettier"
   ],
   "env": {
     "browser": true,
@@ -60,6 +62,7 @@
     "@typescript-eslint/no-shadow": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": "error"
   }
 }

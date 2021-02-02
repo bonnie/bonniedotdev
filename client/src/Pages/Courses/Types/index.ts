@@ -1,22 +1,16 @@
-export type CoursesActionType = {
-  type: string,
-  payload?: CourseType[]
-}
+import { CouponType } from '../Coupons/Types';
 
-export type CouponType = {
-  id?: number,
-  price: number,
-  code: string,
-  link: string,
-  utcExpirationISO: string,
+export type CoursesActionType = {
+  type: string;
+  payload?: CourseType[];
 };
 
 export type CourseType = {
-  id: number,
-  name: string,
-  description: string,
-  link: string,
-  imageName: string,
-  bestCoupon?: CouponType,
-  coupons?: CouponType[]
+  id: number | null;
+  name: string;
+  description: string;
+  link: string;
+  imageName: string;
+  bestCoupon?: CouponType;
+  coupons?: CouponType[];
 };

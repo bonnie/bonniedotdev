@@ -5,13 +5,13 @@ import sagaActionIds from 'Redux/Sagas/actionIds';
 import { axiosMethodOptions } from 'Redux/Sagas/Types';
 import _ from 'underscore';
 
-import { TalksActionType, TalkType } from '../../Types';
+import { TalkActionType, TalkType } from '../../Types';
 
 export const actionIds = {
   SET_TALKS: 'SET_TALKS',
 };
 
-export function setTalks(payload: TalkType[]): TalksActionType {
+export function setTalks(payload: TalkType[]): TalkActionType {
   return {
     type: actionIds.SET_TALKS,
     payload,

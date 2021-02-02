@@ -5,7 +5,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import React from 'react';
 import { renderWithProvider } from 'TestUtils/renderWith';
 
-import EditCoupon from '../EditCoupon';
+import EditCoupon from '../Coupons/_EditCoupon';
 
 const couponData = {
   id: 1,
@@ -50,13 +50,17 @@ describe('Test form render details for read-only coupon', () => {
   // when the whole course gets updated
   test('does not render update button', () => {
     const screen = renderWithProvider(ui);
-    const deleteButton = screen.queryByRole('button', { name: /update coupon \d+/i });
+    const deleteButton = screen.queryByRole('button', {
+      name: /update coupon \d+/i,
+    });
     expect(deleteButton).not.toBeInTheDocument();
   });
 
   test('renders delete button', () => {
     const screen = renderWithProvider(ui);
-    const deleteButton = screen.getByRole('button', { name: /delete coupon \d+/i });
+    const deleteButton = screen.getByRole('button', {
+      name: /delete coupon \d+/i,
+    });
     expect(deleteButton).toBeInTheDocument();
   });
 });

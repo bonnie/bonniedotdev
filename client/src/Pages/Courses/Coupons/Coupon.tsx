@@ -8,19 +8,17 @@ import { CouponType } from './Types';
 
 type CouponProps = {
   couponData: CouponType,
-  courseLink: string
 };
 
 // eslint-disable-next-line max-lines-per-function
-export default function Coupon({ courseLink, couponData }: CouponProps): ReactElement {
-  const couponLink = `${courseLink}?couponCode=${couponData.code}`;
+export default function Coupon({ couponData }: CouponProps): ReactElement {
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const expirationString = moment(couponData.utcExpirationISO).tz(tz).format('MMM DD ha z');
 
   return (
     <Box display="flex" alignItems="center">
       <Box p={1} flex="auto">
-        <Button target="_blank" href={couponLink} rel="noreferrer" color="inherit">
+        <Button target="_blank" href={couponData.link} rel="noreferrer" color="inherit">
           <Typography
             variant="button"
             display="block"
