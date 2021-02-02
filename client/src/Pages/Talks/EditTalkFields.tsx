@@ -5,10 +5,9 @@ import LinkInput from 'Pages/Common/Inputs/LinkInput';
 import TextInput from 'Pages/Common/Inputs/TextInput';
 import React, { ReactElement, useState } from 'react';
 
-import { TalkType } from './Types';
+import { NewTalkType, TalkType } from './Types';
 
-const newTalk: TalkType = {
-  id: null,
+const newTalk: NewTalkType = {
   title: '',
   utcDateStringISO: '',
   description: '',
@@ -19,7 +18,7 @@ const newTalk: TalkType = {
 };
 
 interface EditTalkFieldsType {
-  talkData?: TalkType;
+  talkData?: TalkType | NewTalkType;
 }
 
 EditTalkFields.defaultProps = { talkData: newTalk };

@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
 import urls from 'Constants/urls';
-import jsonpatch from 'fast-json-patch';
-import logToServer from 'Logging/logging';
 import { setCoursesFromServer } from 'Pages/Courses/Redux/Actions';
 import sagaActionIds from 'Redux/Sagas/actionIds';
 import { axiosMethodOptions } from 'Redux/Sagas/Types';
+
+import { CouponType } from '../../Types';
 
 export function deleteCoupon(CouponId) {
   return {
@@ -32,34 +32,15 @@ export function addCoupon(newData) {
   };
 }
 
-export function editCoupon(newData, originalData) {
+export function editCoupon(couponData: CouponType) {
   // only deal with keys expected on the server
-  const patchRelevantKeys = [
-    'name',
-    'description',
-    'link',
-    'imageName',
-    'coupons',
-  ];
-  const originalPatchData = _.pick(originalData, ...patchRelevantKeys);
-  const newPatchData = _.pick(newData, ...patchRelevantKeys);
-
-  // create a patch for the difference between newData and originalData
-  const patch = jsonpatch.compare(originalPatchData, newPatchData);
-
-  // edit was called with no differences
-  if (patch.length === 0) {
-    logToServer('error', 'editCoupon was called with no differences');
-    return { type: 'noop' };
-  }
-
   return {
     type: sagaActionIds.SERVER_REQUEST,
     payload: {
-      url: `${urls.couponURL}/${originalData.id}`,
-      method: axiosMethodOptions.patch,
+      url: `${urls.couponURL}/${couponData.id}`,
+      method: axiosMethodOptions.put,
       updateStateAction: setCoursesFromServer(),
-      data: patch,
+      data: couponData,
     },
   };
 }

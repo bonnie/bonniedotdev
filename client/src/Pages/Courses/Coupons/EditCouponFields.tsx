@@ -4,16 +4,16 @@ import LinkInput from 'Pages/Common/Inputs/LinkInput';
 import TextInput from 'Pages/Common/Inputs/TextInput';
 import React, { ReactElement, useState } from 'react';
 
-import { CouponType } from './Types';
+import { CouponType, NewCouponType } from './Types';
 
-const newCoupon: CouponType = {
+const newCoupon: NewCouponType = {
   price: 9.99,
   link: '',
   utcExpirationISO: '',
 };
 
 interface EditCouponFieldsType {
-  couponData?: CouponType;
+  couponData?: CouponType | NewCouponType;
   courseId: number;
 }
 

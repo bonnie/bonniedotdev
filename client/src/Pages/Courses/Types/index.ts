@@ -5,12 +5,15 @@ export type CoursesActionType = {
   payload?: CourseType[];
 };
 
-export type CourseType = {
-  id: number | null;
+export interface NewCourseType {
   name: string;
   description: string;
   link: string;
   imageName: string;
   bestCoupon?: CouponType;
   coupons?: CouponType[];
-};
+}
+
+export interface CourseType extends NewCourseType {
+  id: number;
+}

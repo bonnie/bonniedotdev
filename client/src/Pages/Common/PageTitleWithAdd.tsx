@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 interface PageTitleWithAddProps {
   title: string;
   variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
-  AddButton: ReactElement;
+  AddButton: ReactElement | null;
 }
 
 const useStyles = makeStyles(() =>

@@ -1,5 +1,4 @@
-export type TalkType = {
-  id: number | null;
+export interface NewTalkType {
   title: string;
   utcDateStringISO: string;
   description: string;
@@ -7,7 +6,11 @@ export type TalkType = {
   conferenceName: string;
   conferenceLink: string;
   recordingLink?: string;
-};
+}
+
+export interface TalkType extends NewTalkType {
+  id: number;
+}
 
 export interface TalkStateType {
   past: TalkType[];

@@ -3,11 +3,13 @@ export type CouponsActionType = {
   payload?: CouponType[];
 };
 
-export type CouponType = {
-  id?: number;
+export interface NewCouponType {
   price: number;
-  code?: string;
   link: string;
   utcExpirationISO: string;
   courseId?: number;
-};
+}
+
+export interface CouponType extends NewCouponType {
+  id: number;
+}

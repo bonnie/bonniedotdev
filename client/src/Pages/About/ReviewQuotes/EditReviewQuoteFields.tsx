@@ -3,15 +3,14 @@ import TextInput from 'Pages/Common/Inputs/TextInput';
 import { CourseType } from 'Pages/Courses/Types';
 import React, { ReactElement } from 'react';
 
-import { ReviewQuoteType } from './Types';
+import { NewReviewQuoteType, ReviewQuoteType } from './Types';
 
-const newReviewQuote: ReviewQuoteType = {
-  id: null,
+const newReviewQuote: NewReviewQuoteType = {
   body: '',
 };
 
 interface EditReviewQuoteFieldsType {
-  reviewQuoteData?: ReviewQuoteType;
+  reviewQuoteData?: ReviewQuoteType | NewReviewQuoteType;
   courses: CourseType[];
 }
 
@@ -31,7 +30,7 @@ export default function EditReviewQuoteFields({
       <SelectInput
         required
         options={courses.map((course) => ({
-          value: course.id,
+          value: course.id ?? -1,
           display: course.name,
         }))}
         defaultValue={reviewQuoteData.courseId || null}
