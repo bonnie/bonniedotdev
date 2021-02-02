@@ -9,10 +9,14 @@ import { CouponType } from './Types';
 
 type CouponProps = {
   couponData: CouponType;
+  editButtons: ReactElement | null;
 };
 
 // eslint-disable-next-line max-lines-per-function
-export default function Coupon({ couponData }: CouponProps): ReactElement {
+export default function Coupon({
+  couponData,
+  editButtons,
+}: CouponProps): ReactElement {
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const expirationString = moment(couponData.utcExpirationISO)
     .tz(tz)
@@ -46,6 +50,7 @@ export default function Coupon({ couponData }: CouponProps): ReactElement {
           <strong>EXPIRES</strong> {expirationString}
         </Typography>
       </Box>
+      {editButtons}
     </Box>
   );
 }

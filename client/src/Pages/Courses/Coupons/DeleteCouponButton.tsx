@@ -2,23 +2,23 @@ import DeleteItemModal from 'Pages/Common/Modals/DeleteItemModal';
 import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { deleteCourse } from './Redux/Actions';
+import { deleteCoupon } from './Redux/Actions';
 
-interface DeleteCourseButtonsProps {
+interface DeleteCouponButtonsProps {
   id: number;
   name: string;
 }
 
-export default function DeleteCourseButtons({
+export default function DeleteCouponButtons({
   id,
   name,
-}: DeleteCourseButtonsProps): ReactElement {
+}: DeleteCouponButtonsProps): ReactElement {
   const dispatch = useDispatch();
   return (
     <DeleteItemModal
-      handleDelete={() => dispatch(deleteCourse(id))}
+      handleDelete={() => dispatch(deleteCoupon(id))}
       itemLabel={name}
-      itemTypeString="Course"
+      itemTypeString="Coupon"
     />
   );
 }

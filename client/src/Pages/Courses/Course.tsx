@@ -9,12 +9,13 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
 import React, { ReactElement, useMemo } from 'react';
 import { colors } from 'Theme';
 
 import AddCouponButton from './Coupons/AddCouponButton';
 import Coupon from './Coupons/Coupon';
+import DeleteCouponButton from './Coupons/DeleteCouponButton';
+import EditCouponButton from './Coupons/EditCouponButton';
 import { CourseType } from './Types';
 
 const useStyles = makeStyles(() => ({
@@ -50,24 +51,46 @@ export default function Course({
   editButtons,
 }: CourseProps): ReactElement {
   const classes = useStyles();
+  const loggedIn = !!editButtons;
 
   const couponsHeader = useMemo(() => {
-    return editButtons ? (
-      <PageTitleWithAdd
-        variant="h4"
-        title="Coupons"
-        AddButton={<AddCouponButton courseId={courseData.id || -1} />}
-      />
+    return loggedIn ? (
+      <Box m={2}>
+        <Typography variant="h5" style={{ display: 'inline' }}>
+          Coupons
+        </Typography>
+        <AddCouponButton courseId={courseData.id} />
+      </Box>
     ) : null;
-  }, [editButtons, courseData.id]);
+  }, [loggedIn, courseData.id]);
 
-  const bestCoupon = useMemo(
-    () =>
-      courseData.bestCoupon ? (
-        <Coupon couponData={courseData.bestCoupon} />
-      ) : null,
-    [courseData.bestCoupon],
-  );
+  const coupons = useMemo(() => {
+    if (!courseData.coupons) return null;
+    if (!loggedIn) {
+      if (!courseData.bestCoupon) return null;
+      return <Coupon couponData={courseData.bestCoupon} editButtons={null} />;
+    }
+    // if we got to here, then we're logged in and there are coupons
+    return courseData.coupons.map((couponData) => {
+      const couponEditButtons = (
+        <>
+          <EditCouponButton
+            id={couponData.id}
+            couponData={couponData}
+            courseId={courseData.id}
+          />
+          <DeleteCouponButton id={couponData.id} name="this coupon" />
+        </>
+      );
+      return (
+        <Coupon
+          key={couponData.id}
+          couponData={couponData}
+          editButtons={couponEditButtons}
+        />
+      );
+    });
+  }, [loggedIn, courseData.bestCoupon, courseData.coupons, courseData.id]);
 
   return useMemo(
     () => (
@@ -111,12 +134,12 @@ export default function Course({
           <Box className={classes.coupons}>
             <Divider variant="middle" />
             {couponsHeader}
-            {bestCoupon}
+            {coupons}
           </Box>
         </Box>
       </Grid>
     ),
-    [classes, courseData, couponsHeader, editButtons, bestCoupon],
+    [classes, courseData, couponsHeader, editButtons, coupons],
   );
 }
 
