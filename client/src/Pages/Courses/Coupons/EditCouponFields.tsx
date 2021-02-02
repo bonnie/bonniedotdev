@@ -1,5 +1,6 @@
 /* eslint-disable max-lines-per-function */
-import DateInput from 'Pages/Common/Inputs/DateInput';
+import moment from 'moment';
+import DateTimeInput from 'Pages/Common/Inputs/DateTimeInput';
 import LinkInput from 'Pages/Common/Inputs/LinkInput';
 import TextInput from 'Pages/Common/Inputs/TextInput';
 import React, { ReactElement, useState } from 'react';
@@ -9,7 +10,7 @@ import { CouponType, NewCouponType } from './Types';
 const newCoupon: NewCouponType = {
   price: 9.99,
   link: '',
-  utcExpirationISO: '',
+  utcExpirationISO: moment(new Date()).toString(),
 };
 
 interface EditCouponFieldsType {
@@ -35,10 +36,10 @@ export default function EditCouponFields(
         fieldName="price"
         defaultValue={couponData.price.toString()}
       />
-      <DateInput
-        fieldName="utcDateStringISO"
+      <DateTimeInput
+        fieldName="utcExpirationISO"
         value={expirationDate}
-        label="expiration date"
+        label="Expiration date (local time)"
         dateSetter={setExpirationDate}
       />
       <LinkInput required fieldName="link" defaultValue={couponData.link} />
