@@ -1,5 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import DateFnsUtils from '@date-io/date-fns';
+import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -23,6 +24,17 @@ const useStyles = makeStyles(() =>
     },
   }),
 );
+
+// small functional component for "no upcoming talks" card
+function NoUpcomingTalks(): ReactElement {
+  return (
+    <Card style={{ maxWidth: 1000, margin: 20 }}>
+      <Typography variant="body1" style={{ margin: 10 }}>
+        No upcoming talks scheduled. Check back later!
+      </Typography>
+    </Card>
+  );
+}
 
 // eslint-disable-next-line max-lines-per-function
 export default function Talks(): ReactElement {
@@ -72,9 +84,7 @@ export default function Talks(): ReactElement {
             {upcoming.length > 0 ? (
               upcoming.map(mapTalkToElement)
             ) : (
-              <Typography variant="body1" style={{ marginBottom: 10 }}>
-                No upcoming talks scheduled. Check back later!
-              </Typography>
+              <NoUpcomingTalks />
             )}
           </section>
           <Typography className={classes.header} variant="h2" gutterBottom>
