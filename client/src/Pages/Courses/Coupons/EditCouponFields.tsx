@@ -26,7 +26,7 @@ export default function EditCouponFields(
   { couponData = newCoupon, courseId }: EditCouponFieldsType,
 ): ReactElement {
   const [expirationDate, setExpirationDate] = useState(
-    `${couponData.utcExpirationISO} 00:00:00`,
+    couponData.utcExpirationISO,
   );
 
   return (

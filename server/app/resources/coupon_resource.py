@@ -15,7 +15,6 @@ class CouponSchema(Schema):
 
     @post_load
     def make_coupon(self, data, **kwargs):
-
         return CouponModel(**data)
 
 

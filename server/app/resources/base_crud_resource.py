@@ -40,6 +40,7 @@ class BaseCrudResource(Resource):
             try:
                 item.update_from_patch(patch)
             except JsonPatchException as e:
+                print("()" * 20, patch, "shit went down")
                 self.logger.error(
                     f"Error updating item [{item}] from patch [{patch}]: {e}",
                 )

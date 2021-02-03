@@ -76,7 +76,7 @@ export function editCourse(newData, originalData) {
     payload: {
       url: `${urls.courseURL}/${originalData.id}`,
       method: axiosMethodOptions.patch,
-      updateStateAction: setCoursesFromServer(),
+      callback: setCoursesFromServer,
       data: patch,
     },
   };

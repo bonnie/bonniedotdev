@@ -16,6 +16,7 @@ import AddCouponButton from './Coupons/AddCouponButton';
 import Coupon from './Coupons/Coupon';
 import DeleteCouponButton from './Coupons/DeleteCouponButton';
 import EditCouponButton from './Coupons/EditCouponButton';
+import EditCouponsButton from './Coupons/EditCouponsButton';
 import { CourseType } from './Types';
 
 const useStyles = makeStyles(() => ({

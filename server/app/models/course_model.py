@@ -75,12 +75,9 @@ class Course(db.Model, Base):
 
         # Apply patch to existing dict
         updated_data = jsonpatch.apply_patch(current_data, json_patch)
-        print("(" * 20, "updated_data", updated_data)
 
         # Apply the patched dictionary back to the model
         for key, value in updated_data.items():
-            print("****key", key)
-            print("****value", value)
             setattr(self, key, value)
 
         self.update_db()

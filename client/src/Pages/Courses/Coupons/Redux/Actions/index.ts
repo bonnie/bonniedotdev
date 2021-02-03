@@ -35,13 +35,7 @@ export function addCoupon(newData) {
 
 export function editCoupon(newData, originalData) {
   // only deal with keys expected on the server
-  const patchRelevantKeys = [
-    'link',
-    'price',
-    'utcExpirationISO',
-    'courseId',
-    'id',
-  ];
+  const patchRelevantKeys = ['link', 'price', 'utcExpirationISO', 'courseId'];
 
   const originalPatchData = _.pick(originalData, ...patchRelevantKeys);
   const newPatchData = _.pick(newData, ...patchRelevantKeys);
@@ -60,7 +54,7 @@ export function editCoupon(newData, originalData) {
     payload: {
       url: `${urls.couponURL}/${originalData.id}`,
       method: axiosMethodOptions.patch,
-      updateStateAction: setCoursesFromServer(),
+      callback: setCoursesFromServer,
       data: patch,
     },
   };
