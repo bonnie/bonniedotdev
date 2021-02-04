@@ -27,6 +27,12 @@ test('On server success, renders spinner, then talks, then spinner disappears', 
   const loadingSpinner = await loadingScreen.findByRole('progressbar');
   expect(loadingSpinner).toBeVisible();
 
+  // check titles (all fake titles start with "i am")
+  const titles = await loadingScreen.findAllByRole('heading', {
+    name: /i am/i,
+  });
+  expect(titles.length).toBe(4);
+
   // confirm alert
   const errorAlert = await loadingScreen.findByRole('alert');
   expect(errorAlert).toHaveTextContent('Log in succeeded');

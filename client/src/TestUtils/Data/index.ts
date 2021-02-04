@@ -90,10 +90,19 @@ export const couponWithString = {
   utcExpirationISO: '2020-11-17T20:01:03.182265+00:00',
 };
 
+export const anotherCouponWithString = {
+  id: 2,
+  code: 'NOT_EXPIRED',
+  price: 18.99,
+  link: 'http://course.com?coupon',
+  utcExpirationISO: '2028-11-17T20:01:03.182265+00:00',
+};
+
 export const CourseJSONWithoutCoupons = courseWithoutCoupons;
 export const CourseJSONWithCoupons = {
   ...courseWithCoupons,
   bestCoupon: couponWithString,
+  coupons: [couponWithString, anotherCouponWithString],
 };
 
 export const testCoursesJSONResponse = [
