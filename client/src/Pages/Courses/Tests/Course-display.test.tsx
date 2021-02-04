@@ -44,7 +44,7 @@ describe('course with coupon', () => {
     // check that correct image is showing
     const courseImage = screen.getByTitle('Course Image');
     expect(courseImage).toHaveStyle({
-      backgroundImage: url('/images/courses/coursey.png'),
+      backgroundImage: url('/static/images/courses/coursey.png'),
     });
   });
   test('renders course title with link', () => {
@@ -76,7 +76,7 @@ describe('course without coupon', () => {
     // check that correct image is showing
     const courseImage = screen.getByTitle('Course Image');
     expect(courseImage).toHaveStyle({
-      backgroundImage: url('/images/courses/coursey.png'),
+      backgroundImage: url('/static/images/courses/coursey.png'),
     });
   });
   test('renders course title with link', () => {

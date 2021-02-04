@@ -114,7 +114,7 @@ export default function Course({
             >
               <CardMedia
                 className={classes.media}
-                image={`/images/courses/${courseData.imageName}`}
+                image={`/static/images/courses/${courseData.imageName}`}
                 title="Course Image"
               />
             </CardActionArea>
