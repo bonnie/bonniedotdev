@@ -69,6 +69,11 @@ def create_app(flask_env: FlaskEnv):
     def serve_favicon(icon_file):
         return send_file(f"static/favicon/{icon_file}")
 
+    @app.route("/portraits/<filename>")
+    def serve_portrait_image(filename):
+        print("sending file", f"static/images/portraits/{filename}")
+        return send_file(f"static/images/portraits/{filename}")
+
     # make sure react router urls route back to react, and not to the server
     @app.route("/", defaults={"input_path": ""})
     @app.route("/<path:input_path>")
