@@ -1,6 +1,6 @@
 import { UserActionType, UserType } from 'Pages/Auth/Types';
 
-import actionIds from '../Actions/actionIds';
+import actionIds from '../Actions/Ids';
 
 const USER_LOCALSTORAGE_KEY = 'bonniedotdev_user';
 function getUserFromStorage(): UserType | null {

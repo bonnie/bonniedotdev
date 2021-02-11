@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import urls from 'Constants/urls';
 import jsonpatch from 'fast-json-patch';
-import logToServer from 'Logging/logging';
 import sagaActionIds from 'State/Sagas/actionIds';
 import { axiosMethodOptions } from 'State/Sagas/Types';
 import _ from 'underscore';
@@ -67,7 +66,7 @@ export function editCourse(newData, originalData) {
 
   // edit was called with no differences
   if (patch.length === 0) {
-    logToServer('error', 'editCourse was called with no differences');
+    // logToServer('error', 'editCourse was called with no differences');
     return { type: 'noop' };
   }
 

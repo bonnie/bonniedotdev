@@ -1,7 +1,7 @@
 import { alertLevelOptions } from 'Pages/App/Alert/Types';
 import { AlertActionType, AlertState } from 'State/Actions/Types';
 
-import actionIds from '../Actions/actionIds';
+import actionIds from '../Actions/Ids';
 
 export default function setAlertState(
   state = null,
