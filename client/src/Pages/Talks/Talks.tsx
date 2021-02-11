@@ -80,7 +80,7 @@ export default function Talks(): ReactElement {
           <Typography className={classes.header} variant="h2" gutterBottom>
             Upcoming
           </Typography>
-          <section role="list" title="upcoming-talks-list">
+          <section role="list">
             {upcoming.length > 0 ? (
               upcoming.map(mapTalkToElement)
             ) : (
@@ -90,9 +90,7 @@ export default function Talks(): ReactElement {
           <Typography className={classes.header} variant="h2" gutterBottom>
             Past
           </Typography>
-          <section role="list" title="past-talks-list">
-            {past.map(mapTalkToElement)}
-          </section>
+          <section role="list">{past.map(mapTalkToElement)}</section>
         </Grid>
       </>
     ),

@@ -1,0 +1,9 @@
+enum actionIds {
+  LOGIN_USER = 'LOGIN_USER',
+  LOGOUT_USER = 'LOGOUT_USER',
+  LOGIN_USER_RESPONSE = 'LOGIN_USER_RESPONSE',
+  SET_ALERT = 'SET_ALERT',
+  SET_LOADING = 'SET_LOADING',
+}
+
+export default actionIds;

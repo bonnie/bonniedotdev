@@ -5,8 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store, { sagaMiddleware } from 'Redux/configureStore';
-import rootSaga from 'Redux/Sagas';
+import store, { sagaMiddleware } from 'State/configureStore';
+import rootSaga from 'State/Sagas';
 
 sagaMiddleware.run(rootSaga);
 

@@ -3,12 +3,12 @@ import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { applyMiddleware, createStore, Store } from 'redux';
-import rootSaga from 'Redux/Sagas';
 // import { sagaMiddleware } from 'Redux/configureStore';
 import createSagaMiddleware from 'redux-saga';
+import rootSaga from 'State/Sagas';
 
 // import { middlewares } from '../Redux/configureStore';
-import rootReducer from '../Redux/reducers';
+import rootReducer from '../State/reducers';
 
 function storeFactory(initialState = {}): Store {
   // necessary to have separate saga middleware instance for each test, since they run concurrently

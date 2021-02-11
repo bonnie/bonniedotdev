@@ -3,8 +3,8 @@ import urls from 'Constants/urls';
 import jsonpatch from 'fast-json-patch';
 import logToServer from 'Logging/logging';
 import { setCoursesFromServer } from 'Pages/Courses/Redux/Actions';
-import sagaActionIds from 'Redux/Sagas/actionIds';
-import { axiosMethodOptions } from 'Redux/Sagas/Types';
+import sagaActionIds from 'State/Sagas/actionIds';
+import { axiosMethodOptions } from 'State/Sagas/Types';
 import _ from 'underscore';
 
 export function deleteCoupon(CouponId) {

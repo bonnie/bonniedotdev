@@ -2,11 +2,7 @@ import urls from 'Constants/urls';
 import sagaActionIds from 'State/Sagas/actionIds';
 import { axiosMethodOptions } from 'State/Sagas/Types';
 
-export const actionIds = {
-  LOGIN_USER: 'LOGIN_USER',
-  LOGOUT_USER: 'LOGOUT_USER',
-  LOGIN_USER_RESPONSE: 'LOGIN_USER_RESPONSE',
-};
+import actionIds from '../actionIds';
 
 export function loginUser(payload) {
   return {

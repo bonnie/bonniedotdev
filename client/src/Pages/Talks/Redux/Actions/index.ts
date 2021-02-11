@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import urls from 'Constants/urls';
 import jiff from 'jiff';
-import sagaActionIds from 'Redux/Sagas/actionIds';
-import { axiosMethodOptions } from 'Redux/Sagas/Types';
+import sagaActionIds from 'State/Sagas/actionIds';
+import { axiosMethodOptions } from 'State/Sagas/Types';
 import _ from 'underscore';
 
 import { TalkActionType, TalkType } from '../../Types';
