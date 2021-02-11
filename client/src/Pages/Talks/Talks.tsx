@@ -5,14 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import useTalks from 'Hooks/GetData/useTalks';
+import useSelector from 'Hooks/useTypedSelector';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
-import React, { ReactElement, useCallback, useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { ReactElement, useCallback, useMemo } from 'react';
 
 import AddTalkButton from './AddTalkButton';
 import DeleteTalkButton from './DeleteTalkButton';
 import EditTalkButton from './EditTalkButton';
-import { setTalksFromServer } from './Redux/Actions';
 import Talk from './Talk';
 import { TalkType } from './Types';
 
@@ -39,14 +39,10 @@ function NoUpcomingTalks(): ReactElement {
 // eslint-disable-next-line max-lines-per-function
 export default function Talks(): ReactElement {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const { past, upcoming } = useSelector((state) => state.talks);
 
   // load talks from server on component mount
-  useEffect(() => {
-    dispatch(setTalksFromServer());
-  }, [dispatch]);
+  const { past, upcoming } = useTalks();
 
   const mapTalkToElement = useCallback(
     (talkData: TalkType) => {

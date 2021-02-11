@@ -1,4 +1,4 @@
-import actionIds from '../actionIds';
+import actionIds from '../Ids';
 import { LoadingActionType } from '../Types';
 
 export function setLoading(): LoadingActionType {

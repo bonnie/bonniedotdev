@@ -5,12 +5,14 @@ export interface AlertState {
   alertLevel: alertLevelOptions;
 }
 
-export type AlertActionType = {
+export interface AlertActionType {
   type: string;
   payload?: AlertState;
-};
+}
 
-export type LoadingActionType = {
+export interface LoadingActionType {
   type: string;
   payload: boolean;
-};
+}
+
+export type Action = AlertActionType | LoadingActionType;
