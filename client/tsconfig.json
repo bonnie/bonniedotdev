@@ -25,10 +25,5 @@
     "noEmit": true,
     "downlevelIteration": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "node_modules/@types",
-    "src/Pages/Courses/EditCourseFields"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "node_modules/@types"]
 }
