@@ -1,9 +1,8 @@
 import urls from 'Constants/urls';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
 import { SortedTalks, Talk } from 'Types';
 
-import useAxios from '../useAxios';
+import useAxios from './useAxios';
 
 // eslint-disable-next-line radix
 const getUnixTimeInt = (dateString) => moment(dateString).valueOf();
@@ -37,14 +36,6 @@ function sortTalks(talks: Talk[]): SortedTalks {
 }
 
 export default function useTalks(): SortedTalks {
-  const [sortedTalks, setSortedTalks] = useState<SortedTalks>({
-    past: [],
-    upcoming: [],
-  });
   const talks = useAxios<Talk[]>(urls.talksURL);
-  useEffect(() => {
-    if (talks !== undefined) setSortedTalks(sortTalks(talks));
-  }, [talks]);
-
-  return sortedTalks;
+  return talks ? sortTalks(talks) : { past: [], upcoming: [] };
 }

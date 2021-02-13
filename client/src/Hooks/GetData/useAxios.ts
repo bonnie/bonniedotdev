@@ -1,0 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import axios, { AxiosRequestConfig } from 'axios';
+import urls from 'Constants/urls';
+import useActions from 'Hooks/useActions';
+import { useEffect, useState } from 'react';
+import { alertLevelOptions } from 'Types';
+
+export default function useAxios<T>(url: urls): T | undefined {
+  const config: AxiosRequestConfig = {};
+  if (process.env.NODE_ENV === 'development')
+    config.baseURL = `http://localhost:5050`;
+  const { setLoading, clearLoading, setAlert } = useActions();
+  const [data, setData] = useState<T | undefined>(undefined);
+  const errorString = 'There was a problem connecting to the server';
+
+  useEffect(() => {
+    setLoading();
+    axios(url, config)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        // TODO: log here
+        setAlert(errorString, alertLevelOptions.error);
+      })
+      .finally(() => clearLoading());
+  }, []);
+
+  return data;
+}

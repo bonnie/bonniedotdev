@@ -5,16 +5,15 @@ import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import urls from 'Constants/urls';
 import useTalks from 'Hooks/GetData/useTalks';
 import useSelector from 'Hooks/useTypedSelector';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
 import React, { ReactElement, useCallback, useMemo } from 'react';
+import { Talk as TalkType } from 'Types';
 
-import AddTalkButton from './AddTalkButton';
-import DeleteTalkButton from './DeleteTalkButton';
-import EditTalkButton from './EditTalkButton';
+import EditTalkFields from './EditTalkFields';
 import Talk from './Talk';
-import { TalkType } from './Types';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -45,32 +44,20 @@ export default function Talks(): ReactElement {
   const { past, upcoming } = useTalks();
 
   const mapTalkToElement = useCallback(
-    (talkData: TalkType) => {
-      const editButtons = (
-        <>
-          <EditTalkButton id={talkData.id} talkData={talkData} />
-          <DeleteTalkButton id={talkData.id} name={talkData.title} />
-        </>
-      );
-
-      return (
-        <Talk
-          key={talkData.id}
-          talkData={talkData}
-          editButtons={user ? editButtons : null}
-        />
-      );
-    },
-    [user],
+    (talkData: TalkType) => <Talk key={talkData.id} talkData={talkData} />,
+    [],
   );
 
+  // TODO: itemEndpoint, itemString and ItemFieldsComponent are all used in PageTitleWithAdd
+  // and EditButtons. It seems like this could be optimized somehow.
   const contents = useMemo(
     () => (
       <>
         <PageTitleWithAdd
           title="Conference Talks and Workshops"
-          variant="h1"
-          AddButton={<AddTalkButton />}
+          itemEndpoint={urls.talkURL}
+          itemString="Talk"
+          ItemFieldsComponent={<EditTalkFields />}
         />
         <Grid style={{ marginTop: 10 }} aria-label="talks">
           <Typography className={classes.header} variant="h2" gutterBottom>

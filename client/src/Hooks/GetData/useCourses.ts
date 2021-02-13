@@ -1,10 +1,10 @@
 import urls from 'Constants/urls';
 import { Course } from 'Types';
 
-import useAxios from '../useAxios';
+import useAxios from './useAxios';
 
-const useCourses = async (): Promise<Course[]> => {
-  const courses = await useAxios<Course[]>(urls.coursesURL);
+const useCourses = (): Course[] => {
+  const courses = useAxios<Course[]>(urls.coursesURL);
   return courses === undefined ? [] : courses;
 };
 

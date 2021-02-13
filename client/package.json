@@ -9,6 +9,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/pickers": "^3.2.10",
     "@types/react-redux": "^7.1.16",
+    "@types/underscore": "^1.10.24",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "cross-env": "^7.0.2",

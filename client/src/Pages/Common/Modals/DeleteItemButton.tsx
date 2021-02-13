@@ -7,25 +7,18 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import React, { ReactElement, useState } from 'react';
 
 import LoggedInIconButton from '../LoggedInIconButton';
-import { Size } from '../Types';
 
 interface DeleteItemModalProps {
   handleDelete: () => void;
   itemLabel: string; // the name of the individual item being deleted
   itemTypeString: string; // the name of the type of item being deleted
-  buttonSize?: Size;
 }
-
-DeleteItemModal.defaultProps = {
-  buttonSize: 'small',
-};
 
 // eslint-disable-next-line max-lines-per-function
 export default function DeleteItemModal({
   handleDelete,
   itemLabel,
   itemTypeString,
-  buttonSize,
 }: DeleteItemModalProps): ReactElement {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
 
@@ -45,7 +38,6 @@ export default function DeleteItemModal({
         label={`Delete ${itemTypeString}`}
         onClick={() => setConfirmationOpen(true)}
         ButtonIcon={DeleteForeverIcon}
-        buttonSize={buttonSize}
       />
       <Dialog
         onClose={handleClose}

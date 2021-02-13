@@ -1,3 +1,11 @@
+export interface User {
+  id: number;
+  username: string;
+}
+
+export interface Item {
+  id: number;
+}
 export interface NewReviewQuote {
   body: string;
   courseName?: string;
@@ -5,14 +13,7 @@ export interface NewReviewQuote {
   courseId?: number;
 }
 
-export interface ReviewQuote extends NewReviewQuote {
-  id: number;
-}
-
-export interface User {
-  id: number;
-  username: string;
-}
+export interface ReviewQuote extends NewReviewQuote, Item {}
 
 export interface NewCoupon {
   price: number;
@@ -21,9 +22,7 @@ export interface NewCoupon {
   courseId?: number;
 }
 
-export interface Coupon extends NewCoupon {
-  id: number;
-}
+export interface Coupon extends NewCoupon, Item {}
 
 export interface NewCourse {
   name: string;
@@ -34,9 +33,7 @@ export interface NewCourse {
   coupons?: Coupon[];
 }
 
-export interface Course extends NewCourse {
-  id: number;
-}
+export interface Course extends NewCourse, Item {}
 
 export interface NewTalk {
   title: string;
@@ -48,21 +45,13 @@ export interface NewTalk {
   recordingLink?: string;
 }
 
-export interface Talk extends NewTalk {
-  id: number;
-}
+export interface Talk extends NewTalk, Item {}
 
 export interface SortedTalks {
   past: Talk[];
   upcoming: Talk[];
 }
 
-export enum Size {
-  small = 'small',
-  inherit = 'inherit',
-  large = 'large',
-  default = 'default',
-}
 export enum alertLevelOptions {
   error = 'error',
   info = 'info',
@@ -70,4 +59,10 @@ export enum alertLevelOptions {
   success = 'success',
 }
 
-export type Data = ReviewQuote | User | Course | Coupon | Talk;
+// TODO: can I group these together with inheritance somehow...?
+// Or maybe all of them need a "name" or "title" property...
+export type NewItem = NewReviewQuote | NewCoupon | NewCourse | NewTalk;
+
+export interface ItemFieldsComponentProps<ItemData extends Item> {
+  data: NewItem | ItemData;
+}

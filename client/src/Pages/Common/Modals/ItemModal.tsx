@@ -8,19 +8,13 @@ import { getFormData } from 'Helpers';
 import React, { ReactElement, useState } from 'react';
 
 import LoggedInIconButton from '../LoggedInIconButton';
-import { Size } from '../Types';
 
 interface ItemModalProps {
   ButtonIcon: typeof AddCircleIcon;
   handleSave: (TalkType) => void;
   dialogTitle: string;
   ItemFields: ReactElement; // TODO: can we make this more specific as an input field?
-  buttonSize?: Size;
 }
-
-ItemModal.defaultProps = {
-  buttonSize: 'small',
-};
 
 // eslint-disable-next-line max-lines-per-function
 export default function ItemModal({
@@ -28,7 +22,6 @@ export default function ItemModal({
   handleSave,
   dialogTitle,
   ItemFields,
-  buttonSize,
 }: ItemModalProps): ReactElement {
   const [modalOpen, setModalOpen] = useState(false);
   const handleClose = (): void => setModalOpen(false);
@@ -49,7 +42,6 @@ export default function ItemModal({
         label={dialogTitle}
         onClick={() => setModalOpen(true)}
         ButtonIcon={ButtonIcon}
-        buttonSize={buttonSize}
       />
       <Dialog
         onClose={handleClose}

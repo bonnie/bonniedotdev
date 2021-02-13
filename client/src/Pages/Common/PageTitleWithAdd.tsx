@@ -1,14 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Divider from '@material-ui/core/Divider';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import React, { ReactElement } from 'react';
-import { useSelector } from 'react-redux';
+import useAxiosLater from 'Hooks/useAxiosLater';
+import useSelector from 'Hooks/useTypedSelector';
+import React, { ReactElement, useMemo } from 'react';
+import { NewItem } from 'Types';
 
-interface PageTitleWithAddProps {
-  title: string;
-  variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
-  AddButton: ReactElement | null;
-}
+import AddItemButton from './Modals/AddItemButton';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,21 +25,50 @@ const useStyles = makeStyles(() =>
     },
   }),
 );
+interface PageTitleWithAddProps {
+  title: string;
+  itemEndpoint: string;
+  ItemFieldsComponent: ReactElement;
+  itemString: string;
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
+}
+
+PageTitleWithAdd.defaultProps = {
+  variant: 'h1',
+};
 
 export default function PageTitleWithAdd({
   title,
+  itemEndpoint,
+  ItemFieldsComponent,
+  itemString,
   variant,
-  AddButton,
 }: PageTitleWithAddProps): ReactElement {
   const classes = useStyles();
   const user = useSelector((state) => state.user);
+  const axios = useAxiosLater();
+
+  const addButton = useMemo(() => {
+    if (!user) return null;
+    const addItem = (newData: NewItem) => {
+      axios(itemEndpoint, { method: 'POST', data: newData });
+    };
+    return (
+      <AddItemButton
+        handleSave={addItem}
+        ItemFieldsComponent={ItemFieldsComponent}
+        itemString={itemString}
+      />
+    );
+  }, [user]);
+
   return (
     <>
       <span className={classes.titleLine}>
         <Typography className={classes.header} variant={variant} gutterBottom>
           {title}
         </Typography>
-        {user && AddButton ? AddButton : null}
+        {addButton}
       </span>
       <Divider variant="fullWidth" className={classes.divider} />
     </>
