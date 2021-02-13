@@ -1,5 +1,6 @@
+/* eslint-disable import/prefer-default-export */
 import { createStore } from 'redux';
 
-import rootReducer from '../Reducers';
+import reducers from '../Reducers';
 
-export default createStore(rootReducer);
+export const store = createStore(reducers, {});

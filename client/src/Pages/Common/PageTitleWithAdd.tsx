@@ -1,36 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Divider from '@material-ui/core/Divider';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import useAxiosLater from 'Hooks/useAxiosLater';
 import useSelector from 'Hooks/useTypedSelector';
 import React, { ReactElement, useMemo } from 'react';
-import { NewItem } from 'Types';
+import { HeaderVariant, NewItem } from 'Types';
 
 import AddItemButton from './Modals/AddItemButton';
+import PageTitle from './PageTitle';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    header: {
-      display: 'inline',
-      marginRight: 10,
-    },
-    divider: {
-      width: '10%',
-      marginBottom: 20,
-    },
-    titleLine: {
-      display: 'flex',
-      alignItems: 'baseline',
-    },
-  }),
-);
 interface PageTitleWithAddProps {
   title: string;
   itemEndpoint: string;
   ItemFieldsComponent: ReactElement;
   itemString: string;
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
+  variant?: HeaderVariant;
 }
 
 PageTitleWithAdd.defaultProps = {
@@ -44,7 +26,6 @@ export default function PageTitleWithAdd({
   itemString,
   variant,
 }: PageTitleWithAddProps): ReactElement {
-  const classes = useStyles();
   const user = useSelector((state) => state.user);
   const axios = useAxiosLater();
 
@@ -62,15 +43,5 @@ export default function PageTitleWithAdd({
     );
   }, [user]);
 
-  return (
-    <>
-      <span className={classes.titleLine}>
-        <Typography className={classes.header} variant={variant} gutterBottom>
-          {title}
-        </Typography>
-        {addButton}
-      </span>
-      <Divider variant="fullWidth" className={classes.divider} />
-    </>
-  );
+  return <PageTitle title={title} variant={variant} addButton={addButton} />;
 }

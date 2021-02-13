@@ -1,31 +1,43 @@
+import axios from 'axios';
+import alertLevelOptions from 'Constants/alertLevels';
 import urls from 'Constants/urls';
-import sagaActionIds from 'State/Sagas/actionIds';
-import { axiosMethodOptions } from 'State/Sagas/Types';
+import { AlertAction, UserAction } from 'State/Types';
 
 import actionIds from '../Ids';
 
-export function loginUser(payload) {
-  return {
-    type: sagaActionIds.SERVER_REQUEST,
-    payload: {
-      url: urls.loginURL,
-      method: axiosMethodOptions.POST,
-      data: {
-        username: payload.username,
-        password: payload.password,
-      },
-      // don't fail on 400 response
-      validateStatus(status) {
-        return (status >= 200 && status < 300) || status === 400;
-      },
-      callback: (responseData) => ({
-        type: actionIds.LOGIN_USER_RESPONSE,
-        payload: responseData,
-      }),
-    },
-  };
+export interface LoginUserPayload {
+  username: string;
+  password: string;
 }
 
-export function logoutUser() {
+// TODO: thunkify
+export async function loginUser({
+  username,
+  password,
+}: LoginUserPayload): Promise<UserAction | AlertAction> {
+  try {
+    const response = await axios.post(urls.loginURL, {
+      data: { username, password },
+      validateStatus: (status) => {
+        return (status >= 200 && status < 300) || status === 400;
+      },
+    });
+    return {
+      type: actionIds.LOGIN_USER_RESPONSE,
+      payload: response.data,
+    };
+  } catch {
+    // TODO: log this
+    return {
+      type: actionIds.SET_ALERT,
+      payload: {
+        message: 'Login failed',
+        alertLevel: alertLevelOptions.warning,
+      },
+    };
+  }
+}
+
+export function logoutUser(): UserAction {
   return { type: actionIds.LOGOUT_USER };
 }

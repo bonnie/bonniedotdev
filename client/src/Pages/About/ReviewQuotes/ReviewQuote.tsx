@@ -57,7 +57,7 @@ export default function ReviewQuote({
 }: ReviewQuoteProps): ReactElement {
   const classes = useStyles();
 
-  const ItemFieldsComponent = (
+  const ReviewQuoteEditFieldsComponent = (
     <EditReviewQuoteFields
       reviewQuoteData={reviewQuoteData}
       courses={courses}
@@ -68,7 +68,7 @@ export default function ReviewQuote({
     <EditButtons
       itemString="Review Quote"
       itemData={reviewQuoteData}
-      ItemFieldsComponent={ItemFieldsComponent}
+      ItemFieldsComponent={ReviewQuoteEditFieldsComponent}
       patchRelevantKeys={reviewQuotePatchKeys}
       itemEndpoint={urls.reviewQuoteURL}
     />

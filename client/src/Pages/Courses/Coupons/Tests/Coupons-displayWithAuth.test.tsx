@@ -1,11 +1,9 @@
 import Course from 'Pages/Courses/Course';
-import { CourseType } from 'Pages/Courses/Types';
 import React from 'react';
 import { renderWithProvider } from 'TestUtils/renderWith';
+import { Coupon, Course as CourseType } from 'Types';
 
-import { CouponType } from '../Types';
-
-const coupons: CouponType[] = [
+const coupons: Coupon[] = [
   {
     id: 4,
     price: 9.99,
@@ -36,7 +34,7 @@ test('Renders coupon add button', async () => {
   // render with pre-defined state for user
   const initialState = { user: { id: 1, username: 'sheila' } };
   const coursesScreen = renderWithProvider(
-    <Course courseData={courseData} editButtons={<div />} />,
+    <Course courseData={courseData} />,
     initialState,
   );
 
@@ -48,7 +46,7 @@ test('Renders coupon edit and delete buttons', async () => {
   // render with pre-defined state for user
   const initialState = { user: { id: 1, username: 'sheila' } };
   const coursesScreen = renderWithProvider(
-    <Course courseData={courseData} editButtons={<div />} />,
+    <Course courseData={courseData} />,
     initialState,
   );
 

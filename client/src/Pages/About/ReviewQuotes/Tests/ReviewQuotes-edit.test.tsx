@@ -4,7 +4,7 @@ import ReviewQuotes from 'Pages/About/ReviewQuotes/ReviewQuotes';
 import React from 'react';
 import { renderWithProvider } from 'TestUtils/renderWith';
 
-test('create new review quote and save', async () => {
+test.only('create new review quote and save', async () => {
   // render with pre-defined state for user
   const initialState = { user: { id: 1, username: 'sheila' } };
   const newReviewQuoteScreen = renderWithProvider(
@@ -40,9 +40,10 @@ test('create new review quote and save', async () => {
   userEvent.click(selectMenu);
 
   // select course for quote
-  const courseSelectOption = await newReviewQuoteScreen.findByRole('option', {
-    name: 'Course 2',
-  });
+  // const courseSelectOption = await newReviewQuoteScreen.findByRole('option', {
+  //   name: 'Course 2',
+  // });
+  const courseSelectOption = await newReviewQuoteScreen.findByRole('option');
   userEvent.click(courseSelectOption);
 
   // click button to save new review quote

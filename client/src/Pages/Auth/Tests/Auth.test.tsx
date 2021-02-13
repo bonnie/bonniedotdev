@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable max-len */
 /* eslint-disable max-lines-per-function */
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import urls from 'Constants/urls';
 import { rest } from 'msw';
 import App from 'Pages/App/App';

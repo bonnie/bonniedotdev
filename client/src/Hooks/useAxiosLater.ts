@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios, { AxiosRequestConfig } from 'axios';
+import alertLevelOptions from 'Constants/alertLevels';
 import useActions from 'Hooks/useActions';
-import { alertLevelOptions } from 'Types';
 
 type AxiosLater = (url: string, config: AxiosRequestConfig) => void;
 

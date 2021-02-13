@@ -1,9 +1,10 @@
+import { LoadingAction } from 'State/Types';
+
 import actionIds from '../Actions/Ids';
-import { LoadingActionType } from '../Actions/Types';
 
 export default function setLoadingState(
   state = false,
-  action: LoadingActionType,
+  action: LoadingAction,
 ): boolean {
   switch (action.type) {
     case actionIds.SET_LOADING:

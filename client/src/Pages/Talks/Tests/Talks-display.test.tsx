@@ -9,9 +9,9 @@ import {
   renderWithProvider,
   renderWithRouterAndProvider,
 } from 'TestUtils/renderWith';
+import { Talk as TalkType } from 'Types';
 
 import Talks from '../Talks';
-import { TalkType } from '../Types';
 
 const pastTalk: TalkType = {
   id: 5,

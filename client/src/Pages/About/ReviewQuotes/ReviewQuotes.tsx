@@ -4,16 +4,15 @@ import urls from 'Constants/urls';
 import useCourses from 'Hooks/GetData/useCourses';
 import useReviewQuotes from 'Hooks/GetData/useReviewQuotes';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
-import { CourseType } from 'Pages/Courses/Types';
 import React, { ReactElement, useMemo } from 'react';
-import { ReviewQuote as ReviewQuoteType } from 'Types';
+import { Course, ReviewQuote as ReviewQuoteType } from 'Types';
 
 import EditReviewQuoteFields from './EditReviewQuoteFields';
 import ReviewQuote from './ReviewQuote';
 
 const mapReviewQuoteToElement = (
   reviewQuoteData: ReviewQuoteType,
-  courses: CourseType[],
+  courses: Course[],
 ) => (
   <ReviewQuote
     key={reviewQuoteData.id}

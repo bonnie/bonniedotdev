@@ -1,14 +1,14 @@
+import { LoadingAction } from '../../Types';
 import actionIds from '../Ids';
-import { LoadingActionType } from '../Types';
 
-export function setLoading(): LoadingActionType {
+export function setLoading(): LoadingAction {
   return {
     type: actionIds.SET_LOADING,
     payload: true,
   };
 }
 
-export function clearLoading(): LoadingActionType {
+export function clearLoading(): LoadingAction {
   return {
     type: actionIds.SET_LOADING,
     payload: false,

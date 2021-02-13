@@ -2,10 +2,9 @@ import ImageNameInput from 'Pages/Common/Inputs/ImageNameInput';
 import LinkInput from 'Pages/Common/Inputs/LinkInput';
 import TextInput from 'Pages/Common/Inputs/TextInput';
 import React, { ReactElement } from 'react';
+import { Course as CourseType, NewCourse } from 'Types';
 
-import { CourseType, NewCourseType } from './Types';
-
-const newCourse: NewCourseType = {
+const newCourse: NewCourse = {
   name: '',
   description: '',
   link: '',
@@ -13,7 +12,7 @@ const newCourse: NewCourseType = {
 };
 
 interface EditCourseFieldsType {
-  courseData?: CourseType | NewCourseType;
+  courseData?: CourseType | NewCourse;
 }
 
 EditCourseFields.defaultProps = { courseData: newCourse };

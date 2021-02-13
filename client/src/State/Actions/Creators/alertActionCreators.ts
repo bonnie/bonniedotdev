@@ -1,19 +1,19 @@
-import { alertLevelOptions } from 'Pages/App/Alert/Types';
+import alertLevelOptions from 'Constants/alertLevels';
 
+import { AlertAction } from '../../Types';
 import actionIds from '../Ids';
-import { AlertActionType } from '../Types';
 
 export function setAlert(
   message: string,
   alertLevel: alertLevelOptions,
-): AlertActionType {
+): AlertAction {
   return {
     type: actionIds.SET_ALERT,
     payload: { message, alertLevel },
   };
 }
 
-export function clearAlert(): AlertActionType {
+export function clearAlert(): AlertAction {
   return {
     type: actionIds.SET_ALERT,
   };

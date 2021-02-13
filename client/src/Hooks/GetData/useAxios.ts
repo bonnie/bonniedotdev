@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios, { AxiosRequestConfig } from 'axios';
+import alertLevelOptions from 'Constants/alertLevels';
 import urls from 'Constants/urls';
 import useActions from 'Hooks/useActions';
 import { useEffect, useState } from 'react';
-import { alertLevelOptions } from 'Types';
 
 export default function useAxios<T>(url: urls): T | undefined {
   const config: AxiosRequestConfig = {};

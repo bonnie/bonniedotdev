@@ -52,13 +52,6 @@ export interface SortedTalks {
   upcoming: Talk[];
 }
 
-export enum alertLevelOptions {
-  error = 'error',
-  info = 'info',
-  warning = 'warning',
-  success = 'success',
-}
-
 // TODO: can I group these together with inheritance somehow...?
 // Or maybe all of them need a "name" or "title" property...
 export type NewItem = NewReviewQuote | NewCoupon | NewCourse | NewTalk;
@@ -66,3 +59,5 @@ export type NewItem = NewReviewQuote | NewCoupon | NewCourse | NewTalk;
 export interface ItemFieldsComponentProps<ItemData extends Item> {
   data: NewItem | ItemData;
 }
+
+export type HeaderVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5';

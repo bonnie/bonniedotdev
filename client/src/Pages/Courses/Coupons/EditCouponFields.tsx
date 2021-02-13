@@ -4,17 +4,16 @@ import DateTimeInput from 'Pages/Common/Inputs/DateTimeInput';
 import LinkInput from 'Pages/Common/Inputs/LinkInput';
 import TextInput from 'Pages/Common/Inputs/TextInput';
 import React, { ReactElement, useState } from 'react';
+import { Coupon as CouponType, NewCoupon } from 'Types';
 
-import { CouponType, NewCouponType } from './Types';
-
-const newCoupon: NewCouponType = {
+const newCoupon: NewCoupon = {
   price: 9.99,
   link: '',
   utcExpirationISO: moment(new Date()).toString(),
 };
 
 interface EditCouponFieldsType {
-  couponData?: CouponType | NewCouponType;
+  couponData?: CouponType | NewCoupon;
   courseId: number;
 }
 

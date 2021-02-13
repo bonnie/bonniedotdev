@@ -3,11 +3,9 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import userEvent from '@testing-library/user-event';
 import Course from 'Pages/Courses/Course';
-import { CourseType } from 'Pages/Courses/Types';
 import React from 'react';
 import { renderWithProvider } from 'TestUtils/renderWith';
-
-import { CouponType } from '../Types';
+import { Coupon as CouponType, Course as CourseType } from 'Types';
 
 const coupons: CouponType[] = [
   {
@@ -39,7 +37,7 @@ const courseData: CourseType = {
 // editbuttons is used to determine whether there's a logged-in user
 const courseWithMuiDateProvider = (
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-    <Course courseData={courseData} editButtons={<div />} />
+    <Course courseData={courseData} />
   </MuiPickersUtilsProvider>
 );
 

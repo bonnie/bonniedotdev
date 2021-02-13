@@ -1,16 +1,18 @@
 import SelectInput from 'Pages/Common/Inputs/SelectInput';
 import TextInput from 'Pages/Common/Inputs/TextInput';
-import { CourseType } from 'Pages/Courses/Types';
 import React, { ReactElement } from 'react';
+import {
+  Course as CourseType,
+  NewReviewQuote,
+  ReviewQuote as ReviewQuoteType,
+} from 'Types';
 
-import { NewReviewQuoteType, ReviewQuoteType } from './Types';
-
-const newReviewQuote: NewReviewQuoteType = {
+const newReviewQuote: NewReviewQuote = {
   body: '',
 };
 
 interface EditReviewQuoteFieldsType {
-  reviewQuoteData?: ReviewQuoteType | NewReviewQuoteType;
+  reviewQuoteData?: ReviewQuoteType | NewReviewQuote;
   courses: CourseType[];
 }
 

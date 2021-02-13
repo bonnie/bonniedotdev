@@ -5,10 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store, { sagaMiddleware } from 'State/configureStore';
-import rootSaga from 'State/Sagas';
-
-sagaMiddleware.run(rootSaga);
+import { store } from 'State';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,11 +1,11 @@
-import { alertLevelOptions } from 'Pages/App/Alert/Types';
-import { AlertActionType, AlertState } from 'State/Actions/Types';
+import alertLevelOptions from 'Constants/alertLevels';
+import { AlertAction, AlertState } from 'State/Types';
 
 import actionIds from '../Actions/Ids';
 
 export default function setAlertState(
   state = null,
-  action: AlertActionType,
+  action: AlertAction,
 ): AlertState | null {
   switch (action.type) {
     case actionIds.SET_ALERT:

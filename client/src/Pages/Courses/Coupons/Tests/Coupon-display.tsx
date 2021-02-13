@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { renderWithProvider } from 'TestUtils/renderWith';
+import { Coupon as CouponType } from 'Types';
 
 import Coupon from '../Coupon';
-import { CouponType } from '../Types';
 
 const couponData: CouponType = {
   id: 4,
@@ -13,14 +13,18 @@ const couponData: CouponType = {
 };
 
 test('renders coupon price with link', () => {
-  render(<Coupon couponData={couponData} editButtons={null} />);
+  const screen = renderWithProvider(
+    <Coupon couponData={couponData} courseId={1} />,
+  );
 
   const couponPrice = screen.getByRole('link', { name: '9.99' });
   expect(couponPrice).toHaveAttribute('href', 'http://rickroll.com?9.99');
 });
 
 test('renders coupon expiration', () => {
-  render(<Coupon couponData={couponData} editButtons={null} />);
+  const screen = renderWithProvider(
+    <Coupon couponData={couponData} courseId={1} />,
+  );
 
   const expirationText = screen.getByText(/expires/i);
   expect(expirationText).toBeInTheDocument();
