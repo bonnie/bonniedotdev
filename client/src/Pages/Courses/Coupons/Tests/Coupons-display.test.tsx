@@ -1,9 +1,7 @@
-import { render, screen } from '@testing-library/react';
 import Course from 'Pages/Courses/Course';
-import { CourseType } from 'Pages/Courses/Types';
 import React from 'react';
-
-import { CouponType } from '../Types';
+import { renderWithProvider } from 'TestUtils/renderWith';
+import { Coupon as CouponType, Course as CourseType } from 'Types';
 
 const coupons: CouponType[] = [
   {
@@ -33,7 +31,7 @@ const courseData: CourseType = {
 };
 
 test('Renders only best coupon', async () => {
-  render(<Course courseData={courseData} editButtons={null} />);
+  const screen = renderWithProvider(<Course courseData={courseData} />);
 
   // expect only one "expires" statement
   const couponExpires = screen.getByText(/expires/i);

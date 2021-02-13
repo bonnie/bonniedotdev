@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { renderWithProvider } from 'TestUtils/renderWith';
+import { ReviewQuote as ReviewQuoteType } from 'Types';
 
 import ReviewQuote from '../ReviewQuote';
-import { ReviewQuoteType } from '../Types';
 
 const reviewQuoteData: ReviewQuoteType = {
   id: 5,
@@ -14,7 +14,9 @@ const reviewQuoteData: ReviewQuoteType = {
 };
 
 test('All data displays for ReviewQuote', () => {
-  render(<ReviewQuote reviewQuoteData={reviewQuoteData} editButtons={null} />);
+  const screen = renderWithProvider(
+    <ReviewQuote reviewQuoteData={reviewQuoteData} courses={[]} />,
+  );
 
   const body = screen.getByText(/i like big cats and i can not lie/i);
   expect(body).toBeInTheDocument();

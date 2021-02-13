@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { renderWithProvider } from 'TestUtils/renderWith';
+import { Talk as TalkType } from 'Types';
 
 import Talk from '../Talk';
-import { TalkType } from '../Types';
 
 const talkData: TalkType = {
   id: 5,
@@ -22,7 +22,7 @@ const pastTalkWithoutRecording = { ...talkData };
 delete pastTalkWithoutRecording.recordingLink;
 
 test('All data displays for complete talk data', () => {
-  render(<Talk talkData={talkData} editButtons={null} />);
+  const screen = renderWithProvider(<Talk talkData={talkData} />);
 
   const title = screen.getByRole('heading', { name: 'i am a talk' });
   expect(title).toBeInTheDocument();
@@ -51,13 +51,15 @@ test('All data displays for complete talk data', () => {
   expect(recordingLink).toHaveAttribute('href', 'http://youtube.com/bonnie');
 });
 test('Slide link does not display when there is no link', () => {
-  render(<Talk talkData={pastTalkWithoutSlides} editButtons={null} />);
+  const screen = renderWithProvider(<Talk talkData={pastTalkWithoutSlides} />);
 
   const slidesLink = screen.queryByRole('link', { name: /slides/i });
   expect(slidesLink).not.toBeInTheDocument();
 });
 test('Recording link does not display when there is no link', () => {
-  render(<Talk talkData={pastTalkWithoutRecording} editButtons={null} />);
+  const screen = renderWithProvider(
+    <Talk talkData={pastTalkWithoutRecording} />,
+  );
 
   const recordingLink = screen.queryByRole('link', { name: /recording/i });
   expect(recordingLink).not.toBeInTheDocument();
