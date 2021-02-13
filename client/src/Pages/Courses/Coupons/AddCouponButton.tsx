@@ -1,4 +1,4 @@
-import AddItemModal from 'Pages/Common/Modals/AddItemModal';
+import AddItemModal from 'Pages/Common/Modals/AddItemButton';
 import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 

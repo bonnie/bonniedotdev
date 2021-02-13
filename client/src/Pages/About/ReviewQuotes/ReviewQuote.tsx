@@ -4,9 +4,14 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
+import urls from 'Constants/urls';
+import EditButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement } from 'react';
+import { Course, ReviewQuote as ReviewQuoteType } from 'Types';
 
-import { ReviewQuoteType } from './Types';
+import EditReviewQuoteFields from './EditReviewQuoteFields';
+
+const reviewQuotePatchKeys = ['body', 'courseId'];
 
 const useStyles = makeStyles(() => ({
   courseLink: {
@@ -40,16 +45,35 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-interface ReadOnlyQuoteProps {
+interface ReviewQuoteProps {
   reviewQuoteData: ReviewQuoteType;
-  editButtons: ReactElement | null;
+  courses: Course[];
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default function ReviewQuote({
   reviewQuoteData,
-  editButtons,
-}: ReadOnlyQuoteProps): ReactElement {
+  courses,
+}: ReviewQuoteProps): ReactElement {
   const classes = useStyles();
+
+  const ItemFieldsComponent = (
+    <EditReviewQuoteFields
+      reviewQuoteData={reviewQuoteData}
+      courses={courses}
+    />
+  );
+
+  const reviewQuoteEditButtons = (
+    <EditButtons
+      itemString="Review Quote"
+      itemData={reviewQuoteData}
+      ItemFieldsComponent={ItemFieldsComponent}
+      patchRelevantKeys={reviewQuotePatchKeys}
+      itemEndpoint={urls.reviewQuoteURL}
+    />
+  );
+
   return (
     <Grid item className={classes.quoteGrid} xs={12} sm={6} md={4}>
       <Box
@@ -79,8 +103,8 @@ export default function ReviewQuote({
             <Typography>{reviewQuoteData.courseName}</Typography>
           </Box>
         </Link>
-        {editButtons ? (
-          <div className={classes.editButtons}>{editButtons}</div>
+        {reviewQuoteEditButtons ? (
+          <div className={classes.editButtons}>{reviewQuoteEditButtons}</div>
         ) : null}
       </Box>
     </Grid>

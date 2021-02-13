@@ -1,60 +1,30 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import urls from 'Constants/urls';
+import useCourses from 'Hooks/GetData/useCourses';
+import useReviewQuotes from 'Hooks/GetData/useReviewQuotes';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
-import { setCoursesFromServer } from 'Pages/Courses/Redux/Actions';
 import { CourseType } from 'Pages/Courses/Types';
-import React, { ReactElement, useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { ReactElement, useMemo } from 'react';
+import { ReviewQuote as ReviewQuoteType } from 'Types';
 
-import AddReviewQuoteButton from './AddReviewQuoteButton';
-import DeleteReviewQuoteButton from './DeleteReviewQuoteButton';
-import EditReviewQuoteButton from './EditReviewQuoteButton';
-import { setReviewQuotesFromServer } from './Redux/Actions';
+import EditReviewQuoteFields from './EditReviewQuoteFields';
 import ReviewQuote from './ReviewQuote';
-import { ReviewQuoteType } from './Types';
 
 const mapReviewQuoteToElement = (
   reviewQuoteData: ReviewQuoteType,
-  user: boolean,
   courses: CourseType[],
-) => {
-  const editButtons = (
-    <>
-      <EditReviewQuoteButton
-        id={reviewQuoteData.id}
-        reviewQuoteData={reviewQuoteData}
-        courses={courses}
-      />
-      <DeleteReviewQuoteButton
-        id={reviewQuoteData.id}
-        name="this review quote"
-      />
-    </>
-  );
-  return (
-    <ReviewQuote
-      key={reviewQuoteData.id}
-      reviewQuoteData={reviewQuoteData}
-      editButtons={user ? editButtons : null}
-    />
-  );
-};
+) => (
+  <ReviewQuote
+    key={reviewQuoteData.id}
+    reviewQuoteData={reviewQuoteData}
+    courses={courses}
+  />
+);
 
 export default function ReviewQuotes(): ReactElement {
-  const dispatch = useDispatch();
-  const reviewQuotes = useSelector((state) => state.reviewQuotes);
-  const courses = useSelector((state) => state.courses);
-  const user = useSelector((state) => state.user);
-
-  // populate review quotes data from the server
-  useEffect(() => {
-    dispatch(setReviewQuotesFromServer());
-  }, [dispatch]);
-
-  // Do this here, so it doesn't have to be done individually on each editable quote
-  useEffect(() => {
-    if (user) dispatch(setCoursesFromServer());
-  }, [dispatch, user]);
+  const courses = useCourses();
+  const reviewQuotes = useReviewQuotes();
 
   return useMemo(
     () => (
@@ -62,15 +32,15 @@ export default function ReviewQuotes(): ReactElement {
         <PageTitleWithAdd
           title="Students say..."
           variant="h2"
-          AddButton={<AddReviewQuoteButton courses={courses} />}
+          itemEndpoint={urls.reviewQuoteURL}
+          itemString="Review Quote"
+          ItemFieldsComponent={<EditReviewQuoteFields courses={courses} />}
         />
         <Grid container spacing={3}>
-          {reviewQuotes.map((data) =>
-            mapReviewQuoteToElement(data, !!user, courses),
-          )}
+          {reviewQuotes.map((data) => mapReviewQuoteToElement(data, courses))}
         </Grid>
       </Box>
     ),
-    [reviewQuotes, courses, user],
+    [reviewQuotes, courses],
   );
 }
