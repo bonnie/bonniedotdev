@@ -3,8 +3,8 @@ import jsonpatch from 'fast-json-patch';
 import useAxiosLater from 'Hooks/useAxiosLater';
 import useLogger from 'Hooks/useLogger';
 import useSelector from 'Hooks/useTypedSelector';
-import DeleteItemButton from 'Pages/Common/Modals/_DeleteItemButton';
-import EditItemButton from 'Pages/Common/Modals/_EditItemButtons';
+import DeleteItemButton from 'Pages/Common/Modals/DeleteItemButton';
+import UpdateItemButton from 'Pages/Common/Modals/UpdateItemButton';
 import React, { ReactElement } from 'react';
 import { Item } from 'Types';
 import _ from 'underscore';
@@ -51,7 +51,7 @@ export default function EditItemButtons<
   }
   return (
     <>
-      <EditItemButton
+      <UpdateItemButton
         ItemFieldsComponent={ItemFieldsComponent}
         handleSave={handleSave}
         itemData={itemData}
