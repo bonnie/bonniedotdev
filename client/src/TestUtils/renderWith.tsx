@@ -2,11 +2,12 @@ import { fireEvent, render, Screen, screen } from '@testing-library/react';
 import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { createStore, Store } from 'redux';
+import { applyMiddleware, createStore, Store } from 'redux';
+import thunk from 'redux-thunk';
 import rootReducer from 'State/Reducers';
 
 function storeFactory(initialState = {}): Store {
-  const store = createStore(rootReducer, initialState);
+  const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
   return store;
 }
 

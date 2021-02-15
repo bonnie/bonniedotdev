@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import urls from 'Constants/urls';
 import jsonpatch from 'fast-json-patch';
 import useAxiosLater from 'Hooks/useAxiosLater';
@@ -44,10 +45,15 @@ export default function EditItemButtons<
     if (patch.length === 0) {
       logger('error', `update ${itemEndpoint} was called with no differences`);
     }
+    axios({
+      url: `${itemEndpoint}/${itemData.id}`,
+      data: patch,
+      method: 'PATCH',
+    });
   }
 
   function handleDelete() {
-    axios(`${itemEndpoint}/${itemData.id}`, { method: 'DELETE' });
+    axios({ url: `${itemEndpoint}/${itemData.id}`, method: 'DELETE' });
   }
   return (
     <>

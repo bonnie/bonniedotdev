@@ -5,6 +5,7 @@ import urls from 'Constants/urls';
 import useActions from 'Hooks/useActions';
 import { useEffect, useState } from 'react';
 
+// TODO: add trigger parameter to re-run useEffect
 export default function useAxios<T>(url: urls): T | undefined {
   const config: AxiosRequestConfig = {};
   if (process.env.NODE_ENV === 'development')

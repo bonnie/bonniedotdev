@@ -32,7 +32,7 @@ export default function PageTitleWithAdd({
   const addButton = useMemo(() => {
     if (!user) return null;
     const addItem = (newData: NewItem) => {
-      axios(itemEndpoint, { method: 'POST', data: newData });
+      axios({ url: itemEndpoint, method: 'POST', data: newData });
     };
     return (
       <AddItemButton

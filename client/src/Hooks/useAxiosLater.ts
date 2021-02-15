@@ -2,20 +2,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios, { AxiosRequestConfig } from 'axios';
 import alertLevelOptions from 'Constants/alertLevels';
+import { serverPrefix } from 'Constants/urls';
 import useActions from 'Hooks/useActions';
 
-type AxiosLater = (url: string, config: AxiosRequestConfig) => void;
+type AxiosLater = (config: AxiosRequestConfig) => void;
 
 // TODO: the repeated code in this and useAxios feels icky
 export default function useAxiosLater(): AxiosLater {
   const { setLoading, clearLoading, setAlert } = useActions();
   const errorString = 'There was a problem connecting to the server';
 
-  return (url: string, config: AxiosRequestConfig): void => {
-    if (process.env.NODE_ENV === 'development')
-      config.baseURL = `http://localhost:5050`;
+  return (config: AxiosRequestConfig): void => {
+    if (process.env.NODE_ENV === 'development') config.baseURL = serverPrefix;
+    config.headers = { 'Content-Type': 'application/json' };
+
     setLoading();
-    axios(url, config)
+    axios(config)
       .catch((error) => {
         // TODO: log here
         setAlert(errorString, alertLevelOptions.error);

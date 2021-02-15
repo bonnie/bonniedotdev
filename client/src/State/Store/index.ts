@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 
-import reducers from '../Reducers';
+import rootReducer from '../Reducers';
 
-export const store = createStore(reducers, {});
+export const store = createStore(rootReducer, {}, applyMiddleware(thunk));
