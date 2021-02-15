@@ -25,6 +25,7 @@ class Login(Resource):
         user = UserModel.validate_user(args["username"], args["password"])
 
         if user is None:
-            return {"message": "Incorrect login"}, 400
+            username = args["username"]
+            return {"message": f"Incorrect login for user {username}"}, 400
 
         return {"username": user.username, "id": user.id}, 200
