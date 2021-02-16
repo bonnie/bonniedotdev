@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import axios from 'axios';
+import axiosInstance from 'AxiosInstance';
 import jsonpatch, { Operation } from 'fast-json-patch';
 import useLogger from 'Hooks/useLogger';
 import useQueryMutation from 'Hooks/useQueryMutation';
@@ -29,7 +29,7 @@ export default function EditItemButtons<
 
   const editUrl = `${itemDetails.editUrl}/${itemData.id}`;
   const updateItem = (patch: Operation[]) =>
-    axios({ url: editUrl, data: patch, method: 'PATCH' });
+    axiosInstance({ url: editUrl, data: patch, method: 'PATCH' });
   const updateMutation = useQueryMutation<Operation[]>({
     identifier: itemDetails.itemIdentifier,
     mutationFn: updateItem,
@@ -37,7 +37,10 @@ export default function EditItemButtons<
   });
 
   const deleteItem = () =>
-    axios({ url: `${itemDetails.editUrl}/${itemData.id}`, method: 'DELETE' });
+    axiosInstance({
+      url: `${itemDetails.editUrl}/${itemData.id}`,
+      method: 'DELETE',
+    });
   const deleteMutation = useQueryMutation<null>({
     identifier: itemDetails.itemIdentifier,
     mutationFn: deleteItem,

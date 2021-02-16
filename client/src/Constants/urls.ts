@@ -11,6 +11,3 @@ enum urls {
 }
 
 export default urls;
-
-export const serverPrefix =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:5050' : '';

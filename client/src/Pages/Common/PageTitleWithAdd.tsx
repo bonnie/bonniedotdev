@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from 'axios';
+import axiosInstance from 'AxiosInstance';
 import useQueryMutation from 'Hooks/useQueryMutation';
 import useSelector from 'Hooks/useTypedSelector';
 import React, { ReactElement, useMemo } from 'react';
@@ -28,7 +28,7 @@ export default function PageTitleWithAdd({
   const user = useSelector((state) => state.user);
 
   const addItem = (newData: NewItem) =>
-    axios({ url: itemDetails.editUrl, method: 'POST', data: newData });
+    axiosInstance({ url: itemDetails.editUrl, method: 'POST', data: newData });
 
   const addMutation = useQueryMutation<NewItem>({
     identifier: itemDetails.itemIdentifier,

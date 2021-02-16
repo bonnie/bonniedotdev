@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 export default function LoadingSpinner(): ReactElement {
   const classes = useStyles();
   const isFetching = useIsFetching();
-  console.log('isFetching', isFetching);
 
   return (
     <Box

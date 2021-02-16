@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axiosInstance from 'AxiosInstance';
 import alertLevelOptions from 'Constants/alertLevels';
-import urls, { serverPrefix } from 'Constants/urls';
+import urls from 'Constants/urls';
 import { Dispatch } from 'redux';
 import { AlertAction, UserAction } from 'State/Types';
 
@@ -16,8 +16,8 @@ export interface LoginUserPayload {
 export const loginUser = ({ username, password }: LoginUserPayload) => {
   return async (dispatch: Dispatch<Action>): Promise<Action> => {
     try {
-      const response = await axios({
-        url: `${serverPrefix}/${urls.loginURL}`,
+      const response = await axiosInstance({
+        url: urls.loginURL,
         method: 'POST',
         data: { username, password },
         validateStatus: (status) => {
