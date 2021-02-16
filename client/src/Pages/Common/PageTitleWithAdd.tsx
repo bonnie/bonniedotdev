@@ -2,17 +2,16 @@
 import useAxiosLater from 'Hooks/useAxiosLater';
 import useSelector from 'Hooks/useTypedSelector';
 import React, { ReactElement, useMemo } from 'react';
-import { HeaderVariant, NewItem } from 'Types';
+import { HeaderVariant, itemEditDetails, NewItem } from 'Types';
 
 import AddItemButton from './Modals/AddItemButton';
 import PageTitle from './PageTitle';
 
 interface PageTitleWithAddProps {
   title: string;
-  itemEndpoint: string;
-  ItemFieldsComponent: ReactElement;
-  itemString: string;
   variant?: HeaderVariant;
+  itemDetails: itemEditDetails;
+  ItemFieldsComponent: ReactElement;
 }
 
 PageTitleWithAdd.defaultProps = {
@@ -21,10 +20,9 @@ PageTitleWithAdd.defaultProps = {
 
 export default function PageTitleWithAdd({
   title,
-  itemEndpoint,
-  ItemFieldsComponent,
-  itemString,
   variant,
+  itemDetails,
+  ItemFieldsComponent,
 }: PageTitleWithAddProps): ReactElement {
   const user = useSelector((state) => state.user);
   const axios = useAxiosLater();
@@ -32,13 +30,13 @@ export default function PageTitleWithAdd({
   const addButton = useMemo(() => {
     if (!user) return null;
     const addItem = (newData: NewItem) => {
-      axios({ url: itemEndpoint, method: 'POST', data: newData });
+      axios({ url: itemDetails.editUrl, method: 'POST', data: newData });
     };
     return (
       <AddItemButton
         handleSave={addItem}
+        itemDetails={itemDetails}
         ItemFieldsComponent={ItemFieldsComponent}
-        itemString={itemString}
       />
     );
   }, [user]);

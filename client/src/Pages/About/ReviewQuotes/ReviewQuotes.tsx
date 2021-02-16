@@ -1,6 +1,6 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import urls from 'Constants/urls';
+import { reviewQuoteDetails } from 'Constants/itemConstants';
 import useCourses from 'Hooks/GetData/useCourses';
 import useReviewQuotes from 'Hooks/GetData/useReviewQuotes';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
@@ -31,8 +31,7 @@ export default function ReviewQuotes(): ReactElement {
         <PageTitleWithAdd
           title="Students say..."
           variant="h2"
-          itemEndpoint={urls.reviewQuoteURL}
-          itemString="Review Quote"
+          itemDetails={reviewQuoteDetails}
           ItemFieldsComponent={<EditReviewQuoteFields courses={courses} />}
         />
         <Grid container spacing={3}>

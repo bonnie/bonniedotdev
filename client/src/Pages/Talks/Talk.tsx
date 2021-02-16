@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import urls from 'Constants/urls';
+import { talkDetails } from 'Constants/itemConstants';
 import moment from 'moment';
 import EditItemButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement } from 'react';
@@ -16,17 +16,6 @@ import { colors } from 'Theme';
 import { Talk as TalkType } from 'Types';
 
 import EditTalkFields from './EditTalkFields';
-
-const talkPatchKeys = [
-  'title',
-  'utcDateStringISO',
-  'description',
-  'slidesFilename',
-  'conferenceImageName',
-  'conferenceName',
-  'conferenceLink',
-  'recordingLink',
-];
 
 interface TalkProps {
   talkData: TalkType;
@@ -65,11 +54,9 @@ export default function Talk({ talkData }: TalkProps): ReactElement {
 
   const editTalkButtons = (
     <EditItemButtons
-      itemString="Talk"
+      itemDetails={talkDetails}
       itemData={talkData}
       ItemFieldsComponent={<EditTalkFields talkData={talkData} />}
-      patchRelevantKeys={talkPatchKeys}
-      itemEndpoint={urls.talkURL}
     />
   );
 

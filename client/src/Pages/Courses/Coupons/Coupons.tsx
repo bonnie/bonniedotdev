@@ -1,6 +1,6 @@
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import urls from 'Constants/urls';
+import { couponDetails } from 'Constants/itemConstants';
 import useSelector from 'Hooks/useTypedSelector';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
 import React, { ReactElement, useMemo } from 'react';
@@ -25,8 +25,7 @@ export default function Coupons({
         <PageTitleWithAdd
           title="Coupons"
           variant="h5"
-          itemEndpoint={urls.couponURL}
-          itemString="Coupon"
+          itemDetails={couponDetails}
           ItemFieldsComponent={<EditCouponFields courseId={courseData.id} />}
         />
       </Box>

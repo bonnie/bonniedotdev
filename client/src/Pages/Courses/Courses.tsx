@@ -1,7 +1,7 @@
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import urls from 'Constants/urls';
+import { courseDetails } from 'Constants/itemConstants';
 import useCourses from 'Hooks/GetData/useCourses';
 import useSelector from 'Hooks/useTypedSelector';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
@@ -25,8 +25,7 @@ export default function Courses(): ReactElement {
       <>
         <PageTitleWithAdd
           title="Courses"
-          itemEndpoint={urls.courseURL}
-          itemString="Course"
+          itemDetails={courseDetails}
           ItemFieldsComponent={<EditCourseFields />}
         />
         <Grid container spacing={3}>

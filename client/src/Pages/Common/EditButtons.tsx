@@ -1,5 +1,4 @@
 /* eslint-disable max-lines-per-function */
-import urls from 'Constants/urls';
 import jsonpatch from 'fast-json-patch';
 import useAxiosLater from 'Hooks/useAxiosLater';
 import useLogger from 'Hooks/useLogger';
@@ -7,14 +6,12 @@ import useSelector from 'Hooks/useTypedSelector';
 import DeleteItemButton from 'Pages/Common/Modals/DeleteItemButton';
 import UpdateItemButton from 'Pages/Common/Modals/UpdateItemButton';
 import React, { ReactElement } from 'react';
-import { Item } from 'Types';
+import { Item, itemEditDetails } from 'Types';
 import _ from 'underscore';
 
 interface EditItemButtonsProps<NewItem, ExistingItem extends Item & NewItem> {
-  itemString: string;
+  itemDetails: itemEditDetails;
   itemData: ExistingItem;
-  itemEndpoint: urls;
-  patchRelevantKeys: string[];
   ItemFieldsComponent: ReactElement;
 }
 
@@ -22,10 +19,8 @@ export default function EditItemButtons<
   NewItem,
   ExistingItem extends Item & NewItem
 >({
-  itemString,
+  itemDetails,
   itemData,
-  itemEndpoint,
-  patchRelevantKeys,
   ItemFieldsComponent,
 }: EditItemButtonsProps<NewItem, ExistingItem>): ReactElement | null {
   const logger = useLogger();
@@ -35,25 +30,34 @@ export default function EditItemButtons<
   if (!user) return null;
 
   function handleSave(newData: NewItem) {
-    const originalPatchData = _.pick(itemData, ...patchRelevantKeys);
-    const newPatchData = _.pick(newData, ...patchRelevantKeys);
+    const originalPatchData = _.pick(
+      itemData,
+      ...itemDetails.patchRelevantKeys,
+    );
+    const newPatchData = _.pick(newData, ...itemDetails.patchRelevantKeys);
 
     // create a patch for the difference between newData and originalData
     const patch = jsonpatch.compare(originalPatchData, newPatchData);
 
     // edit was called with no differences
     if (patch.length === 0) {
-      logger('error', `update ${itemEndpoint} was called with no differences`);
+      logger(
+        'error',
+        `update ${itemDetails.editUrl} was called with no differences`,
+      );
     }
     axios({
-      url: `${itemEndpoint}/${itemData.id}`,
+      url: `${itemDetails.editUrl}/${itemData.id}`,
       data: patch,
       method: 'PATCH',
     });
   }
 
   function handleDelete() {
-    axios({ url: `${itemEndpoint}/${itemData.id}`, method: 'DELETE' });
+    axios({
+      url: `${itemDetails.editUrl}/${itemData.id}`,
+      method: 'DELETE',
+    });
   }
   return (
     <>
@@ -61,12 +65,12 @@ export default function EditItemButtons<
         ItemFieldsComponent={ItemFieldsComponent}
         handleSave={handleSave}
         itemData={itemData}
-        itemString={itemString}
+        itemString={itemDetails.itemString}
       />
       {/** TODO: work out what to do about itemLabel */}
       <DeleteItemButton
         itemLabel="TODO"
-        itemTypeString={itemString}
+        itemTypeString={itemDetails.itemString}
         handleDelete={handleDelete}
       />
     </>

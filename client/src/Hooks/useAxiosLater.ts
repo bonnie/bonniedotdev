@@ -13,7 +13,7 @@ export default function useAxiosLater(): AxiosLater {
   const errorString = 'There was a problem connecting to the server';
 
   return (config: AxiosRequestConfig): void => {
-    if (process.env.NODE_ENV === 'development') config.baseURL = serverPrefix;
+    if (serverPrefix) config.baseURL = serverPrefix;
     config.headers = { 'Content-Type': 'application/json' };
 
     setLoading();

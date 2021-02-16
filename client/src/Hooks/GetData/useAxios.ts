@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios, { AxiosRequestConfig } from 'axios';
 import alertLevelOptions from 'Constants/alertLevels';
-import urls from 'Constants/urls';
+import urls, { serverPrefix } from 'Constants/urls';
 import useActions from 'Hooks/useActions';
 import { useEffect, useState } from 'react';
 
 // TODO: add trigger parameter to re-run useEffect
 export default function useAxios<T>(url: urls): T | undefined {
   const config: AxiosRequestConfig = {};
-  if (process.env.NODE_ENV === 'development')
-    config.baseURL = `http://localhost:5050`;
+  if (serverPrefix) config.baseURL = serverPrefix;
   const { setLoading, clearLoading, setAlert } = useActions();
   const [data, setData] = useState<T | undefined>(undefined);
   const errorString = 'There was a problem connecting to the server';

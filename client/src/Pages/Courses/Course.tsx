@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import urls from 'Constants/urls';
+import { courseDetails } from 'Constants/itemConstants';
 import EditItemButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement, useMemo } from 'react';
 import { colors } from 'Theme';
@@ -17,8 +17,6 @@ import { Course as CourseType } from 'Types';
 
 import Coupons from './Coupons/Coupons';
 import EditCourseFields from './EditCourseFields';
-
-const coursePatchKeys = ['name', 'description', 'link', 'imageName'];
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -40,11 +38,9 @@ const useStyles = makeStyles(() => ({
 
 const editCourseButtons = (courseData) => (
   <EditItemButtons
-    itemString="Course"
+    itemDetails={courseDetails}
     itemData={courseData}
     ItemFieldsComponent={<EditCourseFields courseData={courseData} />}
-    patchRelevantKeys={coursePatchKeys}
-    itemEndpoint={urls.talkURL}
   />
 );
 

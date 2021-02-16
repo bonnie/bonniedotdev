@@ -4,14 +4,12 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
-import urls from 'Constants/urls';
+import { reviewQuoteDetails } from 'Constants/itemConstants';
 import EditButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement } from 'react';
 import { Course, ReviewQuote as ReviewQuoteType } from 'Types';
 
 import EditReviewQuoteFields from './EditReviewQuoteFields';
-
-const reviewQuotePatchKeys = ['body', 'courseId'];
 
 const useStyles = makeStyles(() => ({
   courseLink: {
@@ -66,11 +64,9 @@ export default function ReviewQuote({
 
   const reviewQuoteEditButtons = (
     <EditButtons
-      itemString="Review Quote"
+      itemDetails={reviewQuoteDetails}
       itemData={reviewQuoteData}
       ItemFieldsComponent={ReviewQuoteEditFieldsComponent}
-      patchRelevantKeys={reviewQuotePatchKeys}
-      itemEndpoint={urls.reviewQuoteURL}
     />
   );
 

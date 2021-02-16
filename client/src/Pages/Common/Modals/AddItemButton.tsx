@@ -1,25 +1,25 @@
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, { ReactElement } from 'react';
-import { NewItem } from 'Types';
+import { itemEditDetails, NewItem } from 'Types';
 
 import ItemModal from './ItemModal';
 
 interface AddItemButtonProps {
   handleSave: (item: NewItem) => void;
-  itemString: string;
-  ItemFieldsComponent: ReactElement; // TODO: can we make this more specific as an input field?
+  itemDetails: itemEditDetails;
+  ItemFieldsComponent: ReactElement;
 }
 
 export default function AddItemButton({
   handleSave,
-  itemString,
+  itemDetails,
   ItemFieldsComponent,
 }: AddItemButtonProps): ReactElement {
   return (
     <ItemModal
       ButtonIcon={AddCircleIcon}
       handleSave={handleSave}
-      dialogTitle={`Add ${itemString}`}
+      dialogTitle={`Add ${itemDetails.itemString}`}
       ItemFields={ItemFieldsComponent}
     />
   );

@@ -2,6 +2,7 @@
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { couponDetails } from 'Constants/itemConstants';
 import urls from 'Constants/urls';
 import moment from 'moment-timezone';
 import EditItemButtons from 'Pages/Common/EditButtons';
@@ -9,8 +10,6 @@ import React, { ReactElement } from 'react';
 import { Coupon as CouponType } from 'Types';
 
 import EditCouponFields from './EditCouponFields';
-
-const couponPatchKeys = ['link', 'price', 'utcExpirationISO', 'courseId'];
 
 type CouponProps = {
   couponData: CouponType;
@@ -33,11 +32,9 @@ export default function Coupon({
 
   const editCouponButtons = (
     <EditItemButtons
-      itemString="Coupon"
+      itemDetails={couponDetails}
       itemData={couponData}
       ItemFieldsComponent={CouponFieldsComponent}
-      patchRelevantKeys={couponPatchKeys}
-      itemEndpoint={urls.talkURL}
     />
   );
 

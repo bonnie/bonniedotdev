@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import urls from 'Constants/urls';
+import { talkDetails } from 'Constants/itemConstants';
 import useTalks from 'Hooks/GetData/useTalks';
 import useSelector from 'Hooks/useTypedSelector';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
@@ -55,8 +55,7 @@ export default function Talks(): ReactElement {
       <>
         <PageTitleWithAdd
           title="Conference Talks and Workshops"
-          itemEndpoint={urls.talkURL}
-          itemString="Talk"
+          itemDetails={talkDetails}
           ItemFieldsComponent={<EditTalkFields />}
         />
         <Grid style={{ marginTop: 10 }} aria-label="talks">
