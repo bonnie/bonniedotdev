@@ -64,8 +64,16 @@ export interface ItemFieldsComponentProps<ItemData extends Item> {
 
 export type HeaderVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
 
+export enum ItemType {
+  talk = 'talk',
+  course = 'course',
+  coupon = 'coupon',
+  reviewQuote = 'reviewQuote',
+}
+
 export interface itemEditDetails {
   itemString: string;
   editUrl: urls;
   patchRelevantKeys: string[];
+  itemIdentifier: ItemType;
 }

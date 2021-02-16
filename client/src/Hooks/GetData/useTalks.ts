@@ -1,6 +1,6 @@
 import urls from 'Constants/urls';
 import moment from 'moment';
-import { SortedTalks, Talk } from 'Types';
+import { ItemType, SortedTalks, Talk } from 'Types';
 
 import useAxios from './useAxios';
 
@@ -36,6 +36,6 @@ function sortTalks(talks: Talk[]): SortedTalks {
 }
 
 export default function useTalks(): SortedTalks {
-  const talks = useAxios<Talk[]>(urls.talksURL);
+  const talks = useAxios<Talk[]>(urls.talksURL, ItemType.talk);
   return talks ? sortTalks(talks) : { past: [], upcoming: [] };
 }

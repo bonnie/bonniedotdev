@@ -1,7 +1,8 @@
 /* eslint-disable max-lines-per-function */
-import jsonpatch from 'fast-json-patch';
-import useAxiosLater from 'Hooks/useAxiosLater';
+import axios from 'axios';
+import jsonpatch, { Operation } from 'fast-json-patch';
 import useLogger from 'Hooks/useLogger';
+import useQueryMutation from 'Hooks/useQueryMutation';
 import useSelector from 'Hooks/useTypedSelector';
 import DeleteItemButton from 'Pages/Common/Modals/DeleteItemButton';
 import UpdateItemButton from 'Pages/Common/Modals/UpdateItemButton';
@@ -24,8 +25,24 @@ export default function EditItemButtons<
   ItemFieldsComponent,
 }: EditItemButtonsProps<NewItem, ExistingItem>): ReactElement | null {
   const logger = useLogger();
-  const axios = useAxiosLater();
   const user = useSelector((state) => state.user);
+
+  const editUrl = `${itemDetails.editUrl}/${itemData.id}`;
+  const updateItem = (patch: Operation[]) =>
+    axios({ url: editUrl, data: patch, method: 'PATCH' });
+  const updateMutation = useQueryMutation<Operation[]>({
+    identifier: itemDetails.itemIdentifier,
+    mutationFn: updateItem,
+    actionString: 'update',
+  });
+
+  const deleteItem = () =>
+    axios({ url: `${itemDetails.editUrl}/${itemData.id}`, method: 'DELETE' });
+  const deleteMutation = useQueryMutation<null>({
+    identifier: itemDetails.itemIdentifier,
+    mutationFn: deleteItem,
+    actionString: 'delete',
+  });
 
   if (!user) return null;
 
@@ -45,20 +62,17 @@ export default function EditItemButtons<
         'error',
         `update ${itemDetails.editUrl} was called with no differences`,
       );
+      return;
     }
-    axios({
-      url: `${itemDetails.editUrl}/${itemData.id}`,
-      data: patch,
-      method: 'PATCH',
-    });
+
+    updateMutation.mutate(patch);
   }
 
   function handleDelete() {
-    axios({
-      url: `${itemDetails.editUrl}/${itemData.id}`,
-      method: 'DELETE',
-    });
+    // TODO: figure out how to get typescript to allow "no argument"
+    deleteMutation.mutate(null);
   }
+
   return (
     <>
       <UpdateItemButton

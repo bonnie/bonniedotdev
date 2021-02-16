@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import useAxiosLater from 'Hooks/useAxiosLater';
+import axios from 'axios';
+import useQueryMutation from 'Hooks/useQueryMutation';
 import useSelector from 'Hooks/useTypedSelector';
 import React, { ReactElement, useMemo } from 'react';
 import { HeaderVariant, itemEditDetails, NewItem } from 'Types';
@@ -25,16 +26,22 @@ export default function PageTitleWithAdd({
   ItemFieldsComponent,
 }: PageTitleWithAddProps): ReactElement {
   const user = useSelector((state) => state.user);
-  const axios = useAxiosLater();
+
+  const addItem = (newData: NewItem) =>
+    axios({ url: itemDetails.editUrl, method: 'POST', data: newData });
+
+  const addMutation = useQueryMutation<NewItem>({
+    identifier: itemDetails.itemIdentifier,
+    mutationFn: addItem,
+    actionString: 'add',
+  });
 
   const addButton = useMemo(() => {
     if (!user) return null;
-    const addItem = (newData: NewItem) => {
-      axios({ url: itemDetails.editUrl, method: 'POST', data: newData });
-    };
+
     return (
       <AddItemButton
-        handleSave={addItem}
+        handleSave={addMutation.mutate}
         itemDetails={itemDetails}
         ItemFieldsComponent={ItemFieldsComponent}
       />

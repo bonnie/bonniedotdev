@@ -11,14 +11,9 @@ export interface AlertAction {
   payload?: AlertState;
 }
 
-export interface LoadingAction {
-  type: string;
-  payload: boolean;
-}
-
 export interface UserAction {
   type: string;
   payload?: User;
 }
 
-export type Action = AlertAction | LoadingAction;
+export type Action = AlertAction;

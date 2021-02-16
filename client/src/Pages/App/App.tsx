@@ -1,7 +1,6 @@
 import Box from '@material-ui/core/Box';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import useSelector from 'Hooks/useTypedSelector';
 import React, { ReactElement } from 'react';
 import theme from 'Theme';
 
@@ -11,7 +10,6 @@ import Nav from './Nav';
 import Routes from './Routes';
 
 export default function App(): ReactElement {
-  const loading = useSelector((state) => state.loading);
   return (
     <ThemeProvider theme={theme}>
       <AlertBox />
@@ -19,7 +17,7 @@ export default function App(): ReactElement {
         <Nav />
       </Toolbar>
       <Box m={5}>
-        {loading ? <LoadingSpinner /> : null}
+        <LoadingSpinner />
         <Routes />
       </Box>
     </ThemeProvider>

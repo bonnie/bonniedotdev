@@ -3,7 +3,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { couponDetails } from 'Constants/itemConstants';
-import urls from 'Constants/urls';
 import moment from 'moment-timezone';
 import EditItemButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement } from 'react';

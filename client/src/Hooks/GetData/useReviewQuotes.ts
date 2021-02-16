@@ -1,5 +1,5 @@
 import urls from 'Constants/urls';
-import { ReviewQuote } from 'Types';
+import { ItemType, ReviewQuote } from 'Types';
 
 import useAxios from './useAxios';
 
@@ -9,7 +9,10 @@ function sortByLength(reviewQuotes: ReviewQuote[]): ReviewQuote[] {
 }
 
 const useReviewQuotes = (): ReviewQuote[] => {
-  const reviewQuotes = useAxios<ReviewQuote[]>(urls.reviewQuotesURL);
+  const reviewQuotes = useAxios<ReviewQuote[]>(
+    urls.reviewQuotesURL,
+    ItemType.reviewQuote,
+  );
   return reviewQuotes === undefined ? [] : sortByLength(reviewQuotes);
 };
 

@@ -2,6 +2,7 @@ import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { ReactElement } from 'react';
+import { useIsFetching } from 'react-query';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoadingSpinner(): ReactElement {
   const classes = useStyles();
+  const isFetching = useIsFetching();
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} display={isFetching ? 'inherit' : 'none'}>
       <CircularProgress className={classes.loading} />
     </Box>
   );

@@ -1,5 +1,5 @@
 import urls from 'Constants/urls';
-import { itemEditDetails } from 'Types';
+import { itemEditDetails, ItemType } from 'Types';
 
 // Talks //////////////////////////////////
 const talkPatchKeys = [
@@ -17,6 +17,7 @@ export const talkDetails: itemEditDetails = {
   itemString: 'Talk',
   editUrl: urls.talkURL,
   patchRelevantKeys: talkPatchKeys,
+  itemIdentifier: ItemType.talk,
 };
 
 // Courses //////////////////////////////////
@@ -26,6 +27,7 @@ export const courseDetails: itemEditDetails = {
   itemString: 'Course',
   editUrl: urls.courseURL,
   patchRelevantKeys: coursePatchKeys,
+  itemIdentifier: ItemType.course,
 };
 
 // Coupons //////////////////////////////////
@@ -35,6 +37,7 @@ export const couponDetails: itemEditDetails = {
   itemString: 'Coupon',
   editUrl: urls.couponURL,
   patchRelevantKeys: couponPatchKeys,
+  itemIdentifier: ItemType.coupon,
 };
 
 // ReviewQuotes //////////////////////////////////
@@ -44,4 +47,5 @@ export const reviewQuoteDetails: itemEditDetails = {
   itemString: 'Review Quote',
   editUrl: urls.reviewQuoteURL,
   patchRelevantKeys: reviewQuotePatchKeys,
+  itemIdentifier: ItemType.reviewQuote,
 };
