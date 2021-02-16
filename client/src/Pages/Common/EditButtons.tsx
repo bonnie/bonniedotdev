@@ -7,14 +7,19 @@ import useSelector from 'Hooks/useTypedSelector';
 import DeleteItemButton from 'Pages/Common/Modals/DeleteItemButton';
 import UpdateItemButton from 'Pages/Common/Modals/UpdateItemButton';
 import React, { ReactElement } from 'react';
-import { Item, itemEditDetails } from 'Types';
+import { Item, itemEditDetails, ItemType } from 'Types';
 import _ from 'underscore';
 
 interface EditItemButtonsProps<NewItem, ExistingItem extends Item & NewItem> {
   itemDetails: itemEditDetails;
   itemData: ExistingItem;
   ItemFieldsComponent: ReactElement;
+  queryIdentifier?: ItemType;
 }
+
+EditItemButtons.defaultProps = {
+  queryIdentifier: null,
+};
 
 export default function EditItemButtons<
   NewItem,
@@ -23,15 +28,17 @@ export default function EditItemButtons<
   itemDetails,
   itemData,
   ItemFieldsComponent,
+  queryIdentifier,
 }: EditItemButtonsProps<NewItem, ExistingItem>): ReactElement | null {
   const logger = useLogger();
   const user = useSelector((state) => state.user);
+  const identifier = queryIdentifier || itemDetails.itemIdentifier;
 
   const editUrl = `${itemDetails.editUrl}/${itemData.id}`;
   const updateItem = (patch: Operation[]) =>
     axiosInstance({ url: editUrl, data: patch, method: 'PATCH' });
   const updateMutation = useQueryMutation<Operation[]>({
-    identifier: itemDetails.itemIdentifier,
+    identifier,
     mutationFn: updateItem,
     actionString: 'update',
   });
@@ -42,7 +49,7 @@ export default function EditItemButtons<
       method: 'DELETE',
     });
   const deleteMutation = useQueryMutation<null>({
-    identifier: itemDetails.itemIdentifier,
+    identifier,
     mutationFn: deleteItem,
     actionString: 'delete',
   });

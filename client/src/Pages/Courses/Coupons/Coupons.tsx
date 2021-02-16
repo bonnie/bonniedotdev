@@ -4,7 +4,7 @@ import { couponDetails } from 'Constants/itemConstants';
 import useSelector from 'Hooks/useTypedSelector';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
 import React, { ReactElement, useMemo } from 'react';
-import { Course } from 'Types';
+import { Course, ItemType } from 'Types';
 
 import Coupon from './Coupon';
 import EditCouponFields from './EditCouponFields';
@@ -27,6 +27,7 @@ export default function Coupons({
           variant="h5"
           itemDetails={couponDetails}
           ItemFieldsComponent={<EditCouponFields courseId={courseData.id} />}
+          queryIdentifier={ItemType.course}
         />
       </Box>
     );

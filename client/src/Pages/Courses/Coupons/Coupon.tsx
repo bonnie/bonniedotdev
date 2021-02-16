@@ -6,7 +6,7 @@ import { couponDetails } from 'Constants/itemConstants';
 import moment from 'moment-timezone';
 import EditItemButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement } from 'react';
-import { Coupon as CouponType } from 'Types';
+import { Coupon as CouponType, ItemType } from 'Types';
 
 import EditCouponFields from './EditCouponFields';
 
@@ -34,6 +34,7 @@ export default function Coupon({
       itemDetails={couponDetails}
       itemData={couponData}
       ItemFieldsComponent={CouponFieldsComponent}
+      queryIdentifier={ItemType.course}
     />
   );
 

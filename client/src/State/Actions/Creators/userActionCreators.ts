@@ -42,15 +42,6 @@ export const loginUser = ({ username, password }: LoginUserPayload) => {
   };
 };
 
-// export function loginUser({
-//   username,
-//   password,
-// }: LoginUserPayload): UserAction {
-//   return {
-//     type: actionIds.LOGIN_USER_RESPONSE,
-//     payload: { id: 5, username: 'sjela' },
-//   };
-// }
 export function logoutUser(): UserAction {
   return { type: actionIds.LOGOUT_USER };
 }
