@@ -21,9 +21,13 @@ const useStyles = makeStyles((theme) => ({
 export default function LoadingSpinner(): ReactElement {
   const classes = useStyles();
   const isFetching = useIsFetching();
+  console.log('isFetching', isFetching);
 
   return (
-    <Box className={classes.root} display={isFetching ? 'inherit' : 'none'}>
+    <Box
+      className={classes.root}
+      style={{ display: isFetching ? 'inherit' : 'none' }}
+    >
       <CircularProgress className={classes.loading} />
     </Box>
   );
