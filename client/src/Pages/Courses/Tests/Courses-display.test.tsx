@@ -13,7 +13,7 @@ test('Renders four courses for non-error server response when not logged in', as
   // TestUtils/Data/testCoursesData (see above) for /api/courses
 
   // render entire App so that we can check Loading and Error
-  const { screen } = renderWithRouterAndProvider(<App />);
+  const screen = renderWithRouterAndProvider(<App />);
 
   // click the 'courses' tab to trigger the Courses retrieval
   const coursesNavLink = screen.getByRole('tab', { name: /courses/i });

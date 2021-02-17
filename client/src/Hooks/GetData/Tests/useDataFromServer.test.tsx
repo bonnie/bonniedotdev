@@ -17,7 +17,7 @@ import { renderWithRouterAndProvider } from 'TestUtils/renderWith';
 
 test('Renders loading and no error for non-error server response', async () => {
   // render entire App so that we can check Loading and Error
-  const { screen } = renderWithRouterAndProvider(<App />);
+  const screen = renderWithRouterAndProvider(<App />);
 
   // click the 'about' tab to trigger the talks retrieval
   const talksNavLink = screen.getByRole('tab', { name: /talks/ });
@@ -57,7 +57,7 @@ test('Renders error alert for error server response', async () => {
   );
 
   // render entire App so that we can check Loading and Error
-  const { screen } = renderWithRouterAndProvider(<App />);
+  const screen = renderWithRouterAndProvider(<App />);
 
   // click the 'about' tab to trigger the talks retrieval
   const talksNavLink = screen.getByRole('tab', { name: /talks/ });

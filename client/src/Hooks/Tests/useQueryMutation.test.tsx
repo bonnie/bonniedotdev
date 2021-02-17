@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // testing useQueryMutation hook.
 // Using Course because its edit form is simple
 //
@@ -9,19 +10,42 @@
 import userEvent from '@testing-library/user-event';
 import App from 'Pages/App/App';
 import React from 'react';
+import { setLogger } from 'react-query';
 import { renderWithRouterAndProvider } from 'TestUtils/renderWith';
+
+// TODO: figure out more elegant solution
+// for these tests only, suppress network errors that result from
+// tests exiting before queries are complete
+// both this AND useLogger are needed to suppress all errors
+//
+// Sadly neither of these (or both, in either order) work in an afterEach:
+//    await queryClient.cancelQueries();
+//    cancelTokenSource.cancel();
+jest.spyOn(console, 'error').mockImplementation((error) => {
+  if (
+    !error.toString().startsWith('Error: Request failed with status code 500')
+  ) {
+    // eslint-disable-next-line no-console
+    console.log('\x1b[31m', error);
+  }
+});
+// both this AND jest.spyOn(console, 'error) are needed to suppress all errors
+setLogger({
+  log: console.log,
+  warn: console.warn,
+  error: (error) => {
+    const e = error.toString();
+    if (!e.startsWith('Error: Network Error')) console.error(error);
+  },
+});
 
 describe('edit course', () => {
   let screen;
-  let queryClient;
+
   beforeEach(async () => {
-    const response = await renderWithRouterAndProvider(<App />, {
+    screen = await renderWithRouterAndProvider(<App />, {
       initialState: { user: { id: 1, username: 'ralph' } },
     });
-    // TODO: this is ugly, not being able to destructure 'cuz the variables
-    // aren't consts. There's got to be a better way.
-    screen = response.screen;
-    queryClient = response.queryClient;
 
     // find and click courses tab
     const coursesTab = await screen.findByRole('tab', {
@@ -31,7 +55,8 @@ describe('edit course', () => {
   });
   afterEach(async () => {
     // TODO: why doesn't this work to suppress errors?? T.T
-    await queryClient.cancelQueries();
+    // await queryClient.cancelQueries();
+    // cancelTokenSource.cancel();
   });
   test('create new Course and save', async () => {
     // wait until Course edit buttons appear so we know data is loaded

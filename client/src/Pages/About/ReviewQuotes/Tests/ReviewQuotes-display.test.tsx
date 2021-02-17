@@ -12,7 +12,7 @@ test('Renders four ReviewQuotes and course links for non-error server response',
   // and src/setupTests.js. The handler is set to return
   // TestUtils/Data/testReviewQuotesData (see above) for /api/ReviewQuotes
 
-  const { screen } = renderWithRouterAndProvider(<App />);
+  const screen = renderWithRouterAndProvider(<App />);
 
   // click the 'about' tab to trigger the ReviewQuotes retrieval
   const aboutNavLink = screen.getByRole('tab', { name: /about/ });

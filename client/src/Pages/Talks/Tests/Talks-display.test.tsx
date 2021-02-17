@@ -34,7 +34,7 @@ test('Renders four talks for non-error server response', async () => {
   // TestUtils/Data/testTalksData (see above) for /api/talks
 
   // render entire App so that we can check Loading and Error
-  const { screen } = renderWithRouterAndProvider(<App />);
+  const screen = renderWithRouterAndProvider(<App />);
 
   // click the 'about' tab to trigger the talks retrieval
   const talksNavLink = screen.getByRole('tab', { name: /talks/ });
