@@ -39,10 +39,14 @@ export function renderWithProvider(
   return screen;
 }
 
+interface ScreenAndQueryClient {
+  screen: Screen;
+  queryClient: QueryClient;
+}
 export function renderWithRouterAndProvider(
   ui: ReactElement,
   { initialRouterEntries = ['/'], initialState = {} } = {},
-): Screen {
+): ScreenAndQueryClient {
   const store = storeFactory(initialState);
   const queryClient = new QueryClient();
 
@@ -53,7 +57,7 @@ export function renderWithRouterAndProvider(
       </QueryClientProvider>
     </Provider>,
   );
-  return screen;
+  return { screen, queryClient };
 }
 
 // Simply to provide an app with a user already logged in

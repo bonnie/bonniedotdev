@@ -8,6 +8,7 @@ import server from 'TestUtils/Mocks/server';
 import {
   renderWithProvider,
   renderWithRouterAndProvider,
+  renderWithRouterProviderAndUser,
 } from 'TestUtils/renderWith';
 import { Talk as TalkType } from 'Types';
 
@@ -33,7 +34,7 @@ test('Renders four talks for non-error server response', async () => {
   // TestUtils/Data/testTalksData (see above) for /api/talks
 
   // render entire App so that we can check Loading and Error
-  const screen = renderWithRouterAndProvider(<App />);
+  const { screen } = renderWithRouterAndProvider(<App />);
 
   // click the 'about' tab to trigger the talks retrieval
   const talksNavLink = screen.getByRole('tab', { name: /talks/ });
@@ -97,4 +98,23 @@ test('Renders note for no upcoming talks', async () => {
     name: 'upcoming-talks-list',
   });
   expect(upcomingTalks).toHaveTextContent('No upcoming talks scheduled.');
+});
+
+test('Displays talks when logged in', async () => {
+  // Note: mocked server response is handled by msw, in the src/mocks folder
+  // and src/setupTests.js. The handler is set to return
+  // TestUtils/Data/testTalksData (see above) for /api/talks
+
+  // render entire App so that we can check Loading and Error
+  const loadingScreen = await renderWithRouterProviderAndUser(<App />);
+
+  // click the 'about' tab to trigger the review talks retrieval
+  const talkNavLink = loadingScreen.getByRole('tab', { name: /talk/ });
+  fireEvent.click(talkNavLink);
+
+  // check titles (all fake titles start with "i am")
+  const titles = await loadingScreen.findAllByRole('heading', {
+    name: /i am/i,
+  });
+  expect(titles.length).toBe(4);
 });

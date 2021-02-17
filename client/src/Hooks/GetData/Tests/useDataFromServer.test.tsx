@@ -17,7 +17,7 @@ import { renderWithRouterAndProvider } from 'TestUtils/renderWith';
 
 test('Renders loading and no error for non-error server response', async () => {
   // render entire App so that we can check Loading and Error
-  const screen = renderWithRouterAndProvider(<App />);
+  const { screen } = renderWithRouterAndProvider(<App />);
 
   // click the 'about' tab to trigger the talks retrieval
   const talksNavLink = screen.getByRole('tab', { name: /talks/ });
@@ -57,19 +57,19 @@ test('Renders error alert for error server response', async () => {
   );
 
   // render entire App so that we can check Loading and Error
-  const errorScreen = renderWithRouterAndProvider(<App />);
+  const { screen } = renderWithRouterAndProvider(<App />);
 
   // click the 'about' tab to trigger the talks retrieval
-  const talksNavLink = errorScreen.getByRole('tab', { name: /talks/ });
+  const talksNavLink = screen.getByRole('tab', { name: /talks/ });
   fireEvent.click(talksNavLink);
   // END: setup ///////////////////////////////////////
 
   // check loading spinner
-  const loadingSpinner = await errorScreen.findByRole('progressbar');
+  const loadingSpinner = await screen.findByRole('progressbar');
   expect(loadingSpinner).toBeVisible();
 
   // confirm alert
-  const errorAlert = await errorScreen.findByRole('alert');
+  const errorAlert = await screen.findByRole('alert');
   expect(errorAlert).toHaveTextContent(
     'There was a problem connecting to the server',
   );

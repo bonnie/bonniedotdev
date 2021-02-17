@@ -25,5 +25,10 @@
     "noEmit": true,
     "downlevelIteration": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "node_modules/@types"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "node_modules/@types",
+    "src/Hooks/Tests/useQueryMutation.test.js"
+  ]
 }

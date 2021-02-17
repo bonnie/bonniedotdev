@@ -14,7 +14,7 @@ const NavAndRoutes = (
 );
 
 function renderAndClickRoute(routeName) {
-  const screen = renderWithRouterAndProvider(NavAndRoutes);
+  const { screen } = renderWithRouterAndProvider(NavAndRoutes);
   // Click the requested nav link
   const navLink = screen.getByRole('tab', { name: RegExp(routeName) });
   fireEvent.click(navLink);
@@ -58,7 +58,7 @@ describe('navigate to routes', () => {
   });
   test('displays "not found" page for unknown route', () => {
     // render and update location to unknown route
-    const screen = renderWithRouterAndProvider(NavAndRoutes, {
+    const { screen } = renderWithRouterAndProvider(NavAndRoutes, {
       initialRouterEntries: ['this_aint_no_route'],
     });
 
