@@ -38,22 +38,10 @@ test('Renders four talks for non-error server response', async () => {
   // click the 'about' tab to trigger the talks retrieval
   const talksNavLink = screen.getByRole('tab', { name: /talks/ });
   fireEvent.click(talksNavLink);
-  // END: setup /////////////////////////////////////////
-
-  // check loading spinner
-  const loadingSpinner = await screen.findByRole('progressbar');
-  expect(loadingSpinner).toBeVisible();
 
   // check titles (all fake titles start with "i am")
   const titles = await screen.findAllByRole('heading', { name: /i am/i });
   expect(titles.length).toBe(4);
-
-  // confirm loading spinner has disappeared
-  expect(loadingSpinner).not.toBeVisible();
-
-  // confirm no error
-  const errorAlert = screen.queryByRole('alert');
-  expect(errorAlert).not.toBeInTheDocument();
 });
 
 describe('separates upcoming / future and sorts by date', () => {
@@ -109,55 +97,4 @@ test('Renders note for no upcoming talks', async () => {
     name: 'upcoming-talks-list',
   });
   expect(upcomingTalks).toHaveTextContent('No upcoming talks scheduled.');
-});
-
-test('Renders error alert for error server response', async () => {
-  // to suppress the console error from axios, since error is handled later by react-query
-  jest.spyOn(console, 'error').mockImplementation((error) => {
-    if (
-      !error
-        .toString()
-        .startsWith('Error: Request failed with status code 500') &&
-      !error.toString().startsWith('Error: Network Error')
-    ) {
-      // eslint-disable-next-line no-console
-      console.log('\x1b[31m', error);
-    }
-  });
-
-  // override default msw response for talks endpoint with error response
-  server.resetHandlers(
-    rest.get(urls.talksURL, (req, res, ctx) =>
-      res(ctx.status(500), ctx.json({ message: 'oops' })),
-    ),
-  );
-
-  // render entire App so that we can check Loading and Error
-  const errorScreen = renderWithRouterAndProvider(<App />);
-
-  // click the 'about' tab to trigger the talks retrieval
-  const talksNavLink = errorScreen.getByRole('tab', { name: /talks/ });
-  fireEvent.click(talksNavLink);
-  // END: setup ///////////////////////////////////////
-
-  // check loading spinner
-  const loadingSpinner = await errorScreen.findByRole('progressbar');
-  expect(loadingSpinner).toBeVisible();
-
-  // confirm alert
-  const errorAlert = await errorScreen.findByRole('alert');
-  expect(errorAlert).toHaveTextContent(
-    'There was a problem connecting to the server',
-  );
-
-  // confirm loading spinner disappears
-  expect(loadingSpinner).not.toBeVisible();
-});
-
-test('Does not render slide link if data is not present', () => {
-  server.resetHandlers(
-    rest.get(urls.talksURL, (req, res, ctx) =>
-      res(ctx.status(500), ctx.json({ message: 'oops' })),
-    ),
-  );
 });
