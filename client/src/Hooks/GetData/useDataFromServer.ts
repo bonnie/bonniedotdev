@@ -6,7 +6,6 @@ import useActions from 'Hooks/useActions';
 import { useQuery } from 'react-query';
 import { ItemType } from 'Types';
 
-// TODO: add trigger parameter to re-run useEffect
 export default function useAxios<T>(
   url: urls,
   queryIdentifier: ItemType,

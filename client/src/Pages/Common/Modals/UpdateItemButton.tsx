@@ -11,7 +11,7 @@ interface EditItemModalProps<NewItem, ExistingItem extends Item> {
   itemData: ExistingItem;
 }
 
-// TODO: ts: ExistingItem extends Item *and* NewItem
+// TODO: ts: ExistingItem extends Item *and* this specific NewItem
 export default function EditItemButtons<NewItem, ExistingItem extends Item>({
   itemString,
   ItemFieldsComponent,

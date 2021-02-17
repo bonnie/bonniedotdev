@@ -48,8 +48,6 @@ export default function Talks(): ReactElement {
     [],
   );
 
-  // TODO: itemEndpoint, itemString and ItemFieldsComponent are all used in PageTitleWithAdd
-  // and EditButtons. It seems like this could be optimized somehow.
   const contents = useMemo(
     () => (
       <>

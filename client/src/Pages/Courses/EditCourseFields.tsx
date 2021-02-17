@@ -20,6 +20,7 @@ EditCourseFields.defaultProps = { courseData: newCourse };
 export default function EditCourseFields({
   courseData = newCourse,
 }: EditCourseFieldsType): ReactElement {
+  // TODO: allow upload of course image
   return (
     <>
       <TextInput required fieldName="name" defaultValue={courseData.name} />

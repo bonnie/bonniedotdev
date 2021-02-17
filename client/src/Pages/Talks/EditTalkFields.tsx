@@ -30,7 +30,7 @@ export default function EditTalkFields({
     `${talkData.utcDateStringISO} 00:00:00`,
   );
 
-  // TODO: add server endpoint for available slide files / conference images
+  // TODO: allow upload of slides file
   return (
     <>
       <TextInput required fieldName="title" defaultValue={talkData.title} />

@@ -53,11 +53,6 @@ describe('edit course', () => {
     });
     userEvent.click(coursesTab);
   });
-  afterEach(async () => {
-    // TODO: why doesn't this work to suppress errors?? T.T
-    // await queryClient.cancelQueries();
-    // cancelTokenSource.cancel();
-  });
   test('create new Course and save', async () => {
     // wait until Course edit buttons appear so we know data is loaded
     const editButtons = await screen.findAllByRole('button', {
