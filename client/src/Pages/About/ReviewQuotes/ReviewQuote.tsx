@@ -33,6 +33,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'stretch',
   },
   quoteBox: {
+    backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column',
     borderRadius: '25px 25px 0px 25px',
@@ -78,7 +79,7 @@ export default function ReviewQuote({
         pt={3}
         pb={3}
         color="primary.main"
-        bgcolor="background.main"
+        boxShadow={3}
       >
         <Box fontStyle="italic">
           <Typography component="p">{reviewQuoteData.body}</Typography>

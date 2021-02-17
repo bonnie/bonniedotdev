@@ -91,9 +91,8 @@ export default function EditItemButtons<
         itemData={itemData}
         itemString={itemDetails.itemString}
       />
-      {/** TODO: work out what to do about itemLabel */}
       <DeleteItemButton
-        itemLabel="TODO"
+        itemLabel={itemDetails.itemString}
         itemTypeString={itemDetails.itemString}
         handleDelete={handleDelete}
       />

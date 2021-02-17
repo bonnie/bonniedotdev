@@ -47,7 +47,9 @@ export default function PageTitle({
         </Typography>
         {addButton}
       </span>
-      <Divider variant="fullWidth" className={classes.divider} />
+      {variant === 'h1' ? (
+        <Divider variant="fullWidth" className={classes.divider} />
+      ) : null}
     </>
   );
 }

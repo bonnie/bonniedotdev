@@ -65,6 +65,7 @@ export default function Course({ courseData }: CourseProps): ReactElement {
           display="flex"
           flexDirection="column"
           justifyContent="space-between"
+          boxShadow={3}
         >
           <Card className={classes.root} square>
             <CardActionArea
