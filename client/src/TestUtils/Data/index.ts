@@ -1,9 +1,7 @@
 import moment from 'moment';
-import { UserType } from 'Pages/Auth/Types';
-import { CourseType } from 'Pages/Courses/Types';
-import { TalkType } from 'Pages/Talks/Types';
+import { Course, Talk, User } from 'Types';
 
-export const testSuccessLoginReponse: UserType = {
+export const testSuccessLoginReponse: User = {
   id: 1,
   username: 'admin',
 };
@@ -56,7 +54,7 @@ export const couponWithDate = {
   ).toString(),
 };
 
-export const courseWithCoupons: CourseType = {
+export const courseWithCoupons: Course = {
   id: 1,
   name: 'Course 1',
   link: 'https://udemy.com/awesomecourse',
@@ -67,7 +65,7 @@ export const courseWithCoupons: CourseType = {
   coupons: [],
 };
 
-export const courseWithoutCoupons: CourseType = {
+export const courseWithoutCoupons: Course = {
   id: 2,
   name: 'Course 2',
   link: 'https://udemy.com/simplecourse',
@@ -76,7 +74,7 @@ export const courseWithoutCoupons: CourseType = {
   imageName: 'udemy-course-image.jpg',
 };
 
-export const testCourseData: CourseType[] = [
+export const testCourseData: Course[] = [
   courseWithCoupons,
   courseWithoutCoupons,
 ];
@@ -118,7 +116,7 @@ export const newReviewQuoteJSONResponse = {
   body: 'What a great course!',
 };
 
-export const testTalksJSONResponse: TalkType[] = [
+export const testTalksJSONResponse: Talk[] = [
   {
     id: 5,
     title: 'i am a talk',

@@ -5,16 +5,15 @@ import Grid from '@material-ui/core/Grid';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { talkDetails } from 'Constants/itemConstants';
+import useTalks from 'Hooks/GetData/useTalks';
+import useSelector from 'Hooks/useTypedSelector';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
-import React, { ReactElement, useCallback, useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { ReactElement, useCallback, useMemo } from 'react';
+import { Talk as TalkType } from 'Types';
 
-import AddTalkButton from './AddTalkButton';
-import DeleteTalkButton from './DeleteTalkButton';
-import EditTalkButton from './EditTalkButton';
-import { setTalksFromServer } from './Redux/Actions';
+import EditTalkFields from './EditTalkFields';
 import Talk from './Talk';
-import { TalkType } from './Types';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -39,33 +38,14 @@ function NoUpcomingTalks(): ReactElement {
 // eslint-disable-next-line max-lines-per-function
 export default function Talks(): ReactElement {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const { past, upcoming } = useSelector((state) => state.talks);
 
   // load talks from server on component mount
-  useEffect(() => {
-    dispatch(setTalksFromServer());
-  }, [dispatch]);
+  const { past, upcoming } = useTalks();
 
   const mapTalkToElement = useCallback(
-    (talkData: TalkType) => {
-      const editButtons = (
-        <>
-          <EditTalkButton id={talkData.id} talkData={talkData} />
-          <DeleteTalkButton id={talkData.id} name={talkData.title} />
-        </>
-      );
-
-      return (
-        <Talk
-          key={talkData.id}
-          talkData={talkData}
-          editButtons={user ? editButtons : null}
-        />
-      );
-    },
-    [user],
+    (talkData: TalkType) => <Talk key={talkData.id} talkData={talkData} />,
+    [],
   );
 
   const contents = useMemo(
@@ -73,8 +53,8 @@ export default function Talks(): ReactElement {
       <>
         <PageTitleWithAdd
           title="Conference Talks and Workshops"
-          variant="h1"
-          AddButton={<AddTalkButton />}
+          itemDetails={talkDetails}
+          ItemFieldsComponent={<EditTalkFields />}
         />
         <Grid style={{ marginTop: 10 }} aria-label="talks">
           <Typography className={classes.header} variant="h2" gutterBottom>

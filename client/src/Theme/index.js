@@ -11,7 +11,7 @@ export const colors = {
   lightGrey: '#E0E0E0',
   white: '#FFFFFF',
   transparentDarkGrey: 'rgba(0, 0, 0, 0.7)',
-  transparentLightGrey: 'rgba(240, 240, 240, 0.7)',
+  transparentLightGrey: 'rgba(250, 250, 250, 0.8)',
 };
 
 const rawTheme = createMuiTheme({

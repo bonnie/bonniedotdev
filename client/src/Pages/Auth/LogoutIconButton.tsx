@@ -2,11 +2,9 @@ import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import useActions from 'Hooks/useActions';
+import useSelector from 'Hooks/useTypedSelector';
 import React, { ReactElement } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-
-import { logoutUser } from './Redux/Actions';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -17,30 +15,20 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function LogoutIconButton(): ReactElement | null {
-  const dispatch = useDispatch();
   const classes = useStyles();
-  const history = useHistory();
   const user = useSelector((state) => state.user);
+  const { logoutUser } = useActions();
 
   if (user === null) return null;
 
-  const handleLogout = () => {
-    // TODO: make this cleaner with action creator function?
-    dispatch(logoutUser());
-    history.push('/login');
-  };
-
   return (
     <Box className={classes.root}>
-      {/* <Typography className={bonnieClass} style={{ fontWeight: 600 }} component="span">
-        {user.username}
-      </Typography> */}
       <IconButton
         edge="end"
         aria-label="log out current user"
         title="Log out"
         aria-haspopup="true"
-        onClick={handleLogout}
+        onClick={logoutUser}
         color="secondary"
       >
         <ExitToAppIcon fontSize="large" />

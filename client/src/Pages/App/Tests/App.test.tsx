@@ -20,10 +20,10 @@ describe('App rendering tests', () => {
 
   test('loading overlay is not visible', () => {
     const screen = renderWithRouterAndProvider(<App />);
-    const notLoadingSpinner = screen.queryByRole('progressbar', {
+    const loadingSpinner = screen.queryByRole('progressbar', {
       hidden: true,
     });
-    expect(notLoadingSpinner).toBe(null);
+    expect(loadingSpinner).not.toBeVisible();
   });
 
   test('error "snack" is not visible', () => {

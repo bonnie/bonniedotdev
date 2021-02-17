@@ -4,9 +4,12 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
+import { reviewQuoteDetails } from 'Constants/itemConstants';
+import EditButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement } from 'react';
+import { Course, ReviewQuote as ReviewQuoteType } from 'Types';
 
-import { ReviewQuoteType } from './Types';
+import EditReviewQuoteFields from './EditReviewQuoteFields';
 
 const useStyles = makeStyles(() => ({
   courseLink: {
@@ -30,6 +33,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'stretch',
   },
   quoteBox: {
+    backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column',
     borderRadius: '25px 25px 0px 25px',
@@ -40,16 +44,33 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-interface ReadOnlyQuoteProps {
+interface ReviewQuoteProps {
   reviewQuoteData: ReviewQuoteType;
-  editButtons: ReactElement | null;
+  courses: Course[];
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default function ReviewQuote({
   reviewQuoteData,
-  editButtons,
-}: ReadOnlyQuoteProps): ReactElement {
+  courses,
+}: ReviewQuoteProps): ReactElement {
   const classes = useStyles();
+
+  const ReviewQuoteEditFieldsComponent = (
+    <EditReviewQuoteFields
+      reviewQuoteData={reviewQuoteData}
+      courses={courses}
+    />
+  );
+
+  const reviewQuoteEditButtons = (
+    <EditButtons
+      itemDetails={reviewQuoteDetails}
+      itemData={reviewQuoteData}
+      ItemFieldsComponent={ReviewQuoteEditFieldsComponent}
+    />
+  );
+
   return (
     <Grid item className={classes.quoteGrid} xs={12} sm={6} md={4}>
       <Box
@@ -58,7 +79,7 @@ export default function ReviewQuote({
         pt={3}
         pb={3}
         color="primary.main"
-        bgcolor="background.main"
+        boxShadow={3}
       >
         <Box fontStyle="italic">
           <Typography component="p">{reviewQuoteData.body}</Typography>
@@ -79,8 +100,8 @@ export default function ReviewQuote({
             <Typography>{reviewQuoteData.courseName}</Typography>
           </Box>
         </Link>
-        {editButtons ? (
-          <div className={classes.editButtons}>{editButtons}</div>
+        {reviewQuoteEditButtons ? (
+          <div className={classes.editButtons}>{reviewQuoteEditButtons}</div>
         ) : null}
       </Box>
     </Grid>

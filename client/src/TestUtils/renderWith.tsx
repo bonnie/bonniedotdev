@@ -1,25 +1,14 @@
 import { fireEvent, render, Screen, screen } from '@testing-library/react';
 import React, { ReactElement } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { applyMiddleware, createStore, Store } from 'redux';
-import rootSaga from 'Redux/Sagas';
-// import { sagaMiddleware } from 'Redux/configureStore';
-import createSagaMiddleware from 'redux-saga';
-
-// import { middlewares } from '../Redux/configureStore';
-import rootReducer from '../Redux/reducers';
+import thunk from 'redux-thunk';
+import rootReducer from 'State/Reducers';
 
 function storeFactory(initialState = {}): Store {
-  // necessary to have separate saga middleware instance for each test, since they run concurrently
-  const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(
-    rootReducer,
-    initialState,
-    applyMiddleware(sagaMiddleware),
-  );
-  sagaMiddleware.run(rootSaga);
-
+  const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
   return store;
 }
 
@@ -40,8 +29,13 @@ export function renderWithProvider(
   initialState = {},
 ): Screen {
   const store = storeFactory(initialState);
+  const queryClient = new QueryClient();
 
-  render(<Provider store={store}>{ui}</Provider>);
+  render(
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
+    </Provider>,
+  );
   return screen;
 }
 
@@ -50,10 +44,13 @@ export function renderWithRouterAndProvider(
   { initialRouterEntries = ['/'], initialState = {} } = {},
 ): Screen {
   const store = storeFactory(initialState);
+  const queryClient = new QueryClient();
 
   render(
     <Provider store={store}>
-      <MemoryRouter initialEntries={initialRouterEntries}>{ui}</MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={initialRouterEntries}>{ui}</MemoryRouter>
+      </QueryClientProvider>
     </Provider>,
   );
   return screen;
@@ -67,11 +64,14 @@ export async function renderWithRouterProviderAndUser(
   { initialState = {} } = {},
 ): Promise<Screen> {
   const store = storeFactory(initialState);
+  const queryClient = new QueryClient();
 
   // route to '/login' first
   render(
     <Provider store={store}>
-      <MemoryRouter initialEntries={['/login']}>{ui}</MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={['/login']}>{ui}</MemoryRouter>
+      </QueryClientProvider>
     </Provider>,
   );
 

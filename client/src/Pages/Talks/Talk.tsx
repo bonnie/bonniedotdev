@@ -8,15 +8,17 @@ import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { talkDetails } from 'Constants/itemConstants';
 import moment from 'moment';
+import EditItemButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement } from 'react';
 import { colors } from 'Theme';
+import { Talk as TalkType } from 'Types';
 
-import { TalkType } from './Types';
+import EditTalkFields from './EditTalkFields';
 
 interface TalkProps {
   talkData: TalkType;
-  editButtons: ReactElement | null;
 }
 
 const useStyles = makeStyles(() =>
@@ -47,11 +49,16 @@ const ConditionalDisplayLink = ({ text, link, condition }) =>
   ) : null;
 
 // eslint-disable-next-line max-lines-per-function
-export default function Talk({
-  talkData,
-  editButtons,
-}: TalkProps): ReactElement {
+export default function Talk({ talkData }: TalkProps): ReactElement {
   const classes = useStyles();
+
+  const editTalkButtons = (
+    <EditItemButtons
+      itemDetails={talkDetails}
+      itemData={talkData}
+      ItemFieldsComponent={<EditTalkFields talkData={talkData} />}
+    />
+  );
 
   return (
     <Card role="listitem" className={classes.root}>
@@ -82,7 +89,7 @@ export default function Talk({
           >
             {talkData.title}
           </Typography>
-          {editButtons}
+          {editTalkButtons}
         </Box>
         <Divider variant="middle" />
         <Typography variant="body1">{talkData.description}</Typography>

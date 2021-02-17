@@ -1,12 +1,12 @@
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
+import PageTitle from 'Pages/Common/PageTitle';
 import React, { ReactElement } from 'react';
 
 export default function Bio(): ReactElement {
   return (
     <Box component="section" mb={4}>
-      <PageTitleWithAdd title="About Bonnie" variant="h1" AddButton={null} />
+      <PageTitle title="About Bonnie" />
       <Typography style={{ fontSize: 16, fontWeight: 500 }}>
         Bonnie&apos;s wide range of past positions includes high school physics
         teacher, education programs at a planetarium, developer support

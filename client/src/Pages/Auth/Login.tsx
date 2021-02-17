@@ -4,11 +4,10 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { getFormData } from 'Helpers';
+import useActions from 'Hooks/useActions';
+import useSelector from 'Hooks/useTypedSelector';
 import React, { ReactElement } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
-
-import { loginUser } from './Redux/Actions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,7 +29,7 @@ export default function Login({
   referrer = null,
 }: LoginPropsType): ReactElement {
   const classes = useStyles();
-  const dispatch = useDispatch();
+  const { loginUser } = useActions();
   const user = useSelector((state) => state.user);
 
   // if someone manually enters the url while logged in, or state changes, redirect
@@ -44,12 +43,10 @@ export default function Login({
     const formData = getFormData(event);
 
     // submit the login
-    dispatch(
-      loginUser({
-        username: formData.username,
-        password: formData.password,
-      }),
-    );
+    loginUser({
+      username: formData.username,
+      password: formData.password,
+    });
   };
 
   return (

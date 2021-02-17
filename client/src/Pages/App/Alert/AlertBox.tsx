@@ -3,10 +3,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Alert from '@material-ui/lab/Alert';
+import useActions from 'Hooks/useActions';
+import useSelector from 'Hooks/useTypedSelector';
 import React, { ReactElement } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { clearAlert } from './Redux/Actions';
 
 function getMessageAndAlertLevel(state) {
   if (state.alert) return state.alert;
@@ -15,7 +14,7 @@ function getMessageAndAlertLevel(state) {
 
 // eslint-disable-next-line max-lines-per-function
 export default function AlertBox(): ReactElement | null {
-  const dispatch = useDispatch();
+  const { clearAlert } = useActions();
   const { message, alertLevel } = useSelector(getMessageAndAlertLevel);
 
   // if there's no alert, nothing to see here
@@ -26,7 +25,7 @@ export default function AlertBox(): ReactElement | null {
     reason?: string,
   ) => {
     if (reason === 'clickaway') return;
-    dispatch(clearAlert());
+    clearAlert();
   };
 
   return (

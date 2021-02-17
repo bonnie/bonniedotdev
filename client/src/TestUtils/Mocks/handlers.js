@@ -15,9 +15,9 @@ import {
 const handlers = [
   // ////////////// review quotes /////////// //
   // get all quotes
-  rest.get(urls.reviewQuotesURL, (req, res, ctx) =>
-    res(ctx.status(200), ctx.json(testReviewQuotesData)),
-  ),
+  rest.get(urls.reviewQuotesURL, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(testReviewQuotesData));
+  }),
 
   // post new quote
   rest.post(urls.reviewQuoteURL, (req, res, ctx) =>

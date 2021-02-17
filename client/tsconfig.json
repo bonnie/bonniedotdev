@@ -13,7 +13,7 @@
     "jsx": "react",
     "typeRoots": ["node_modules/@types"],
     "types": ["node", "jest"],
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext", "es2018"],
     "allowJs": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -29,6 +29,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "node_modules/@types",
-    "src/Pages/Courses/EditCourseFields"
+    "src/Hooks/Tests/useQueryMutation.test.js"
   ]
 }

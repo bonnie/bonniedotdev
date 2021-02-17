@@ -1,10 +1,9 @@
-import { render, screen } from '@testing-library/react';
 import { url } from 'inspector';
 import React from 'react';
+import { renderWithProvider } from 'TestUtils/renderWith';
+import { Coupon as CouponType, Course as CourseType } from 'Types';
 
-import { CouponType } from '../Coupons/Types';
 import Course from '../Course';
-import { CourseType } from '../Types';
 
 const coupons: CouponType[] = [
   {
@@ -39,7 +38,9 @@ const courseWithCoupons: CourseType = {
 
 describe('course with coupon', () => {
   test('renders course image', () => {
-    render(<Course courseData={courseWithCoupons} editButtons={null} />);
+    const screen = renderWithProvider(
+      <Course courseData={courseWithCoupons} />,
+    );
 
     // check that correct image is showing
     const courseImage = screen.getByTitle('Course Image');
@@ -48,21 +49,27 @@ describe('course with coupon', () => {
     });
   });
   test('renders course title with link', () => {
-    render(<Course courseData={courseWithCoupons} editButtons={null} />);
+    const screen = renderWithProvider(
+      <Course courseData={courseWithCoupons} />,
+    );
 
     // use regex because the link includes the title and the description
     const title = screen.getByRole('link', { name: /Coursey course/i });
     expect(title).toHaveAttribute('href', 'http://coursey.course.com');
   });
   test('renders link with coupon price', () => {
-    render(<Course courseData={courseWithCoupons} editButtons={null} />);
+    const screen = renderWithProvider(
+      <Course courseData={courseWithCoupons} />,
+    );
 
     const couponText = screen.getByRole('link', { name: /9.99/ });
     expect(couponText).toHaveAttribute('href', 'http://rickroll.com?9.99');
   });
 
   test('renders coupon expiration text', () => {
-    render(<Course courseData={courseWithCoupons} editButtons={null} />);
+    const screen = renderWithProvider(
+      <Course courseData={courseWithCoupons} />,
+    );
 
     const expirationText = screen.getByText(/expires/i);
     expect(expirationText).toBeInTheDocument();
@@ -71,7 +78,9 @@ describe('course with coupon', () => {
 
 describe('course without coupon', () => {
   test('renders course image', () => {
-    render(<Course courseData={courseWithCoupons} editButtons={null} />);
+    const screen = renderWithProvider(
+      <Course courseData={courseWithCoupons} />,
+    );
 
     // check that correct image is showing
     const courseImage = screen.getByTitle('Course Image');
@@ -80,7 +89,9 @@ describe('course without coupon', () => {
     });
   });
   test('renders course title with link', () => {
-    render(<Course courseData={courseWithCoupons} editButtons={null} />);
+    const screen = renderWithProvider(
+      <Course courseData={courseWithCoupons} />,
+    );
 
     // use regex because the link includes the title and the description
     const title = screen.getByRole('link', { name: /Coursey Course/i });

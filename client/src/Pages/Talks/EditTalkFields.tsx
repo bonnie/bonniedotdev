@@ -4,10 +4,9 @@ import ImageNameInput from 'Pages/Common/Inputs/ImageNameInput';
 import LinkInput from 'Pages/Common/Inputs/LinkInput';
 import TextInput from 'Pages/Common/Inputs/TextInput';
 import React, { ReactElement, useState } from 'react';
+import { NewTalk, Talk as TalkType } from 'Types';
 
-import { NewTalkType, TalkType } from './Types';
-
-const newTalk: NewTalkType = {
+const newTalk: NewTalk = {
   title: '',
   utcDateStringISO: '',
   description: '',
@@ -18,7 +17,7 @@ const newTalk: NewTalkType = {
 };
 
 interface EditTalkFieldsType {
-  talkData?: TalkType | NewTalkType;
+  talkData?: TalkType | NewTalk;
 }
 
 EditTalkFields.defaultProps = { talkData: newTalk };
@@ -31,7 +30,7 @@ export default function EditTalkFields({
     `${talkData.utcDateStringISO} 00:00:00`,
   );
 
-  // TODO: add server endpoint for available slide files / conference images
+  // TODO: allow upload of slides file
   return (
     <>
       <TextInput required fieldName="title" defaultValue={talkData.title} />
