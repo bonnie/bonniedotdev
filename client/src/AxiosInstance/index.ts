@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-const config: AxiosRequestConfig = { timeout: 1000 };
+const config: AxiosRequestConfig = {};
 
 if (process.env.NODE_ENV === 'development')
   config.baseURL = 'http://localhost:5050';

@@ -3,7 +3,7 @@ import { User } from 'Types';
 
 import actionIds from '../Actions/Ids';
 
-const USER_LOCALSTORAGE_KEY = 'bonniedotdev_user';
+export const USER_LOCALSTORAGE_KEY = 'bonniedotdev_user';
 function getUserFromStorage(): User | null {
   const storedUser = localStorage.getItem(USER_LOCALSTORAGE_KEY);
   return storedUser ? JSON.parse(storedUser) : null;

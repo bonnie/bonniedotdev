@@ -98,10 +98,9 @@ test('update a talk', async () => {
 });
 
 test('delete a talk', async () => {
-  // TODO: why does this cause "Error: Error: connect ECONNREFUSED 127.0.0.1:80" when
-  // run in parallel with the other tests, even though all tests pass?
-  // Commenting this '.skip' or '.only' makes the warning go away T.T
-  // AND: why does this error not appear with the notLoggedIn test file??
+  // when I run any one test, or any two files in combination, everyting's fine
+  // but when I run all three, I get this error: connect ECONNREFUSED 127.0.0.1:80
+  // (tests pass) :shakesfist:
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   jest.spyOn(console, 'error').mockImplementation(() => {});
   // END: todo

@@ -104,7 +104,7 @@ test('update a review quote', async () => {
   expect(modalTitle).not.toBeVisible();
 });
 
-test('delete a talk', async () => {
+test('delete a review quote', async () => {
   // when I run any one test, or any two files in combination, everyting's fine
   // but when I run all three, I get this error: connect ECONNREFUSED 127.0.0.1:80
   // (tests pass) :shakesfist:
