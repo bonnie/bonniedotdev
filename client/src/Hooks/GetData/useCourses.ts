@@ -1,10 +1,10 @@
 import urls from 'Constants/urls';
 import { Course, ItemType } from 'Types';
 
-import useAxios from './useAxios';
+import useDataFromServer from './useDataFromServer';
 
 const useCourses = (): Course[] => {
-  const courses = useAxios<Course[]>(urls.coursesURL, ItemType.course);
+  const courses = useDataFromServer<Course[]>(urls.coursesURL, ItemType.course);
   return courses === undefined ? [] : courses;
 };
 

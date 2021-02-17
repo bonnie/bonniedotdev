@@ -4,7 +4,7 @@ import ReviewQuotes from 'Pages/About/ReviewQuotes/ReviewQuotes';
 import React from 'react';
 import { renderWithProvider } from 'TestUtils/renderWith';
 
-test.only('create new review quote and save', async () => {
+test('create new review quote and save', async () => {
   // render with pre-defined state for user
   const initialState = { user: { id: 1, username: 'sheila' } };
   const newReviewQuoteScreen = renderWithProvider(
@@ -35,21 +35,24 @@ test.only('create new review quote and save', async () => {
   const bodyField = newReviewQuoteScreen.getByRole('textbox', { name: 'body' });
   userEvent.type(bodyField, 'i like big cats and i cannot lie');
 
-  // open the select menu
-  const selectMenu = newReviewQuoteScreen.getByLabelText(/course/i);
-  userEvent.click(selectMenu);
+  // find and open course dropdown
+  const courseSelectionDropdown = newReviewQuoteScreen.getByRole('button', {
+    name: /course/i,
+  });
+  userEvent.click(courseSelectionDropdown);
+  const courseSelectionList = newReviewQuoteScreen.getByRole('listbox', {
+    name: /course/i,
+  });
+  userEvent.click(courseSelectionList);
 
-  // select course for quote
-  // const courseSelectOption = await newReviewQuoteScreen.findByRole('option', {
-  //   name: 'Course 2',
-  // });
-  const courseSelectOption = await newReviewQuoteScreen.findByRole('option');
-  userEvent.click(courseSelectOption);
+  // select course 2 from menu
+  // TODO: why can't I find this by the role of option?
+  const courseTwoOption = await newReviewQuoteScreen.findByText(/course 2/i);
+  userEvent.click(courseTwoOption);
 
   // click button to save new review quote
-  const saveButton = newReviewQuoteScreen.getByRole('button', {
-    name: /save/i,
-  });
+  // TODO: why can't I find this by the role of button?
+  const saveButton = newReviewQuoteScreen.getByText(/save/i);
   userEvent.click(saveButton);
 
   // expect the modal to be hidden

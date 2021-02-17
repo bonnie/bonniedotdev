@@ -131,7 +131,17 @@ test('delete a coupon', async () => {
   // Commenting this '.skip' or '.only' makes the warning go away T.T
   // AND: why does this error not appear with the notLoggedIn test file??
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  jest.spyOn(console, 'error').mockImplementation(() => {});
+  jest.spyOn(console, 'error').mockImplementation((error) => {
+    if (
+      !error
+        .toString()
+        .startsWith('Error: Request failed with status code 500') &&
+      !error.toString().startsWith('Error: Network Error')
+    ) {
+      // eslint-disable-next-line no-console
+      console.log('\x1b[31m', error);
+    }
+  });
   // END: todo
 
   // render with pre-defined state for user

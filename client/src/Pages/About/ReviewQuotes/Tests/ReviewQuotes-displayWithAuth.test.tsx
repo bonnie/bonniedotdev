@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import urls from 'Constants/urls';
 import { rest } from 'msw';
 import ReviewQuotes from 'Pages/About/ReviewQuotes/ReviewQuotes';
@@ -35,9 +35,8 @@ test('On server success, renders spinner, then talks, then spinner disappears', 
   const quotes = await loadingScreen.findAllByText(/body \d/);
   expect(quotes.length).toBe(5);
 
-  // confirm loading spinner disappears
-  const notLoadingSpinner = loadingScreen.queryByRole('progressbar');
-  expect(notLoadingSpinner).not.toBeInTheDocument();
+  // confirm loading spinner disappears -- async because of react-query
+  await waitFor(() => expect(loadingSpinner).not.toBeVisible());
 });
 
 test('Renders error alert for error server response', async () => {
@@ -73,8 +72,7 @@ test('Renders error alert for error server response', async () => {
   );
 
   // confirm loading spinner disappears
-  const notLoadingSpinner = errorScreen.queryByRole('progressbar');
-  expect(notLoadingSpinner).not.toBeInTheDocument();
+  await waitFor(() => expect(loadingSpinner).not.toBeVisible());
 });
 
 test('Renders add button', async () => {

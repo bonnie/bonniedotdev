@@ -1,5 +1,6 @@
 import { fireEvent, render, Screen, screen } from '@testing-library/react';
 import React, { ReactElement } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { applyMiddleware, createStore, Store } from 'redux';
@@ -28,8 +29,13 @@ export function renderWithProvider(
   initialState = {},
 ): Screen {
   const store = storeFactory(initialState);
+  const queryClient = new QueryClient();
 
-  render(<Provider store={store}>{ui}</Provider>);
+  render(
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>
+    </Provider>,
+  );
   return screen;
 }
 
@@ -38,10 +44,13 @@ export function renderWithRouterAndProvider(
   { initialRouterEntries = ['/'], initialState = {} } = {},
 ): Screen {
   const store = storeFactory(initialState);
+  const queryClient = new QueryClient();
 
   render(
     <Provider store={store}>
-      <MemoryRouter initialEntries={initialRouterEntries}>{ui}</MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={initialRouterEntries}>{ui}</MemoryRouter>
+      </QueryClientProvider>
     </Provider>,
   );
   return screen;
@@ -55,11 +64,14 @@ export async function renderWithRouterProviderAndUser(
   { initialState = {} } = {},
 ): Promise<Screen> {
   const store = storeFactory(initialState);
+  const queryClient = new QueryClient();
 
   // route to '/login' first
   render(
     <Provider store={store}>
-      <MemoryRouter initialEntries={['/login']}>{ui}</MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={['/login']}>{ui}</MemoryRouter>
+      </QueryClientProvider>
     </Provider>,
   );
 

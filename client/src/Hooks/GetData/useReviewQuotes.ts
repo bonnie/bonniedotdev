@@ -1,7 +1,7 @@
 import urls from 'Constants/urls';
 import { ItemType, ReviewQuote } from 'Types';
 
-import useAxios from './useAxios';
+import useDataFromServer from './useDataFromServer';
 
 function sortByLength(reviewQuotes: ReviewQuote[]): ReviewQuote[] {
   // sort by length so that the rows have cells of similar height
@@ -9,7 +9,7 @@ function sortByLength(reviewQuotes: ReviewQuote[]): ReviewQuote[] {
 }
 
 const useReviewQuotes = (): ReviewQuote[] => {
-  const reviewQuotes = useAxios<ReviewQuote[]>(
+  const reviewQuotes = useDataFromServer<ReviewQuote[]>(
     urls.reviewQuotesURL,
     ItemType.reviewQuote,
   );

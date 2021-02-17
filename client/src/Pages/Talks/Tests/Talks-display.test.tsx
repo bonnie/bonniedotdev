@@ -49,8 +49,7 @@ test('Renders four talks for non-error server response', async () => {
   expect(titles.length).toBe(4);
 
   // confirm loading spinner has disappeared
-  const notLoadingSpinner = screen.queryByRole('progressbar');
-  expect(notLoadingSpinner).toBe(null);
+  expect(loadingSpinner).not.toBeVisible();
 
   // confirm no error
   const errorAlert = screen.queryByRole('alert');
@@ -113,6 +112,19 @@ test('Renders note for no upcoming talks', async () => {
 });
 
 test('Renders error alert for error server response', async () => {
+  // to suppress the console error from axios, since error is handled later by react-query
+  jest.spyOn(console, 'error').mockImplementation((error) => {
+    if (
+      !error
+        .toString()
+        .startsWith('Error: Request failed with status code 500') &&
+      !error.toString().startsWith('Error: Network Error')
+    ) {
+      // eslint-disable-next-line no-console
+      console.log('\x1b[31m', error);
+    }
+  });
+
   // override default msw response for talks endpoint with error response
   server.resetHandlers(
     rest.get(urls.talksURL, (req, res, ctx) =>
@@ -139,8 +151,7 @@ test('Renders error alert for error server response', async () => {
   );
 
   // confirm loading spinner disappears
-  const notLoadingSpinner = errorScreen.queryByRole('progressbar');
-  expect(notLoadingSpinner).not.toBeInTheDocument();
+  expect(loadingSpinner).not.toBeVisible();
 });
 
 test('Does not render slide link if data is not present', () => {

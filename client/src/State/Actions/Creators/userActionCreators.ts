@@ -34,7 +34,7 @@ export const loginUser = ({ username, password }: LoginUserPayload) => {
       return dispatch({
         type: actionIds.SET_ALERT,
         payload: {
-          message: 'Login failed',
+          message: 'There was a problem connecting to the server',
           alertLevel: alertLevelOptions.warning,
         },
       });

@@ -2,7 +2,7 @@ import urls from 'Constants/urls';
 import moment from 'moment';
 import { ItemType, SortedTalks, Talk } from 'Types';
 
-import useAxios from './useAxios';
+import useDataFromServer from './useDataFromServer';
 
 // eslint-disable-next-line radix
 const getUnixTimeInt = (dateString) => moment(dateString).valueOf();
@@ -36,6 +36,6 @@ function sortTalks(talks: Talk[]): SortedTalks {
 }
 
 export default function useTalks(): SortedTalks {
-  const talks = useAxios<Talk[]>(urls.talksURL, ItemType.talk);
+  const talks = useDataFromServer<Talk[]>(urls.talksURL, ItemType.talk);
   return talks ? sortTalks(talks) : { past: [], upcoming: [] };
 }

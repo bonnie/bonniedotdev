@@ -65,5 +65,5 @@ test('Renders error alert for error server response', async () => {
 
   // confirm loading spinner disappears
   const notLoadingSpinner = errorScreen.queryByRole('progressbar');
-  expect(notLoadingSpinner).not.toBeInTheDocument();
+  expect(loadingSpinner).not.toBeVisible();
 });

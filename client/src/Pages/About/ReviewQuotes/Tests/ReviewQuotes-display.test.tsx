@@ -34,18 +34,30 @@ test('Renders four ReviewQuotes for non-error server response', async () => {
   courseLinks.forEach((course) => expect(course).toHaveAttribute('href'));
 
   // confirm loading spinner has disappeared
-  const notLoadingSpinner = screen.queryByRole('progressbar');
-  expect(notLoadingSpinner).toBe(null);
+  expect(loadingSpinner).not.toBeVisible();
 
   // confirm no error
   const errorAlert = screen.queryByRole('alert');
   expect(errorAlert).not.toBeInTheDocument();
 });
 
-test('Renders error alert for error server response', async () => {
-  // override default msw response for ReviewQuotes endpoint with error response
+test.only('Renders error alert for error server response', async () => {
+  // to suppress the console error from axios, since error is handled later by react-query
+  jest.spyOn(console, 'error').mockImplementation((error) => {
+    if (
+      !error.toString().startsWith('Error: Request failed with status code 500')
+    ) {
+      // eslint-disable-next-line no-console
+      console.log('\x1b[31m', error);
+    }
+  });
+
+  // override default msw response for ReviewQuotes and courses endpoints with error response
   server.resetHandlers(
     rest.get(urls.reviewQuotesURL, (req, res, ctx) =>
+      res(ctx.status(500), ctx.json({ message: 'oops' })),
+    ),
+    rest.get(urls.coursesURL, (req, res, ctx) =>
       res(ctx.status(500), ctx.json({ message: 'oops' })),
     ),
   );
@@ -69,6 +81,5 @@ test('Renders error alert for error server response', async () => {
   );
 
   // confirm loading spinner disappears
-  const notLoadingSpinner = errorScreen.queryByRole('progressbar');
-  expect(notLoadingSpinner).not.toBeInTheDocument();
+  expect(loadingSpinner).not.toBeVisible();
 });

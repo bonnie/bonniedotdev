@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import urls from 'Constants/urls';
 import { rest } from 'msw';
 import App from 'Pages/App/App';
@@ -38,8 +38,7 @@ test('On server success, renders spinner, then talks, then spinner disappears', 
   expect(errorAlert).toHaveTextContent('Log in succeeded');
 
   // confirm loading spinner disappears
-  const notLoadingSpinner = loadingScreen.queryByRole('progressbar');
-  expect(notLoadingSpinner).not.toBeInTheDocument();
+  expect(loadingSpinner).not.toBeVisible();
 });
 
 test('Renders error alert for error server response', async () => {
@@ -74,9 +73,8 @@ test('Renders error alert for error server response', async () => {
     'There was a problem connecting to the server',
   );
 
-  // confirm loading spinner disappears
-  const notLoadingSpinner = errorScreen.queryByRole('progressbar');
-  expect(notLoadingSpinner).not.toBeInTheDocument();
+  // confirm loading spinner disappears (async bc of react-query)
+  await waitFor(() => expect(loadingSpinner).not.toBeVisible());
 });
 
 test('Renders add button', async () => {
