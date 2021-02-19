@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { reviewQuoteDetails } from 'Constants/itemConstants';
 import EditButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement } from 'react';
-import { Course, ReviewQuote as ReviewQuoteType } from 'Types';
+import { ReviewQuote as ReviewQuoteType } from 'Types';
 
 import EditReviewQuoteFields from './EditReviewQuoteFields';
 
@@ -46,21 +46,16 @@ const useStyles = makeStyles(() => ({
 
 interface ReviewQuoteProps {
   reviewQuoteData: ReviewQuoteType;
-  courses: Course[];
 }
 
 // eslint-disable-next-line max-lines-per-function
 export default function ReviewQuote({
   reviewQuoteData,
-  courses,
 }: ReviewQuoteProps): ReactElement {
   const classes = useStyles();
 
   const ReviewQuoteEditFieldsComponent = (
-    <EditReviewQuoteFields
-      reviewQuoteData={reviewQuoteData}
-      courses={courses}
-    />
+    <EditReviewQuoteFields reviewQuoteData={reviewQuoteData} />
   );
 
   const reviewQuoteEditButtons = (

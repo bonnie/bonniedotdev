@@ -1,11 +1,8 @@
+import useCourses from 'Hooks/GetData/useCourses';
 import SelectInput from 'Pages/Common/Inputs/SelectInput';
 import TextInput from 'Pages/Common/Inputs/TextInput';
 import React, { ReactElement } from 'react';
-import {
-  Course as CourseType,
-  NewReviewQuote,
-  ReviewQuote as ReviewQuoteType,
-} from 'Types';
+import { NewReviewQuote, ReviewQuote as ReviewQuoteType } from 'Types';
 
 const newReviewQuote: NewReviewQuote = {
   body: '',
@@ -13,15 +10,17 @@ const newReviewQuote: NewReviewQuote = {
 
 interface EditReviewQuoteFieldsType {
   reviewQuoteData?: ReviewQuoteType | NewReviewQuote;
-  courses: CourseType[];
 }
 
 EditReviewQuoteFields.defaultProps = { reviewQuoteData: newReviewQuote };
 
 export default function EditReviewQuoteFields({
   reviewQuoteData = newReviewQuote,
-  courses,
 }: EditReviewQuoteFieldsType): ReactElement {
+  // since courses are cached by react-query,
+  // it's fine to run useCourses for every new form
+  const courses = useCourses();
+
   return (
     <>
       <TextInput
