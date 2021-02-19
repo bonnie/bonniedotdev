@@ -6,7 +6,7 @@ import theme from 'Theme';
 
 import AlertBox from './Alert/AlertBox';
 import LoadingSpinner from './Loading/LoadingSpinner';
-import Nav from './Nav';
+import Nav from './Nav/Nav';
 import Routes from './Routes';
 
 export default function App(): ReactElement {
