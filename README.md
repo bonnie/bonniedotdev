@@ -1,6 +1,6 @@
-# personal-site
+# bonniedotdev
 
-Personal web site
+Code for https://bonnie.dev
 
 ## License
 
