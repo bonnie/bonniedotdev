@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontVariant: 'normal',
     textTransform: 'none',
     letterSpacing: '0.1em',
+    [theme.breakpoints.down('sm')]: {
+      minWidth: '40px',
+    },
   },
 }));
 

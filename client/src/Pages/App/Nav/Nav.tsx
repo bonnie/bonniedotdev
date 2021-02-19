@@ -19,14 +19,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     textTransform: 'none',
     letterSpacing: '0.05em',
   },
-  // TODO: custom breakpoint
-  navMenuHide: {
-    [theme.breakpoints.up('md')]: {
+  navTabsHide: {
+    [theme.breakpoints.down('xs')]: {
       display: 'none',
     },
   },
-  navTabsHide: {
-    [theme.breakpoints.down('sm')]: {
+  navMenuHide: {
+    [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
   },
