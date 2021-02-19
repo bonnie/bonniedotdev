@@ -3,7 +3,7 @@ import { fireEvent } from '@testing-library/react';
 import React from 'react';
 
 import { renderWithRouterAndProvider } from '../../../TestUtils/renderWith';
-import Nav from '../Nav';
+import Nav from '../Nav/Nav';
 import Routes from '../Routes';
 
 const NavAndRoutes = (
