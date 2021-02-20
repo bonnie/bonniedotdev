@@ -23,6 +23,9 @@ class CommonConfig:
     # don't need to keep track of DB changes
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    # for uploaded files
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+
 
 class ProductionConfig(CommonConfig):
     """Settings for production."""

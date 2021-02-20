@@ -139,3 +139,6 @@ logs/
 
 # built files on server
 static
+
+# deploy backup folder
+/server/app/backup

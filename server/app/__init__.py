@@ -1,4 +1,5 @@
 import logging
+import os
 
 from app.enums import FlaskEnv
 from app.resources.coupon_resource import Coupon
@@ -10,9 +11,11 @@ from app.resources.review_quote_resource import ReviewQuote
 from app.resources.review_quotes_resource import ReviewQuotes
 from app.resources.talk_resource import Talk
 from app.resources.talks_resource import Talks
+from app.resources.upload_resource import Upload
 from config import app_config
 from flask import Flask
 from flask import send_file
+from flask import send_from_directory
 from flask_restful import Api
 
 logger = logging.getLogger(__name__)
@@ -47,6 +50,7 @@ def create_app(flask_env: FlaskEnv):
     api.add_resource(Course, "/course/<int:id>", "/course")
     api.add_resource(Talks, "/talks")
     api.add_resource(Talk, "/talk/<int:id>", "/talk")
+    api.add_resource(Upload, "/upload")
 
     @app.route("/")
     def serve_react():
@@ -67,12 +71,15 @@ def create_app(flask_env: FlaskEnv):
 
     @app.route("/favicon/<icon_file>")
     def serve_favicon(icon_file):
-        return send_file(f"static/favicon/{icon_file}")
+        return send_from_directory("static/favicon/", icon_file)
 
     @app.route("/portraits/<filename>")
     def serve_portrait_image(filename):
-        print("sending file", f"static/images/portraits/{filename}")
-        return send_file(f"static/images/portraits/{filename}")
+        return send_from_directory("static/images/portraits", filename)
+
+    @app.route("/uploads/<filename>")
+    def serve_upload_image(filename):
+        return send_from_directory(os.getenv("BDD_UPLOAD_FOLDER"), filename)
 
     # make sure react router urls route back to react, and not to the server
     @app.route("/", defaults={"input_path": ""})

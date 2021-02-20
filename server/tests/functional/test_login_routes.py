@@ -7,9 +7,9 @@ import pytest
         # valid user/password
         ("admin", "abc123", None),
         # invalid password
-        ("admin", "wrong", "Incorrect login"),
+        ("admin", "wrong", "Incorrect login for user admin"),
         # nonexistent user
-        ("not_admin", "abc123", "Incorrect login"),
+        ("not_admin", "abc123", "Incorrect login for user not_admin"),
         # missing argument
         (
             "not_admin",
