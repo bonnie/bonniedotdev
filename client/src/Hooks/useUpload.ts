@@ -26,7 +26,7 @@ export default function useUpload({
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: setUploadProgress,
         validateStatus(status) {
-          return status === 202 || status === 202 || status === 422;
+          return status === 200 || status === 202 || status === 422;
         },
       })
       .then((response) => {
