@@ -4,8 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import ImageIcon from '@material-ui/icons/Image';
-import axios from 'AxiosInstance';
-import urls from 'Constants/urls';
+import useUpload from 'Hooks/useUpload';
 import LinearProgressBar from 'Pages/Common/LinearProgressBar';
 import React, { ReactElement, useState } from 'react';
 
@@ -25,37 +24,20 @@ export default function UploadInput({
   const [showUpload, setShowUpload] = useState(false);
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [error, setError] = useState('');
-  const [progress, setUploadProgress] = useState(0);
+  const [progressPercent, setUploadProgress] = useState(0);
+
+  const upload = useUpload({
+    setUploadProgress,
+    setTextFieldValue,
+    setError,
+    setShowUpload,
+  });
 
   const startAdornment = (
     <InputAdornment position="start">
       <ImageIcon />
     </InputAdornment>
   );
-
-  const handleUploadSubmit = (event) => {
-    event.preventDefault();
-    setError('');
-    const formData = new FormData();
-    if (!uploadFile) {
-      setError('No upload file set');
-      return;
-    }
-    formData.set('file', uploadFile);
-    axios
-      .post(urls.uploadURL, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        onUploadProgress: setUploadProgress,
-      })
-      .then((response) => setTextFieldValue(response.data.filename))
-      .catch((uploadError) => {
-        setError(`Failed to upload file: ${uploadError}`);
-      })
-      .finally(() => {
-        setUploadProgress(0);
-        setShowUpload(false);
-      });
-  };
 
   return (
     <>
@@ -67,7 +49,10 @@ export default function UploadInput({
         aria-label={fieldName}
         label={fieldName}
         value={textFieldValue}
-        onClick={() => setShowUpload(true)}
+        onClick={() => {
+          setError('');
+          setShowUpload(true);
+        }}
         InputProps={{ startAdornment, readOnly: true }}
       />
       <Dialog open={showUpload} aria-hidden={!showUpload}>
@@ -81,13 +66,13 @@ export default function UploadInput({
               e.target.files && setUploadFile(e.target.files[0])
             }
           />
-          <LinearProgressBar errorMessage={error} progress={progress} />
+          <LinearProgressBar errorMessage={error} progress={progressPercent} />
           <ButtonGroup
             variant="text"
             style={{ float: 'right', marginTop: 10, marginBottom: 10 }}
           >
             <Button onClick={() => setShowUpload(false)}>Cancel</Button>
-            <Button color="secondary" onClick={handleUploadSubmit}>
+            <Button color="secondary" onClick={() => upload(uploadFile)}>
               Upload
             </Button>
           </ButtonGroup>
