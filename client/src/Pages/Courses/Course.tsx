@@ -10,6 +10,7 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { courseDetails } from 'Constants/itemConstants';
+import { getUploadedImageURL } from 'Helpers';
 import EditItemButtons from 'Pages/Common/EditButtons';
 import React, { ReactElement, useMemo } from 'react';
 import { colors } from 'Theme';
@@ -75,7 +76,7 @@ export default function Course({ courseData }: CourseProps): ReactElement {
             >
               <CardMedia
                 className={classes.media}
-                image={`/static/images/courses/${courseData.imageName}`}
+                image={getUploadedImageURL(courseData.imageName)}
                 title="Course Image"
               />
             </CardActionArea>

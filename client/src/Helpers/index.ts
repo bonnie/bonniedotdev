@@ -8,3 +8,10 @@ export function getFormData(event) {
     return acc;
   }, {});
 }
+
+export function getUploadedImageURL(imageName: string): string {
+  const path = `/uploads/${imageName}`;
+  return process.env.NODE_ENV === 'development'
+    ? `http://localhost:5050${path}`
+    : path;
+}
