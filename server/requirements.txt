@@ -33,6 +33,7 @@ port-for==0.4
 psutil==5.7.3
 psycopg2==2.8.6
 py==1.9.0
+pycksum==0.4.3
 pycodestyle==2.6.0
 pyparsing==2.4.7
 pytest==6.0.1
