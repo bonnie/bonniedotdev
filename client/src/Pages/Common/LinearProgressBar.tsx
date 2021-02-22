@@ -27,13 +27,9 @@ export default function LinearProgressBar({
 }: LinearProgressBarProps): ReactElement {
   return (
     <>
-      <Typography variant="subtitle2">{errorMessage}</Typography>
-      <Box
-        className="mb25"
-        display={progress > 0 ? 'flex' : 'none'}
-        alignItems="center"
-      >
-        <Box width="100%" mr={1}>
+      <Typography style={{ color: 'firebrick' }}>{errorMessage}</Typography>
+      <Box display={progress > 0 ? 'flex' : 'none'} alignItems="center">
+        <Box width="100%">
           <LinearProgress variant="determinate" value={progress} />
         </Box>
         <Box minWidth={35}>

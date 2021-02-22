@@ -56,9 +56,8 @@ export default function UploadInput({
         InputProps={{ startAdornment, readOnly: true }}
       />
       <Dialog open={showUpload} aria-hidden={!showUpload}>
-        <form>
+        <form style={{ margin: 10 }}>
           <TextField
-            variant="outlined"
             required
             name="file"
             type="file"
