@@ -1,15 +1,12 @@
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Dialog from '@material-ui/core/Dialog';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import axios from 'AxiosInstance';
-import alertLevelOptions from 'Constants/alertLevels';
 import urls from 'Constants/urls';
-import useActions from 'Hooks/useActions';
+import LinearProgressBar from 'Pages/Common/LinearProgressBar';
+import ModalFormActions from 'Pages/Common/Modals/ModalFormActions';
 import React, { ReactElement, useState } from 'react';
 
 interface UploadInputProps {
@@ -24,36 +21,35 @@ export default function UploadInput({
   defaultValue,
   required,
 }: UploadInputProps): ReactElement {
-  const { setAlert } = useActions();
-  const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState(defaultValue);
+  const [textFieldValue, setTextFieldValue] = useState(defaultValue);
   const [showUpload, setShowUpload] = useState(false);
-  const formData = new FormData();
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const [error, setError] = useState('');
+  const [progress, setUploadProgress] = useState(0);
 
   const handleUploadSubmit = (event) => {
-    console.log('formData', formData);
     event.preventDefault();
-    setLoading(true);
+    setError('');
+    const formData = new FormData();
+    if (!uploadFile) {
+      setError('No upload file set');
+      return;
+    }
+    formData.set('file', uploadFile);
     axios
       .post(urls.uploadURL, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
+        onUploadProgress: setUploadProgress,
       })
-      .then((response) => setValue(response.data.filename))
-      .catch((error) => {
-        console.error(error);
-        setAlert('Failed to upload file', alertLevelOptions.error);
+      .then((response) => setTextFieldValue(response.data.filename))
+      .catch((uploadError) => {
+        setError(`Failed to upload file: ${uploadError}`);
       })
       .finally(() => {
-        setLoading(false);
+        setUploadProgress(0);
         setShowUpload(false);
       });
   };
-
-  const loadingAdornment = loading ? (
-    <InputAdornment position="start">
-      <CircularProgress />
-    </InputAdornment>
-  ) : null;
 
   return (
     <Grid container>
@@ -64,9 +60,8 @@ export default function UploadInput({
           id={fieldName}
           aria-label={fieldName}
           label={fieldName}
-          value={value}
+          value={textFieldValue}
           style={{ width: '80%' }}
-          InputProps={{ startAdornment: loadingAdornment }}
         />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -74,32 +69,26 @@ export default function UploadInput({
           style={{ display: showUpload ? 'none' : 'inherit' }}
           onClick={() => setShowUpload(true)}
         >
-          <AddCircleIcon fontSize="small" />
+          <AddCircleIcon style={{ textAlign: 'left' }} />
         </IconButton>
       </Grid>
-      <Grid item xs={12}>
-        <form
-          onSubmit={handleUploadSubmit}
-          style={{ display: showUpload ? 'inherit' : 'none' }}
-        >
+      <Dialog open={showUpload}>
+        <form onSubmit={handleUploadSubmit}>
           <TextField
             required
             name="file"
             type="file"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              e.target.files && formData.set('file', e.target.files[0])
+              e.target.files && setUploadFile(e.target.files[0])
             }
           />
-          <ButtonGroup>
-            <Button variant="text" onClick={() => setShowUpload(false)}>
-              Cancel
-            </Button>
-            <Button variant="text" type="submit" onClick={handleUploadSubmit}>
-              Upload
-            </Button>
-          </ButtonGroup>
+          <LinearProgressBar errorMessage={error} progress={progress} />
+          <ModalFormActions
+            handleCancel={() => setShowUpload(false)}
+            submitString="upload"
+          />
         </form>
-      </Grid>
+      </Dialog>
     </Grid>
   );
 }

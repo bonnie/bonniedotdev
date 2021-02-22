@@ -1,6 +1,4 @@
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -8,6 +6,7 @@ import { getFormData } from 'Helpers';
 import React, { ReactElement, useState } from 'react';
 
 import LoggedInIconButton from '../LoggedInIconButton';
+import ModalFormActions from './ModalFormActions';
 
 interface ItemModalProps {
   ButtonIcon: typeof AddCircleIcon;
@@ -54,15 +53,7 @@ export default function ItemModal({
           </Typography>
           <form onSubmit={handleSubmit}>
             {ItemFields}
-            <ButtonGroup
-              variant="text"
-              style={{ float: 'right', marginTop: 10, marginBottom: 10 }}
-            >
-              <Button onClick={() => handleClose()}>Cancel</Button>
-              <Button color="secondary" type="submit">
-                Save
-              </Button>
-            </ButtonGroup>
+            <ModalFormActions handleCancel={handleClose} />
           </form>
         </Box>
       </Dialog>
