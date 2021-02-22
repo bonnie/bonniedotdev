@@ -1,12 +1,12 @@
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ImageIcon from '@material-ui/icons/Image';
 import axios from 'AxiosInstance';
 import urls from 'Constants/urls';
 import LinearProgressBar from 'Pages/Common/LinearProgressBar';
-import ModalFormActions from 'Pages/Common/Modals/ModalFormActions';
 import React, { ReactElement, useState } from 'react';
 
 interface UploadInputProps {
@@ -26,6 +26,12 @@ export default function UploadInput({
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [error, setError] = useState('');
   const [progress, setUploadProgress] = useState(0);
+
+  const startAdornment = (
+    <InputAdornment position="start">
+      <ImageIcon />
+    </InputAdornment>
+  );
 
   const handleUploadSubmit = (event) => {
     event.preventDefault();
@@ -52,29 +58,22 @@ export default function UploadInput({
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12} sm={8}>
-        <TextField
-          required={required}
-          name={fieldName}
-          id={fieldName}
-          aria-label={fieldName}
-          label={fieldName}
-          value={textFieldValue}
-          style={{ width: '80%' }}
-        />
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <IconButton
-          style={{ display: showUpload ? 'none' : 'inherit' }}
-          onClick={() => setShowUpload(true)}
-        >
-          <AddCircleIcon style={{ textAlign: 'left' }} />
-        </IconButton>
-      </Grid>
-      <Dialog open={showUpload}>
-        <form onSubmit={handleUploadSubmit}>
+    <>
+      <TextField
+        fullWidth
+        required={required}
+        name={fieldName}
+        id={fieldName}
+        aria-label={fieldName}
+        label={fieldName}
+        value={textFieldValue}
+        onClick={() => setShowUpload(true)}
+        InputProps={{ startAdornment, readOnly: true }}
+      />
+      <Dialog open={showUpload} aria-hidden={!showUpload}>
+        <form>
           <TextField
+            variant="outlined"
             required
             name="file"
             type="file"
@@ -83,12 +82,17 @@ export default function UploadInput({
             }
           />
           <LinearProgressBar errorMessage={error} progress={progress} />
-          <ModalFormActions
-            handleCancel={() => setShowUpload(false)}
-            submitString="upload"
-          />
+          <ButtonGroup
+            variant="text"
+            style={{ float: 'right', marginTop: 10, marginBottom: 10 }}
+          >
+            <Button onClick={() => setShowUpload(false)}>Cancel</Button>
+            <Button color="secondary" onClick={handleUploadSubmit}>
+              Upload
+            </Button>
+          </ButtonGroup>
         </form>
       </Dialog>
-    </Grid>
+    </>
   );
 }

@@ -36,7 +36,7 @@ export default function TextInput({
       id={fieldName}
       aria-label={fieldName}
       label={fieldName}
-      style={{ width: '100%' }}
+      fullWidth
       defaultValue={defaultValue}
     />
   );
