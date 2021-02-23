@@ -1,7 +1,7 @@
 echo "--------------> 1/4 making tar file (without local uploads)"
-mv static/images/uploaded /var/tmp
+cd $PYTHONPATH/app && mv static/images/uploaded /var/tmp
 cd $PYTHONPATH/app && tar cvf static.tar static
-mv /var/tmp/uploaded static/images
+cd $PYTHONPATH/app && mv /var/tmp/uploaded static/images
 
 echo "--------------> 2/4 uploading tar file to aws"
 cd $PYTHONPATH/app && scp -i ~/.ssh/bdd-aws.pem static.tar ubuntu@34.212.25.188:/home/ubuntu/bonniedotdev/server/app
