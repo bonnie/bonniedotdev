@@ -43,7 +43,7 @@ describe('edit course', () => {
   let screen;
 
   beforeEach(async () => {
-    screen = await renderWithRouterAndProvider(<App />, {
+    screen = renderWithRouterAndProvider(<App />, {
       initialState: { user: { id: 1, username: 'ralph' } },
     });
 
@@ -72,9 +72,10 @@ describe('edit course', () => {
     });
     expect(CourseModalTitle).toBeVisible();
 
+    // TODO: test image upload input
     // add (somewhat bogus) text data
     let fieldElement;
-    ['name', 'description', 'link', 'imageName']
+    ['name', 'description', 'link']
       // eslint-disable-next-line array-callback-return
       .map((fieldName) => {
         fieldElement = screen.getByRole('textbox', { name: fieldName });
