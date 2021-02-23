@@ -2,6 +2,8 @@ import logging
 import os
 
 from app.enums import FlaskEnv
+from app.resources.cheat_sheet_resource import CheatSheet
+from app.resources.cheat_sheets_resource import CheatSheets
 from app.resources.coupon_resource import Coupon
 from app.resources.course_resource import Course
 from app.resources.courses_resource import Courses
@@ -9,6 +11,7 @@ from app.resources.log_resource import Log
 from app.resources.login_resource import Login
 from app.resources.review_quote_resource import ReviewQuote
 from app.resources.review_quotes_resource import ReviewQuotes
+from app.resources.tags_resource import Tags
 from app.resources.talk_resource import Talk
 from app.resources.talks_resource import Talks
 from app.resources.upload_resource import Upload
@@ -41,6 +44,8 @@ def create_app(flask_env: FlaskEnv):
     api = Api(app, prefix="/api", catch_all_404s=True)
 
     # add resources / routes
+    api.add_resource(CheatSheets, "/cheat_sheets")
+    api.add_resource(CheatSheet, "/cheat_sheet", "/cheat_sheet/<int:id>")
     api.add_resource(Log, "/log")
     api.add_resource(Login, "/login")
     api.add_resource(ReviewQuotes, "/review_quotes")
@@ -48,6 +53,7 @@ def create_app(flask_env: FlaskEnv):
     api.add_resource(Coupon, "/coupon/<int:id>", "/coupon")
     api.add_resource(Courses, "/courses")
     api.add_resource(Course, "/course/<int:id>", "/course")
+    api.add_resource(Tags, "/tags")
     api.add_resource(Talks, "/talks")
     api.add_resource(Talk, "/talk/<int:id>", "/talk")
     api.add_resource(Upload, "/upload")

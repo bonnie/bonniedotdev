@@ -1,3 +1,4 @@
+from datetime import date
 from datetime import datetime
 from datetime import timedelta
 
@@ -6,6 +7,8 @@ from app import create_app
 from app.db import connect_to_db
 from app.db import db
 from app.enums import FlaskEnv
+from app.models.cheat_sheet_model import CheatSheet
+from app.models.cheat_sheet_model import Tag
 from app.models.coupon_model import Coupon
 from app.models.course_model import Course
 from app.models.review_quote_model import ReviewQuote
@@ -73,6 +76,23 @@ talks = [
     },
 ]
 
+tags = ["testing library", "regular expressions", "testing"]
+
+cheat_sheets = [
+    {
+        "title": "Testing Library Cheat Sheet",
+        "tagNames": ["testing library", "testing"],
+        "fileName": "testing_library.pdf",
+        "version": "1.0",
+    },
+    {
+        "title": "Regex Cheat Sheet",
+        "tagNames": ["regular expressions"],
+        "fileName": "regex.pdf",
+        "version": "2.3",
+    },
+]
+
 
 def load_test_data():
     """Load test data into db."""
@@ -96,6 +116,21 @@ def load_test_data():
 
         for talk in talks:
             Talk(**talk)
+
+        for tag in tags:
+            Tag(tagName=tag)
+
+        for cheat_sheet in cheat_sheets:
+            CheatSheet(**cheat_sheet)
+
+        # artifically backdate the regex cheat sheet to test updating the date
+        cheat_sheet = CheatSheet.query.filter(
+            CheatSheet.title == "Regex Cheat Sheet",
+        ).one()
+        cheat_sheet.updated_at = date(2020, 2, 2)
+        db.session.add(cheat_sheet)
+        db.session.commit()
+
     except (IntegrityError, UniqueViolation, SQLAlchemyError, InvalidRequestError) as e:
         # Keep from printing hundreds of lines simply for a db issue
         red = "\033[91m"
