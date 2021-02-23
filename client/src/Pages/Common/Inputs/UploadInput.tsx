@@ -2,6 +2,7 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import ImageIcon from '@material-ui/icons/Image';
 import useUpload from 'Hooks/useUpload';
@@ -56,11 +57,19 @@ export default function UploadInput({
         InputProps={{ startAdornment, readOnly: true }}
       />
       <Dialog open={showUpload} aria-hidden={!showUpload}>
-        <form style={{ margin: 10 }}>
+        <form style={{ textAlign: 'center', margin: 10 }}>
+          <InputLabel
+            htmlFor="file"
+            id="file-label"
+            style={{ marginBottom: 10 }}
+          >
+            Choose a file to upload
+          </InputLabel>
           <TextField
             required
             name="file"
             type="file"
+            aria-labelledby="file-label"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               e.target.files && setUploadFile(e.target.files[0])
             }

@@ -72,7 +72,6 @@ describe('edit course', () => {
     });
     expect(CourseModalTitle).toBeVisible();
 
-    // TODO: test image upload input
     // add (somewhat bogus) text data
     let fieldElement;
     ['name', 'description', 'link']
