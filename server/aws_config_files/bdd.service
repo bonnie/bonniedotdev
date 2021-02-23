@@ -16,7 +16,7 @@ ExecStart=/bin/bash -c "source .env\
 Restart=always
 RestartSec=90
 StartLimitBurst=5
-StartLimitInterval=600
+StartLimitInterval=300
 
 [Install]
 WantedBy=multi-user.target
