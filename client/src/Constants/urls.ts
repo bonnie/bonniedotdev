@@ -8,6 +8,7 @@ enum urls {
   reviewQuotesURL = '/api/review_quotes',
   talkURL = '/api/talk',
   talksURL = '/api/talks',
+  uploadURL = '/api/upload',
 }
 
 export default urls;

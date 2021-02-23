@@ -1,6 +1,6 @@
-import ImageNameInput from 'Pages/Common/Inputs/ImageNameInput';
 import LinkInput from 'Pages/Common/Inputs/LinkInput';
 import TextInput from 'Pages/Common/Inputs/TextInput';
+import UploadInput from 'Pages/Common/Inputs/UploadInput';
 import React, { ReactElement } from 'react';
 import { Course as CourseType, NewCourse } from 'Types';
 
@@ -30,7 +30,7 @@ export default function EditCourseFields({
         defaultValue={courseData.description}
       />
       <LinkInput required fieldName="link" defaultValue={courseData.link} />
-      <ImageNameInput
+      <UploadInput
         required
         fieldName="imageName"
         defaultValue={courseData.imageName}

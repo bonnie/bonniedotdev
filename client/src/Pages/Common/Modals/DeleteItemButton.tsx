@@ -1,12 +1,11 @@
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import React, { ReactElement, useState } from 'react';
 
 import LoggedInIconButton from '../LoggedInIconButton';
+import ModalFormActions from './ModalFormActions';
 
 interface DeleteItemModalProps {
   handleDelete: () => void;
@@ -46,12 +45,11 @@ export default function DeleteItemModal({
       >
         <Box m={2}>
           <DialogTitle id="confirm-dialog-title">{dialogMessage}</DialogTitle>
-          <ButtonGroup variant="text" style={{ float: 'right' }}>
-            <Button onClick={() => handleClose(false)}>Cancel</Button>
-            <Button color="secondary" onClick={() => handleClose(true)}>
-              Confirm
-            </Button>
-          </ButtonGroup>
+          <ModalFormActions
+            handleCancel={() => handleClose(false)}
+            handleSubmit={() => handleClose(true)}
+            submitString="Confirm"
+          />
         </Box>
       </Dialog>
     </>
