@@ -9,6 +9,7 @@ import { Route, Switch } from 'react-router-dom';
 import About from '../About/About';
 import Login from '../Auth/Login';
 import UserHome from '../Auth/UserHome';
+import CheatSheets from '../CheatSheets/CheatSheets';
 import Courses from '../Courses/Courses';
 import Home from '../Home/Home';
 import PageNotFound from '../PageNotFound/PageNotFound';
@@ -45,6 +46,7 @@ export default function Routes(): ReactElement {
         <Route exact path="/talks" component={Talks} />
         <Route exact path="/courses" component={Courses} />
         <Route exact path="/about" component={About} />
+        <Route exact path="/cheatsheets" component={CheatSheets} />
         <Route exact path="/user" component={UserHome} />
         <Route exact path="/login" component={Login} />
         <Route path="*" component={PageNotFound} />

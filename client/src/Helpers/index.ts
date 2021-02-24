@@ -4,7 +4,11 @@
 export function getFormData(event) {
   const rawData = [...event.target.elements];
   return rawData.reduce((acc, element) => {
-    if (element.name) acc[element.name] = element.value;
+    if (element.name) {
+      acc[element.name] = element.multiple
+        ? element.value.split(',')
+        : element.value;
+    }
     return acc;
   }, {});
 }

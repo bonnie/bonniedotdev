@@ -28,8 +28,8 @@ function useQueryMutation<T>({
   return useMutation(mutationFn, {
     onSuccess: () => {
       queryClient.invalidateQueries(identifier);
-      additionalQueryInvalidators.map((id) =>
-        queryClient.invalidateQueries(id),
+      additionalQueryInvalidators.map((item) =>
+        queryClient.invalidateQueries(item),
       );
     },
     onError: () => {

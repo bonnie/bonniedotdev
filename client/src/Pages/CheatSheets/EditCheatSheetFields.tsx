@@ -1,3 +1,4 @@
+import TagsInput from 'Pages/Common/Inputs/TagsInput';
 import TextInput from 'Pages/Common/Inputs/TextInput';
 import UploadInput from 'Pages/Common/Inputs/UploadInput';
 import React, { ReactElement } from 'react';
@@ -37,6 +38,7 @@ export default function EditCheatSheetFields({
         fieldName="fileName"
         defaultValue={cheatSheetData.fileName}
       />
+      <TagsInput fieldName="tagNames" defaultValues={cheatSheetData.tags} />
     </>
   );
 }
