@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { getUploadedImageURL, urlify } from 'Helpers';
 import useCheatSheets from 'Hooks/GetData/useCheatSheets';
 import useLogger, { logLevel } from 'Hooks/useLogger';
+import DownloadPDF from 'Pages/Common/DownloadPDF';
 import PDFDoc from 'Pages/Common/PDFDoc';
 import React, { ReactElement } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -12,6 +13,7 @@ interface useParamsReturn {
   sheetName: string;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default function CheatSheet(): ReactElement {
   const cheatSheets = useCheatSheets();
   const { sheetName } = useParams<useParamsReturn>();
@@ -43,20 +45,24 @@ export default function CheatSheet(): ReactElement {
 
   return (
     <>
-      <Typography variant="h1">{cheatSheetData.title}</Typography>
+      <Typography variant="h1" component="span">
+        {cheatSheetData.title}
+      </Typography>
+      <DownloadPDF pdfUrl={getUploadedImageURL(cheatSheetData.fileName)} />
       <Box>
-        <Typography variant="h3" component="span">
-          Last Updated
-        </Typography>{' '}
-        {cheatSheetData.updatedAt}
-        <Typography variant="h3" component="span">
-          Tags
-        </Typography>
+        <Typography>Last Updated {cheatSheetData.updatedAt}</Typography>
+        <Typography component="span">Tags:</Typography>
         {cheatSheetData.tags.map((tag) => (
-          <Chip key={tag} label={tag} color="secondary" />
+          <Chip
+            style={{ margin: 3 }}
+            key={tag}
+            label={tag}
+            color="secondary"
+            size="small"
+          />
         ))}
       </Box>
-      <Box>
+      <Box style={{ marginTop: 10 }}>
         <PDFDoc pdfUrl={getUploadedImageURL(cheatSheetData.fileName)} />
       </Box>
     </>

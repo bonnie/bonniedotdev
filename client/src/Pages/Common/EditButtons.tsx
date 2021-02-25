@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import axiosInstance from 'AxiosInstance';
 import jsonpatch, { Operation } from 'fast-json-patch';
-import useLogger from 'Hooks/useLogger';
+import useLogger, { logLevel } from 'Hooks/useLogger';
 import useQueryMutation from 'Hooks/useQueryMutation';
 import useSelector from 'Hooks/useTypedSelector';
 import DeleteItemButton from 'Pages/Common/Modals/DeleteItemButton';
@@ -69,7 +69,7 @@ export default function EditItemButtons<
     // edit was called with no differences
     if (patch.length === 0) {
       logger(
-        'error',
+        logLevel.warning,
         `update ${itemDetails.editUrl} was called with no differences`,
       );
       return;

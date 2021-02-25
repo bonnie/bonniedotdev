@@ -16,6 +16,7 @@ export default function FilterChips({
     const selected = selectedTags.includes(tag);
     return (
       <Chip
+        style={{ margin: 3 }}
         key={tag}
         size="small"
         color={selected ? 'secondary' : 'default'}
