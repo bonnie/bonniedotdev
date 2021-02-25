@@ -5,8 +5,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import { urlify } from 'Helpers';
 import FilterChips from 'Pages/Common/FilterChips';
 import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { CheatSheet as CheatSheetType } from 'Types';
 
 interface CheatSheetProps {
@@ -25,7 +27,9 @@ export default function CheatSheet({
   const buttons = (
     <ButtonGroup>
       <IconButton aria-label="view" component="span">
-        <VisibilityIcon fontSize="small" />
+        <Link to={`cheatsheets/${urlify(cheatSheetData.title)}`}>
+          <VisibilityIcon fontSize="small" />
+        </Link>
       </IconButton>
       <IconButton aria-label="download" component="span">
         <GetAppIcon fontSize="small" />

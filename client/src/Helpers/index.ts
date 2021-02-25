@@ -19,3 +19,8 @@ export function getUploadedImageURL(imageName: string): string {
     ? `http://localhost:5050${path}`
     : path;
 }
+
+export function urlify(phrase: string): string {
+  // turn spaces into hyphens for a friendlier url
+  return phrase.replaceAll(' ', '-');
+}
