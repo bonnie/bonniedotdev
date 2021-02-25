@@ -32,8 +32,11 @@ export default function CheatSheet({
     >
       <Grid container style={{ display: 'flex', alignItems: 'center' }}>
         <Grid item xs={12} md={6}>
-          <Link href={`cheatsheets/${urlify(cheatSheetData.title)}`}>
-            <Typography variant="h5" color="secondary" component="span">
+          <Link
+            color="secondary"
+            href={`cheatsheets/${urlify(cheatSheetData.title)}`}
+          >
+            <Typography variant="h5" component="span">
               {cheatSheetData.title}
             </Typography>
           </Link>

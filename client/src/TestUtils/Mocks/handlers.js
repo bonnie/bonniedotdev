@@ -6,6 +6,7 @@ import { rest } from 'msw';
 import urls from '../../Constants/urls';
 import {
   newReviewQuoteJSONResponse,
+  testCheatSheetsJSONResponse,
   testCoursesJSONResponse,
   testReviewQuotesData,
   testSuccessLoginReponse,
@@ -54,6 +55,12 @@ const handlers = [
   // delete a talk
   rest.delete(`${urls.talkURL}/:talkId`, (req, res, ctx) =>
     res(ctx.status(204)),
+  ),
+
+  // ////////////// cheat sheets /////////// //
+  // get all cheat sheets
+  rest.get(urls.cheatSheetsURL, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(testCheatSheetsJSONResponse)),
   ),
 
   // ////////////// log in /////////// //
