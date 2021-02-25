@@ -68,6 +68,10 @@ const handlers = [
   rest.post(urls.loginURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testSuccessLoginReponse)),
   ),
+
+  // ////////////// logging /////////// //
+  // sending log message to server
+  rest.post(urls.logURL, (req, res, ctx) => res(ctx.status(200))),
 ];
 
 export default handlers;

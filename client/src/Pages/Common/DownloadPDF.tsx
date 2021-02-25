@@ -10,7 +10,11 @@ export default function DownloadPDF({
   pdfUrl,
 }: DownloadPDFProps): ReactElement {
   return (
-    <IconButton aria-label="download" component="span">
+    <IconButton
+      aria-label="download"
+      component="span"
+      title="download cheat sheet"
+    >
       <a style={{ color: 'black' }} href={pdfUrl} download>
         <GetAppIcon />
       </a>

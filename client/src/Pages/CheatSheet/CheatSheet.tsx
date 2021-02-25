@@ -37,8 +37,10 @@ export default function CheatSheet(): ReactElement {
         <Typography variant="h4">
           Could not find cheat sheet: {sheetName}
         </Typography>
-        <Typography>Return to </Typography>
-        <Link to="/cheatsheets">cheat sheets overview</Link>
+        <Typography component="span">Return to </Typography>
+        <Link color="primary" to="/cheatsheets">
+          cheat sheets overview
+        </Link>
       </>
     );
   }
@@ -50,7 +52,6 @@ export default function CheatSheet(): ReactElement {
       </Typography>
       <DownloadPDF pdfUrl={getUploadedImageURL(cheatSheetData.fileName)} />
       <Box>
-        <Typography>Last Updated {cheatSheetData.updatedAt}</Typography>
         <Typography component="span">Tags:</Typography>
         {cheatSheetData.tags.map((tag) => (
           <Chip
@@ -61,8 +62,9 @@ export default function CheatSheet(): ReactElement {
             size="small"
           />
         ))}
+        <Typography>Last Updated: {cheatSheetData.updatedAt}</Typography>
       </Box>
-      <Box style={{ marginTop: 10 }}>
+      <Box style={{ marginTop: 20 }}>
         <PDFDoc pdfUrl={getUploadedImageURL(cheatSheetData.fileName)} />
       </Box>
     </>

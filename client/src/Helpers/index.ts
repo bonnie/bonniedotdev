@@ -22,5 +22,5 @@ export function getUploadedImageURL(imageName: string): string {
 
 export function urlify(phrase: string): string {
   // turn spaces into hyphens for a friendlier url
-  return phrase.replace(/ /g, '-');
+  return phrase.replace(/ /g, '-').toLowerCase();
 }
