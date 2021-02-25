@@ -30,4 +30,11 @@ test('clicking chips filters cheat sheets', async () => {
     name: /cheat sheet \d/i,
   });
   expect(testingCheatSheets).toHaveLength(2);
+
+  // click on testing chip again to de-select; should show three cheat sheets again
+  fireEvent.click(testingChips[0]);
+  const jsNotTestingCheatSheets = screen.getAllByRole('link', {
+    name: /cheat sheet \d/i,
+  });
+  expect(jsNotTestingCheatSheets).toHaveLength(3);
 });
