@@ -1,29 +1,27 @@
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import FilterChips from 'Pages/Common/FilterChips';
 import React, { ReactElement } from 'react';
 import { CheatSheet as CheatSheetType } from 'Types';
 
 interface CheatSheetProps {
   cheatSheetData: CheatSheetType;
-  tagOnClick: (tag: string) => void;
+  onTagClick: (tag: string) => void;
   selectedTags: string[];
+  showItem: boolean;
 }
 
 export default function CheatSheet({
   cheatSheetData,
-  tagOnClick,
+  onTagClick,
   selectedTags,
+  showItem,
 }: CheatSheetProps): ReactElement {
-  const display =
-    selectedTags.length === 0 ||
-    selectedTags.some((tag) => cheatSheetData.tags.includes(tag));
-
   const buttons = (
     <ButtonGroup>
       <IconButton aria-label="view" component="span">
@@ -36,7 +34,7 @@ export default function CheatSheet({
   );
 
   return (
-    <Paper style={{ display: display ? 'inherit' : 'none' }}>
+    <Paper style={{ display: showItem ? 'inherit' : 'none' }}>
       <Grid container>
         <Grid item xs={12} sm={8} md={6}>
           <Typography>{cheatSheetData.title}</Typography>
@@ -48,14 +46,11 @@ export default function CheatSheet({
           {buttons}
         </Grid>
         <Grid item xs={12}>
-          {cheatSheetData.tags.map((tag) => (
-            <Chip
-              key={tag}
-              color={selectedTags.includes(tag) ? 'default' : 'primary'}
-              onClick={() => tagOnClick(tag)}
-              label={tag}
-            />
-          ))}
+          <FilterChips
+            tags={cheatSheetData.tags}
+            selectedTags={selectedTags}
+            onTagClick={onTagClick}
+          />
         </Grid>
       </Grid>
     </Paper>
