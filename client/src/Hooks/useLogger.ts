@@ -11,10 +11,12 @@ export enum logLevel {
 
 export default function useLogger() {
   return function logToServer(level: logLevel, message: string): void {
-    const headers = { 'Content-Type': 'application/json' };
-
     try {
-      axiosInstance.post(urls.logURL, { headers, data: { message, level } });
+      axiosInstance({
+        url: urls.logURL,
+        data: { message, logLevel: level },
+        method: 'POST',
+      });
     } catch (e) {
       // don't try to send error to server, infinite loop!
       // eslint-disable-next-line no-console

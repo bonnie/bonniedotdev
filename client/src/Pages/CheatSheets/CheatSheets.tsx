@@ -20,6 +20,7 @@ export default function CheatSheets(): ReactElement {
       />
       {cheatSheets.map((cheatSheetData) => (
         <CheatSheet
+          key={cheatSheetData.id}
           cheatSheetData={cheatSheetData}
           selectedTags={selectedTags}
           onTagClick={onTagClick}
