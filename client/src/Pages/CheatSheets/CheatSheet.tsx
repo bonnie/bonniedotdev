@@ -93,7 +93,7 @@ export default function CheatSheet({
         </Grid>
         <Grid item xs={12} md={6}>
           <FilterChips
-            tags={cheatSheetData.tags}
+            tags={cheatSheetData.tagNames}
             selectedTags={selectedTags}
             onTagClick={onTagClick}
           />

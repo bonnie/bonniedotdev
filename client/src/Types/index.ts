@@ -40,7 +40,7 @@ export interface NewCheatSheet {
   title: string;
   version: string;
   fileName: string;
-  tags: string[];
+  tagNames: string[];
 }
 
 export interface CheatSheet extends NewCheatSheet, Item {

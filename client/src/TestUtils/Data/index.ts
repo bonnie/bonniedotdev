@@ -166,7 +166,7 @@ export const testCheatSheetsJSONResponse: CheatSheet[] = [
     fileName: 'cheat sheet 1.pdf',
     version: '1.0',
     updatedAt: '2020-02-02',
-    tags: ['testing', 'javascript', 'enzyme'],
+    tagNames: ['testing', 'javascript', 'enzyme'],
   },
   {
     id: 2,
@@ -174,7 +174,7 @@ export const testCheatSheetsJSONResponse: CheatSheet[] = [
     fileName: 'cheat sheet 2.pdf',
     version: '2.0',
     updatedAt: '2020-02-02',
-    tags: ['regular expressions', 'javascript', 'syntax'],
+    tagNames: ['regular expressions', 'javascript', 'syntax'],
   },
   {
     id: 3,
@@ -182,7 +182,7 @@ export const testCheatSheetsJSONResponse: CheatSheet[] = [
     fileName: 'cheat sheet 3.pdf',
     version: '3.0',
     updatedAt: '2020-02-02',
-    tags: ['regular expressions', 'python', 'syntax'],
+    tagNames: ['regular expressions', 'python', 'syntax'],
   },
   {
     id: 4,
@@ -190,7 +190,7 @@ export const testCheatSheetsJSONResponse: CheatSheet[] = [
     fileName: 'cheat sheet 4.pdf',
     version: '4.0',
     updatedAt: '2020-02-02',
-    tags: ['testing', 'javascript', 'testing library'],
+    tagNames: ['testing', 'javascript', 'testing library'],
   },
 ];
 

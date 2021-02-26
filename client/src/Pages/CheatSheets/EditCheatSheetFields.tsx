@@ -7,7 +7,7 @@ import { CheatSheet as CheatSheetType, NewCheatSheet } from 'Types';
 const newCheatSheet: NewCheatSheet = {
   title: '',
   version: '',
-  tags: [],
+  tagNames: [],
   fileName: '',
 };
 
@@ -38,7 +38,7 @@ export default function EditCheatSheetFields({
         fieldName="fileName"
         defaultValue={cheatSheetData.fileName}
       />
-      <TagsInput fieldName="tagNames" defaultValues={cheatSheetData.tags} />
+      <TagsInput fieldName="tagNames" defaultValues={cheatSheetData.tagNames} />
     </>
   );
 }

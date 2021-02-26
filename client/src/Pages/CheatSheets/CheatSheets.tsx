@@ -47,7 +47,7 @@ export default function CheatSheets(): ReactElement {
           cheatSheetData={cheatSheetData}
           selectedTags={selectedTags}
           onTagClick={onTagClick}
-          showItem={showItem(cheatSheetData.tags)}
+          showItem={showItem(cheatSheetData.tagNames)}
         />
       ))}
     </>

@@ -65,7 +65,7 @@ export default function CheatSheet(): ReactElement {
       />
       <Box>
         <Typography component="span">Tags:</Typography>
-        {cheatSheetData.tags.map((tag) => (
+        {cheatSheetData.tagNames.map((tag) => (
           <Chip
             style={{ margin: 3 }}
             key={tag}

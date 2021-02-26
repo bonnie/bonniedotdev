@@ -51,7 +51,7 @@ export const reviewQuoteDetails: itemEditDetails = {
 };
 
 // CheatSheets //////////////////////////////////
-const cheatSheetPatchKeys = ['title', 'tagNames'];
+const cheatSheetPatchKeys = ['title', 'tagNames', 'version', 'fileName'];
 
 export const cheatSheetDetails: itemEditDetails = {
   itemString: 'Cheat Sheet',

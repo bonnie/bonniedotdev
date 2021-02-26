@@ -8,7 +8,7 @@ const cheatSheetData = {
   fileName: 'cheat sheet 1.pdf',
   version: '1.0',
   updatedAt: '2020-02-02',
-  tags: ['testing', 'javascript', 'enzyme'],
+  tagNames: ['testing', 'javascript', 'enzyme'],
 };
 
 test('cheat sheet paper has title, download link and tags', async () => {

@@ -40,6 +40,9 @@ export default function UploadInput({
     </InputAdornment>
   );
 
+  // TODO: fix error - Warning: Failed prop type: Invalid prop `value` of type `object`
+  // supplied to `ForwardRef(LinearProgress)`, expected `number`.
+
   return (
     <>
       <TextField

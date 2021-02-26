@@ -100,7 +100,7 @@ class CheatSheet(db.Model, Base):
 
         # Apply the patched dictionary back to the model
         for key, value in updated_data.items():
-            if key == "tags":
+            if key == "tagNames":
                 # deal with tags separately
                 self.tags = []
                 self.add_tags(value)
@@ -121,7 +121,7 @@ class CheatSheet(db.Model, Base):
             "fileName": self.fileName,
             "version": self.version,
             "updatedAt": self.updated_at.strftime("%Y-%m-%d"),
-            "tags": [tag.tagName for tag in self.tags],
+            "tagNames": [tag.tagName for tag in self.tags],
         }
 
     def __repr__(self):
