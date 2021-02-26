@@ -2,12 +2,16 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
+import { cheatSheetDetails } from 'Constants/itemConstants';
 import { getUploadedImageURL, urlify } from 'Helpers';
 import DownloadPDF from 'Pages/Common/DownloadPDF';
+import EditItemButtons from 'Pages/Common/EditButtons';
 import FilterChips from 'Pages/Common/FilterChips';
 import React, { ReactElement } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { CheatSheet as CheatSheetType } from 'Types';
+
+import EditCheatSheetFields from './EditCheatSheetFields';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -42,6 +46,7 @@ interface CheatSheetProps {
   showItem: boolean;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default function CheatSheet({
   cheatSheetData,
   onTagClick,
@@ -49,6 +54,17 @@ export default function CheatSheet({
   showItem,
 }: CheatSheetProps): ReactElement {
   const classes = useStyles();
+
+  const editCheatSheetButtons = (
+    <EditItemButtons
+      itemDetails={cheatSheetDetails}
+      itemData={cheatSheetData}
+      ItemFieldsComponent={
+        <EditCheatSheetFields cheatSheetData={cheatSheetData} />
+      }
+    />
+  );
+
   return (
     <Paper
       className={classes.root}
@@ -56,6 +72,8 @@ export default function CheatSheet({
     >
       <Grid container className={classes.cheatSheetContainer}>
         <Grid item xs={12} md={6}>
+          {editCheatSheetButtons}
+          <DownloadPDF pdfUrl={getUploadedImageURL(cheatSheetData.fileName)} />
           <RouterLink
             className={classes.routerLink}
             to={`cheatsheets/${urlify(cheatSheetData.title)}`}
@@ -69,7 +87,6 @@ export default function CheatSheet({
               {cheatSheetData.title}
             </Typography>
           </RouterLink>
-          <DownloadPDF pdfUrl={getUploadedImageURL(cheatSheetData.fileName)} />
         </Grid>
         <Grid item xs={12} md={6}>
           <FilterChips

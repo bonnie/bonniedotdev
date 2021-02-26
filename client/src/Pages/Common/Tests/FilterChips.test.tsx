@@ -1,12 +1,12 @@
 import { fireEvent } from '@testing-library/react';
 import CheatSheets from 'Pages/CheatSheets/CheatSheets';
 import React from 'react';
-import { renderWithProvider } from 'TestUtils/renderWith';
+import { renderWithRouterAndProvider } from 'TestUtils/renderWith';
 
 // testing with Cheat Sheets component
 // tests specific to other components will be in their test directories
 test('clicking chips filters cheat sheets', async () => {
-  const screen = renderWithProvider(<CheatSheets />);
+  const screen = renderWithRouterAndProvider(<CheatSheets />);
 
   // make sure we have four cheat sheets with no filtering
   // msw is using data from Tests/Data testCheatSheetsJSONResponse

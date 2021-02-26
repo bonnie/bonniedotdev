@@ -16,7 +16,7 @@ export default function DownloadPDF({
       title="download cheat sheet"
     >
       <a style={{ color: 'black' }} href={pdfUrl} download>
-        <GetAppIcon />
+        <GetAppIcon fontSize="small" />
       </a>
     </IconButton>
   );
