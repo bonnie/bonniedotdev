@@ -4,10 +4,12 @@ import React, { ReactElement } from 'react';
 
 interface DownloadPDFProps {
   pdfUrl: string;
+  fontSize: 'small' | 'large';
 }
 
 export default function DownloadPDF({
   pdfUrl,
+  fontSize,
 }: DownloadPDFProps): ReactElement {
   return (
     <IconButton
@@ -16,7 +18,7 @@ export default function DownloadPDF({
       title="download cheat sheet"
     >
       <a style={{ color: 'black' }} href={pdfUrl} download>
-        <GetAppIcon fontSize="small" />
+        <GetAppIcon fontSize={fontSize} />
       </a>
     </IconButton>
   );

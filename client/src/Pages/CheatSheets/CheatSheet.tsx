@@ -73,7 +73,10 @@ export default function CheatSheet({
       <Grid container className={classes.cheatSheetContainer}>
         <Grid item xs={12} md={6}>
           {editCheatSheetButtons}
-          <DownloadPDF pdfUrl={getUploadedImageURL(cheatSheetData.fileName)} />
+          <DownloadPDF
+            pdfUrl={getUploadedImageURL(cheatSheetData.fileName)}
+            fontSize="small"
+          />
           <RouterLink
             className={classes.routerLink}
             to={`cheatsheets/${urlify(cheatSheetData.title)}`}

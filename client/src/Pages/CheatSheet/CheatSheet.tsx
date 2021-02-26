@@ -50,7 +50,10 @@ export default function CheatSheet(): ReactElement {
       <Typography variant="h1" component="span">
         {cheatSheetData.title}
       </Typography>
-      <DownloadPDF pdfUrl={getUploadedImageURL(cheatSheetData.fileName)} />
+      <DownloadPDF
+        pdfUrl={getUploadedImageURL(cheatSheetData.fileName)}
+        fontSize="large"
+      />
       <Box>
         <Typography component="span">Tags:</Typography>
         {cheatSheetData.tags.map((tag) => (
