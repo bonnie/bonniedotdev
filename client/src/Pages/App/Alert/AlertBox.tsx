@@ -6,8 +6,9 @@ import Alert from '@material-ui/lab/Alert';
 import useActions from 'Hooks/useActions';
 import useSelector from 'Hooks/useTypedSelector';
 import React, { ReactElement } from 'react';
+import { RootState } from 'State';
 
-function getMessageAndAlertLevel(state) {
+function getMessageAndAlertLevel(state: RootState) {
   if (state.alert) return state.alert;
   return { message: null, alertLevel: null };
 }
@@ -48,7 +49,7 @@ export default function AlertBox(): ReactElement | null {
         </IconButton>
       }
     >
-      <Alert onClose={handleClose} severity={alertLevel}>
+      <Alert onClose={handleClose} severity={alertLevel || undefined}>
         {message}
       </Alert>
     </Snackbar>
