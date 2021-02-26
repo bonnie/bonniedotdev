@@ -11,7 +11,7 @@ const useStyles = makeStyles(() =>
       marginRight: 10,
     },
     divider: {
-      width: '10%',
+      width: '100px',
       marginBottom: 20,
     },
     titleLine: {

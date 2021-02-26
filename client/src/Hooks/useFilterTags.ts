@@ -1,10 +1,13 @@
 import { useState } from 'react';
 
-export default function useFilterTags(): [
-  string[],
-  (tag: string) => void,
-  (itemTags: string[]) => boolean,
-] {
+interface useFilterTagsReturnValue {
+  selectedTags: string[];
+  onTagClick: (tag: string) => void;
+  clearSelected: () => void;
+  showItem: (itemTags: string[]) => boolean;
+}
+
+export default function useFilterTags(): useFilterTagsReturnValue {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const onTagClick = (tag: string): void => {
@@ -21,6 +24,10 @@ export default function useFilterTags(): [
     setSelectedTags(newSelectedTags);
   };
 
+  const clearSelected = () => {
+    setSelectedTags([]);
+  };
+
   const showItem = (itemTags: string[]) => {
     // show the item if there are no tags selected,
     // or the item includes all selected tags
@@ -29,5 +36,5 @@ export default function useFilterTags(): [
     return selectedTags.every((tag) => itemTags.includes(tag));
   };
 
-  return [selectedTags, onTagClick, showItem];
+  return { selectedTags, onTagClick, clearSelected, showItem };
 }

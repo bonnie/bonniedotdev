@@ -37,4 +37,12 @@ test('clicking chips filters cheat sheets', async () => {
     name: /cheat sheet \d/i,
   });
   expect(jsNotTestingCheatSheets).toHaveLength(3);
+
+  // click on "clear filters" to show all again
+  const clearFiltersChip = screen.getByText(/clear filters/i);
+  fireEvent.click(clearFiltersChip);
+  const allCheatSheets = screen.getAllByRole('link', {
+    name: /cheat sheet \d/i,
+  });
+  expect(allCheatSheets).toHaveLength(4);
 });
