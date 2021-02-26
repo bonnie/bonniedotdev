@@ -21,8 +21,8 @@ mv $SERVERDIR/images $SERVERDIR/static/images
 echo '4/6 moving index.html to server directory'
 mv index.html $SERVERDIR
 
-echo '5/6 moving `manifest.json`, `asset-manifest.json` and `robots.txt` to server public directory'
-mv manifest.json asset-manifest.json robots.txt $SERVERDIR/static
+echo '5/6 moving `manifest.json`, `asset-manifest.json`, `robots.txt`, and `sitemap.xml` to server public directory'
+mv manifest.json asset-manifest.json robots.txt sitemap.xml $SERVERDIR/static
 
 echo '6/6 moving favicon dir to server directory'
 mv favicon $SERVERDIR/static

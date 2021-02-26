@@ -67,6 +67,10 @@ def create_app(flask_env: FlaskEnv):
     def serve_robots():
         return send_file("static/robots.txt")
 
+    @app.route("/sitemap.xml")
+    def serve_sitemap():
+        return send_file("static/sitemap.xml")
+
     @app.route("/manifest.json")
     def serve_manifest():
         return send_file("static/manifest.json")

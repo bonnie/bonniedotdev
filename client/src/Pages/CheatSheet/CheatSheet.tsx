@@ -7,6 +7,7 @@ import useLogger, { logLevel } from 'Hooks/useLogger';
 import DownloadPDF from 'Pages/Common/DownloadPDF';
 import PDFDoc from 'Pages/Common/PDFDoc';
 import React, { ReactElement } from 'react';
+import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
 
 interface useParamsReturn {
@@ -47,6 +48,14 @@ export default function CheatSheet(): ReactElement {
 
   return (
     <>
+      <Helmet>
+        <title>Bonnie Schulkin | {cheatSheetData.title} Cheat Sheet</title>
+        <meta
+          name="description"
+          content={`${cheatSheetData.title} Cheat Sheet`}
+        />
+      </Helmet>
+
       <Typography variant="h1" component="span">
         {cheatSheetData.title}
       </Typography>
