@@ -4,7 +4,11 @@
 export function getFormData(event) {
   const rawData = [...event.target.elements];
   return rawData.reduce((acc, element) => {
-    if (element.name) acc[element.name] = element.value;
+    if (element.name) {
+      acc[element.name] = element.multiple
+        ? element.value.split(',')
+        : element.value;
+    }
     return acc;
   }, {});
 }
@@ -14,4 +18,9 @@ export function getUploadedImageURL(imageName: string): string {
   return process.env.NODE_ENV === 'development'
     ? `http://localhost:5050${path}`
     : path;
+}
+
+export function urlify(phrase: string): string {
+  // turn spaces into hyphens for a friendlier url
+  return phrase.replace(/ /g, '-').toLowerCase();
 }

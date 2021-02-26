@@ -49,3 +49,13 @@ export const reviewQuoteDetails: itemEditDetails = {
   patchRelevantKeys: reviewQuotePatchKeys,
   itemIdentifier: ItemType.reviewQuote,
 };
+
+// CheatSheets //////////////////////////////////
+const cheatSheetPatchKeys = ['title', 'tagNames'];
+
+export const cheatSheetDetails: itemEditDetails = {
+  itemString: 'Cheat Sheet',
+  editUrl: urls.cheatSheetURL,
+  patchRelevantKeys: cheatSheetPatchKeys,
+  itemIdentifier: ItemType.cheatSheet,
+};

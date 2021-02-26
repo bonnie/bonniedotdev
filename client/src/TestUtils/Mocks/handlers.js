@@ -6,6 +6,7 @@ import { rest } from 'msw';
 import urls from '../../Constants/urls';
 import {
   newReviewQuoteJSONResponse,
+  testCheatSheetsJSONResponse,
   testCoursesJSONResponse,
   testReviewQuotesData,
   testSuccessLoginReponse,
@@ -56,11 +57,21 @@ const handlers = [
     res(ctx.status(204)),
   ),
 
+  // ////////////// cheat sheets /////////// //
+  // get all cheat sheets
+  rest.get(urls.cheatSheetsURL, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(testCheatSheetsJSONResponse)),
+  ),
+
   // ////////////// log in /////////// //
   // log in user
   rest.post(urls.loginURL, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(testSuccessLoginReponse)),
   ),
+
+  // ////////////// logging /////////// //
+  // sending log message to server
+  rest.post(urls.logURL, (req, res, ctx) => res(ctx.status(200))),
 ];
 
 export default handlers;

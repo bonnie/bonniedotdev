@@ -98,7 +98,7 @@ def test_upload_file_bad_extension(test_client, uploads_path):
 
     # check response
     assert response.status_code == 422
-    assert response.json["message"] == "Filename not acceptable for upload: evil.js"
+    assert response.json["message"] == "Filename not valid for upload: evil.js"
 
     # check that there's no files in the uploads dir
     num_uploads = len(list(os.listdir(uploads_path)))

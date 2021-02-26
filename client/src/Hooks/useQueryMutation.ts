@@ -13,18 +13,25 @@ interface QueryMutation<T> {
   identifier: ItemType;
   mutationFn: MutationFunction<AxiosResponse, T>;
   actionString: string;
+  additionalQueryInvalidators?: ItemType[]; // for items like cheatSheet that also invalidate tags
 }
 
 function useQueryMutation<T>({
   identifier,
   mutationFn,
   actionString,
+  additionalQueryInvalidators = [],
 }: QueryMutation<T>): UseMutationResult<AxiosResponse, unknown, T, unknown> {
   const { setAlert } = useActions();
   const queryClient = useQueryClient();
 
   return useMutation(mutationFn, {
-    onSuccess: () => queryClient.invalidateQueries(identifier),
+    onSuccess: () => {
+      queryClient.invalidateQueries(identifier);
+      additionalQueryInvalidators.map((item) =>
+        queryClient.invalidateQueries(item),
+      );
+    },
     onError: () => {
       setAlert(
         `Failed to ${actionString} ${identifier}`,

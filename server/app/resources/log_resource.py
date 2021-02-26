@@ -17,7 +17,6 @@ class logSchema(Schema):
 
     @post_load
     def validate_loglevel(self, data, **kwargs):
-
         log_level = data["logLevel"]
         if log_level.lower() not in log_levels:
             raise ValidationError(
@@ -30,7 +29,6 @@ class logSchema(Schema):
 class Log(Resource):
     def post(self):
         """Log message from client."""
-
         try:
             args = logSchema().load(request.json)
         except ValidationError as e:

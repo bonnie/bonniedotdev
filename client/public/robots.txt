@@ -2,3 +2,6 @@
 User-agent: *
 Disallow: /login
 Disallow: /api
+
+
+Sitemap: https://bonnie.dev/sitemap.xml

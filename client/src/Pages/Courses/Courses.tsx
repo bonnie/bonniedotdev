@@ -6,6 +6,7 @@ import useCourses from 'Hooks/GetData/useCourses';
 import useSelector from 'Hooks/useTypedSelector';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
 import React, { ReactElement, useCallback, useMemo } from 'react';
+import { Helmet } from 'react-helmet';
 import { Course as CourseType } from 'Types';
 
 import Course from './Course';
@@ -23,6 +24,13 @@ export default function Courses(): ReactElement {
   const coursePage = useMemo(
     () => (
       <>
+        <Helmet>
+          <title>Bonnie Schulkin | Courses</title>
+          <meta
+            name="description"
+            content="Bonnie's online courses and coupons"
+          />
+        </Helmet>
         <PageTitleWithAdd
           title="Courses"
           itemDetails={courseDetails}

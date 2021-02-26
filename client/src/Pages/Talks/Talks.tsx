@@ -10,6 +10,7 @@ import useTalks from 'Hooks/GetData/useTalks';
 import useSelector from 'Hooks/useTypedSelector';
 import PageTitleWithAdd from 'Pages/Common/PageTitleWithAdd';
 import React, { ReactElement, useCallback, useMemo } from 'react';
+import { Helmet } from 'react-helmet';
 import { Talk as TalkType } from 'Types';
 
 import EditTalkFields from './EditTalkFields';
@@ -51,6 +52,10 @@ export default function Talks(): ReactElement {
   const contents = useMemo(
     () => (
       <>
+        <Helmet>
+          <title>Bonnie Schulkin | Talks</title>
+          <meta name="description" content="Past and upcoming talks" />
+        </Helmet>
         <PageTitleWithAdd
           title="Conference Talks and Workshops"
           itemDetails={talkDetails}

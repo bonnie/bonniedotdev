@@ -36,6 +36,16 @@ export interface NewCourse {
 }
 
 export interface Course extends NewCourse, Item {}
+export interface NewCheatSheet {
+  title: string;
+  version: string;
+  fileName: string;
+  tags: string[];
+}
+
+export interface CheatSheet extends NewCheatSheet, Item {
+  updatedAt: string;
+}
 
 export interface NewTalk {
   title: string;
@@ -56,7 +66,12 @@ export interface SortedTalks {
 
 // TODO: can I group these together with inheritance somehow...?
 // Or maybe all of them need a "name" or "title" property...
-export type NewItem = NewReviewQuote | NewCoupon | NewCourse | NewTalk;
+export type NewItem =
+  | NewReviewQuote
+  | NewCoupon
+  | NewCourse
+  | NewTalk
+  | NewCheatSheet;
 
 export interface ItemFieldsComponentProps<ItemData extends Item> {
   data: NewItem | ItemData;
@@ -69,6 +84,8 @@ export enum ItemType {
   course = 'course',
   coupon = 'coupon',
   reviewQuote = 'reviewQuote',
+  tag = 'tag',
+  cheatSheet = 'cheatSheet',
 }
 
 export interface itemEditDetails {

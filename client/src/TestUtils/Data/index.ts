@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Course, Talk, User } from 'Types';
+import { CheatSheet, Course, Talk, User } from 'Types';
 
 export const testSuccessLoginReponse: User = {
   id: 1,
@@ -156,6 +156,41 @@ export const testTalksJSONResponse: Talk[] = [
     conferenceName: 'bonnieCon',
     conferenceLink: 'http://bonniecon.com',
     recordingLink: 'http://youtube.com/bonnie',
+  },
+];
+
+export const testCheatSheetsJSONResponse: CheatSheet[] = [
+  {
+    id: 1,
+    title: 'Cheat Sheet 1',
+    fileName: 'cheat sheet 1.pdf',
+    version: '1.0',
+    updatedAt: '2020-02-02',
+    tags: ['testing', 'javascript', 'enzyme'],
+  },
+  {
+    id: 2,
+    title: 'Cheat Sheet 2',
+    fileName: 'cheat sheet 2.pdf',
+    version: '2.0',
+    updatedAt: '2020-02-02',
+    tags: ['regular expressions', 'javascript', 'syntax'],
+  },
+  {
+    id: 3,
+    title: 'Cheat Sheet 3',
+    fileName: 'cheat sheet 3.pdf',
+    version: '3.0',
+    updatedAt: '2020-02-02',
+    tags: ['regular expressions', 'python', 'syntax'],
+  },
+  {
+    id: 4,
+    title: 'Cheat Sheet 4',
+    fileName: 'cheat sheet 4.pdf',
+    version: '4.0',
+    updatedAt: '2020-02-02',
+    tags: ['testing', 'javascript', 'testing library'],
   },
 ];
 
