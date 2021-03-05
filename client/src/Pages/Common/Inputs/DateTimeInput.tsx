@@ -1,4 +1,5 @@
 import { DateTimePicker } from '@material-ui/pickers';
+import moment from 'moment';
 import React, { ReactElement } from 'react';
 
 interface DateFieldProps {
@@ -8,7 +9,7 @@ interface DateFieldProps {
   dateSetter: (dateString: string) => void;
 }
 
-export default function DateInput({
+export default function DateTimeInput({
   fieldName,
   value,
   label,
@@ -25,7 +26,7 @@ export default function DateInput({
       id="date-picker-inline"
       value={value}
       onChange={(val) => {
-        if (val) dateSetter(val.toString());
+        if (val) dateSetter(moment.utc(val).toISOString());
       }}
     />
   );

@@ -1,4 +1,5 @@
 /* eslint-disable max-lines-per-function */
+import moment from 'moment';
 import DateInput from 'Pages/Common/Inputs/DateInput';
 import ImageNameInput from 'Pages/Common/Inputs/ImageNameInput';
 import LinkInput from 'Pages/Common/Inputs/LinkInput';
@@ -27,7 +28,9 @@ export default function EditTalkFields({
 }: EditTalkFieldsType): ReactElement {
   // adding time is necessary, otherwise it gets translated funny and shows up as the day before
   const [talkDate, setTalkDate] = useState(
-    `${talkData.utcDateStringISO} 00:00:00`,
+    talkData.utcDateStringISO
+      ? `${talkData.utcDateStringISO} 00:00:00`
+      : moment(new Date()).toISOString(),
   );
 
   // TODO: allow upload of slides file
