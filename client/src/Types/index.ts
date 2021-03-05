@@ -3,6 +3,7 @@ import urls from 'Constants/urls';
 export interface User {
   id: number;
   username: string;
+  token: string;
 }
 
 export interface Item {
