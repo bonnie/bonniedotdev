@@ -35,6 +35,9 @@ def checkuser(func):
                 raise (InvalidKeyError("expiration"))
             if datetime.strptime(expiration, "%Y-%m-%d") < datetime.now():
                 return {"message": "Login expired"}, 401
+
+            # survived the gauntlet!
+            return func(*args, **kwargs)
         except (
             InvalidTokenError,
             InvalidKeyError,
