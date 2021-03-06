@@ -34,7 +34,7 @@ def test_add_known_tag_capitalized_underscored(test_db, test_client, cheat_sheet
     patch = [
         {
             "op": "add",
-            "path": "/tags/0",
+            "path": "/tagNames/0",
             "value": "Testing_Library",
         },
     ]
@@ -44,14 +44,14 @@ def test_add_known_tag_capitalized_underscored(test_db, test_client, cheat_sheet
     assert response.status_code == 200
 
     # test title change
-    assert response.json["tags"] == ["testing library", "regular expressions"]
+    assert response.json["tagNames"] == ["testing library", "regular expressions"]
 
 
 def test_add_unknown_tag(test_db, test_client, cheat_sheet_id):
     patch = [
         {
             "op": "add",
-            "path": "/tags/0",
+            "path": "/tagNames/0",
             "value": "Python",
         },
     ]
@@ -61,7 +61,7 @@ def test_add_unknown_tag(test_db, test_client, cheat_sheet_id):
     assert response.status_code == 200
 
     # test title change
-    assert response.json["tags"] == ["regular expressions", "python"]
+    assert response.json["tagNames"] == ["regular expressions", "python"]
 
 
 def test_delete_cheat_sheet(test_db, test_client, cheat_sheet_id):

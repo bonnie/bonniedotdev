@@ -10,21 +10,13 @@ test('error-free login / logout flow', async () => {
   // mimic logging in
   const normalScreen = await renderWithRouterProviderAndUser(<App />);
 
-  // confirm redirect to page welcoming user
-  const welcomeHeader = await normalScreen.findByRole('heading', {
-    name: /welcome/i,
-  });
-  expect(welcomeHeader).toBeInTheDocument();
-
-  // confirm redirect to page welcoming user
-  const logOutHeader = await normalScreen.findByRole('heading', {
-    name: /welcome/i,
-  });
-  expect(logOutHeader).toBeInTheDocument();
+  // await the successful log in alert
+  const loginAlert = await normalScreen.findByText('Log in succeeded');
+  expect(loginAlert).toBeInTheDocument();
 
   // find and click the logout button
   // can't find by role, since title text isn't accessible to refine findByRole query
-  const logoutButton = normalScreen.getByTitle('Log out');
+  const logoutButton = await normalScreen.findByTitle('Log out');
   fireEvent.click(logoutButton);
 
   // Expect to be redirected to login page

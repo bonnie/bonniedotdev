@@ -1,8 +1,4 @@
-import os
-from datetime import datetime
-from datetime import timedelta
-
-import jwt
+from app.jwt import create_jwt
 from app.models.user_model import User as UserModel
 from flask import request
 from flask_restful import Resource
@@ -34,17 +30,10 @@ class Login(Resource):
             return {"message": f"Incorrect login for user {username}"}, 400
 
         # if we got to here, login is legit
-        # time to create the jwt
-        expire_date = datetime.utcnow() + timedelta(hours=24 * 3)
-        expire_date_string = datetime.strftime(expire_date, "%Y-%m-%d")
-
-        token = jwt.encode(
-            {"userId": user.id, "expiration": expire_date_string},
-            os.environ.get("FLASK_SECRET"),
-        )
+        token = create_jwt(user.id)
 
         return {
-            "token": token.decode("UTF-8"),
+            "token": token,
             "username": user.username,
             "id": user.id,
         }, 200
