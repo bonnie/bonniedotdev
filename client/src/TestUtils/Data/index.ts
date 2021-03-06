@@ -4,6 +4,7 @@ import { CheatSheet, Course, Talk, User } from 'Types';
 export const testSuccessLoginReponse: User = {
   id: 1,
   username: 'admin',
+  token: 'abc123',
 };
 
 export const testReviewQuotesData = [
