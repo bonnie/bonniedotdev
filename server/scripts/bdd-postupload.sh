@@ -4,7 +4,7 @@ cd "/home/ubuntu/bonniedotdev/server/app"
 echo "--------------> 1/3 backing up uploads"
 rm -rf backup
 mkdir backup
-cp -r app/$BDD_UPLOAD_FOLDER backup
+cp -r ./$BDD_UPLOAD_FOLDER backup
 
 echo "--------------> 2/3 unpacking new static"
 cp -r static backup
