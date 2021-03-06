@@ -1,14 +1,15 @@
-import { IconButton } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import SvgIcon from '@material-ui/core/SvgIcon';
 import React, { ReactElement } from 'react';
 
 type SocialLinkProps = {
-  icon: JSX.Element; // TODO: make more specific to a MUI icon component
+  Icon: typeof SvgIcon;
   target: string;
   label: string;
 };
 
 export default function SocialLink({
-  icon,
+  Icon,
   target,
   label,
 }: SocialLinkProps): ReactElement {
@@ -16,12 +17,13 @@ export default function SocialLink({
     <IconButton
       key={label}
       aria-label={label}
+      title={label}
       color="primary"
       href={target}
       target="_blank"
       rel="noreferrer"
     >
-      {icon}
+      <Icon />
     </IconButton>
   );
 }
