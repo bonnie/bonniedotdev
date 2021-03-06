@@ -2,6 +2,7 @@ import logging
 import os
 import re
 
+from app.jwt import checkuser
 from flask import request
 from flask_restful import Resource
 from pycksum import cksum
@@ -17,6 +18,8 @@ def allowed_file(filename):
 
 class Upload(Resource):
     """Flask RESTful Resource to upload files"""
+
+    decorators = [checkuser]
 
     logger = logging.getLogger(__name__)
 

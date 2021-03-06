@@ -11,12 +11,6 @@ test('error-free login / logout flow', async () => {
   const normalScreen = await renderWithRouterProviderAndUser(<App />);
 
   // confirm redirect to page welcoming user
-  const welcomeHeader = await normalScreen.findByRole('heading', {
-    name: /welcome/i,
-  });
-  expect(welcomeHeader).toBeInTheDocument();
-
-  // confirm redirect to page welcoming user
   const logOutHeader = await normalScreen.findByRole('heading', {
     name: /welcome/i,
   });

@@ -12,6 +12,12 @@ TEST_FILENAME_BAD = "evil.js"
 
 
 @pytest.fixture()
+def upload_headers():
+    # needs to be a list because of built-in jwt header in the test_client fixture
+    return [{"Content-Type", "multipart/form-data"}]
+
+
+@pytest.fixture()
 def uploads_path():
     return os.path.join("app", os.getenv("BDD_UPLOAD_FOLDER"))
 
@@ -31,12 +37,12 @@ def uploads_folder(uploads_path):
 
 
 @pytest.fixture()
-def upload_test_file_response(test_client):
+def upload_test_file_response(test_client, upload_headers, test_db):
     # upload the file
     response = test_client.post(
         "/api/upload",
         data={"file": (os.path.join(TEST_FILEPATH, TEST_FILENAME), TEST_FILENAME)},
-        headers={"Content-Type": "multipart/form-data"},
+        headers=upload_headers,
     )
 
     return response
@@ -52,12 +58,17 @@ def test_upload_file(upload_test_file_response, uploads_path):
     assert os.path.isfile(dest_path)
 
 
-def test_upload_file_exists(test_client, upload_test_file_response, uploads_path):
+def test_upload_file_exists(
+    test_client,
+    upload_test_file_response,
+    uploads_path,
+    upload_headers,
+):
     # upload the same file again
     response = test_client.post(
         "/api/upload",
         data={"file": (os.path.join(TEST_FILEPATH, TEST_FILENAME), TEST_FILENAME)},
-        headers={"Content-Type": "multipart/form-data"},
+        headers=upload_headers,
     )
 
     # check response
@@ -69,12 +80,17 @@ def test_upload_file_exists(test_client, upload_test_file_response, uploads_path
     assert num_uploads == 1
 
 
-def test_upload_file_name_clash(test_client, upload_test_file_response, uploads_path):
+def test_upload_file_name_clash(
+    test_client,
+    upload_test_file_response,
+    uploads_path,
+    upload_headers,
+):
     # upload different file with same name
     response = test_client.post(
         "/api/upload",
         data={"file": (os.path.join(TEST_FILECLASHPATH, TEST_FILENAME), TEST_FILENAME)},
-        headers={"Content-Type": "multipart/form-data"},
+        headers=upload_headers,
     )
 
     # check response
@@ -86,14 +102,14 @@ def test_upload_file_name_clash(test_client, upload_test_file_response, uploads_
     assert num_uploads == 2
 
 
-def test_upload_file_bad_extension(test_client, uploads_path):
+def test_upload_file_bad_extension(test_client, uploads_path, upload_headers, test_db):
     # upload file with forbidden extension
     response = test_client.post(
         "/api/upload",
         data={
             "file": (os.path.join(TEST_FILEPATH, TEST_FILENAME_BAD), TEST_FILENAME_BAD),
         },
-        headers={"Content-Type": "multipart/form-data"},
+        headers=upload_headers,
     )
 
     # check response

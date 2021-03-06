@@ -30,7 +30,6 @@ export const loginUser = ({ username, password }: LoginUserPayload) => {
         payload: response.data,
       });
     } catch (e) {
-      // TODO: log this
       return dispatch({
         type: actionIds.SET_ALERT,
         payload: {

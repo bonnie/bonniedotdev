@@ -1,3 +1,4 @@
+from app.jwt import create_jwt
 from app.models.user_model import User as UserModel
 from flask import request
 from flask_restful import Resource
@@ -28,4 +29,11 @@ class Login(Resource):
             username = args["username"]
             return {"message": f"Incorrect login for user {username}"}, 400
 
-        return {"username": user.username, "id": user.id}, 200
+        # if we got to here, login is legit
+        token = create_jwt(user.id)
+
+        return {
+            "token": token,
+            "username": user.username,
+            "id": user.id,
+        }, 200

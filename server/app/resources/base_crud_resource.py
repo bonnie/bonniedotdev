@@ -1,6 +1,7 @@
 from logging import Logger
 
 from app.db import db
+from app.jwt import checkuser
 from flask import request
 from flask_restful import abort
 from flask_restful import Resource
@@ -11,6 +12,8 @@ from marshmallow.exceptions import ValidationError
 
 class BaseCrudResource(Resource):
     """Flask RESTful Resource for CRUD item."""
+
+    decorators = [checkuser]
 
     schema: Schema
     model: db.Model

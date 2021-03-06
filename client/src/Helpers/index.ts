@@ -1,4 +1,5 @@
-/* eslint-disable import/prefer-default-export */
+import { USER_LOCALSTORAGE_KEY } from 'State/Reducers/userReducer';
+
 // TODO: ts: For some reason React.FormEvent<HTMLFormElement>
 //    doesn't work for the event type
 export function getFormData(event) {
@@ -23,4 +24,18 @@ export function getUploadedImageURL(imageName: string): string {
 export function urlify(phrase: string): string {
   // turn spaces into hyphens for a friendlier url
   return phrase.replace(/ /g, '-').toLowerCase();
+}
+
+interface jwtHeader {
+  'x-access-token'?: string;
+}
+
+export function getJWTHeader(): jwtHeader {
+  const storedUser = localStorage.getItem(USER_LOCALSTORAGE_KEY);
+  let token = null;
+  if (storedUser) {
+    token = JSON.parse(storedUser).token;
+  }
+
+  return token ? { 'x-access-token': token } : {};
 }

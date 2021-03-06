@@ -18,7 +18,7 @@ def mock_update_db(mocker):
 @pytest.fixture
 def mock_tags_property(mocker):
     # make sure db doesn't get called
-    mocker.patch.object(CheatSheet, "tags", PropertyMock)
+    mocker.patch.object(CheatSheet, "tagNames", PropertyMock)
 
 
 @pytest.fixture
@@ -42,7 +42,7 @@ def test_to_dict(cheat_sheet):
         "title",
         "fileName",
         "version",
-        "tags",
+        "tagNames",
         "updatedAt",
     }
 

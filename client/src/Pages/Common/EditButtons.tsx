@@ -1,6 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import axiosInstance from 'AxiosInstance';
 import jsonpatch, { Operation } from 'fast-json-patch';
+import { getJWTHeader } from 'Helpers';
 import useLogger, { logLevel } from 'Hooks/useLogger';
 import useQueryMutation from 'Hooks/useQueryMutation';
 import useSelector from 'Hooks/useTypedSelector';
@@ -36,7 +37,12 @@ export default function EditItemButtons<
 
   const editUrl = `${itemDetails.editUrl}/${itemData.id}`;
   const updateItem = (patch: Operation[]) =>
-    axiosInstance({ url: editUrl, data: patch, method: 'PATCH' });
+    axiosInstance({
+      url: editUrl,
+      data: patch,
+      method: 'PATCH',
+      headers: getJWTHeader(),
+    });
   const updateMutation = useQueryMutation<Operation[]>({
     identifier,
     mutationFn: updateItem,
@@ -47,6 +53,7 @@ export default function EditItemButtons<
     axiosInstance({
       url: `${itemDetails.editUrl}/${itemData.id}`,
       method: 'DELETE',
+      headers: getJWTHeader(),
     });
   const deleteMutation = useQueryMutation<null>({
     identifier,

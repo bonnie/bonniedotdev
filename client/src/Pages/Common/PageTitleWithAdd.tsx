@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axiosInstance from 'AxiosInstance';
+import { getJWTHeader } from 'Helpers';
 import useQueryMutation from 'Hooks/useQueryMutation';
 import useSelector from 'Hooks/useTypedSelector';
 import React, { ReactElement, useMemo } from 'react';
@@ -32,7 +33,12 @@ export default function PageTitleWithAdd({
   const identifier = queryIdentifier || itemDetails.itemIdentifier;
 
   const addItem = (newData: NewItem) =>
-    axiosInstance({ url: itemDetails.editUrl, method: 'POST', data: newData });
+    axiosInstance({
+      url: itemDetails.editUrl,
+      method: 'POST',
+      data: newData,
+      headers: getJWTHeader(),
+    });
 
   const addMutation = useQueryMutation<NewItem>({
     identifier,
