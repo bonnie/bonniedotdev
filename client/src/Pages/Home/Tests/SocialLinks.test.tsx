@@ -3,20 +3,12 @@ import React from 'react';
 
 import SocialLinks from '../SocialLinks';
 
-test('render twitter button', () => {
-  render(<SocialLinks />);
-  const twitterLink = screen.getByRole('link', { name: 'twitter' });
-  expect(twitterLink).toBeInTheDocument();
-});
+test.each([['Twitter'], ['GitHub'], ['Medium'], ['LinkedIn']])(
+  '%i icon',
+  (iconName) => {
+    render(<SocialLinks />);
 
-test('render linkedIn button', () => {
-  render(<SocialLinks />);
-  const linkedInLink = screen.getByRole('link', { name: 'linked-in' });
-  expect(linkedInLink).toBeInTheDocument();
-});
-
-test('render github button', () => {
-  render(<SocialLinks />);
-  const githubLink = screen.getByRole('link', { name: 'github' });
-  expect(githubLink).toBeInTheDocument();
-});
+    const iconLink = screen.getByRole('link', { name: iconName });
+    expect(iconLink).toBeInTheDocument();
+  },
+);
