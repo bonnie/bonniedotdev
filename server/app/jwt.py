@@ -48,7 +48,6 @@ def checkuser(func):
             if not current_user:
                 raise InvalidTokenError(f"user not found for user_id {user_id}")
             expiration = token_data.get("expiration")
-            print("expiration", expiration)
             if not expiration:
                 raise (InvalidKeyError("expiration"))
             if datetime.strptime(expiration, "%Y-%m-%d") < datetime.now():
