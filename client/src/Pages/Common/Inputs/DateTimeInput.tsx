@@ -1,5 +1,4 @@
 import { DateTimePicker } from '@material-ui/pickers';
-import moment from 'moment';
 import React, { ReactElement } from 'react';
 
 interface DateFieldProps {
@@ -26,7 +25,7 @@ export default function DateTimeInput({
       id={`local-date-${label}`}
       value={value}
       onChange={(val) => {
-        if (val) dateSetter(val);
+        if (val) dateSetter(val.toString());
       }}
     />
   );
