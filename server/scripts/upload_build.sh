@@ -13,4 +13,4 @@ echo "--------------> 4/4 uploading index.html"
 cd $PYTHONPATH/app && scp -i ~/.ssh/bdd-aws.pem index.html ubuntu@34.212.25.188:/home/ubuntu/bonniedotdev/server/app/index.html.new
 
 
-echo "\nNext step: log on to aws lightsail (bdd-ssh) and update \`static\` and \`index.html\` in ~/bonniedotdev/server/app"
+echo "\nNext step: log on to aws lightsail (bdd-ssh) and run ~/bonniedotdev/server/scripts/bdd-postupload.sh"
