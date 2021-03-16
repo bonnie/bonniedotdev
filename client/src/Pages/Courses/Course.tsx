@@ -24,6 +24,7 @@ const useStyles = makeStyles(() => ({
     minWidth: 345,
     minHeight: 300,
     height: '100%',
+    width: '100%',
   },
   header: {
     height: '3em',
@@ -59,14 +60,15 @@ export default function Course({ courseData }: CourseProps): ReactElement {
         style={{ display: 'flex', alignItems: 'stretch' }}
         item
         xs={12}
-        sm={6}
-        md={4}
+        md={6}
+        lg={4}
       >
         <Box
           display="flex"
           flexDirection="column"
           justifyContent="space-between"
           boxShadow={3}
+          style={{ width: '100%' }}
         >
           <Card className={classes.root} square>
             <CardActionArea

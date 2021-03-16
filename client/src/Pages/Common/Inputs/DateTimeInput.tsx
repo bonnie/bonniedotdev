@@ -23,10 +23,10 @@ export default function DateTimeInput({
       variant="inline"
       format="MMM dd Y, H:mm"
       margin="normal"
-      id="date-picker-inline"
+      id={`local-date-${label}`}
       value={value}
       onChange={(val) => {
-        if (val) dateSetter(moment.utc(val).toISOString());
+        if (val) dateSetter(val);
       }}
     />
   );

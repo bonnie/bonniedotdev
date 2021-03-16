@@ -52,7 +52,7 @@ export default function Coupons({
   }, [user, courseData]);
 
   return (
-    <Box style={{ width: '100%', background: '#fff' }}>
+    <Box style={{ width: '100%', minWidth: '345px', background: '#fff' }}>
       <Divider variant="middle" />
       {couponsHeader}
       {coupons}

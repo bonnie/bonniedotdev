@@ -1,15 +1,22 @@
+import moment from 'moment';
 import { USER_LOCALSTORAGE_KEY } from 'State/Reducers/userReducer';
+
+function getFieldValue(element: HTMLFormElement) {
+  // dates need special treatment because Material UI picker won't
+  // leave ISO string value unmolested
+  if (element.id.startsWith('local-date')) {
+    return moment.utc(element.value).toISOString();
+  }
+
+  return element.multiple ? element.value.split(',') : element.value;
+}
 
 // TODO: ts: For some reason React.FormEvent<HTMLFormElement>
 //    doesn't work for the event type
 export function getFormData(event) {
   const rawData = [...event.target.elements];
   return rawData.reduce((acc, element) => {
-    if (element.name) {
-      acc[element.name] = element.multiple
-        ? element.value.split(',')
-        : element.value;
-    }
+    if (element.name) acc[element.name] = getFieldValue(element);
     return acc;
   }, {});
 }

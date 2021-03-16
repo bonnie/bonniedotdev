@@ -22,10 +22,10 @@ export default function DateInput({
       variant="inline"
       format="yyyy-MM-dd"
       margin="normal"
-      id="date-picker-inline"
+      id={`local-date-${label}`}
       value={value}
       onChange={(val) => {
-        if (val) dateSetter(moment.utc(val).toISOString());
+        if (val) dateSetter(val);
       }}
       KeyboardButtonProps={{ 'aria-label': label }}
     />
