@@ -9,7 +9,7 @@ import { NewTalk, Talk as TalkType } from 'Types';
 
 const newTalk: NewTalk = {
   title: '',
-  utcDateStringISO: '',
+  localDateStringISO: '',
   description: '',
   slidesFilename: '',
   conferenceName: '',
@@ -28,8 +28,8 @@ export default function EditTalkFields({
 }: EditTalkFieldsType): ReactElement {
   // adding time is necessary, otherwise it gets translated funny and shows up as the day before
   const [talkDate, setTalkDate] = useState(
-    talkData.utcDateStringISO
-      ? `${talkData.utcDateStringISO} 00:00:00`
+    talkData.localDateStringISO
+      ? `${talkData.localDateStringISO} 00:00:00`
       : moment(new Date()).toISOString(),
   );
 
@@ -38,7 +38,7 @@ export default function EditTalkFields({
     <>
       <TextInput required fieldName="title" defaultValue={talkData.title} />
       <DateInput
-        fieldName="utcDateStringISO"
+        fieldName="localDateStringISO"
         value={talkDate}
         label="change date"
         dateSetter={setTalkDate}

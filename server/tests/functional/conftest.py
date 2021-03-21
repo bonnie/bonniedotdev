@@ -58,7 +58,7 @@ admin_user = {"username": "admin", "password": "abc123"}
 talks = [
     {
         "title": "i am an older talk",
-        "utcDateStringISO": "2020-01-23",
+        "localDateStringISO": "2021-03-19T19:00:00-07:00",
         "description": "this talks discusses stuff and it is good",
         "slidesFilename": "http://link-to-slides",
         "conferenceName": "bonnieCon",
@@ -67,7 +67,7 @@ talks = [
     },
     {
         "title": "i am further in the foooture",
-        "utcDateStringISO": "2099-01-28",
+        "localDateStringISO": "2021-03-19T19:17:00-07:00",
         "description": "this talks discusses stuff and it is also good",
         "slidesFilename": "http://link-to-slides",
         "conferenceName": "bonnieCon",

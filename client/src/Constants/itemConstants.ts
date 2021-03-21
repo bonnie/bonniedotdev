@@ -4,7 +4,7 @@ import { itemEditDetails, ItemType } from 'Types';
 // Talks //////////////////////////////////
 const talkPatchKeys = [
   'title',
-  'utcDateStringISO',
+  'localDateStringISO',
   'description',
   'slidesFilename',
   'conferenceImageName',

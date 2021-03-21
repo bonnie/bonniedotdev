@@ -53,7 +53,6 @@ class BaseCrudResource(Resource):
 
     def post(self):
         """Create new item."""
-
         try:
             item = self.schema().load(request.json)
         except ValidationError as e:

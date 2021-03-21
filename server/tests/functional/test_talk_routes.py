@@ -67,7 +67,7 @@ def test_delete_talk(test_db, test_client, talk_id):
 def test_create_new_talk(test_db, test_client, talk_id):
     talk_data = {
         "title": "i am a brand new talk",
-        "utcDateStringISO": "2020-01-23",
+        "localDateStringISO": "2021-03-19T19:00:00-07:00",
         "description": "this talks discusses stuff and it is good",
         "slidesFilename": "http://link-to-slides",
         "conferenceName": "bonnieCon",

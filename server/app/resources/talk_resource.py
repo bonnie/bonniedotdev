@@ -9,7 +9,7 @@ from marshmallow import Schema
 
 class TalkSchema(Schema):
     title = fields.Str(required=True)
-    utcDateStringISO = fields.Str(required=True)
+    localDateStringISO = fields.Str(required=True)
     description = fields.Str(required=True)
     slidesFilename = fields.Str(required=True)
     conferenceName = fields.Str(required=True)

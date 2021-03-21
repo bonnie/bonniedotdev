@@ -121,7 +121,7 @@ export const testTalksJSONResponse: Talk[] = [
   {
     id: 5,
     title: 'i am a talk',
-    utcDateStringISO: '2021-01-25',
+    utcDateStringISO: '2021-01-25T00:00:00+00:00',
     description: 'this talks discusses stuff and it is good',
     slidesFilename: 'http://link-to-slides',
     conferenceName: 'bonnieCon',
@@ -131,7 +131,7 @@ export const testTalksJSONResponse: Talk[] = [
   {
     id: 3,
     title: 'i am an older talk',
-    utcDateStringISO: '2020-01-23',
+    utcDateStringISO: '2020-01-23T00:00:00+00:00',
     description: 'this talks discusses stuff and it is good',
     slidesFilename: 'http://link-to-slides',
     conferenceName: 'bonnieCon',
@@ -141,7 +141,7 @@ export const testTalksJSONResponse: Talk[] = [
   {
     id: 8,
     title: 'i am further in the foooture',
-    utcDateStringISO: '2099-01-28',
+    utcDateStringISO: '2099-01-28T00:00:00+00:00',
     description: 'this talks discusses stuff and it is also good',
     slidesFilename: 'http://link-to-slides',
     conferenceName: 'bonnieCon',
@@ -151,7 +151,7 @@ export const testTalksJSONResponse: Talk[] = [
   {
     id: 7,
     title: 'i am a talk in the foooture',
-    utcDateStringISO: '2099-01-25',
+    utcDateStringISO: '2099-01-25T00:00:00+00:00',
     description: 'this talks discusses stuff and it is also good',
     slidesFilename: 'http://link-to-slides',
     conferenceName: 'bonnieCon',
