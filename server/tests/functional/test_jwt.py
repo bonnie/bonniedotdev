@@ -21,6 +21,7 @@ def test_expired_jwt(clean_test_client, test_db):
         headers={JWT_HEADER_KEY: expired_jwt},
     )
     assert response.status_code == 401
+    assert response.json == {"message": "Login expired"}
 
 
 def test_jwt_for_invalid_user(clean_test_client, test_db):
