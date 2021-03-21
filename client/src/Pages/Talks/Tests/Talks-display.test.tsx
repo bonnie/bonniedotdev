@@ -17,7 +17,7 @@ import Talks from '../Talks';
 const pastTalk: TalkType = {
   id: 5,
   title: 'i am a talk',
-  utcDateStringISO: '2021-01-25',
+  utcDateStringISO: '2021-01-25T00:00:00-0:00',
   description: 'this talks discusses stuff and it is good',
   slidesFilename: 'http://link-to-slides',
   conferenceName: 'bonnieCon',
@@ -65,7 +65,7 @@ describe('separates upcoming / future and sorts by date', () => {
 
     // check that they're in the expected order
     const dateOrder = upcomingDates.map((date) => date.textContent);
-    expect(dateOrder).toEqual(['January 25 2099', 'January 28 2099']);
+    expect(dateOrder).toEqual(['January 24 2099', 'January 27 2099']);
   });
 
   test('past talks sorted by reverse date', async () => {
@@ -83,7 +83,7 @@ describe('separates upcoming / future and sorts by date', () => {
 
     // check that they're in the expected order
     const dateOrder = upcomingDates.map((date) => date.textContent);
-    expect(dateOrder).toEqual(['January 25 2021', 'January 23 2020']);
+    expect(dateOrder).toEqual(['January 24 2021', 'January 22 2020']);
   });
 });
 

@@ -7,7 +7,7 @@ import Talk from '../Talk';
 const talkData: TalkType = {
   id: 5,
   title: 'i am a talk',
-  utcDateStringISO: '2021-01-25',
+  utcDateStringISO: '2021-03-19T00:00:00-00:00',
   description: 'this talks discusses stuff and it is good',
   slidesFilename: 'slides.pdf',
   conferenceName: 'bonnieCon',
@@ -27,7 +27,7 @@ test('All data displays for complete talk data', () => {
   const title = screen.getByRole('heading', { name: 'i am a talk' });
   expect(title).toBeInTheDocument();
 
-  const date = screen.getByText('January 25 2021');
+  const date = screen.getByText('March 18 2021');
   expect(date).toBeInTheDocument();
 
   const description = screen.getByText(

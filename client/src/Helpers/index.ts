@@ -5,7 +5,7 @@ function getFieldValue(element: HTMLFormElement) {
   // dates need special treatment because Material UI picker won't
   // leave ISO string value unmolested
   if (element.id.startsWith('local-date')) {
-    return moment.utc(element.value).toISOString();
+    return moment(element.value).format();
   }
 
   return element.multiple ? element.value.split(',') : element.value;

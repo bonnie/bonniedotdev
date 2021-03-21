@@ -2,6 +2,7 @@
 from datetime import date
 from typing import Dict
 
+import dateutil.parser
 import jsonpatch
 from app.db import db
 from app.models.base_model import Base
@@ -24,7 +25,7 @@ class Talk(db.Model, Base):
     def __init__(
         self,
         title: str,
-        utcDateStringISO: str,
+        localDateStringISO: str,
         description: str,
         slidesFilename: str,
         conferenceName: str,
@@ -34,7 +35,7 @@ class Talk(db.Model, Base):
         """Add record to database."""
 
         self.title = title
-        self.utcDateStringISO = date.fromisoformat(utcDateStringISO)
+        self.utcDateStringISO = dateutil.parser.parse(localDateStringISO)
         self.description = description
         self.slidesFilename = slidesFilename
         self.conferenceName = conferenceName
