@@ -16,7 +16,7 @@ function storeFactory(initialState = {}): Store {
 
 export function renderWithRouter(
   ui: ReactElement,
-  initialRouterEntries = [],
+  initialRouterEntries = ['/'],
 ): Screen {
   render(
     <MemoryRouter initialEntries={initialRouterEntries}>{ui}</MemoryRouter>,

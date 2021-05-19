@@ -1,5 +1,6 @@
 import axiosInstance from 'AxiosInstance';
 import urls from 'Constants/urls';
+import { getJWTHeader } from 'Helpers';
 
 interface useUploadArgs {
   setUploadProgress: (progressPercent: number) => void;
@@ -14,6 +15,8 @@ export default function useUpload({
   setShowUpload,
   setError,
 }: useUploadArgs): (uploadFile: File | null) => void {
+  const jwtHeader = getJWTHeader();
+  const headers = { ...jwtHeader, 'Content-Type': 'multipart/form-data' };
   return (uploadFile: File | null): void => {
     const formData = new FormData();
     if (!uploadFile) {
@@ -23,7 +26,7 @@ export default function useUpload({
     formData.set('file', uploadFile);
     axiosInstance
       .post(urls.uploadURL, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers,
         onUploadProgress: setUploadProgress,
         validateStatus(status) {
           return status === 200 || status === 202 || status === 422;
