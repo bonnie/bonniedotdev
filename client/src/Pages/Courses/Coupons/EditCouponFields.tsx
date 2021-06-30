@@ -35,6 +35,7 @@ export default function EditCouponFields(
         fieldName="price"
         defaultValue={couponData.price.toString()}
       />
+
       <DateTimeInput
         fieldName="utcExpirationISO"
         value={expirationDate}

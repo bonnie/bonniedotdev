@@ -2,10 +2,13 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { getFormData } from 'Helpers';
 import useActions from 'Hooks/useActions';
 import useSelector from 'Hooks/useTypedSelector';
+import TextInput from 'Pages/Common/Inputs/TextInput';
+import ItemModal from 'Pages/Common/Modals/ItemModal';
+import PageTitle from 'Pages/Common/PageTitle';
 import React, { ReactElement } from 'react';
 import { Redirect } from 'react-router';
 
@@ -49,16 +52,25 @@ export default function Login({
     });
   };
 
+  const fields = (
+    <div>
+      <TextInput required fieldName="email" defaultValue="" />
+      <TextInput required fieldName="password" defaultValue="" />
+      <TextInput required fieldName="verify password" defaultValue="" />
+      <Box mb={10} />
+    </div>
+  );
+
   return (
     <>
-      <Typography variant="h1">Log In</Typography>
+      <PageTitle title="Log In" />
       <form
         className={classes.root}
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit}
       >
-        <TextField required name="username" label="Username" id="username" />
+        <TextField required name="username" label="Email" id="username" />
 
         <TextField
           required
@@ -68,7 +80,18 @@ export default function Login({
           type="password"
           autoComplete="current-password"
         />
-        <Box m={2}>
+        <Box m={2} ml={35}>
+          <ItemModal
+            ButtonIcon={AddCircleIcon}
+            handleSave={() => {
+              return false;
+            }}
+            dialogTitle="Request Admin Access"
+            ItemFields={fields}
+          />
+          {/* <Button variant="text" type="submit" color="secondary">
+            Request Admin Access
+          </Button> */}
           <Button variant="contained" type="submit" color="secondary">
             Log in
           </Button>
