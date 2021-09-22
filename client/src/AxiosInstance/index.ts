@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'development')
 
 // for canceling requests to avoid test errors
 export const cancelTokenSource = axios.CancelToken.source();
-if (process.env.NODE === 'test') {
+if (process.env.NODE_ENV === 'test') {
   config.cancelToken = cancelTokenSource.token;
 }
 
