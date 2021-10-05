@@ -1,3 +1,6 @@
+# to load PYTHONPATH if it's not there already
+workon bonniedotdev
+
 echo "--------------> 1/4 making tar file (without local uploads)"
 cd $PYTHONPATH/app && mv static/images/uploaded /var/tmp
 cd $PYTHONPATH/app && tar cvf static.tar static
