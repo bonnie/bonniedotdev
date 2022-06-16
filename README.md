@@ -56,3 +56,40 @@ After changes, you can re-build the client with:
 - `$ source .env`
 - `$ chmod +x ./run_tests.sh` (make the file executable)
 - `$ ./run_tests.sh`
+
+## Deploying
+
+### Deploying client
+
+1. Build the client
+
+- `$ cd client`
+- `$ npm run build`
+- `postbuild.sh` will run automatically to move files to the correct place in app
+
+2. Upload the build
+
+- `$ bash server/scripts/upload_build.sh`
+
+3. log on to aws lightsail and run post-upload script
+
+- locally: `bdd-ssh`
+- on lightsail: `~/bonniedotdev/server/scripts/bdd-postupload.sh`
+
+### Deploying server
+
+1. log on to lightsail
+
+- locally: `bdd-ssh`
+
+2. Pull from GitHub
+
+- on lightsail: `git pull origin main`
+
+3. Update db if applicable
+
+- on lightsail: `~/bonniedotdev/server/scripts/update_db.sh`
+
+4. Restart server
+
+- on lightsail: `~/bonniedotdev/server/scripts/restart_server.sh`
