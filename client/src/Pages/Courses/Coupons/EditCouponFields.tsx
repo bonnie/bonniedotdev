@@ -7,7 +7,7 @@ import React, { ReactElement, useState } from 'react';
 import { Coupon as CouponType, NewCoupon } from 'Types';
 
 const newCoupon: NewCoupon = {
-  price: 9.99,
+  price: 12.99,
   link: '',
   utcExpirationISO: moment(new Date()).toString(),
 };
