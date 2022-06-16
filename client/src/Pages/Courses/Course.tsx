@@ -53,6 +53,7 @@ interface CourseProps {
 // eslint-disable-next-line max-lines-per-function
 export default function Course({ courseData }: CourseProps): ReactElement {
   const classes = useStyles();
+  const courseLink = courseData.bestCoupon?.link ?? courseData.link;
 
   return useMemo(
     () => (
@@ -71,11 +72,7 @@ export default function Course({ courseData }: CourseProps): ReactElement {
           style={{ width: '100%' }}
         >
           <Card className={classes.root} square>
-            <CardActionArea
-              href={courseData.link}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <CardActionArea href={courseLink} target="_blank" rel="noreferrer">
               <CardMedia
                 className={classes.media}
                 image={getUploadedImageURL(courseData.imageName)}
@@ -83,7 +80,7 @@ export default function Course({ courseData }: CourseProps): ReactElement {
               />
             </CardActionArea>
             <Box style={{ display: 'flex', alignItems: 'center' }}>
-              <Link href={courseData.link} target="_blank" rel="noreferrer">
+              <Link href={courseLink} target="_blank" rel="noreferrer">
                 <CardHeader
                   className={classes.header}
                   title={courseData.name}
