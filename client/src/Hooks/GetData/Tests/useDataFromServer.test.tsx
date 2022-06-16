@@ -19,9 +19,9 @@ test('Renders loading and no error for non-error server response', async () => {
   // render entire App so that we can check Loading and Error
   const screen = renderWithRouterAndProvider(<App />);
 
-  // click the 'about' tab to trigger the talks retrieval
-  const talksNavLink = screen.getByRole('tab', { name: /talks/ });
-  fireEvent.click(talksNavLink);
+  // click the 'courses' tab to trigger the courses retrieval
+  const coursesNavLink = screen.getByRole('tab', { name: /courses/ });
+  fireEvent.click(coursesNavLink);
   // END: setup /////////////////////////////////////////
 
   // check loading spinner
@@ -49,9 +49,9 @@ test('Renders error alert for error server response', async () => {
     }
   });
 
-  // override default msw response for talks endpoint with error response
+  // override default msw response for courses endpoint with error response
   server.resetHandlers(
-    rest.get(urls.talksURL, (req, res, ctx) =>
+    rest.get(urls.coursesURL, (req, res, ctx) =>
       res(ctx.status(500), ctx.json({ message: 'oops' })),
     ),
   );
@@ -59,9 +59,9 @@ test('Renders error alert for error server response', async () => {
   // render entire App so that we can check Loading and Error
   const screen = renderWithRouterAndProvider(<App />);
 
-  // click the 'about' tab to trigger the talks retrieval
-  const talksNavLink = screen.getByRole('tab', { name: /talks/ });
-  fireEvent.click(talksNavLink);
+  // click the 'courses' tab to trigger the courses retrieval
+  const coursesNavLink = screen.getByRole('tab', { name: /courses/ });
+  fireEvent.click(coursesNavLink);
   // END: setup ///////////////////////////////////////
 
   // check loading spinner

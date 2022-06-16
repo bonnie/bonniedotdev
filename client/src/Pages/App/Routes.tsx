@@ -14,7 +14,6 @@ import CheatSheets from '../CheatSheets/CheatSheets';
 import Courses from '../Courses/Courses';
 import Home from '../Home/Home';
 import PageNotFound from '../PageNotFound/PageNotFound';
-import Talks from '../Talks/Talks';
 
 const useStyles = makeStyles(() => ({
   backgroundImg: {
@@ -44,7 +43,6 @@ export default function Routes(): ReactElement {
       />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/talks" component={Talks} />
         <Route exact path="/courses" component={Courses} />
         <Route exact path="/about" component={About} />
         <Route path="/cheatsheets/:sheetName" component={CheatSheet} />

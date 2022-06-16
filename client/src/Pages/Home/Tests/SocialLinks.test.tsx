@@ -3,7 +3,7 @@ import React from 'react';
 
 import SocialLinks from '../SocialLinks';
 
-test.each([['Twitter'], ['GitHub'], ['Medium'], ['LinkedIn']])(
+test.each([['Twitter'], ['GitHub'], ['dev.to'], ['LinkedIn']])(
   '%i icon',
   (iconName) => {
     render(<SocialLinks />);

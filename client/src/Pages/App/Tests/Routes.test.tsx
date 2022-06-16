@@ -46,16 +46,6 @@ describe('navigate to routes', () => {
     const headline = screen.getByRole('heading', { name: 'Courses' });
     expect(headline).toBeInTheDocument();
   });
-  test('navigates to Talks', () => {
-    // render and click the link
-    const screen = renderAndClickRoute('talks');
-
-    // check correct page showed up
-    const headline = screen.getByRole('heading', {
-      name: 'Conference Talks and Workshops',
-    });
-    expect(headline).toBeInTheDocument();
-  });
   test('displays "not found" page for unknown route', () => {
     // render and update location to unknown route
     const screen = renderWithRouterAndProvider(NavAndRoutes, {

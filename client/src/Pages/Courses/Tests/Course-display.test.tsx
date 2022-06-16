@@ -55,7 +55,9 @@ describe('course with coupon', () => {
 
     // use regex because the link includes the title and the description
     const title = screen.getByRole('link', { name: /Coursey course/i });
-    expect(title).toHaveAttribute('href', 'http://coursey.course.com');
+
+    // link should be the best coupon
+    expect(title).toHaveAttribute('href', 'http://rickroll.com?9.99');
   });
   test('renders link with coupon price', () => {
     const screen = renderWithProvider(
@@ -79,7 +81,7 @@ describe('course with coupon', () => {
 describe('course without coupon', () => {
   test('renders course image', () => {
     const screen = renderWithProvider(
-      <Course courseData={courseWithCoupons} />,
+      <Course courseData={courseWithoutCoupons} />,
     );
 
     // check that correct image is showing
@@ -90,7 +92,7 @@ describe('course without coupon', () => {
   });
   test('renders course title with link', () => {
     const screen = renderWithProvider(
-      <Course courseData={courseWithCoupons} />,
+      <Course courseData={courseWithoutCoupons} />,
     );
 
     // use regex because the link includes the title and the description
