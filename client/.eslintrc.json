@@ -65,6 +65,7 @@
     "react/react-in-jsx-scope": "off",
     "prettier/prettier": "error",
     "react/jsx-one-expression-per-line": "off",
-    "react/jsx-curly-newline": "off"
+    "react/jsx-curly-newline": "off",
+    "import/prefer-default-export": "off"
   }
 }

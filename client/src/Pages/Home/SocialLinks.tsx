@@ -4,14 +4,14 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import React, { ReactElement } from 'react';
 
-import MediumIcon from './MediumIcon';
+import DevToIcon from './DevToIcon';
 import SocialLink from './SocialLink';
 
 export default function SocialLinks(): ReactElement {
   const linkedInTarget = 'https://www.linkedin.com/in/bonnie-schulkin/';
   const twitterTarget = 'https://twitter.com/bonniedotdev/';
   const githubTarget = 'http://github.com/bonnie';
-  const mediumTarget = 'https://bonniedotdev.medium.com/';
+  const devToTarget = 'https://dev.to/bonnie';
 
   return (
     <ButtonGroup
@@ -25,7 +25,7 @@ export default function SocialLinks(): ReactElement {
       />
       <SocialLink Icon={TwitterIcon} target={twitterTarget} label="Twitter" />
       <SocialLink Icon={GitHubIcon} target={githubTarget} label="GitHub" />
-      <SocialLink Icon={MediumIcon} target={mediumTarget} label="Medium" />
+      <SocialLink Icon={DevToIcon} target={devToTarget} label="dev.to" />
     </ButtonGroup>
   );
 }
