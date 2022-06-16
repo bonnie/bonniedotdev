@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function Nav(): ReactElement {
   const classes = useStyles();
 
-  const tabList = ['courses', 'talks', 'cheatsheets', 'about'];
+  const tabList = ['courses', 'cheatsheets', 'about'];
 
   const homeButton = (
     <Button>
